@@ -42,7 +42,11 @@ int main(){
 ```
 - 这就是一篇测试，仅此而已
 
-$$ 2^x + \alpha \cdot \vec{\beta} $$
+ $$
+ \begin{align*}
+  2^x + \alpha \cdot \vec{\beta} 
+  \end{align*}
+ $$ 
 
 
 
