@@ -51,6 +51,7 @@ int main(){
 
 
 
+
 |---
 | Default aligned | Left aligned | Center aligned | Right aligned
 |-|:-|:-:|-:
