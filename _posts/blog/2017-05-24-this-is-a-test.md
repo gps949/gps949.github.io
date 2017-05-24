@@ -42,17 +42,15 @@ int main(){
 ```
 - 这就是一篇测试，仅此而已
 
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
 
-<p>
+
+
  $$
  \begin{align*}
   2^x + \alpha \cdot \vec{\beta} 
   \end{align*}
  $$ 
-</p>
+
 
 
 
