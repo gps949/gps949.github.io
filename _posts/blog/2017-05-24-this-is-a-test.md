@@ -1,13 +1,13 @@
 ---
 layout: post
-title: 测试日志
+title: 这里是真标题
 categories: [分类1, 分类2]
 description: 这是一篇测试用日志，没有实际意义
 keywords: c++, 关键词2
 ---
 
 
-#这里是标题
+# 这里是标题
 > 我们还未知道那天所见的花的名字
 
 ```c
@@ -17,6 +17,8 @@ int main(){
 }
 ```
 - 这就是一篇测试，仅此而已
+
+$$ 2^x + \alpha \cdot \vec{\beta}$$
 
 ----
 
