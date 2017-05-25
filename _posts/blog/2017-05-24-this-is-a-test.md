@@ -20,15 +20,39 @@ int main(){
 
 - 这就是一篇测试，仅此而已
 
-![IMG_7102](IMG_7102.JPG)
+
+~~~flow
+var0=>start: 开始:>http://www.google.com[blank]
+var1=>end: 结束:>http://www.google.com
+var2=>operation: 操作
+var3=>subroutine: 子程序
+var4=>condition: 条件判断
+var5=>inputoutput: 输入输出
+
+var0->var2->var4
+var4(yes)->var5->var1
+var4(no)->var3(right)->var2
+~~~
+
+测试一下   $ 2^x + \alpha \cdot \vec{\beta} $    行内公式
+
+测试一下 `  #include <stdio> ` 行内代码 
 
 
- $$
- \begin{align*}
-  2^x + \alpha \cdot \vec{\beta} 
-  \end{align*}
- $$ 
+----
 
+测试链接  [`百度`](https://www.baidu.com) 
+
+![IMG_7102](http://oqhi6s3af.bkt.clouddn.com/IMG_7102.JPG)
+
+
+* [ ] 任务1
+* [x] 任务2
+
+~~删除掉这句话的测试~~
+
+***斜体加粗***
+_**下划线测试**_
 
 |---
 | 默认对齐 | 左对齐 | 居中 | 右对齐
@@ -46,4 +70,5 @@ int main(){
 ----
 
 *The End*
+
 
