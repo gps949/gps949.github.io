@@ -33,7 +33,8 @@ var4(yes)->var5->var1
 var4(no)->var3(right)->var2
 ~~~
 
-测试一下行间公式   $$ 2^x + \alpha \cdot \vec{\beta} $$  
+测试一下   $$ 2^x + \alpha \cdot \vec{\beta} $$  行间公式
+
 测试一下 \\( 2^x+\Delta \cdot \phi  \\)  行内公式
 
 测试一下 ``  #include <stdio> `` 行内代码 
