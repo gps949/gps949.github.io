@@ -17,11 +17,10 @@ int main(){
 ~~~
 
 
-
 - 这就是一篇测试，仅此而已
 
 
-```flow
+~~~flow
 var0=>start: 开始 :>http://www.google.com
 var1=>end: 结束
 var2=>operation: 操作
@@ -32,7 +31,7 @@ var5=>inputoutput: 输入输出
 var0->var2->var4
 var4(yes)->var5->var1
 var4(no)->var3(right)->var2
-```
+~~~
 
 测试一下行间公式   $$ 2^x + \alpha \cdot \vec{\beta} $$  
 测试一下 \\( 2^x+\Delta \cdot \phi  \\)  行内公式
@@ -44,11 +43,11 @@ var4(no)->var3(right)->var2
 
 测试链接  [`百度`](https://www.baidu.com) 
 
-![IMG_7102](http://oqhi6s3af.bkt.clouddn.com/IMG_7102.JPG?imageMogr2/auto-orient/thumbnail/!50p/blur/1x0/quality/75|watermark/2/text/wqlZb3VuZw==/font/5b6u6L2v6ZuF6buR/fontsize/360/fill/I0FGQUZBRg==/dissolve/70/gravity/SouthEast/dx/10/dy/10|imageslim)
+![IMG_7102](http://oqhi6s3af.bkt.clouddn.com/IMG_7102.JPG)
 
 
-* [ ] 任务1
-* [x] 任务2
+ * [x] 任务1
+ * [ ] 任务2
 
 ~~删除掉这句话的测试~~
 
