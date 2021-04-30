@@ -23,7 +23,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"valine":{"text":"留言"}},"activeClass":"utterances"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}};
+    var CONFIG = {"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}};
   </script>
 <meta property="og:type" content="article">
 <meta property="og:title" content="2019年4月 关西之行">
@@ -231,7 +231,7 @@
 <meta property="og:image" content="https://pic.gps949.com/1904KANSAI/K1905213.jpg">
 <meta property="og:image" content="https://pic.gps949.com/1904KANSAI/K1905218.jpg">
 <meta property="article:published_time" content="2019-08-01T08:30:00.000Z">
-<meta property="article:modified_time" content="2021-04-30T01:33:21.492Z">
+<meta property="article:modified_time" content="2021-04-30T01:39:51.931Z">
 <meta property="article:author" content="小北极星">
 <meta property="article:tag" content="旅行">
 <meta property="article:tag" content="摄影">
@@ -562,7 +562,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-04-30 09:33:21" itemprop="dateModified" datetime="2021-04-30T09:33:21+08:00">2021-04-30</time>
+        <time title="修改时间：2021-04-30 09:39:51" itemprop="dateModified" datetime="2021-04-30T09:39:51+08:00">2021-04-30</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -706,6 +706,11 @@
           </div>
 
         
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
 
           <div class="post-nav">
             <div class="post-nav-item">
@@ -728,24 +733,7 @@
 
 
 
-      <div class="tabs tabs-comment">
-        <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-disqusjs">disqusjs</a></li>
-            <li class="tab"><a href="#comment-utterances">utterances</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane disqusjs" id="comment-disqusjs">
-              
-  <div class="comments" id="disqus_thread">
-    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-  </div>
-  
-            </div>
-            <div class="tab-pane utterances" id="comment-utterances">
-              <div class="comments utterances-container"></div>
-            </div>
-        </div>
-      </div>
+    <div class="comments utterances-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -831,6 +819,26 @@
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
 
   
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id    : 30363,
+      el    : 'wpac-rating',
+      color : '#fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
 <script src="/js/local-search.js"></script>
 
 
@@ -1017,23 +1025,6 @@ if (document.querySelectorAll('.pdf-container').length) {
       });
       });
   </script>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqusjs.css">
-
-<script>
-NexT.utils.loadComments('#disqus_thread', () => {
-  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/disqus.js', () => {
-    window.dsqjs = new DisqusJS({
-      api       : 'https://disqus.skk.moe/disqus/' || 'https://disqus.com/api/',
-      apikey    : 'R9oaSolsLcYyAkbCBHyHvZA4r9BAtqs8JR2EA7j3XQNOKBjVn6OPOUOPOQUM9YiC',
-      shortname : 'gps949',
-      url       : "https://www.gps949.com/2019/08/01/2019%E5%B9%B44%E6%9C%88%20%E5%85%B3%E8%A5%BF%E4%B9%8B%E8%A1%8C/",
-      identifier: "2019/08/01/2019年4月 关西之行/",
-      title     : "2019年4月 关西之行",
-    });
-  }, window.DisqusJS);
-});
-</script>
 
 <script>
 NexT.utils.loadComments('.utterances-container', () => {
