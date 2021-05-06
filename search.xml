@@ -5,7 +5,81 @@
     <url>/2021/05/06/Hexo%20+%20GitHub%E5%AE%9E%E7%8E%B0%E9%9B%B6%E6%88%90%E6%9C%ACBlog/</url>
     <content><![CDATA[<p>　　对于自己创造内容并不稳定的情况，花费金钱和精力去维护一个服务器（VPS/ECS）是不明智的。但是实际上难免会遇到记录和创作分享的需要，作为技术控，当然不想选用现成的商业化产品。那么，能够有个方式“白嫖”到资源存放静态博客/笔记站点内容的同时，再实现站点的部署更新都自动化完成（CI/CD概念），就很完美了。<br>　　恰巧，GitHub当前可以完成这种需求。这里记录一下完全利用GitHub （Repo + Pages + Action）建设Hexo站点的“最佳实践”。    </p>
 <span id="more"></span>   
-<p>　　首先，该方案的整体设计架构如下：<br>　　<img data-src="/images/github_blog/arch.jpg"><br>　　如图上的展示，整体思路是：<br>　　1. 使用Hexo作为静态博客站点的框架，实现MarkDown编写日志文章内容；<br>　　2. 使用GitHub的Private（私有）Repo作为Hexo源码（包括日志源码、Hexo配置及站点主题配置文件、其他一些数据等）；<br>　　3. 使用GitHub Pages（网页代管服务）作为静态站点的承载展示；<br>　　4. 使用GitHub Action（CI/CD）作为持续部署方案，将源码Repo生成部署到Pages；<br>　　5. 为GitHub Pages配置个人域名；<br>　　后续即按照上面各点逐一介绍实现步骤，根据关键性不同，详细程度会有所不同。   </p>
+<p>　　首先，该方案的整体设计架构如下：<br>　　<img data-src="/images/github_blog/arch.jpg"><br>　　如图上的展示，整体思路是：   </p>
+<ul>
+<li>使用Hexo作为静态博客站点的框架，实现MarkDown编写日志文章内容；    </li>
+<li>使用GitHub的Private（私有）Repo作为Hexo源码（包括日志源码、Hexo配置及站点主题配置文件、其他一些数据等）；   </li>
+<li>使用GitHub Pages（网页代管服务）作为静态站点的承载展示；   </li>
+<li>使用GitHub Action（CI/CD）作为持续部署方案，将源码Repo生成部署到Pages；   </li>
+<li>为GitHub Pages配置个人域名；<br>　　后续即按照上面各点逐一介绍实现步骤，根据关键性不同，详细程度会有所不同。  <h3 id="构建Hexo源码Repo"><a href="#构建Hexo源码Repo" class="headerlink" title="构建Hexo源码Repo"></a>构建Hexo源码Repo</h3>　　在Github中创建新Repo（默认已注册GitHub账号）： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(如<strong>myblog</strong>)，类型选择<code>Private</code>。点击<code>Create repository</code>完成创建。<br>　　在本机进行Hexo的安装（由于网上有不少教程此处从简介绍）以及将其添加到GitHub的源码Repo中。确保机器已安装Node.js和Git的前提下执行下面命令（链接中<strong>username</strong>和<strong>myblog</strong>换成自己的GitHub用户名和刚创建时设置的源码Repo名称）：<pre><code class="bash">npm install -g hexo-cli
+hexo init myblog
+cd myblog
+npm install
+git init
+git add .* *
+git commit -m &quot;myblog init&quot;
+git branch -M main
+git remote add origin https://github.com/username/myblog.git
+git push -u origin main
+</code></pre>
+　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   <h4 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h4>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#x75;&#x73;&#101;&#x72;&#x6e;&#97;&#109;&#101;&#64;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x75;&#x73;&#101;&#x72;&#x6e;&#97;&#109;&#101;&#64;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></strong>为GitHub用户邮箱)：<pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
+</code></pre>
+　　根据之后提示选择密钥文件存储位置和密码（直接回车设置为空）。<br>　　在刚刚创建的<strong>username.github.io</strong> Repo的<code>Settings</code>中点击<code>Deploy keys</code>，选择<code>Add deploy key</code>。Title可以根据喜好设置（如myblog_deploy_pubkey），Key的内容复制进刚才使用命令生成的<code>.pub</code>扩展名的公钥文件内容。下面的<code>Allow write access</code>的复选框要勾选。   <h4 id="配置站点的自动化更新部署"><a href="#配置站点的自动化更新部署" class="headerlink" title="配置站点的自动化更新部署"></a>配置站点的自动化更新部署</h4>　　站点的自动化更新部署通过在源码Repo中配置GitHub Action来实现。关于GitHub Action的原理和更多技巧可参见网上资料。<br>　　先准备部署时使用的部署私钥（Deploy key），在<strong>myblog</strong>的<code>Settings</code>的<code>Secrets</code>中点击<code>New repository secret</code>，名称可以设置为如<strong>HEXO_DEPLOY_PRI</strong>，内容复制入上一节中除<code>.pub</code>文件之外的另一个私钥文件内容，再点击<code>Add secret</code>。<br>　　然后，在本机命令行下进入第一步中创建的<code>myblog</code>目录下执行：   <pre><code class="bash">mkdir .github/workflows
+touch .github/workflows/deploy.yml
+</code></pre>
+　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#x75;&#115;&#101;&#114;&#110;&#x61;&#x6d;&#101;&#x40;&#101;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x75;&#115;&#101;&#114;&#110;&#x61;&#x6d;&#101;&#x40;&#101;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a>为你的GitHub注册邮箱）：<br>```yaml<br>name: CI</li>
+</ul>
+<p>on:<br>  push:<br>    branches:<br>      - main</p>
+<p>env:<br>  GIT_USER: username<br>  GIT_EMAIL: <a href="mailto:&#117;&#x73;&#101;&#x72;&#110;&#97;&#109;&#101;&#64;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;">&#117;&#x73;&#101;&#x72;&#110;&#97;&#109;&#101;&#64;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
+<p>jobs:<br>  build:<br>    name: Build on node $ and $<br>    runs-on: ubuntu-latest<br>    strategy:<br>      matrix:<br>        os: [ubuntu-latest]<br>        node_version: [15.x]</p>
+<pre><code>steps:
+  - name: Checkout
+    uses: actions/checkout@v2
+
+  - name: Use Node.js $&#123;&#123; matrix.node_version &#125;&#125;
+    uses: actions/setup-node@v1
+    with:
+      node-version: $&#123;&#123; matrix.node_version &#125;&#125;
+
+  - name: Configuration environment
+    env:
+      HEXO_DEPLOY_PRI: $&#123;&#123;secrets.HEXO_DEPLOY_PRI&#125;&#125;
+    run: |
+      sudo timedatectl set-timezone &quot;Asia/Shanghai&quot;
+      mkdir -p ~/.ssh/
+      echo &quot;$HEXO_DEPLOY_PRI&quot; &gt; ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
+      ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts
+      git config --global user.name $GIT_USER
+      git config --global user.email $GIT_EMAIL
+      npm install -g hexo-cli
+  - name: Cache node modules
+    uses: actions/cache@v2
+    env:
+      cache-name: cache-node-modules
+    with:
+      path: ~/.npm
+      key: $&#123;&#123; runner.os &#125;&#125;-build-$&#123;&#123; env.cache-name &#125;&#125;-$&#123;&#123; hashFiles('**/package-lock.json') &#125;&#125;
+      restore-keys: |
+        $&#123;&#123; runner.os &#125;&#125;-build-$&#123;&#123; env.cache-name &#125;&#125;-
+        $&#123;&#123; runner.os &#125;&#125;-build-
+        $&#123;&#123; runner.os &#125;&#125;-
+  - name: Install dependencies
+    run: |
+      npm install
+  - name: Deploy hexo
+    run: |
+      hexo clean &amp;&amp; hexo deploy
+</code></pre>
+<pre><code>　　另外，修改Hexo的配置文件（即myblog目录下的`_config.yml`)中的`deploy`片段如下(同样注意修改其中的用户名和repo名称)：   
+```yaml
+deploy:
+  type: git
+  repo: git@github.com:username/username.github.io.git
+  branch: main
+</code></pre>
+<p>　　修改完成后使用git add、git commit、git push等命令完成提交到GitHub。   </p>
+<p>　　以上即基本完成了源码Repo、发布Repo（Pages）和自动化部署的配置，在之后只需要在源码Repo中按照Hexo的使用方法用Markdown编写文章，再将更改提交到源码Repo，就会自动化更新到GitHub Pages的站点。而GitHub Pages站点的访问使用<a href="https://username.github.io即可./">https://username.github.io即可。</a><br>　　接下来是对于域名、留言等的改造。   （To be continued）   </p>
 ]]></content>
       <categories>
         <category>技术</category>
