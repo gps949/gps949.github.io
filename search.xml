@@ -5,8 +5,7 @@
     <url>/2021/05/06/Hexo%20+%20GitHub%E5%AE%9E%E7%8E%B0%E9%9B%B6%E6%88%90%E6%9C%ACBlog/</url>
     <content><![CDATA[<p>　　对于自己创造内容并不稳定的情况，花费金钱和精力去维护一个服务器（VPS/ECS）是不明智的。但是实际上难免会遇到记录和创作分享的需要，作为技术控，当然不想选用现成的商业化产品。那么，能够有个方式“白嫖”到资源存放静态博客/笔记站点内容的同时，再实现站点的部署更新都自动化完成（CI/CD概念），就很完美了。<br>　　恰巧，GitHub当前可以完成这种需求。这里记录一下完全利用GitHub （Repo + Pages + Action）建设Hexo站点的“最佳实践”。    </p>
 <span id="more"></span>   
-<p>　　首先，该方案的整体设计架构如下：   
-　　</p>
+<p>　　首先，该方案的整体设计架构如下：<br>　　<img data-src="/images/github_blog/arch.jpg"><br>　　如图上的展示，整体思路是：<br>　　1. 使用Hexo作为静态博客站点的框架，实现MarkDown编写日志文章内容；<br>　　2. 使用GitHub的Private（私有）Repo作为Hexo源码（包括日志源码、Hexo配置及站点主题配置文件、其他一些数据等）；<br>　　3. 使用GitHub Pages（网页代管服务）作为静态站点的承载展示；<br>　　4. 使用GitHub Action（CI/CD）作为持续部署方案，将源码Repo生成部署到Pages；<br>　　5. 为GitHub Pages配置个人域名；<br>　　后续即按照上面各点逐一介绍实现步骤，根据关键性不同，详细程度会有所不同。   </p>
 ]]></content>
       <categories>
         <category>技术</category>
