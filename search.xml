@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo + GitHub实现零成本Blog</title>
+    <url>/2021/05/06/Hexo%20+%20GitHub%E5%AE%9E%E7%8E%B0%E9%9B%B6%E6%88%90%E6%9C%ACBlog/</url>
+    <content><![CDATA[<p>　　对于自己创造内容并不稳定的情况，花费金钱和精力去维护一个服务器（VPS/ECS）是不明智的。但是实际上难免会遇到记录和创作分享的需要，作为技术控，当然不想选用现成的商业化产品。那么，能够有个方式“白嫖”到资源存放静态博客/笔记站点内容的同时，再实现站点的部署更新都自动化完成（CI/CD概念），就很完美了。<br>　　恰巧，GitHub当前可以完成这种需求。这里记录一下完全利用GitHub （Repo + Pages + Action）建设Hexo站点的“最佳实践”。    </p>
+<span id="more"></span>   
+<p>　　首先，该方案的整体设计架构如下：   
+　　</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>计算机</tag>
+        <tag>建站</tag>
+        <tag>GitHub</tag>
+        <tag>自动化</tag>
+        <tag>CI/CD</tag>
+        <tag>GitHub Action</tag>
+        <tag>Hexo</tag>
+        <tag>Blog</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux上DNS客户端配置的西西弗斯式任务</title>
     <url>/2021/04/21/Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1/</url>
     <content><![CDATA[<p>　　域名服务(Domain Name Service)发明于1983年。DNS是一个可以让你把名字转换成IP地址的系统，这样你的电脑就可以知道如何连接像google.com这样的网站。这是一个简单的服务，因此4.3 BSD的作者指定了一个名为<code>/etc/resolv.conf</code>的简单配置文件:   </p>
