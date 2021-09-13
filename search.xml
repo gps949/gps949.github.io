@@ -1,115 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hexo + GitHub实现零成本Blog</title>
-    <url>/2021/05/06/Hexo%20+%20GitHub%E5%AE%9E%E7%8E%B0%E9%9B%B6%E6%88%90%E6%9C%ACBlog/</url>
-    <content><![CDATA[<p>　　对于自己创造内容并不稳定的情况，花费金钱和精力去维护一个服务器（VPS/ECS）是不明智的。但是实际上难免会遇到记录和创作分享的需要，作为技术控，当然不想选用现成的商业化产品。那么，能够有个方式“白嫖”到资源存放静态博客/笔记站点内容的同时，再实现站点的部署更新都自动化完成（CI/CD概念），就很完美了。<br>　　恰巧，GitHub当前可以完成这种需求。这里记录一下完全利用GitHub （Repo + Pages + Action）建设Hexo站点的“最佳实践”。    </p>
+    <title>利用Tailscale快速部署跳板机安全分享访问</title>
+    <url>/2021/09/13/%E5%88%A9%E7%94%A8Tailscale%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E8%B7%B3%E6%9D%BF%E6%9C%BA%E5%AE%89%E5%85%A8%E5%88%86%E4%BA%AB%E8%AE%BF%E9%97%AE/</url>
+    <content><![CDATA[<p>　　<br>　　有很多时候，我们希望向他人分享我们的数据或者服务资源，如一些文档、一个文档协作平台、一个SVN仓库。通常最可靠合理的方法是为这些数据或者服务搭建一个向公网暴露的服务站点，并配合防火墙、身份认证、访问控制等手段确保只有我们希望的人能看到这些数据/服务。抑或是在访问者和数据/服务之间拉一条专线，同时在内部做好这些资源和其他不希望被访资源之间的隔离。<br>　　对于长期、大量、访问者众多的情况，或许这是成熟经过长期验证的方式，但是，如果只是少量短期的资源分享，通常不会如此大动干戈。不少人或许会选择简便但是不够安全的方式，例如公共网盘分享文档、防火墙上设置特例开设代理分享服务等方式。<br>　　现如今，人们所热捧的零信任理念，除了能用来应对机构内部横向移动风险、机构内接入的BYOD设备等，本身也是对于Co-Work人员管理很好的方式。<br>　　Tailscale®是一家我个人觉得很Geek的公司在持续开发的产品，将它称之为SDN也好，ZTN也好，新一代VPN也好，总之这个很酷的产品有非常多的使用方式。本文就介绍利用其在（双方总共）十几分钟内，实现快速部署跳板机安全分享资源。   </p>
 <span id="more"></span>   
-<p>　　首先，该方案的整体设计架构如下：<br>　　<img data-src="/images/github_blog/arch.jpg"><br>　　如图上的展示，整体思路是：   </p>
-<ul>
-<li>使用Hexo作为静态博客站点的框架，实现MarkDown编写日志文章内容；    </li>
-<li>使用GitHub的Private（私有）Repo作为Hexo源码（包括日志源码、Hexo配置及站点主题配置文件、其他一些数据等）；   </li>
-<li>使用GitHub Pages（网页代管服务）作为静态站点的承载展示；   </li>
-<li>使用GitHub Action（CI/CD）作为持续部署方案，将源码Repo生成部署到Pages；   </li>
-<li>为GitHub Pages配置个人域名；<br>　　后续即按照上面各点逐一介绍实现步骤，根据关键性不同，详细程度会有所不同。  <h3 id="构建Hexo源码Repo"><a href="#构建Hexo源码Repo" class="headerlink" title="构建Hexo源码Repo"></a>构建Hexo源码Repo</h3>　　在Github中创建新Repo（默认已注册GitHub账号）： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(如<strong>myblog</strong>)，类型选择<code>Private</code>。点击<code>Create repository</code>完成创建。<br>　　在本机进行Hexo的安装（由于网上有不少教程此处从简介绍）以及将其添加到GitHub的源码Repo中。确保机器已安装Node.js和Git的前提下执行下面命令（链接中<strong>username</strong>和<strong>myblog</strong>换成自己的GitHub用户名和刚创建时设置的源码Repo名称）：<pre><code class="bash">npm install -g hexo-cli
-hexo init myblog
-cd myblog
-npm install
-git init
-git add .* *
-git commit -m &quot;myblog init&quot;
-git branch -M main
-git remote add origin https://github.com/username/myblog.git
-git push -u origin main
+
+<p>　　在本文中，让我们假设Bob希望访问Alice在自己家内网启动的一个服务A（这个服务可能是一个协作平台网站，也可能是一个文档的ftp服务器smba服务器等）。如下图展示，在Alice家的路由器下有Alice的服务器、 数据库等，都处于其路由器管理的内网之下（192.168.1.0/24）。我们的目标是让Bob可以从他家内网直接访问Alice这些设备中的Service A所在设备（192.168.1.33），当然实际控制颗粒度可以结合其他配置做到更细，但鉴于现在虚拟化、容器化技术，这里不妨先假设Alice在192.168.1.33上只有Service A这一个资源。   </p>
+<img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step0.png" width="100%" />    
+
+<h2 id="第一步：-Bob注册Tailscale®"><a href="#第一步：-Bob注册Tailscale®" class="headerlink" title="第一步： Bob注册Tailscale®"></a>第一步： Bob注册Tailscale®</h2><p>　　Alice先告诉Bob去<a href="https://login.tailscale.com/start">注册Tailscale®</a>. Bob可以用Microsoft®,Goolge或GitHub账户进行注册登录，当然Tailscale®也支持其他的一些账号注册，感兴趣的可以自行研究。<br><img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step1-1.png" width="100%" /><br>　　完成注册后,Bob可以根据引导介绍在其设备上安装Tailscale®的客户端将其访问设备连入他个人的Tailscale®网络。<br><img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step1-2.png" width="100%" /><br>　　Bob也可以选择之后按照<a href="https://tailscale.com/download">下载页面</a>的介绍再添加以及其他更多自己的设备。   </p>
+<h2 id="第二步：-Bob为跳板机生成授权密钥（AuthKey）"><a href="#第二步：-Bob为跳板机生成授权密钥（AuthKey）" class="headerlink" title="第二步： Bob为跳板机生成授权密钥（AuthKey）"></a>第二步： Bob为跳板机生成授权密钥（AuthKey）</h2><p>　　Bob在Tailscale®设置（Settings）标签页面下生成授权密钥，并将该生成密钥提供给Alice用于稍后将跳板机添加入Bob的Tailscale®网络。<br>　　（这里用“Ephemeral Key”应该就可以，用“Reusable Key”也行，实际上Bob可以随时在页面吊销密钥，所以问题并不大）。<br>　　在点击生成按钮后，会弹出刚产生的密钥，一定记得在点Done按钮之前将它复制下来，否则之后就看不到了。<br><img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step2.png" width="100%" />    </p>
+<h2 id="第三步：-Alice使用Docker创建跳板机"><a href="#第三步：-Alice使用Docker创建跳板机" class="headerlink" title="第三步： Alice使用Docker创建跳板机"></a>第三步： Alice使用Docker创建跳板机</h2><p>　　Alice在其准备跑跳板机的系统中执行下面命令（要求安装有Docker的amd64 Linux宿主机）。记得将命令中的“tskey-xxxxxxxx”用上一步中Bob提供的密钥替换。另外，服务器名称（将显示在Bob的Tailscale®控制台页面上）和跳转机用来访问的目标（即此例中的Service A）也要按照自己的实际需求替换。需要注意，从执行命令的宿主机要能够访问到Service A（即JUMP_TARGET）。   </p>
+<pre><code class="shell">docker run -itd --privileged --restart always --name jumpserver_for_bob -e TS_AUTHKEY=&quot;tskey-xxxxxxxx&quot; -e SERVER_NAME=&quot;alice-service-A&quot; -e JUMP_TARGET=&quot;192.168.1.33/32&quot; gps949/tailscale_jumpserver:latest 
 </code></pre>
-　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   <h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#117;&#115;&#x65;&#114;&#110;&#97;&#109;&#101;&#x40;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#117;&#115;&#x65;&#114;&#110;&#97;&#109;&#101;&#x40;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></strong>为GitHub用户邮箱)：<pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
-</code></pre>
-　　根据之后提示选择密钥文件存储位置和密码（直接回车设置为空）。<br>　　在刚刚创建的<strong>username.github.io</strong> Repo的<code>Settings</code>中点击<code>Deploy keys</code>，选择<code>Add deploy key</code>。Title可以根据喜好设置（如myblog_deploy_pubkey），Key的内容复制进刚才使用命令生成的<code>.pub</code>扩展名的公钥文件内容。下面的<code>Allow write access</code>的复选框要勾选。   <h3 id="配置站点的自动化更新部署"><a href="#配置站点的自动化更新部署" class="headerlink" title="配置站点的自动化更新部署"></a>配置站点的自动化更新部署</h3>　　站点的自动化更新部署通过在源码Repo中配置GitHub Action来实现。关于GitHub Action的原理和更多技巧可参见网上资料。<br>　　先准备部署时使用的部署私钥（Deploy key），在<strong>myblog</strong>的<code>Settings</code>的<code>Secrets</code>中点击<code>New repository secret</code>，名称可以设置为如<strong>HEXO_DEPLOY_PRI</strong>，内容复制入上一节中除<code>.pub</code>文件之外的另一个私钥文件内容，再点击<code>Add secret</code>。<br>　　然后，在本机命令行下进入第一步中创建的<code>myblog</code>目录下执行：   <pre><code class="bash">mkdir .github/workflows
-touch .github/workflows/deploy.yml
-</code></pre>
-　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#117;&#x73;&#101;&#114;&#x6e;&#97;&#109;&#x65;&#64;&#x65;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#117;&#x73;&#101;&#114;&#x6e;&#97;&#109;&#x65;&#64;&#x65;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;</a>为你的GitHub注册邮箱）：   </li>
-</ul>
-<pre><code class="yaml">name: CI
+<p>　　在容器运行起来之后，Bob应该可以在他的Tailscale®管理员控制台页面上看到这个跳板机出现。   </p>
+<img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step3-1.png" width="100%" />   
+   
+<p>　　Bob在控制台页面上按照上面截图上的步骤操作（如果Bob访问Alice这个资源不会超过90天，可以省略图中的第2步）。<br>　　在图中第3步后，点击开关开启全部的子网路由规则（subnet）。   </p>
+<img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step3-2.png" width="100%" />   
 
-on:
-  push:
-    branches:
-      - main
+<h2 id="第四步：-Bob现在可以通过这个Tailscale®跳板访问机Alice的服务了！"><a href="#第四步：-Bob现在可以通过这个Tailscale®跳板访问机Alice的服务了！" class="headerlink" title="第四步： Bob现在可以通过这个Tailscale®跳板访问机Alice的服务了！"></a>第四步： Bob现在可以通过这个Tailscale®跳板访问机Alice的服务了！</h2><p>　　Bob如果在前面第二步中没有安装客户端，那么在访问前需要进行安装并使用客户端登录。<br>　　Bob需要如下图确保它已经登录Tailscale®客户端，并启用了subnet。   </p>
+<img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step4.png" width="100%" />
 
-env:
-  GIT_USER: username
-  GIT_EMAIL: username@email.com
-
-jobs:
-  build:
-    name: Build on node $&#123;&#123; matrix.node_version &#125;&#125; and $&#123;&#123; matrix.os &#125;&#125;
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node_version: [15.x]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Use Node.js $&#123;&#123; matrix.node_version &#125;&#125;
-        uses: actions/setup-node@v1
-        with:
-          node-version: $&#123;&#123; matrix.node_version &#125;&#125;
-
-      - name: Configuration environment
-        env:
-          HEXO_DEPLOY_PRI: $&#123;&#123;secrets.HEXO_DEPLOY_PRI&#125;&#125;
-        run: |
-          sudo timedatectl set-timezone &quot;Asia/Shanghai&quot;
-          mkdir -p ~/.ssh/
-          echo &quot;$HEXO_DEPLOY_PRI&quot; &gt; ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts
-          git config --global user.name $GIT_USER
-          git config --global user.email $GIT_EMAIL
-          npm install -g hexo-cli
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: $&#123;&#123; runner.os &#125;&#125;-build-$&#123;&#123; env.cache-name &#125;&#125;-$&#123;&#123; hashFiles('**/package-lock.json') &#125;&#125;
-          restore-keys: |
-            $&#123;&#123; runner.os &#125;&#125;-build-$&#123;&#123; env.cache-name &#125;&#125;-
-            $&#123;&#123; runner.os &#125;&#125;-build-
-            $&#123;&#123; runner.os &#125;&#125;-
-      - name: Install dependencies
-        run: |
-          npm install
-      - name: Deploy hexo
-        run: |
-          hexo clean &amp;&amp; hexo deploy
-</code></pre>
-<p>　　另外，修改Hexo的配置文件（即myblog目录下的<code>_config.yml</code>)中的<code>deploy</code>片段如下(同样注意修改其中的用户名和repo名称)：  </p>
-<pre><code class="yaml">deploy:
-  type: git
-  repo: git@github.com:username/username.github.io.git
-  branch: main
-</code></pre>
-<p>　　修改完成后使用git add、git commit、git push等命令完成提交到GitHub。   </p>
-<p>　　以上即基本完成了源码Repo、发布Repo（Pages）和自动化部署的配置，在之后只需要在源码Repo中按照Hexo的使用方法用Markdown编写文章，再将更改提交到源码Repo，就会自动化更新到GitHub Pages的站点。而GitHub Pages站点的访问使用<a href="https://username.github.io/">https://username.github.io</a> 即可。   </p>
-<h3 id="配置站点个人域名"><a href="#配置站点个人域名" class="headerlink" title="配置站点个人域名"></a>配置站点个人域名</h3><p>　　通过前面步骤完成的个人网站的部署，访问网址是<code>username.github.io</code>这样的形式，对于想使用个人域名访问该站点的，也很容易实现。<br>　　先在个人域名的DNS设置解析，新增一条个人域名到<code>username.github.io</code>的CNAME解析。<br>　　然后在GitHub Pages Repo（<code>username/username.github.io</code>）的Settings的Pages下的<code>Custom domain</code>填写个人域名，建议勾选<code>Enforce HTTPS</code>。<br>　　最后，在<code>myblog</code>源码Repo中的<code>source</code>目录下添加一个名为<code>CNAME</code>的文件，其内容填写入个人域名（如<code>www.username.com</code>），并完成提交推送（commit &amp; push）。<br>　　这样，就实现了个人域名到GitHub Pages的映射，可以通过个人域名访问前面建立的个人站点了。   </p>
+<p>本篇相关<a href="https://github.com/gps949/tailscale_jumpserver">GitHub Repo</a>   </p>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
         <tag>计算机</tag>
-        <tag>建站</tag>
-        <tag>GitHub</tag>
-        <tag>自动化</tag>
-        <tag>CI/CD</tag>
-        <tag>GitHub Action</tag>
-        <tag>Hexo</tag>
-        <tag>Blog</tag>
+        <tag>网络</tag>
+        <tag>跳板机</tag>
+        <tag>Docker</tag>
+        <tag>容器</tag>
+        <tag>安全</tag>
+        <tag>Tailscale</tag>
+        <tag>零信任</tag>
       </tags>
   </entry>
   <entry>
@@ -308,6 +235,118 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
         <tag>计算机</tag>
         <tag>密码学</tag>
         <tag>量子</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo + GitHub实现零成本Blog</title>
+    <url>/2021/05/06/Hexo%20+%20GitHub%E5%AE%9E%E7%8E%B0%E9%9B%B6%E6%88%90%E6%9C%ACBlog/</url>
+    <content><![CDATA[<p>　　对于自己创造内容并不稳定的情况，花费金钱和精力去维护一个服务器（VPS/ECS）是不明智的。但是实际上难免会遇到记录和创作分享的需要，作为技术控，当然不想选用现成的商业化产品。那么，能够有个方式“白嫖”到资源存放静态博客/笔记站点内容的同时，再实现站点的部署更新都自动化完成（CI/CD概念），就很完美了。<br>　　恰巧，GitHub当前可以完成这种需求。这里记录一下完全利用GitHub （Repo + Pages + Action）建设Hexo站点的“最佳实践”。    </p>
+<span id="more"></span>   
+<p>　　首先，该方案的整体设计架构如下：<br>　　<img data-src="/images/github_blog/arch.jpg"><br>　　如图上的展示，整体思路是：   </p>
+<ul>
+<li>使用Hexo作为静态博客站点的框架，实现MarkDown编写日志文章内容；    </li>
+<li>使用GitHub的Private（私有）Repo作为Hexo源码（包括日志源码、Hexo配置及站点主题配置文件、其他一些数据等）；   </li>
+<li>使用GitHub Pages（网页代管服务）作为静态站点的承载展示；   </li>
+<li>使用GitHub Action（CI/CD）作为持续部署方案，将源码Repo生成部署到Pages；   </li>
+<li>为GitHub Pages配置个人域名；<br>　　后续即按照上面各点逐一介绍实现步骤，根据关键性不同，详细程度会有所不同。  <h3 id="构建Hexo源码Repo"><a href="#构建Hexo源码Repo" class="headerlink" title="构建Hexo源码Repo"></a>构建Hexo源码Repo</h3>　　在Github中创建新Repo（默认已注册GitHub账号）： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(如<strong>myblog</strong>)，类型选择<code>Private</code>。点击<code>Create repository</code>完成创建。<br>　　在本机进行Hexo的安装（由于网上有不少教程此处从简介绍）以及将其添加到GitHub的源码Repo中。确保机器已安装Node.js和Git的前提下执行下面命令（链接中<strong>username</strong>和<strong>myblog</strong>换成自己的GitHub用户名和刚创建时设置的源码Repo名称）：<pre><code class="bash">npm install -g hexo-cli
+hexo init myblog
+cd myblog
+npm install
+git init
+git add .* *
+git commit -m &quot;myblog init&quot;
+git branch -M main
+git remote add origin https://github.com/username/myblog.git
+git push -u origin main
+</code></pre>
+　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   <h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#x75;&#x73;&#x65;&#114;&#110;&#97;&#109;&#x65;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#x75;&#x73;&#x65;&#114;&#110;&#97;&#109;&#x65;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></strong>为GitHub用户邮箱)：<pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
+</code></pre>
+　　根据之后提示选择密钥文件存储位置和密码（直接回车设置为空）。<br>　　在刚刚创建的<strong>username.github.io</strong> Repo的<code>Settings</code>中点击<code>Deploy keys</code>，选择<code>Add deploy key</code>。Title可以根据喜好设置（如myblog_deploy_pubkey），Key的内容复制进刚才使用命令生成的<code>.pub</code>扩展名的公钥文件内容。下面的<code>Allow write access</code>的复选框要勾选。   <h3 id="配置站点的自动化更新部署"><a href="#配置站点的自动化更新部署" class="headerlink" title="配置站点的自动化更新部署"></a>配置站点的自动化更新部署</h3>　　站点的自动化更新部署通过在源码Repo中配置GitHub Action来实现。关于GitHub Action的原理和更多技巧可参见网上资料。<br>　　先准备部署时使用的部署私钥（Deploy key），在<strong>myblog</strong>的<code>Settings</code>的<code>Secrets</code>中点击<code>New repository secret</code>，名称可以设置为如<strong>HEXO_DEPLOY_PRI</strong>，内容复制入上一节中除<code>.pub</code>文件之外的另一个私钥文件内容，再点击<code>Add secret</code>。<br>　　然后，在本机命令行下进入第一步中创建的<code>myblog</code>目录下执行：   <pre><code class="bash">mkdir .github/workflows
+touch .github/workflows/deploy.yml
+</code></pre>
+　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#x75;&#x73;&#101;&#114;&#110;&#97;&#x6d;&#101;&#x40;&#101;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#109;">&#x75;&#x73;&#101;&#114;&#110;&#97;&#x6d;&#101;&#x40;&#101;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#109;</a>为你的GitHub注册邮箱）：   </li>
+</ul>
+<pre><code class="yaml">name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  GIT_USER: username
+  GIT_EMAIL: username@email.com
+
+jobs:
+  build:
+    name: Build on node $&#123;&#123; matrix.node_version &#125;&#125; and $&#123;&#123; matrix.os &#125;&#125;
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [15.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js $&#123;&#123; matrix.node_version &#125;&#125;
+        uses: actions/setup-node@v1
+        with:
+          node-version: $&#123;&#123; matrix.node_version &#125;&#125;
+
+      - name: Configuration environment
+        env:
+          HEXO_DEPLOY_PRI: $&#123;&#123;secrets.HEXO_DEPLOY_PRI&#125;&#125;
+        run: |
+          sudo timedatectl set-timezone &quot;Asia/Shanghai&quot;
+          mkdir -p ~/.ssh/
+          echo &quot;$HEXO_DEPLOY_PRI&quot; &gt; ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts
+          git config --global user.name $GIT_USER
+          git config --global user.email $GIT_EMAIL
+          npm install -g hexo-cli
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: $&#123;&#123; runner.os &#125;&#125;-build-$&#123;&#123; env.cache-name &#125;&#125;-$&#123;&#123; hashFiles('**/package-lock.json') &#125;&#125;
+          restore-keys: |
+            $&#123;&#123; runner.os &#125;&#125;-build-$&#123;&#123; env.cache-name &#125;&#125;-
+            $&#123;&#123; runner.os &#125;&#125;-build-
+            $&#123;&#123; runner.os &#125;&#125;-
+      - name: Install dependencies
+        run: |
+          npm install
+      - name: Deploy hexo
+        run: |
+          hexo clean &amp;&amp; hexo deploy
+</code></pre>
+<p>　　另外，修改Hexo的配置文件（即myblog目录下的<code>_config.yml</code>)中的<code>deploy</code>片段如下(同样注意修改其中的用户名和repo名称)：  </p>
+<pre><code class="yaml">deploy:
+  type: git
+  repo: git@github.com:username/username.github.io.git
+  branch: main
+</code></pre>
+<p>　　修改完成后使用git add、git commit、git push等命令完成提交到GitHub。   </p>
+<p>　　以上即基本完成了源码Repo、发布Repo（Pages）和自动化部署的配置，在之后只需要在源码Repo中按照Hexo的使用方法用Markdown编写文章，再将更改提交到源码Repo，就会自动化更新到GitHub Pages的站点。而GitHub Pages站点的访问使用<a href="https://username.github.io/">https://username.github.io</a> 即可。   </p>
+<h3 id="配置站点个人域名"><a href="#配置站点个人域名" class="headerlink" title="配置站点个人域名"></a>配置站点个人域名</h3><p>　　通过前面步骤完成的个人网站的部署，访问网址是<code>username.github.io</code>这样的形式，对于想使用个人域名访问该站点的，也很容易实现。<br>　　先在个人域名的DNS设置解析，新增一条个人域名到<code>username.github.io</code>的CNAME解析。<br>　　然后在GitHub Pages Repo（<code>username/username.github.io</code>）的Settings的Pages下的<code>Custom domain</code>填写个人域名，建议勾选<code>Enforce HTTPS</code>。<br>　　最后，在<code>myblog</code>源码Repo中的<code>source</code>目录下添加一个名为<code>CNAME</code>的文件，其内容填写入个人域名（如<code>www.username.com</code>），并完成提交推送（commit &amp; push）。<br>　　这样，就实现了个人域名到GitHub Pages的映射，可以通过个人域名访问前面建立的个人站点了。   </p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>计算机</tag>
+        <tag>建站</tag>
+        <tag>GitHub</tag>
+        <tag>自动化</tag>
+        <tag>CI/CD</tag>
+        <tag>GitHub Action</tag>
+        <tag>Hexo</tag>
+        <tag>Blog</tag>
       </tags>
   </entry>
   <entry>
