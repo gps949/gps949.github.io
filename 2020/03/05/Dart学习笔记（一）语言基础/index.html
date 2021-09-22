@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.4.0">
 
@@ -16,12 +16,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;www.gps949.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:true,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:&quot;utterances&quot;,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:{&quot;utterances&quot;:{&quot;text&quot;:&quot;留言&quot;}},&quot;activeClass&quot;:&quot;utterances&quot;},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:true}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
 <meta name="description" content="作为Flutter和下一代系统Fuchsia‘钦定’的语言，Dart还是有兴了解一下的。安装方式，在已经有brew的macOS系统下很简单： $ brew tap dart-lang&#x2F;dart $ brew install dart 如需升级更新Dart SDK版本的话，直接使用brew upgrade dart即可。查看已安装dart版本信息，使用brew info dart">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Dart学习笔记（一）语言基础">
@@ -30,7 +28,7 @@
 <meta property="og:description" content="作为Flutter和下一代系统Fuchsia‘钦定’的语言，Dart还是有兴了解一下的。安装方式，在已经有brew的macOS系统下很简单： $ brew tap dart-lang&#x2F;dart $ brew install dart 如需升级更新Dart SDK版本的话，直接使用brew upgrade dart即可。查看已安装dart版本信息，使用brew info dart">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-05T14:21:00.000Z">
-<meta property="article:modified_time" content="2021-09-13T06:43:53.260Z">
+<meta property="article:modified_time" content="2021-09-22T07:40:11.647Z">
 <meta property="article:author" content="小北极星">
 <meta property="article:tag" content="Dart">
 <meta property="article:tag" content="编程">
@@ -42,9 +40,9 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;www.gps949.com&#x2F;2020&#x2F;03&#x2F;05&#x2F;Dart%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;03&#x2F;05&#x2F;Dart学习笔记（一）语言基础&#x2F;&quot;,&quot;title&quot;:&quot;Dart学习笔记（一）语言基础&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.gps949.com/2020/03/05/Dart%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/","path":"2020/03/05/Dart学习笔记（一）语言基础/","title":"Dart学习笔记（一）语言基础"}</script>
 
-<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Dart学习笔记（一）语言基础 | 小北极星笔记</title>
   
 
@@ -163,7 +161,8 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="小北极星"
       src="/images/IMG_3322.jpg">
   <p class="site-author-name" itemprop="name">小北极星</p>
@@ -172,21 +171,18 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
+        <a href="/archives/">
           <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
+          <a href="/categories/">
         <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
+          <a href="/tags/">
         <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -246,6 +242,7 @@
     </ul>
   </div>
 
+          </div>
         </div>
       </div>
         <div class="back-to-top animated" role="button" aria-label="返回顶部">
@@ -312,7 +309,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-09-13 14:43:53" itemprop="dateModified" datetime="2021-09-13T14:43:53+08:00">2021-09-13</time>
+        <time title="修改时间：2021-09-22 15:40:11" itemprop="dateModified" datetime="2021-09-22T15:40:11+08:00">2021-09-22</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -332,8 +329,7 @@
       <span class="post-meta-item-text">阅读次数：</span>
       <span class="leancloud-visitors-count"></span>
     </span>
-      </div>
-      <div class="post-meta">
+    <span class="post-meta-break"></span>
     <span class="post-meta-item" title="本文字数">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
@@ -406,11 +402,11 @@ $ brew install dart<span aria-hidden="true" class="line-numbers-rows"><span></sp
 <span class="token keyword">assert</span><span class="token punctuation">(</span>onePointOne <span class="token operator">==</span> <span class="token number">1.1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token comment">// int -> String</span>
-String oneAsString <span class="token operator">=</span> <span class="token number">1.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> oneAsString <span class="token operator">=</span> <span class="token number">1.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">assert</span><span class="token punctuation">(</span>oneAsString <span class="token operator">==</span> <span class="token string">'1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token comment">// double -> String</span>
-String piAsString <span class="token operator">=</span> <span class="token number">3.14159</span><span class="token punctuation">.</span><span class="token function">toStringAsFixed</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> piAsString <span class="token operator">=</span> <span class="token number">3.14159</span><span class="token punctuation">.</span><span class="token function">toStringAsFixed</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">assert</span><span class="token punctuation">(</span>piAsString <span class="token operator">==</span> <span class="token string">'3.14'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>字面数值是编译时常量，许多算术表达式在其操作数为编译时常量时也是编译时常量，会被计算为数值。</p>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>Dart中字符串是UTF16编码单元的串。可以使用单引号或者双引号创建。<br>可以使用<code>$&#123;expression&#125;</code>讲表达式值放进字符串中，对于对象Dart会调用对象的<code>toString()</code>方法。</p>
@@ -459,7 +455,7 @@ String piAsString <span class="token operator">=</span> <span class="token numbe
 <h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p>Dart中集合是不重复项目的无序收集。（集合的字面表达在Dart2.2才引入）  </p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">var</span> halogens <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">'fluorine'</span><span class="token punctuation">,</span> <span class="token string">'chlorine'</span><span class="token punctuation">,</span> <span class="token string">'bromine'</span><span class="token punctuation">,</span> <span class="token string">'iodine'</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>上面这个集合会被自动推断为<code>Set&lt;String&gt;</code>，便不能添加其他错误类型值。<br>关于创建空集合，参见下面：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">var</span> names <span class="token operator">=</span> <span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">var</span> names <span class="token operator">=</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 <span class="token comment">// Set&lt;String> names = &#123;&#125;; //这样亦可</span>
 <span class="token comment">// var names = &#123;&#125;; //这样创建的是一个map而非集合，推断为 Map&lt;dynamic,dynamic></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>使用<code>.length</code>获取集合元素数量。使用<code>.add(元素)</code>或<code>.addAll(集合)</code>来添加项目。<br>与前面的列表类似，集合也支持展开操作符和收集if、收集for等。</p>
@@ -470,7 +466,7 @@ String piAsString <span class="token operator">=</span> <span class="token numbe
   <span class="token number">18</span><span class="token punctuation">:</span> <span class="token string">'argon'</span><span class="token punctuation">,</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-<span class="token keyword">var</span> gifts <span class="token operator">=</span> <span class="token function">Map</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> gifts <span class="token operator">=</span> <span class="token class-name">Map</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 gifts<span class="token punctuation">[</span><span class="token string">'first'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'partridge'</span><span class="token punctuation">;</span>
 gifts<span class="token punctuation">[</span><span class="token string">'second'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'turtledoves'</span><span class="token punctuation">;</span>
 gifts<span class="token punctuation">[</span><span class="token string">'fifth'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'golden rings'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -509,9 +505,9 @@ The last character: 🇩🇰<span aria-hidden="true" class="line-numbers-rows"><
 
 <span class="token function">enableFlags</span><span class="token punctuation">(</span>bold<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> hidden<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>尽管命名参数是可选参数，但可通过注解<code>@required</code>来指示参数是必须的(依赖<code>meta</code>包，需import <code>package:meta/meta.dart</code>)，如：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">const</span> <span class="token function">Scrollbar</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>Key key<span class="token punctuation">,</span> <span class="token metadata symbol">@required</span> Widget child<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">const</span> <span class="token class-name">Scrollbar</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token class-name">Key</span> key<span class="token punctuation">,</span> <span class="token metadata symbol">@required</span> <span class="token class-name">Widget</span> child<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="位置参数"><a href="#位置参数" class="headerlink" title="位置参数"></a>位置参数</h3><p>用方括号标记参数为可选：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart">String <span class="token function">say</span><span class="token punctuation">(</span>String from<span class="token punctuation">,</span> String msg<span class="token punctuation">,</span> <span class="token punctuation">[</span>String device<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">String</span> <span class="token function">say</span><span class="token punctuation">(</span><span class="token class-name">String</span> from<span class="token punctuation">,</span> <span class="token class-name">String</span> msg<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token class-name">String</span> device<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">var</span> result <span class="token operator">=</span> <span class="token string">'$from says $msg'</span><span class="token punctuation">;</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span>device <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     result <span class="token operator">=</span> <span class="token string">'$result with a $device'</span><span class="token punctuation">;</span>
@@ -545,7 +541,7 @@ list<span class="token punctuation">.</span><span class="token function">forEach
 <span class="token comment">// 匿名函数这里=>后可以跟唯一的语句，注意和前面简略写法处区分</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="词法范围"><a href="#词法范围" class="headerlink" title="词法范围"></a>词法范围</h2><p>Dart是词法范围语言，所以变量的作用域被代码静态的确定。</p>
 <h2 id="词法闭包"><a href="#词法闭包" class="headerlink" title="词法闭包"></a>词法闭包</h2><p>词法闭包（closure）是函数在词法范围可访问一个变量而在原范围之外被调用。<br>参照下面例子理解：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">Function</span> <span class="token function">makeAdder</span><span class="token punctuation">(</span>num addBy<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Function</span> <span class="token function">makeAdder</span><span class="token punctuation">(</span>num addBy<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">return</span> <span class="token punctuation">(</span>num i<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> addBy <span class="token operator">+</span> i<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
@@ -568,11 +564,11 @@ list<span class="token punctuation">.</span><span class="token function">forEach
   x <span class="token operator">=</span> foo<span class="token punctuation">;</span>
   <span class="token keyword">assert</span><span class="token punctuation">(</span>foo <span class="token operator">==</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  x <span class="token operator">=</span> A<span class="token punctuation">.</span>bar<span class="token punctuation">;</span>
-  <span class="token keyword">assert</span><span class="token punctuation">(</span>A<span class="token punctuation">.</span>bar <span class="token operator">==</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  x <span class="token operator">=</span> <span class="token class-name">A</span><span class="token punctuation">.</span>bar<span class="token punctuation">;</span>
+  <span class="token keyword">assert</span><span class="token punctuation">(</span><span class="token class-name">A</span><span class="token punctuation">.</span>bar <span class="token operator">==</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token keyword">var</span> v <span class="token operator">=</span> <span class="token function">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// A的实例1</span>
-  <span class="token keyword">var</span> w <span class="token operator">=</span> <span class="token function">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// A的实例2，注意v与w的不同</span>
+  <span class="token keyword">var</span> v <span class="token operator">=</span> <span class="token class-name">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// A的实例1</span>
+  <span class="token keyword">var</span> w <span class="token operator">=</span> <span class="token class-name">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// A的实例2，注意v与w的不同</span>
   <span class="token keyword">var</span> y <span class="token operator">=</span> w<span class="token punctuation">;</span>
   x <span class="token operator">=</span> w<span class="token punctuation">.</span>baz<span class="token punctuation">;</span>
   <span class="token keyword">assert</span><span class="token punctuation">(</span>y<span class="token punctuation">.</span>baz <span class="token operator">==</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -590,7 +586,7 @@ list<span class="token punctuation">.</span><span class="token function">forEach
 <h2 id="类型测试操作符"><a href="#类型测试操作符" class="headerlink" title="类型测试操作符"></a>类型测试操作符</h2><p><code>as</code>、<code>is</code>和<code>is!</code>为在运行时测试类型的操作符。<br>| 操作符 | 含义 |<br>|-|-|<br>| <code>as</code> | 类型转换，如<code>(emp as Person).firstName = &#39;Bob&#39;;</code>|<br>| <code>is</code> | 判断对象是否为指定类型 |<br>| <code>is!</code> | 判断对象是否非指定类型 |</p>
 <h2 id="赋值操作符"><a href="#赋值操作符" class="headerlink" title="赋值操作符"></a>赋值操作符</h2><p>除了常规的赋值操作符，还有只在被赋值变量为null时才赋值的<code>??=</code>操作符。<br>另外复合赋值操作符类似C，如<code>+=</code>。</p>
 <h2 id="逻辑操作符（类C）"><a href="#逻辑操作符（类C）" class="headerlink" title="逻辑操作符（类C）"></a>逻辑操作符（类C）</h2><h2 id="位操作符（类C）"><a href="#位操作符（类C）" class="headerlink" title="位操作符（类C）"></a>位操作符（类C）</h2><h2 id="条件表达式"><a href="#条件表达式" class="headerlink" title="条件表达式"></a>条件表达式</h2><p>有C中的三目算符<code>condition ? expr1 : expr2</code>。同时还有个双目的<code>expr1 ?? expr2</code>，表示expr1不为null则返回expr1，否则返回expr2（可以理解为是有默认值的取值）。</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart">String <span class="token function">playerName</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> name <span class="token operator">?</span><span class="token operator">?</span> <span class="token string">'Guest'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">String</span> <span class="token function">playerName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> name <span class="token operator">?</span><span class="token operator">?</span> <span class="token string">'Guest'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="级联注解（级联操作符-）"><a href="#级联注解（级联操作符-）" class="headerlink" title="级联注解（级联操作符..）"></a>级联注解（级联操作符..）</h2><p>级联操作符（<code>..</code>）允许制造在同一个对象上的操作序列，通常可以节省创建临时变量的步骤。</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'#confirm'</span><span class="token punctuation">)</span> <span class="token comment">// 取得对象</span>
   <span class="token punctuation">.</span><span class="token punctuation">.</span>text <span class="token operator">=</span> <span class="token string">'Confirm'</span> <span class="token comment">// 使用成员</span>
@@ -659,16 +655,16 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
 <h2 id="捕获（catch）"><a href="#捕获（catch）" class="headerlink" title="捕获（catch）"></a>捕获（catch）</h2><p>一般有<code>try-on</code>、<code>try-catch</code>两种方式，当需要指定特定类型异常时使用<code>on</code>，在需要得到异常对象时使用<code>catch</code>。<code>catch</code>可以被指定一个或两个参数，第一个是被抛出的异常对象，第二个是栈轨迹（<code>StackTrace</code>对象）。</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
   <span class="token function">breedMoreLlamas</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">on</span> OutOfLlamasException <span class="token punctuation">&#123;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">on</span> <span class="token class-name">OutOfLlamasException</span> <span class="token punctuation">&#123;</span>
   <span class="token function">buyMoreLlamas</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
 <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
   <span class="token function">breedMoreLlamas</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">on</span> OutOfLlamasException <span class="token punctuation">&#123;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">on</span> <span class="token class-name">OutOfLlamasException</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">// 指定的异常</span>
   <span class="token function">buyMoreLlamas</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">on</span> Exception <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">on</span> <span class="token class-name">Exception</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">// 任何其他的Exception类型异常</span>
   <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'Unknown exception: $e'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">,</span> s<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -690,10 +686,10 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
 <h1 id="类"><a href="#类" class="headerlink" title="类"></a>类</h1><h2 id="使用类成员"><a href="#使用类成员" class="headerlink" title="使用类成员"></a>使用类成员</h2><p>前文操作符处介绍过的<code>.</code>和<code>?.</code>即可</p>
 <h2 id="使用构造器"><a href="#使用构造器" class="headerlink" title="使用构造器"></a>使用构造器</h2><p>可使用构造器创建对象，构造器名字可以是<code>类名</code>或<code>类名.标识符</code>如：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">var</span> p1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Point</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> p2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Point<span class="token punctuation">.</span>fromJson</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">'x'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'y'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span class="token keyword">var</span> p2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Point</span><span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">'x'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'y'</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>其中<code>new</code>是可选的（自Dart2始）。<br>一些类提供常量构造器，使用<code>const</code>关键字来创建运行时常量：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token keyword">const</span> <span class="token function">ImmutablePoint</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> b <span class="token operator">=</span> <span class="token keyword">const</span> <span class="token function">ImmutablePoint</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token keyword">const</span> <span class="token class-name">ImmutablePoint</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> b <span class="token operator">=</span> <span class="token keyword">const</span> <span class="token class-name">ImmutablePoint</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">assert</span><span class="token punctuation">(</span><span class="token function">identical</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 它们是相同的实例！</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在常量上下文中，可以忽略构造器前的<code>const</code>，例如上面<code>var</code>替成<code>const</code>则后面构造器前的<code>const</code>可以省略。（自Dart2始）</p>
@@ -704,15 +700,15 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
   num x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
 
   <span class="token comment">// 语法糖，在构造器体运行前设置x、y值</span>
-  <span class="token function">Point</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Point</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="默认构造器"><a href="#默认构造器" class="headerlink" title="默认构造器"></a>默认构造器</h3><p>未声明构造器，则提供默认构造器，该构造器无参数并调用父类中无参数构造器。</p>
 <h3 id="构造器非继承"><a href="#构造器非继承" class="headerlink" title="构造器非继承"></a>构造器非继承</h3><p>子类不从父类继承构造器。</p>
 <h3 id="命名构造器"><a href="#命名构造器" class="headerlink" title="命名构造器"></a>命名构造器</h3><p>如<a href="##%E4%BD%BF%E7%94%A8%E6%9E%84%E9%80%A0%E5%99%A8">使用构造器</a>中的添加标识符的构造器：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">&#123;</span>
   num x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
-  <span class="token function">Point</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  Point<span class="token punctuation">.</span><span class="token function">origin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token class-name">Point</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Point</span><span class="token punctuation">.</span><span class="token function">origin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
     y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
@@ -725,22 +721,22 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
 </ol>
 <p>若父类没有无命名、无参构造器，则你必须手动调用父类中的一个构造器，在构造器体（如果有的话）前用冒号（:）指定：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">&#123;</span>
-  String firstName<span class="token punctuation">;</span>
-  Person<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>Map data<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token class-name">String</span> firstName<span class="token punctuation">;</span>
+  <span class="token class-name">Person</span><span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span><span class="token class-name">Map</span> data<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'in Person'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">Employee</span> <span class="token keyword">extends</span> <span class="token class-name">Person</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">// Person 无默认构造器，你必须调用 super.fromJson(data).</span>
-  Employee<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>Map data<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token class-name">Employee</span><span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span><span class="token class-name">Map</span> data<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'in Employee'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <div class="note warning"><p>给到父类构造器的参数无法访问<code>this</code>。例如，参数可以调用静态方法但不能调用实例方法。</p>
 </div>
 <h3 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h3><p>除调用父类构造器之外，还可以在构造器体之前初始化实例变量，其间用逗号分隔：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart">Point<span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> num<span class="token operator">></span> json<span class="token punctuation">)</span>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Point</span><span class="token punctuation">.</span><span class="token function">fromJson</span><span class="token punctuation">(</span><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> num<span class="token punctuation">></span></span> json<span class="token punctuation">)</span>
     <span class="token punctuation">:</span> x <span class="token operator">=</span> json<span class="token punctuation">[</span><span class="token string">'x'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
       y <span class="token operator">=</span> json<span class="token punctuation">[</span><span class="token string">'y'</span><span class="token punctuation">]</span> <span class="token punctuation">&#123;</span>
   <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'In Point.fromJson(): ($x, $y)'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -751,34 +747,34 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
 <h3 id="重定向构造器"><a href="#重定向构造器" class="headerlink" title="重定向构造器"></a>重定向构造器</h3><p>有时一个构造器只要重定向到同类中另一个构造器，其无构造器体，在冒号后调用重定向到的构造器：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">&#123;</span>
   num x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
-  <span class="token function">Point</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  Point<span class="token punctuation">.</span><span class="token function">alongXAxis</span><span class="token punctuation">(</span>num x<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Point</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Point</span><span class="token punctuation">.</span><span class="token function">alongXAxis</span><span class="token punctuation">(</span>num x<span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="常量构造器"><a href="#常量构造器" class="headerlink" title="常量构造器"></a>常量构造器</h3><p>若类产生对象从不改变，可以使这些对象为编译时常量。定义<code>const</code>构造器并确保所有实例变量为<code>final</code>：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">ImmutablePoint</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">static</span> <span class="token keyword">final</span> ImmutablePoint origin <span class="token operator">=</span>
-      <span class="token keyword">const</span> <span class="token function">ImmutablePoint</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">ImmutablePoint</span> origin <span class="token operator">=</span>
+      <span class="token keyword">const</span> <span class="token class-name">ImmutablePoint</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">final</span> num x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> <span class="token function">ImmutablePoint</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token class-name">ImmutablePoint</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>常量构造器并不总是创造常量。</p>
 <h3 id="工厂构造器"><a href="#工厂构造器" class="headerlink" title="工厂构造器"></a>工厂构造器</h3><p>使用<code>factory</code>关键字，以实现一个构造器不总是创建它的类的新实例，如一个工厂构造器可能返回缓存中的实例或者子类型的一个实例：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Logger</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">final</span> String name<span class="token punctuation">;</span>
+  <span class="token keyword">final</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span>
   bool mute <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 
   <span class="token comment">// 注意 _cache 是私有库（因为_开头）</span>
-  <span class="token keyword">static</span> <span class="token keyword">final</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Logger<span class="token operator">></span> _cache <span class="token operator">=</span>
-      <span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Logger<span class="token operator">></span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+  <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Logger</span><span class="token punctuation">></span></span> _cache <span class="token operator">=</span>
+      <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Logger</span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
 
-  <span class="token keyword">factory</span> <span class="token function">Logger</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">factory</span> <span class="token class-name">Logger</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> _cache<span class="token punctuation">.</span><span class="token function">putIfAbsent</span><span class="token punctuation">(</span>
-        name<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> Logger<span class="token punctuation">.</span><span class="token function">_internal</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        name<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token class-name">Logger</span><span class="token punctuation">.</span><span class="token function">_internal</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 
-  Logger<span class="token punctuation">.</span><span class="token function">_internal</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Logger</span><span class="token punctuation">.</span><span class="token function">_internal</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token keyword">void</span> <span class="token function">log</span><span class="token punctuation">(</span>String msg<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">void</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token class-name">String</span> msg<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>mute<span class="token punctuation">)</span> <span class="token function">print</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -789,7 +785,7 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Rectangle</span> <span class="token punctuation">&#123;</span>
   num left<span class="token punctuation">,</span> top<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height<span class="token punctuation">;</span>
 
-  <span class="token function">Rectangle</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>left<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>top<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Rectangle</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>left<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>top<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token comment">// 定义两个计算属性: right and bottom.</span>
   num <span class="token keyword">get</span> right <span class="token operator">=</span><span class="token operator">></span> left <span class="token operator">+</span> width<span class="token punctuation">;</span>
@@ -799,7 +795,7 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
 <span class="token punctuation">&#125;</span>
 
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">var</span> rect <span class="token operator">=</span> <span class="token function">Rectangle</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> rect <span class="token operator">=</span> <span class="token class-name">Rectangle</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">assert</span><span class="token punctuation">(</span>rect<span class="token punctuation">.</span>left <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   rect<span class="token punctuation">.</span>right <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
   <span class="token keyword">assert</span><span class="token punctuation">(</span>rect<span class="token punctuation">.</span>left <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -820,24 +816,24 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
   <span class="token comment">// 接口，但仅库中可见</span>
   <span class="token keyword">final</span> _name<span class="token punctuation">;</span>
   <span class="token comment">// 构造器，非接口</span>
-  <span class="token function">Person</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_name<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token comment">// 接口</span>
-  String <span class="token function">greet</span><span class="token punctuation">(</span>String who<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'Hello, $who. I am $_name.'</span><span class="token punctuation">;</span>
+  <span class="token class-name">String</span> <span class="token function">greet</span><span class="token punctuation">(</span><span class="token class-name">String</span> who<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'Hello, $who. I am $_name.'</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
 <span class="token comment">// Person接口的的一个实现</span>
 <span class="token keyword">class</span> <span class="token class-name">Impostor</span> <span class="token keyword">implements</span> <span class="token class-name">Person</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">get</span> _name <span class="token operator">=</span><span class="token operator">></span> <span class="token string">''</span><span class="token punctuation">;</span>
-  String <span class="token function">greet</span><span class="token punctuation">(</span>String who<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'Hi $who. Do you know who I am?'</span><span class="token punctuation">;</span>
+  <span class="token class-name">String</span> <span class="token function">greet</span><span class="token punctuation">(</span><span class="token class-name">String</span> who<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'Hi $who. Do you know who I am?'</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
-String <span class="token function">greetBob</span><span class="token punctuation">(</span>Person person<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> person<span class="token punctuation">.</span><span class="token function">greet</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> <span class="token function">greetBob</span><span class="token punctuation">(</span><span class="token class-name">Person</span> person<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> person<span class="token punctuation">.</span><span class="token function">greet</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">print</span><span class="token punctuation">(</span><span class="token function">greetBob</span><span class="token punctuation">(</span><span class="token function">Person</span><span class="token punctuation">(</span><span class="token string">'Kathy'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token function">print</span><span class="token punctuation">(</span><span class="token function">greetBob</span><span class="token punctuation">(</span><span class="token function">Impostor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">print</span><span class="token punctuation">(</span><span class="token function">greetBob</span><span class="token punctuation">(</span><span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token string">'Kathy'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">print</span><span class="token punctuation">(</span><span class="token function">greetBob</span><span class="token punctuation">(</span><span class="token class-name">Impostor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>下面是指定类实现多个接口的例子：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token keyword">implements</span> <span class="token class-name">Comparable</span><span class="token punctuation">,</span> Location <span class="token punctuation">&#123;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token keyword">implements</span> <span class="token class-name">Comparable</span><span class="token punctuation">,</span> <span class="token class-name">Location</span> <span class="token punctuation">&#123;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="类继承"><a href="#类继承" class="headerlink" title="类继承"></a>类继承</h2><p>使用<code>extends</code>创建子类，并用<code>super</code>来引用父类。</p>
 <h3 id="重写（overriding）成员"><a href="#重写（overriding）成员" class="headerlink" title="重写（overriding）成员"></a>重写（overriding）成员</h3><p>子类可以重写实例方法、getter、setter。可用<code>@override</code>注解指明要重写的成员：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">SmartTelevision</span> <span class="token keyword">extends</span> <span class="token class-name">Television</span> <span class="token punctuation">&#123;</span>
@@ -850,24 +846,24 @@ String <span class="token function">greetBob</span><span class="token punctuatio
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Vector</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">final</span> int x<span class="token punctuation">,</span> y<span class="token punctuation">;</span>
 
-  <span class="token function">Vector</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Vector</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  Vector <span class="token keyword">operator</span> <span class="token operator">+</span><span class="token punctuation">(</span>Vector v<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">Vector</span><span class="token punctuation">(</span>x <span class="token operator">+</span> v<span class="token punctuation">.</span>x<span class="token punctuation">,</span> y <span class="token operator">+</span> v<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  Vector <span class="token keyword">operator</span> <span class="token operator">-</span><span class="token punctuation">(</span>Vector v<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">Vector</span><span class="token punctuation">(</span>x <span class="token operator">-</span> v<span class="token punctuation">.</span>x<span class="token punctuation">,</span> y <span class="token operator">-</span> v<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Vector</span> <span class="token keyword">operator</span> <span class="token operator">+</span><span class="token punctuation">(</span><span class="token class-name">Vector</span> v<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token class-name">Vector</span><span class="token punctuation">(</span>x <span class="token operator">+</span> v<span class="token punctuation">.</span>x<span class="token punctuation">,</span> y <span class="token operator">+</span> v<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Vector</span> <span class="token keyword">operator</span> <span class="token operator">-</span><span class="token punctuation">(</span><span class="token class-name">Vector</span> v<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token class-name">Vector</span><span class="token punctuation">(</span>x <span class="token operator">-</span> v<span class="token punctuation">.</span>x<span class="token punctuation">,</span> y <span class="token operator">-</span> v<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token comment">// 操作符==与hashCode代码未列出，见随后的说明</span>
 <span class="token punctuation">&#125;</span>
 
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">final</span> v <span class="token operator">=</span> <span class="token function">Vector</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">final</span> w <span class="token operator">=</span> <span class="token function">Vector</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">final</span> v <span class="token operator">=</span> <span class="token class-name">Vector</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">final</span> w <span class="token operator">=</span> <span class="token class-name">Vector</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token keyword">assert</span><span class="token punctuation">(</span>v <span class="token operator">+</span> w <span class="token operator">==</span> <span class="token function">Vector</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">assert</span><span class="token punctuation">(</span>v <span class="token operator">-</span> w <span class="token operator">==</span> <span class="token function">Vector</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">assert</span><span class="token punctuation">(</span>v <span class="token operator">+</span> w <span class="token operator">==</span> <span class="token class-name">Vector</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">assert</span><span class="token punctuation">(</span>v <span class="token operator">-</span> w <span class="token operator">==</span> <span class="token class-name">Vector</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果要重写==，就也需要重写对象的<code>hashCode</code>的getter。类似下面：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">final</span> String firstName<span class="token punctuation">,</span> lastName<span class="token punctuation">;</span>
-  <span class="token function">Person</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>firstName<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lastName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">final</span> <span class="token class-name">String</span> firstName<span class="token punctuation">,</span> lastName<span class="token punctuation">;</span>
+  <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>firstName<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lastName<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token comment">// 重写hashCode</span>
   <span class="token metadata symbol">@override</span>
@@ -881,16 +877,16 @@ String <span class="token function">greetBob</span><span class="token punctuatio
   <span class="token comment">// 重写hashCode后通常应重写==</span>
   <span class="token metadata symbol">@override</span>
   bool <span class="token keyword">operator</span> <span class="token operator">==</span><span class="token punctuation">(</span><span class="token keyword">dynamic</span> other<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>other <span class="token operator">is!</span> Person<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    Person person <span class="token operator">=</span> other<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>other <span class="token operator">is!</span> <span class="token class-name">Person</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token class-name">Person</span> person <span class="token operator">=</span> other<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token punctuation">(</span>person<span class="token punctuation">.</span>firstName <span class="token operator">==</span> firstName <span class="token operator">&amp;&amp;</span>
         person<span class="token punctuation">.</span>lastName <span class="token operator">==</span> lastName<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span>
 
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">var</span> p1 <span class="token operator">=</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">,</span> <span class="token string">'Smith'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">var</span> p2 <span class="token operator">=</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">,</span> <span class="token string">'Smith'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> p1 <span class="token operator">=</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">,</span> <span class="token string">'Smith'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> p2 <span class="token operator">=</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">,</span> <span class="token string">'Smith'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">var</span> p3 <span class="token operator">=</span> <span class="token string">'not a person'</span><span class="token punctuation">;</span>
   <span class="token keyword">assert</span><span class="token punctuation">(</span>p1<span class="token punctuation">.</span>hashCode <span class="token operator">==</span> p2<span class="token punctuation">.</span>hashCode<span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">assert</span><span class="token punctuation">(</span>p1 <span class="token operator">==</span> p2<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -900,7 +896,7 @@ String <span class="token function">greetBob</span><span class="token punctuatio
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">&#123;</span>
   <span class="token comment">// 除非重写noSuchMethod，否则使用不存在成员产生个NoSuchMethodError</span>
   <span class="token metadata symbol">@override</span>
-  <span class="token keyword">void</span> <span class="token function">noSuchMethod</span><span class="token punctuation">(</span>Invocation invocation<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">void</span> <span class="token function">noSuchMethod</span><span class="token punctuation">(</span><span class="token class-name">Invocation</span> invocation<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'You tried to use a non-existent member: '</span> <span class="token operator">+</span>
         <span class="token string">'$&#123;invocation.memberName&#125;'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
@@ -934,7 +930,7 @@ String <span class="token function">greetBob</span><span class="token punctuatio
     <footer class="post-footer">
           <div class="reward-container">
   <div>支持我一杯咖啡吧</div>
-  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+  <button>
     赞赏
   </button>
   <div class="post-reward">
@@ -1093,37 +1089,33 @@ String <span class="token function">greetBob</span><span class="token punctuatio
 
   
   <script src="https://embed.widgetpack.com/widget.js" async></script>
-  <script class="next-config" data-name="rating" type="application/json">{&quot;enable&quot;:true,&quot;id&quot;:30363,&quot;color&quot;:&quot;#fc6423&quot;}</script>
+  <script class="next-config" data-name="rating" type="application/json">{"enable":true,"id":30363,"color":"#fc6423"}</script>
   <script src="/js/third-party/rating.js"></script>
 <script src="/js/third-party/search/local-search.js"></script>
 
-
-
-  <script class="next-config" data-name="pdf" type="application/json">{&quot;object_url&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;pdfobject@2.2.5&#x2F;pdfobject.min.js&quot;,&quot;integrity&quot;:&quot;sha256-YuNlP9i6s&#x2F;WH7EaU2kErloo9Vc85C3WVqhoMDgsEVpY&#x3D;&quot;},&quot;url&quot;:&quot;&#x2F;lib&#x2F;pdf&#x2F;web&#x2F;viewer.html&quot;}</script>
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.6/pdfobject.min.js","integrity":"sha256-77geM50MfxCD17eqyJR+Dag1svjJOLN+BJ2F/DMqMEY="},"url":"/lib/pdf/web/viewer.html"}</script>
   <script src="/js/third-party/tags/pdf.js"></script>
 
 
-  <script class="next-config" data-name="nprogress" type="application/json">{&quot;enable&quot;:true,&quot;spinner&quot;:true}</script>
-  <script src="/js/third-party/nprogress.js"></script>
 
   
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-  <script class="next-config" data-name="leancloud_visitors" type="application/json">{&quot;enable&quot;:true,&quot;app_id&quot;:&quot;aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI&quot;,&quot;app_key&quot;:&quot;5emR3QDDavLAWsk9ltaj6mwK&quot;,&quot;server_url&quot;:&quot;www.gps949.com&quot;,&quot;security&quot;:false,&quot;betterPerformance&quot;:false}</script>
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
   <script src="/js/third-party/statistics/lean-analytics.js"></script>
 
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.1.0/dist/quicklink.umd.js" integrity="sha256-KK3rvmDcW72MSl9jzzNZWlQjZNrRzAuGhAQ+0SFOg7Q=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{&quot;enable&quot;:true,&quot;home&quot;:true,&quot;archive&quot;:true,&quot;delay&quot;:true,&quot;timeout&quot;:3000,&quot;priority&quot;:true,&quot;ignores&quot;:null,&quot;url&quot;:&quot;https:&#x2F;&#x2F;www.gps949.com&#x2F;2020&#x2F;03&#x2F;05&#x2F;Dart%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80&#x2F;&quot;}</script>
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.gps949.com/2020/03/05/Dart%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
-<script class="next-config" data-name="utterances" type="application/json">{&quot;enable&quot;:true,&quot;repo&quot;:&quot;gps949&#x2F;gps949.github.io&quot;,&quot;issue_term&quot;:&quot;pathname&quot;,&quot;theme&quot;:&quot;github-light&quot;}</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"gps949/gps949.github.io","issue_term":"pathname","theme":"github-light"}</script>
 <script src="/js/third-party/comments/utterances.js"></script>
 
 </body>

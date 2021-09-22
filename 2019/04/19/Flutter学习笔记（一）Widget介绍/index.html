@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.4.0">
 
@@ -16,12 +16,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;www.gps949.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:true,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:&quot;utterances&quot;,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:{&quot;utterances&quot;:{&quot;text&quot;:&quot;留言&quot;}},&quot;activeClass&quot;:&quot;utterances&quot;},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:true}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
 <meta name="description" content="在昨天已经完成了在macOS上安装配置Flutter开发环境并真机调试成功第一个iOS App based on Flutter，也在Windows上搭建了Flutter环境。对这个开发方式感觉还是有点意思的，今天继续学一下Flutter的知识。一开始根据官方教程建App时，就指出了在Flutter中一切都以Widget的形式存在的。Flutter的Widget是受React影响以现代框架进行创建">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Flutter学习笔记（一）Widget介绍">
@@ -30,7 +28,7 @@
 <meta property="og:description" content="在昨天已经完成了在macOS上安装配置Flutter开发环境并真机调试成功第一个iOS App based on Flutter，也在Windows上搭建了Flutter环境。对这个开发方式感觉还是有点意思的，今天继续学一下Flutter的知识。一开始根据官方教程建App时，就指出了在Flutter中一切都以Widget的形式存在的。Flutter的Widget是受React影响以现代框架进行创建">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-19T02:19:19.000Z">
-<meta property="article:modified_time" content="2021-09-13T06:43:53.260Z">
+<meta property="article:modified_time" content="2021-09-22T07:40:11.647Z">
 <meta property="article:author" content="小北极星">
 <meta property="article:tag" content="编程">
 <meta property="article:tag" content="计算机">
@@ -43,9 +41,9 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;www.gps949.com&#x2F;2019&#x2F;04&#x2F;19&#x2F;Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89Widget%E4%BB%8B%E7%BB%8D&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;04&#x2F;19&#x2F;Flutter学习笔记（一）Widget介绍&#x2F;&quot;,&quot;title&quot;:&quot;Flutter学习笔记（一）Widget介绍&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.gps949.com/2019/04/19/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89Widget%E4%BB%8B%E7%BB%8D/","path":"2019/04/19/Flutter学习笔记（一）Widget介绍/","title":"Flutter学习笔记（一）Widget介绍"}</script>
 
-<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Flutter学习笔记（一）Widget介绍 | 小北极星笔记</title>
   
 
@@ -164,7 +162,8 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="小北极星"
       src="/images/IMG_3322.jpg">
   <p class="site-author-name" itemprop="name">小北极星</p>
@@ -173,21 +172,18 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
+        <a href="/archives/">
           <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
+          <a href="/categories/">
         <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
+          <a href="/tags/">
         <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -247,6 +243,7 @@
     </ul>
   </div>
 
+          </div>
         </div>
       </div>
         <div class="back-to-top animated" role="button" aria-label="返回顶部">
@@ -313,7 +310,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-09-13 14:43:53" itemprop="dateModified" datetime="2021-09-13T14:43:53+08:00">2021-09-13</time>
+        <time title="修改时间：2021-09-22 15:40:11" itemprop="dateModified" datetime="2021-09-22T15:40:11+08:00">2021-09-22</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -333,8 +330,7 @@
       <span class="post-meta-item-text">阅读次数：</span>
       <span class="leancloud-visitors-count"></span>
     </span>
-      </div>
-      <div class="post-meta">
+    <span class="post-meta-break"></span>
     <span class="post-meta-item" title="本文字数">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
@@ -365,10 +361,10 @@
 
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token function">runApp</span><span class="token punctuation">(</span>
-    <span class="token function">Center</span><span class="token punctuation">(</span>
-      child<span class="token punctuation">:</span> <span class="token function">Text</span><span class="token punctuation">(</span>
+    <span class="token class-name">Center</span><span class="token punctuation">(</span>
+      child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span>
         <span class="token string">'Hello, world!'</span><span class="token punctuation">,</span>
-        textDirection<span class="token punctuation">:</span> TextDirection<span class="token punctuation">.</span>ltr<span class="token punctuation">,</span>
+        textDirection<span class="token punctuation">:</span> <span class="token class-name">TextDirection</span><span class="token punctuation">.</span>ltr<span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -384,33 +380,33 @@
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string">'package:flutter/material.dart'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">MyAppBar</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">MyAppBar</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>title<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">MyAppBar</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>title<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token comment">// Widget子类的成员永远被标记为final.</span>
 
-  <span class="token keyword">final</span> Widget title<span class="token punctuation">;</span>
+  <span class="token keyword">final</span> <span class="token class-name">Widget</span> title<span class="token punctuation">;</span>
 
   <span class="token metadata symbol">@override</span>
-  Widget <span class="token function">build</span><span class="token punctuation">(</span>BuildContext context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token function">Container</span><span class="token punctuation">(</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>
       height<span class="token punctuation">:</span> <span class="token number">56.0</span><span class="token punctuation">,</span> <span class="token comment">// 单位为逻辑像素</span>
-      padding<span class="token punctuation">:</span> <span class="token keyword">const</span> EdgeInsets<span class="token punctuation">.</span><span class="token function">symmetric</span><span class="token punctuation">(</span>horizontal<span class="token punctuation">:</span> <span class="token number">8.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-      decoration<span class="token punctuation">:</span> <span class="token function">BoxDecoration</span><span class="token punctuation">(</span>color<span class="token punctuation">:</span> Colors<span class="token punctuation">.</span>blue<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      padding<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">symmetric</span><span class="token punctuation">(</span>horizontal<span class="token punctuation">:</span> <span class="token number">8.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      decoration<span class="token punctuation">:</span> <span class="token class-name">BoxDecoration</span><span class="token punctuation">(</span>color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>blue<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token comment">// Row 为水平的线性布局.</span>
-      child<span class="token punctuation">:</span> <span class="token function">Row</span><span class="token punctuation">(</span>
+      child<span class="token punctuation">:</span> <span class="token class-name">Row</span><span class="token punctuation">(</span>
         <span class="token comment">// &lt;Widget> 为List中元素类型</span>
-        children<span class="token punctuation">:</span> <span class="token operator">&lt;</span>Widget<span class="token operator">></span><span class="token punctuation">[</span>
-          <span class="token function">IconButton</span><span class="token punctuation">(</span>
-            icon<span class="token punctuation">:</span> <span class="token function">Icon</span><span class="token punctuation">(</span>Icons<span class="token punctuation">.</span>menu<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        children<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
+          <span class="token class-name">IconButton</span><span class="token punctuation">(</span>
+            icon<span class="token punctuation">:</span> <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>menu<span class="token punctuation">)</span><span class="token punctuation">,</span>
             tooltip<span class="token punctuation">:</span> <span class="token string">'Navigation menu'</span><span class="token punctuation">,</span>
             onPressed<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token comment">// 禁用按钮</span>
           <span class="token punctuation">)</span><span class="token punctuation">,</span>
           <span class="token comment">// Expanded 将它的child填满整个可用空间</span>
-          <span class="token function">Expanded</span><span class="token punctuation">(</span>
+          <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
             child<span class="token punctuation">:</span> title<span class="token punctuation">,</span>
           <span class="token punctuation">)</span><span class="token punctuation">,</span>
-          <span class="token function">IconButton</span><span class="token punctuation">(</span>
-            icon<span class="token punctuation">:</span> <span class="token function">Icon</span><span class="token punctuation">(</span>Icons<span class="token punctuation">.</span>search<span class="token punctuation">)</span><span class="token punctuation">,</span>
+          <span class="token class-name">IconButton</span><span class="token punctuation">(</span>
+            icon<span class="token punctuation">:</span> <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>search<span class="token punctuation">)</span><span class="token punctuation">,</span>
             tooltip<span class="token punctuation">:</span> <span class="token string">'Search'</span><span class="token punctuation">,</span>
             onPressed<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
           <span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -422,21 +418,21 @@
 
 <span class="token keyword">class</span> <span class="token class-name">MyScaffold</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
   <span class="token metadata symbol">@override</span>
-  Widget <span class="token function">build</span><span class="token punctuation">(</span>BuildContext context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// Material 是显示UI的概念上的一张纸.</span>
-    <span class="token keyword">return</span> <span class="token function">Material</span><span class="token punctuation">(</span>
+    <span class="token keyword">return</span> <span class="token class-name">Material</span><span class="token punctuation">(</span>
       <span class="token comment">// Column 是垂直的线性布局.</span>
-      child<span class="token punctuation">:</span> <span class="token function">Column</span><span class="token punctuation">(</span>
-        children<span class="token punctuation">:</span> <span class="token operator">&lt;</span>Widget<span class="token operator">></span><span class="token punctuation">[</span>
-          <span class="token function">MyAppBar</span><span class="token punctuation">(</span>
-            title<span class="token punctuation">:</span> <span class="token function">Text</span><span class="token punctuation">(</span>
+      child<span class="token punctuation">:</span> <span class="token class-name">Column</span><span class="token punctuation">(</span>
+        children<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
+          <span class="token class-name">MyAppBar</span><span class="token punctuation">(</span>
+            title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span>
               <span class="token string">'Example title'</span><span class="token punctuation">,</span>
-              style<span class="token punctuation">:</span> Theme<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span>primaryTextTheme<span class="token punctuation">.</span>title<span class="token punctuation">,</span>
+              style<span class="token punctuation">:</span> <span class="token class-name">Theme</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span>primaryTextTheme<span class="token punctuation">.</span>title<span class="token punctuation">,</span>
             <span class="token punctuation">)</span><span class="token punctuation">,</span>
           <span class="token punctuation">)</span><span class="token punctuation">,</span>
-          <span class="token function">Expanded</span><span class="token punctuation">(</span>
-            child<span class="token punctuation">:</span> <span class="token function">Center</span><span class="token punctuation">(</span>
-              child<span class="token punctuation">:</span> <span class="token function">Text</span><span class="token punctuation">(</span><span class="token string">'Hello, world!'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
+            child<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>
+              child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Hello, world!'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
             <span class="token punctuation">)</span><span class="token punctuation">,</span>
           <span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
@@ -446,9 +442,9 @@
 <span class="token punctuation">&#125;</span>
 
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">runApp</span><span class="token punctuation">(</span><span class="token function">MaterialApp</span><span class="token punctuation">(</span>
+  <span class="token function">runApp</span><span class="token punctuation">(</span><span class="token class-name">MaterialApp</span><span class="token punctuation">(</span>
     title<span class="token punctuation">:</span> <span class="token string">'My app'</span><span class="token punctuation">,</span> <span class="token comment">// 此标题被系统的任务管理器使用</span>
-    home<span class="token punctuation">:</span> <span class="token function">MyScaffold</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    home<span class="token punctuation">:</span> <span class="token class-name">MyScaffold</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>需要确保在<code>pubspec.yaml</code>文件的<code>flutter</code>一节设有<code>uses-material-design: true</code>来让你有预设的图标集<a target="_blank" rel="noopener" href="https://design.google.com/icons/">Material icons</a>可用。</p>
@@ -460,39 +456,39 @@
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string">'package:flutter/material.dart'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">runApp</span><span class="token punctuation">(</span><span class="token function">MaterialApp</span><span class="token punctuation">(</span>
+  <span class="token function">runApp</span><span class="token punctuation">(</span><span class="token class-name">MaterialApp</span><span class="token punctuation">(</span>
     title<span class="token punctuation">:</span> <span class="token string">'Flutter Tutorial'</span><span class="token punctuation">,</span>
-    home<span class="token punctuation">:</span> <span class="token function">TutorialHome</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    home<span class="token punctuation">:</span> <span class="token class-name">TutorialHome</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">TutorialHome</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
   <span class="token metadata symbol">@override</span>
-  Widget <span class="token function">build</span><span class="token punctuation">(</span>BuildContext context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// Scaffold 是主要Material组件的一个布局.</span>
-    <span class="token keyword">return</span> <span class="token function">Scaffold</span><span class="token punctuation">(</span>
-      appBar<span class="token punctuation">:</span> <span class="token function">AppBar</span><span class="token punctuation">(</span>
-        leading<span class="token punctuation">:</span> <span class="token function">IconButton</span><span class="token punctuation">(</span>
-          icon<span class="token punctuation">:</span> <span class="token function">Icon</span><span class="token punctuation">(</span>Icons<span class="token punctuation">.</span>menu<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token keyword">return</span> <span class="token class-name">Scaffold</span><span class="token punctuation">(</span>
+      appBar<span class="token punctuation">:</span> <span class="token class-name">AppBar</span><span class="token punctuation">(</span>
+        leading<span class="token punctuation">:</span> <span class="token class-name">IconButton</span><span class="token punctuation">(</span>
+          icon<span class="token punctuation">:</span> <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>menu<span class="token punctuation">)</span><span class="token punctuation">,</span>
           tooltip<span class="token punctuation">:</span> <span class="token string">'Navigation menu'</span><span class="token punctuation">,</span>
           onPressed<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
-        title<span class="token punctuation">:</span> <span class="token function">Text</span><span class="token punctuation">(</span><span class="token string">'Example title'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        actions<span class="token punctuation">:</span> <span class="token operator">&lt;</span>Widget<span class="token operator">></span><span class="token punctuation">[</span>
-          <span class="token function">IconButton</span><span class="token punctuation">(</span>
-            icon<span class="token punctuation">:</span> <span class="token function">Icon</span><span class="token punctuation">(</span>Icons<span class="token punctuation">.</span>search<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Example title'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        actions<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
+          <span class="token class-name">IconButton</span><span class="token punctuation">(</span>
+            icon<span class="token punctuation">:</span> <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>search<span class="token punctuation">)</span><span class="token punctuation">,</span>
             tooltip<span class="token punctuation">:</span> <span class="token string">'Search'</span><span class="token punctuation">,</span>
             onPressed<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
           <span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token comment">// body 为屏幕的主要部分.</span>
-      body<span class="token punctuation">:</span> <span class="token function">Center</span><span class="token punctuation">(</span>
-        child<span class="token punctuation">:</span> <span class="token function">Text</span><span class="token punctuation">(</span><span class="token string">'Hello, world!'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      body<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>
+        child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Hello, world!'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
-      floatingActionButton<span class="token punctuation">:</span> <span class="token function">FloatingActionButton</span><span class="token punctuation">(</span>
+      floatingActionButton<span class="token punctuation">:</span> <span class="token class-name">FloatingActionButton</span><span class="token punctuation">(</span>
         tooltip<span class="token punctuation">:</span> <span class="token string">'Add'</span><span class="token punctuation">,</span> <span class="token comment">// 为辅助功能使用</span>
-        child<span class="token punctuation">:</span> <span class="token function">Icon</span><span class="token punctuation">(</span>Icons<span class="token punctuation">.</span>add<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        child<span class="token punctuation">:</span> <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>add<span class="token punctuation">)</span><span class="token punctuation">,</span>
         onPressed<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -502,21 +498,21 @@
 <h1 id="处理手势"><a href="#处理手势" class="headerlink" title="处理手势"></a>处理手势</h1><p>大多数应用含有一些用户与系统间的交互。构建一个交互应用的第一步即是用户手势操作的探测。我们下面通过创建一个简单的按钮来看看它如何运作：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">MyButton</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
   <span class="token metadata symbol">@override</span>
-  Widget <span class="token function">build</span><span class="token punctuation">(</span>BuildContext context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token function">GestureDetector</span><span class="token punctuation">(</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">GestureDetector</span><span class="token punctuation">(</span>
       onTap<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'MyButton was tapped!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-      child<span class="token punctuation">:</span> <span class="token function">Container</span><span class="token punctuation">(</span>
+      child<span class="token punctuation">:</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>
         height<span class="token punctuation">:</span> <span class="token number">36.0</span><span class="token punctuation">,</span>
-        padding<span class="token punctuation">:</span> <span class="token keyword">const</span> EdgeInsets<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token number">8.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        margin<span class="token punctuation">:</span> <span class="token keyword">const</span> EdgeInsets<span class="token punctuation">.</span><span class="token function">symmetric</span><span class="token punctuation">(</span>horizontal<span class="token punctuation">:</span> <span class="token number">8.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        decoration<span class="token punctuation">:</span> <span class="token function">BoxDecoration</span><span class="token punctuation">(</span>
-          borderRadius<span class="token punctuation">:</span> BorderRadius<span class="token punctuation">.</span><span class="token function">circular</span><span class="token punctuation">(</span><span class="token number">5.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-          color<span class="token punctuation">:</span> Colors<span class="token punctuation">.</span>lightGreen<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        padding<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token number">8.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        margin<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">symmetric</span><span class="token punctuation">(</span>horizontal<span class="token punctuation">:</span> <span class="token number">8.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        decoration<span class="token punctuation">:</span> <span class="token class-name">BoxDecoration</span><span class="token punctuation">(</span>
+          borderRadius<span class="token punctuation">:</span> <span class="token class-name">BorderRadius</span><span class="token punctuation">.</span><span class="token function">circular</span><span class="token punctuation">(</span><span class="token number">5.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>lightGreen<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
-        child<span class="token punctuation">:</span> <span class="token function">Center</span><span class="token punctuation">(</span>
-          child<span class="token punctuation">:</span> <span class="token function">Text</span><span class="token punctuation">(</span><span class="token string">'Engage'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        child<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>
+          child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Engage'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -533,7 +529,7 @@
   _CounterState <span class="token function">createState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">_CounterState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
-<span class="token keyword">class</span> <span class="token class-name">_CounterState</span> <span class="token keyword">extends</span> <span class="token class-name">State</span><span class="token operator">&lt;</span>Counter<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">class</span> _CounterState <span class="token keyword">extends</span> <span class="token class-name">State</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Counter</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
   int _counter <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
   <span class="token keyword">void</span> <span class="token function">_increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -548,44 +544,44 @@
   <span class="token punctuation">&#125;</span>
 
   <span class="token metadata symbol">@override</span>
-  Widget <span class="token function">build</span><span class="token punctuation">(</span>BuildContext context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// 如本实例上面_increment方法做的</span>
     <span class="token comment">// 该方法在每次setState被调用时执行</span>
     <span class="token comment">// Flutter框架被优化为执行build方法非常快速</span>
     <span class="token comment">// 因此你可以只重建需要更新的地方而非不得不改变小部件实例</span>
-    <span class="token keyword">return</span> <span class="token function">Row</span><span class="token punctuation">(</span>
-      children<span class="token punctuation">:</span> <span class="token operator">&lt;</span>Widget<span class="token operator">></span><span class="token punctuation">[</span>
-        <span class="token function">RaisedButton</span><span class="token punctuation">(</span>
+    <span class="token keyword">return</span> <span class="token class-name">Row</span><span class="token punctuation">(</span>
+      children<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
+        <span class="token class-name">RaisedButton</span><span class="token punctuation">(</span>
           onPressed<span class="token punctuation">:</span> _increment<span class="token punctuation">,</span>
-          child<span class="token punctuation">:</span> <span class="token function">Text</span><span class="token punctuation">(</span><span class="token string">'Increment'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Increment'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token function">Text</span><span class="token punctuation">(</span><span class="token string">'Count: $_counter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Count: $_counter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">]</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>你可能会好奇为何State和StatefulWidget是分开的对象，在Flutter中，这两种对象有不同的生命周期。Widget是临时的对象，用以构建出应用在当前状态下的表现形态。而State则是持久的对象，用以在<code>build()</code>方法之间记住信息。<br>上面这个例子接收用户输入并直接在build方法中使用结果。在更复杂的应用中，不同层级的Widget可能负责不同事务，例如一个Widget可能负责收集指定的信息如日期、位置等，而另一个Widget利用这些信息改变整体的展现。<br>在Flutter中，变化通知由回调而根据Widget层级向上流动，当前状态则向下流动到用以展现的无状态小部件，重引导这流向的即为State。下面这个略微复杂一些的例子展示了这是如何发挥作用的：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">CounterDisplay</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">CounterDisplay</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>count<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">CounterDisplay</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>count<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   <span class="token keyword">final</span> int count<span class="token punctuation">;</span>
 
   <span class="token metadata symbol">@override</span>
-  Widget <span class="token function">build</span><span class="token punctuation">(</span>BuildContext context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token function">Text</span><span class="token punctuation">(</span><span class="token string">'Count: $count'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Count: $count'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">CounterIncrementor</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">CounterIncrementor</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>onPressed<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">CounterIncrementor</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>onPressed<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token keyword">final</span> VoidCallback onPressed<span class="token punctuation">;</span>
+  <span class="token keyword">final</span> <span class="token class-name">VoidCallback</span> onPressed<span class="token punctuation">;</span>
 
   <span class="token metadata symbol">@override</span>
-  Widget <span class="token function">build</span><span class="token punctuation">(</span>BuildContext context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token function">RaisedButton</span><span class="token punctuation">(</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">RaisedButton</span><span class="token punctuation">(</span>
       onPressed<span class="token punctuation">:</span> onPressed<span class="token punctuation">,</span>
-      child<span class="token punctuation">:</span> <span class="token function">Text</span><span class="token punctuation">(</span><span class="token string">'Increment'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Increment'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span>
@@ -595,7 +591,7 @@
   _CounterState <span class="token function">createState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">_CounterState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
-<span class="token keyword">class</span> <span class="token class-name">_CounterState</span> <span class="token keyword">extends</span> <span class="token class-name">State</span><span class="token operator">&lt;</span>Counter<span class="token operator">></span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">class</span> _CounterState <span class="token keyword">extends</span> <span class="token class-name">State</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Counter</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
   int _counter <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
   <span class="token keyword">void</span> <span class="token function">_increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -605,67 +601,67 @@
   <span class="token punctuation">&#125;</span>
 
   <span class="token metadata symbol">@override</span>
-  Widget <span class="token function">build</span><span class="token punctuation">(</span>BuildContext context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token function">Row</span><span class="token punctuation">(</span>children<span class="token punctuation">:</span> <span class="token operator">&lt;</span>Widget<span class="token operator">></span><span class="token punctuation">[</span>
-      <span class="token function">CounterIncrementor</span><span class="token punctuation">(</span>onPressed<span class="token punctuation">:</span> _increment<span class="token punctuation">)</span><span class="token punctuation">,</span>
-      <span class="token function">CounterDisplay</span><span class="token punctuation">(</span>count<span class="token punctuation">:</span> _counter<span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">Row</span><span class="token punctuation">(</span>children<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
+      <span class="token class-name">CounterIncrementor</span><span class="token punctuation">(</span>onPressed<span class="token punctuation">:</span> _increment<span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token class-name">CounterDisplay</span><span class="token punctuation">(</span>count<span class="token punctuation">:</span> _counter<span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>注意到我们创建了两个StatelessWidget将计数器的_展示_（<code>CounterDisplay</code>）和_改变_（<code>CounterIncrementor</code>）清晰地分开。尽管最终结果与前面的方式完全一样，责任的分离允许单个Widget里囊括更大的复杂性，从而在父层级上更简洁。<br>更多的信息：关于<a target="_blank" rel="noopener" href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a>和<a target="_blank" rel="noopener" href="https://api.flutter.dev/flutter/widgets/State/setState.html">setState</a></p>
 <h1 id="将这些合在一起"><a href="#将这些合在一起" class="headerlink" title="将这些合在一起"></a>将这些合在一起</h1><p>下面是将上面介绍的概念合在一起的复杂的例子：一个假设的购物应用展示各种售卖的产品并设有购物车保存有意购买的产品。先定义一个展示用的类<code>ShoppingListItem</code>开始：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Product</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">const</span> <span class="token function">Product</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">final</span> String name<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token class-name">Product</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">final</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
-<span class="token keyword">typedef</span> <span class="token keyword">void</span> <span class="token function">CartChangedCallback</span><span class="token punctuation">(</span>Product product<span class="token punctuation">,</span> bool inCart<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token keyword">void</span> <span class="token class-name">CartChangedCallback</span><span class="token punctuation">(</span><span class="token class-name">Product</span> product<span class="token punctuation">,</span> bool inCart<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">ShoppingListItem</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">ShoppingListItem</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>Product product<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>inCart<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>onCartChanged<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+  <span class="token class-name">ShoppingListItem</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token class-name">Product</span> product<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>inCart<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>onCartChanged<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
       <span class="token punctuation">:</span> product <span class="token operator">=</span> product<span class="token punctuation">,</span>
-        <span class="token keyword">super</span><span class="token punctuation">(</span>key<span class="token punctuation">:</span> <span class="token function">ObjectKey</span><span class="token punctuation">(</span>product<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>key<span class="token punctuation">:</span> <span class="token class-name">ObjectKey</span><span class="token punctuation">(</span>product<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token keyword">final</span> Product product<span class="token punctuation">;</span>
+  <span class="token keyword">final</span> <span class="token class-name">Product</span> product<span class="token punctuation">;</span>
   <span class="token keyword">final</span> bool inCart<span class="token punctuation">;</span>
-  <span class="token keyword">final</span> CartChangedCallback onCartChanged<span class="token punctuation">;</span>
+  <span class="token keyword">final</span> <span class="token class-name">CartChangedCallback</span> onCartChanged<span class="token punctuation">;</span>
 
-  Color <span class="token function">_getColor</span><span class="token punctuation">(</span>BuildContext context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token class-name">Color</span> <span class="token function">_getColor</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// The theme depends on the BuildContext because different parts of the tree</span>
     <span class="token comment">// can have different themes.  The BuildContext indicates where the build is</span>
     <span class="token comment">// taking place and therefore which theme to use.</span>
 
-    <span class="token keyword">return</span> inCart <span class="token operator">?</span> Colors<span class="token punctuation">.</span>black54 <span class="token punctuation">:</span> Theme<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span>primaryColor<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> inCart <span class="token operator">?</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>black54 <span class="token punctuation">:</span> <span class="token class-name">Theme</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span>primaryColor<span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 
-  TextStyle <span class="token function">_getTextStyle</span><span class="token punctuation">(</span>BuildContext context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token class-name">TextStyle</span> <span class="token function">_getTextStyle</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>inCart<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
 
-    <span class="token keyword">return</span> <span class="token function">TextStyle</span><span class="token punctuation">(</span>
-      color<span class="token punctuation">:</span> Colors<span class="token punctuation">.</span>black54<span class="token punctuation">,</span>
-      decoration<span class="token punctuation">:</span> TextDecoration<span class="token punctuation">.</span>lineThrough<span class="token punctuation">,</span>
+    <span class="token keyword">return</span> <span class="token class-name">TextStyle</span><span class="token punctuation">(</span>
+      color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>black54<span class="token punctuation">,</span>
+      decoration<span class="token punctuation">:</span> <span class="token class-name">TextDecoration</span><span class="token punctuation">.</span>lineThrough<span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 
   <span class="token metadata symbol">@override</span>
-  Widget <span class="token function">build</span><span class="token punctuation">(</span>BuildContext context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token function">ListTile</span><span class="token punctuation">(</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">ListTile</span><span class="token punctuation">(</span>
       onTap<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token function">onCartChanged</span><span class="token punctuation">(</span>product<span class="token punctuation">,</span> <span class="token operator">!</span>inCart<span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-      leading<span class="token punctuation">:</span> <span class="token function">CircleAvatar</span><span class="token punctuation">(</span>
+      leading<span class="token punctuation">:</span> <span class="token class-name">CircleAvatar</span><span class="token punctuation">(</span>
         backgroundColor<span class="token punctuation">:</span> <span class="token function">_getColor</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        child<span class="token punctuation">:</span> <span class="token function">Text</span><span class="token punctuation">(</span>product<span class="token punctuation">.</span>name<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span>product<span class="token punctuation">.</span>name<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
-      title<span class="token punctuation">:</span> <span class="token function">Text</span><span class="token punctuation">(</span>product<span class="token punctuation">.</span>name<span class="token punctuation">,</span> style<span class="token punctuation">:</span> <span class="token function">_getTextStyle</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span>product<span class="token punctuation">.</span>name<span class="token punctuation">,</span> style<span class="token punctuation">:</span> <span class="token function">_getTextStyle</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>ShoppingListItem</code>小部件遵循无状态小部件的通用模式，以final的成员变量保存从构造函数接受的值来在build函数使用。例如<code>inCart</code>布尔值在两种视觉展现上切换：使用当前主题的主色以及使用灰色。<br>当用户点击列表项时，小部件不直接修改<code>inCart</code>值，而是调用从父小部件接收的<code>onCartChanged</code>。这样方式让你可以在更高小部件层级保存状态从而持续更长时间。极端的情况，状态保持在传递给<code>runApp()</code>的小部件就会持续整个应用的生命周期。<br>当其父接收到<code>onCartChanged</code>回调后会更新它内部状态，触发其重新构造并创建带有新<code>inCart</code>值的新<code>ShoppingListItem</code>。尽管其父在重新构造时创建了新实例，但由于框架会比较新构建的和之前的小部件并只应用根本的<code>RenderObject</code>的不同之处，所以操作开销很小。<br>这是个父小部件保存可变状态的示例：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">ShoppingList</span> <span class="token keyword">extends</span> <span class="token class-name">StatefulWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">ShoppingList</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>Key key<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>products<span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">super</span><span class="token punctuation">(</span>key<span class="token punctuation">:</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">ShoppingList</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token class-name">Key</span> key<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>products<span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token keyword">super</span><span class="token punctuation">(</span>key<span class="token punctuation">:</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token keyword">final</span> List<span class="token operator">&lt;</span>Product<span class="token operator">></span> products<span class="token punctuation">;</span>
+  <span class="token keyword">final</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Product</span><span class="token punctuation">></span></span> products<span class="token punctuation">;</span>
 
   <span class="token comment">// 框架于小部件在树种给定位置首次出现时调用createState</span>
   <span class="token comment">// 如果其父重新构造并使用同样同一小部件类型（带同样key）</span>
@@ -675,10 +671,10 @@
   _ShoppingListState <span class="token function">createState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">_ShoppingListState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
-<span class="token keyword">class</span> <span class="token class-name">_ShoppingListState</span> <span class="token keyword">extends</span> <span class="token class-name">State</span><span class="token operator">&lt;</span>ShoppingList<span class="token operator">></span> <span class="token punctuation">&#123;</span>
-  Set<span class="token operator">&lt;</span>Product<span class="token operator">></span> _shoppingCart <span class="token operator">=</span> Set<span class="token operator">&lt;</span>Product<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> _ShoppingListState <span class="token keyword">extends</span> <span class="token class-name">State</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ShoppingList</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
+  <span class="token class-name">Set</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Product</span><span class="token punctuation">></span></span> _shoppingCart <span class="token operator">=</span> <span class="token class-name">Set</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Product</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="token keyword">void</span> <span class="token function">_handleCartChanged</span><span class="token punctuation">(</span>Product product<span class="token punctuation">,</span> bool inCart<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">void</span> <span class="token function">_handleCartChanged</span><span class="token punctuation">(</span><span class="token class-name">Product</span> product<span class="token punctuation">,</span> bool inCart<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token function">setState</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
       <span class="token comment">// 当用户改变购物车中物品时</span>
       <span class="token comment">// 我们需要在setState中改变_shoppingCart</span>
@@ -692,15 +688,15 @@
   <span class="token punctuation">&#125;</span>
 
   <span class="token metadata symbol">@override</span>
-  Widget <span class="token function">build</span><span class="token punctuation">(</span>BuildContext context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token function">Scaffold</span><span class="token punctuation">(</span>
-      appBar<span class="token punctuation">:</span> <span class="token function">AppBar</span><span class="token punctuation">(</span>
-        title<span class="token punctuation">:</span> <span class="token function">Text</span><span class="token punctuation">(</span><span class="token string">'Shopping List'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">Scaffold</span><span class="token punctuation">(</span>
+      appBar<span class="token punctuation">:</span> <span class="token class-name">AppBar</span><span class="token punctuation">(</span>
+        title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Shopping List'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
-      body<span class="token punctuation">:</span> <span class="token function">ListView</span><span class="token punctuation">(</span>
-        padding<span class="token punctuation">:</span> EdgeInsets<span class="token punctuation">.</span><span class="token function">symmetric</span><span class="token punctuation">(</span>vertical<span class="token punctuation">:</span> <span class="token number">8.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        children<span class="token punctuation">:</span> widget<span class="token punctuation">.</span>products<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Product product<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-          <span class="token keyword">return</span> <span class="token function">ShoppingListItem</span><span class="token punctuation">(</span>
+      body<span class="token punctuation">:</span> <span class="token class-name">ListView</span><span class="token punctuation">(</span>
+        padding<span class="token punctuation">:</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">symmetric</span><span class="token punctuation">(</span>vertical<span class="token punctuation">:</span> <span class="token number">8.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        children<span class="token punctuation">:</span> widget<span class="token punctuation">.</span>products<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">Product</span> product<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          <span class="token keyword">return</span> <span class="token class-name">ShoppingListItem</span><span class="token punctuation">(</span>
             product<span class="token punctuation">:</span> product<span class="token punctuation">,</span>
             inCart<span class="token punctuation">:</span> _shoppingCart<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>product<span class="token punctuation">)</span><span class="token punctuation">,</span>
             onCartChanged<span class="token punctuation">:</span> _handleCartChanged<span class="token punctuation">,</span>
@@ -712,13 +708,13 @@
 <span class="token punctuation">&#125;</span>
 
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">runApp</span><span class="token punctuation">(</span><span class="token function">MaterialApp</span><span class="token punctuation">(</span>
+  <span class="token function">runApp</span><span class="token punctuation">(</span><span class="token class-name">MaterialApp</span><span class="token punctuation">(</span>
     title<span class="token punctuation">:</span> <span class="token string">'Shopping App'</span><span class="token punctuation">,</span>
-    home<span class="token punctuation">:</span> <span class="token function">ShoppingList</span><span class="token punctuation">(</span>
-      products<span class="token punctuation">:</span> <span class="token operator">&lt;</span>Product<span class="token operator">></span><span class="token punctuation">[</span>
-        <span class="token function">Product</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'Eggs'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token function">Product</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'Flour'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token function">Product</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'Chocolate chips'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    home<span class="token punctuation">:</span> <span class="token class-name">ShoppingList</span><span class="token punctuation">(</span>
+      products<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Product</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
+        <span class="token class-name">Product</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'Eggs'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token class-name">Product</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'Flour'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token class-name">Product</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'Chocolate chips'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">]</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -754,7 +750,7 @@
     <footer class="post-footer">
           <div class="reward-container">
   <div>支持我一杯咖啡吧</div>
-  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+  <button>
     赞赏
   </button>
   <div class="post-reward">
@@ -914,37 +910,33 @@
 
   
   <script src="https://embed.widgetpack.com/widget.js" async></script>
-  <script class="next-config" data-name="rating" type="application/json">{&quot;enable&quot;:true,&quot;id&quot;:30363,&quot;color&quot;:&quot;#fc6423&quot;}</script>
+  <script class="next-config" data-name="rating" type="application/json">{"enable":true,"id":30363,"color":"#fc6423"}</script>
   <script src="/js/third-party/rating.js"></script>
 <script src="/js/third-party/search/local-search.js"></script>
 
-
-
-  <script class="next-config" data-name="pdf" type="application/json">{&quot;object_url&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;pdfobject@2.2.5&#x2F;pdfobject.min.js&quot;,&quot;integrity&quot;:&quot;sha256-YuNlP9i6s&#x2F;WH7EaU2kErloo9Vc85C3WVqhoMDgsEVpY&#x3D;&quot;},&quot;url&quot;:&quot;&#x2F;lib&#x2F;pdf&#x2F;web&#x2F;viewer.html&quot;}</script>
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.6/pdfobject.min.js","integrity":"sha256-77geM50MfxCD17eqyJR+Dag1svjJOLN+BJ2F/DMqMEY="},"url":"/lib/pdf/web/viewer.html"}</script>
   <script src="/js/third-party/tags/pdf.js"></script>
 
 
-  <script class="next-config" data-name="nprogress" type="application/json">{&quot;enable&quot;:true,&quot;spinner&quot;:true}</script>
-  <script src="/js/third-party/nprogress.js"></script>
 
   
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-  <script class="next-config" data-name="leancloud_visitors" type="application/json">{&quot;enable&quot;:true,&quot;app_id&quot;:&quot;aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI&quot;,&quot;app_key&quot;:&quot;5emR3QDDavLAWsk9ltaj6mwK&quot;,&quot;server_url&quot;:&quot;www.gps949.com&quot;,&quot;security&quot;:false,&quot;betterPerformance&quot;:false}</script>
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
   <script src="/js/third-party/statistics/lean-analytics.js"></script>
 
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.1.0/dist/quicklink.umd.js" integrity="sha256-KK3rvmDcW72MSl9jzzNZWlQjZNrRzAuGhAQ+0SFOg7Q=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{&quot;enable&quot;:true,&quot;home&quot;:true,&quot;archive&quot;:true,&quot;delay&quot;:true,&quot;timeout&quot;:3000,&quot;priority&quot;:true,&quot;ignores&quot;:null,&quot;url&quot;:&quot;https:&#x2F;&#x2F;www.gps949.com&#x2F;2019&#x2F;04&#x2F;19&#x2F;Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89Widget%E4%BB%8B%E7%BB%8D&#x2F;&quot;}</script>
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.gps949.com/2019/04/19/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89Widget%E4%BB%8B%E7%BB%8D/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
-<script class="next-config" data-name="utterances" type="application/json">{&quot;enable&quot;:true,&quot;repo&quot;:&quot;gps949&#x2F;gps949.github.io&quot;,&quot;issue_term&quot;:&quot;pathname&quot;,&quot;theme&quot;:&quot;github-light&quot;}</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"gps949/gps949.github.io","issue_term":"pathname","theme":"github-light"}</script>
 <script src="/js/third-party/comments/utterances.js"></script>
 
 </body>

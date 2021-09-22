@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.4.0">
 
@@ -16,12 +16,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" integrity="sha256-no0c5ccDODBwp+9hSmV5VvPpKwHCpbVzXHexIkupM6U=" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js" integrity="sha256-a5YRB27CcBwBFcT5EF/f3E4vzIqyHrSR878nseNYw64=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;www.gps949.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Gemini&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:true,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:&quot;utterances&quot;,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:{&quot;utterances&quot;:{&quot;text&quot;:&quot;留言&quot;}},&quot;activeClass&quot;:&quot;utterances&quot;},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:true}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
 <meta name="description" content="知道有一个app叫做微光，可以多人一起在线看电视电影听音乐等，实质上类似于直播形式的点播应用。虽然很好用，但是其存在两个问题：一是所能看的视频都由用户申请后才可能添加，资源很有限，就是说只能是看上面有什么想看的看什么，而不能想看什么看什么；二是由于其资源由平台提供，存在很大的版权问题。为了能够将自己本地有的视频资源在多终端同步观看，计划开发一个app。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一起看电影开发日志">
@@ -32,7 +30,7 @@
 <meta property="og:image" content="https://www.gps949.com/images/ST/FrameworkHeadList.png">
 <meta property="og:image" content="https://www.gps949.com/images/ST/GeneratedPluginRegistrant.png">
 <meta property="article:published_time" content="2020-03-16T10:00:00.000Z">
-<meta property="article:modified_time" content="2021-09-13T06:43:53.260Z">
+<meta property="article:modified_time" content="2021-09-22T07:40:11.647Z">
 <meta property="article:author" content="小北极星">
 <meta property="article:tag" content="Dart">
 <meta property="article:tag" content="编程">
@@ -47,9 +45,9 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;www.gps949.com&#x2F;2020&#x2F;03&#x2F;16&#x2F;%E4%B8%80%E8%B5%B7%E7%9C%8B%E7%94%B5%E5%BD%B1app%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;03&#x2F;16&#x2F;一起看电影app开发日志&#x2F;&quot;,&quot;title&quot;:&quot;一起看电影开发日志&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.gps949.com/2020/03/16/%E4%B8%80%E8%B5%B7%E7%9C%8B%E7%94%B5%E5%BD%B1app%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/","path":"2020/03/16/一起看电影app开发日志/","title":"一起看电影开发日志"}</script>
 
-<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>一起看电影开发日志 | 小北极星笔记</title>
   
 
@@ -168,7 +166,8 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="小北极星"
       src="/images/IMG_3322.jpg">
   <p class="site-author-name" itemprop="name">小北极星</p>
@@ -177,21 +176,18 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
+        <a href="/archives/">
           <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
+          <a href="/categories/">
         <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
+          <a href="/tags/">
         <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -251,6 +247,7 @@
     </ul>
   </div>
 
+          </div>
         </div>
       </div>
         <div class="back-to-top animated" role="button" aria-label="返回顶部">
@@ -317,7 +314,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-09-13 14:43:53" itemprop="dateModified" datetime="2021-09-13T14:43:53+08:00">2021-09-13</time>
+        <time title="修改时间：2021-09-22 15:40:11" itemprop="dateModified" datetime="2021-09-22T15:40:11+08:00">2021-09-22</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -337,8 +334,7 @@
       <span class="post-meta-item-text">阅读次数：</span>
       <span class="leancloud-visitors-count"></span>
     </span>
-      </div>
-      <div class="post-meta">
+    <span class="post-meta-break"></span>
     <span class="post-meta-item" title="本文字数">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
@@ -390,11 +386,11 @@
 <span class="token keyword">import</span> <span class="token string">'package:path_provider/path_provider.dart'</span><span class="token punctuation">;</span>
    
 <span class="token comment">//获取应用文档目录</span>
-String dir <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">getApplicationDocumentsDirectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>path<span class="token punctuation">;</span>
+<span class="token class-name">String</span> dir <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">getApplicationDocumentsDirectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>path<span class="token punctuation">;</span>
 <span class="token comment">//创建文件</span>
-File file <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">'$dir/counter.txt'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">File</span> file <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">'$dir/counter.txt'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">//文档读取</span>
-String content <span class="token operator">=</span> <span class="token keyword">await</span> file<span class="token punctuation">.</span><span class="token function">readAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> content <span class="token operator">=</span> <span class="token keyword">await</span> file<span class="token punctuation">.</span><span class="token function">readAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">//文档写入</span>
 <span class="token keyword">await</span> file<span class="token punctuation">.</span><span class="token function">writeAsString</span><span class="token punctuation">(</span><span class="token string">'$_counter'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li>要想让App的文档目录在iOS的“文件”中可见，需要在<mark>Info.plist</mark>文件中添加键值对： <pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>UIFileSharingEnabled<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
@@ -421,8 +417,8 @@ end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 <li><p>flutter_ffmpeg测试推流成功：</p>
  <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string">'package:flutter_ffmpeg/flutter_ffmpeg.dart'</span><span class="token punctuation">;</span>
 
-<span class="token keyword">final</span> FlutterFFmpeg _flutterFFmpeg <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FlutterFFmpeg</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-String dir <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">getApplicationDocumentsDirectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>path<span class="token punctuation">;</span>
+<span class="token keyword">final</span> <span class="token class-name">FlutterFFmpeg</span> _flutterFFmpeg <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FlutterFFmpeg</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> dir <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">getApplicationDocumentsDirectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>path<span class="token punctuation">;</span>
 _flutterFFmpeg
   <span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>
     <span class="token string">"-re -i $dir/&lt;视频文件名> -c copy -f flv &lt;直播服务器地址>"</span><span class="token punctuation">)</span>
@@ -453,8 +449,8 @@ _flutterFFmpeg
     <span class="token key atrule">ref</span><span class="token punctuation">:</span> master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li>使用代码如下：    <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string">'package:flutter_ijkplayer/flutter_ijkplayer.dart'</span><span class="token punctuation">;</span>
 
-String dir <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">getApplicationDocumentsDirectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>path<span class="token punctuation">;</span>
-<span class="token keyword">await</span> controller<span class="token punctuation">.</span><span class="token function">setDataSource</span><span class="token punctuation">(</span>DataSource<span class="token punctuation">.</span><span class="token function">file</span><span class="token punctuation">(</span><span class="token function">File</span><span class="token punctuation">(</span><span class="token string">'$dir/BCSS05E01.mp4'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>autoPlay<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> dir <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">getApplicationDocumentsDirectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>path<span class="token punctuation">;</span>
+<span class="token keyword">await</span> controller<span class="token punctuation">.</span><span class="token function">setDataSource</span><span class="token punctuation">(</span><span class="token class-name">DataSource</span><span class="token punctuation">.</span><span class="token function">file</span><span class="token punctuation">(</span><span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">'$dir/BCSS05E01.mp4'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>autoPlay<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">// await controller.setNetworkDataSource('&lt;rtmp服务器地址>',autoPlay:true);</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 </li>
@@ -533,9 +529,9 @@ exception.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
  <div class="note info"><p>注意：修改完成后重复进行前一环节的后续步骤。</p>
 </div>   </li>
-<li>【flutter-ffmpeg】入【fluter-ijkplayer】：在本地包flutter_ijkplayer下<code>lib/src/controller.dart</code>下加入如下代码： <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">static</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">parseArguments</span><span class="token punctuation">(</span>String command<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  List<span class="token operator">&lt;</span>String<span class="token operator">></span> argumentList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">List</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  StringBuffer currentArgument <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<li>【flutter-ffmpeg】入【fluter-ijkplayer】：在本地包flutter_ijkplayer下<code>lib/src/controller.dart</code>下加入如下代码： <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">static</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> <span class="token function">parseArguments</span><span class="token punctuation">(</span><span class="token class-name">String</span> command<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> argumentList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">List</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">StringBuffer</span> currentArgument <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   
   bool singleQuoteStarted <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
   bool doubleQuoteStarted <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
@@ -550,7 +546,7 @@ exception.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span
     
     <span class="token keyword">if</span> <span class="token punctuation">(</span>currentChar <span class="token operator">==</span> <span class="token string">' '</span><span class="token punctuation">.</span><span class="token function">codeUnitAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
       <span class="token keyword">if</span> <span class="token punctuation">(</span>singleQuoteStarted <span class="token operator">||</span> doubleQuoteStarted<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        currentArgument<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>currentChar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        currentArgument<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>currentChar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>currentArgument<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         argumentList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>currentArgument<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         currentArgument <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -560,7 +556,7 @@ exception.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span
       <span class="token keyword">if</span> <span class="token punctuation">(</span>singleQuoteStarted<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         singleQuoteStarted <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
       <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>doubleQuoteStarted<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        currentArgument<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>currentChar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        currentArgument<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>currentChar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
         singleQuoteStarted <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
       <span class="token punctuation">&#125;</span>
@@ -569,12 +565,12 @@ exception.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span
       <span class="token keyword">if</span> <span class="token punctuation">(</span>doubleQuoteStarted<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         doubleQuoteStarted <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
       <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>singleQuoteStarted<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        currentArgument<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>currentChar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        currentArgument<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>currentChar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
         doubleQuoteStarted <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
       <span class="token punctuation">&#125;</span>
     <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-      currentArgument<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>currentChar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      currentArgument<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>currentChar<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
   <span class="token punctuation">&#125;</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span>currentArgument<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -582,20 +578,20 @@ exception.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span
   <span class="token punctuation">&#125;</span>
   <span class="token keyword">return</span> argumentList<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
-Future<span class="token operator">&lt;</span>int<span class="token operator">></span> <span class="token function">executeWithArguments</span><span class="token punctuation">(</span>String arguments<span class="token punctuation">)</span> <span class="token keyword">async</span> <span class="token punctuation">&#123;</span>
-  _ijkStatus <span class="token operator">=</span> IjkStatus<span class="token punctuation">.</span>preparing<span class="token punctuation">;</span>
+<span class="token class-name">Future</span><span class="token generics"><span class="token punctuation">&lt;</span>int<span class="token punctuation">></span></span> <span class="token function">executeWithArguments</span><span class="token punctuation">(</span><span class="token class-name">String</span> arguments<span class="token punctuation">)</span> <span class="token keyword">async</span> <span class="token punctuation">&#123;</span>
+  _ijkStatus <span class="token operator">=</span> <span class="token class-name">IjkStatus</span><span class="token punctuation">.</span>preparing<span class="token punctuation">;</span>
   <span class="token keyword">await</span> <span class="token function">_initDataSource</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">final</span> Map<span class="token operator">&lt;</span><span class="token keyword">dynamic</span><span class="token punctuation">,</span> <span class="token keyword">dynamic</span><span class="token operator">></span> result <span class="token operator">=</span> <span class="token keyword">await</span> _plugin
+  <span class="token keyword">final</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">dynamic</span><span class="token punctuation">,</span> <span class="token keyword">dynamic</span><span class="token punctuation">></span></span> result <span class="token operator">=</span> <span class="token keyword">await</span> _plugin
   <span class="token punctuation">.</span><span class="token function">executeFFmpegWithArguments</span><span class="token punctuation">(</span>arguments<span class="token punctuation">:</span> <span class="token function">parseArguments</span><span class="token punctuation">(</span>arguments<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  _ijkStatus <span class="token operator">=</span> IjkStatus<span class="token punctuation">.</span>prepared<span class="token punctuation">;</span>
+  _ijkStatus <span class="token operator">=</span> <span class="token class-name">IjkStatus</span><span class="token punctuation">.</span>prepared<span class="token punctuation">;</span>
   <span class="token keyword">return</span> result<span class="token punctuation">[</span><span class="token string">'rc'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
- 在<code>lib/src/controller/plugin.dart</code>中加入如下代码： <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart">Future<span class="token operator">&lt;</span>Map<span class="token operator">&lt;</span><span class="token keyword">dynamic</span><span class="token punctuation">,</span> <span class="token keyword">dynamic</span><span class="token operator">>></span> <span class="token function">executeFFmpegWithArguments</span><span class="token punctuation">(</span>
-  <span class="token punctuation">&#123;</span>List<span class="token operator">&lt;</span>String<span class="token operator">></span> arguments<span class="token punctuation">&#125;</span> <span class="token punctuation">)</span> <span class="token keyword">async</span> <span class="token punctuation">&#123;</span>
+ 在<code>lib/src/controller/plugin.dart</code>中加入如下代码： <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Future</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Map</span><span class="token punctuation">&lt;</span><span class="token keyword">dynamic</span><span class="token punctuation">,</span> <span class="token keyword">dynamic</span><span class="token punctuation">></span><span class="token punctuation">></span></span> <span class="token function">executeFFmpegWithArguments</span><span class="token punctuation">(</span>
+  <span class="token punctuation">&#123;</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> arguments<span class="token punctuation">&#125;</span> <span class="token punctuation">)</span> <span class="token keyword">async</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>isDisposed<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
       <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
     <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> <span class="token keyword">await</span> channel<span class="token punctuation">.</span><span class="token function">invokeMethod</span><span class="token punctuation">(</span><span class="token string">"executeFFmpegWithArguments"</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>String<span class="token punctuation">,</span> <span class="token keyword">dynamic</span><span class="token operator">></span><span class="token punctuation">&#123;</span><span class="token string">'arguments'</span><span class="token punctuation">:</span> arguments<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">await</span> channel<span class="token punctuation">.</span><span class="token function">invokeMethod</span><span class="token punctuation">(</span><span class="token string">"executeFFmpegWithArguments"</span><span class="token punctuation">,</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token keyword">dynamic</span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span><span class="token string">'arguments'</span><span class="token punctuation">:</span> arguments<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li>【flutter-ffmpeg】入【fluter-ijkplayer】：在本地包flutter_ijkplayer下<code>ios/Classes/CoolFlutterIJK.m</code>中增加如下代码： <pre class="line-numbers language-objc" data-language="objc"><code class="language-objc">- (NSDictionary *)toIntDictionary:(NSString*)key :(NSNumber*)value &#123;
    NSMutableDictionary *dictionary &#x3D; [[NSMutableDictionary alloc] init];
@@ -725,7 +721,7 @@ version.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
     <footer class="post-footer">
           <div class="reward-container">
   <div>支持我一杯咖啡吧</div>
-  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+  <button>
     赞赏
   </button>
   <div class="post-reward">
@@ -886,37 +882,33 @@ version.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
 
   
   <script src="https://embed.widgetpack.com/widget.js" async></script>
-  <script class="next-config" data-name="rating" type="application/json">{&quot;enable&quot;:true,&quot;id&quot;:30363,&quot;color&quot;:&quot;#fc6423&quot;}</script>
+  <script class="next-config" data-name="rating" type="application/json">{"enable":true,"id":30363,"color":"#fc6423"}</script>
   <script src="/js/third-party/rating.js"></script>
 <script src="/js/third-party/search/local-search.js"></script>
 
-
-
-  <script class="next-config" data-name="pdf" type="application/json">{&quot;object_url&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;pdfobject@2.2.5&#x2F;pdfobject.min.js&quot;,&quot;integrity&quot;:&quot;sha256-YuNlP9i6s&#x2F;WH7EaU2kErloo9Vc85C3WVqhoMDgsEVpY&#x3D;&quot;},&quot;url&quot;:&quot;&#x2F;lib&#x2F;pdf&#x2F;web&#x2F;viewer.html&quot;}</script>
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.6/pdfobject.min.js","integrity":"sha256-77geM50MfxCD17eqyJR+Dag1svjJOLN+BJ2F/DMqMEY="},"url":"/lib/pdf/web/viewer.html"}</script>
   <script src="/js/third-party/tags/pdf.js"></script>
 
 
-  <script class="next-config" data-name="nprogress" type="application/json">{&quot;enable&quot;:true,&quot;spinner&quot;:true}</script>
-  <script src="/js/third-party/nprogress.js"></script>
 
   
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-  <script class="next-config" data-name="leancloud_visitors" type="application/json">{&quot;enable&quot;:true,&quot;app_id&quot;:&quot;aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI&quot;,&quot;app_key&quot;:&quot;5emR3QDDavLAWsk9ltaj6mwK&quot;,&quot;server_url&quot;:&quot;www.gps949.com&quot;,&quot;security&quot;:false,&quot;betterPerformance&quot;:false}</script>
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
   <script src="/js/third-party/statistics/lean-analytics.js"></script>
 
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.1.0/dist/quicklink.umd.js" integrity="sha256-KK3rvmDcW72MSl9jzzNZWlQjZNrRzAuGhAQ+0SFOg7Q=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{&quot;enable&quot;:true,&quot;home&quot;:true,&quot;archive&quot;:true,&quot;delay&quot;:true,&quot;timeout&quot;:3000,&quot;priority&quot;:true,&quot;ignores&quot;:null,&quot;url&quot;:&quot;https:&#x2F;&#x2F;www.gps949.com&#x2F;2020&#x2F;03&#x2F;16&#x2F;%E4%B8%80%E8%B5%B7%E7%9C%8B%E7%94%B5%E5%BD%B1app%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97&#x2F;&quot;}</script>
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.gps949.com/2020/03/16/%E4%B8%80%E8%B5%B7%E7%9C%8B%E7%94%B5%E5%BD%B1app%E5%BC%80%E5%8F%91%E6%97%A5%E5%BF%97/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
-<script class="next-config" data-name="utterances" type="application/json">{&quot;enable&quot;:true,&quot;repo&quot;:&quot;gps949&#x2F;gps949.github.io&quot;,&quot;issue_term&quot;:&quot;pathname&quot;,&quot;theme&quot;:&quot;github-light&quot;}</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"gps949/gps949.github.io","issue_term":"pathname","theme":"github-light"}</script>
 <script src="/js/third-party/comments/utterances.js"></script>
 
 </body>
