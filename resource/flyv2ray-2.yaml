@@ -103,81 +103,16 @@ proxy-groups:
   - name: 🚀Auto
     type: url-test
     proxies:
-    - flyv2ray
-    - flyv2ray2
-    - flyv2ray3
-    - flyv2ray-hk
-    - flyv2ray2-hk
-    - flyv2ray3-hk
-    - flyv2ray-jp
-    - flyv2ray2-jp
-    - flyv2ray3-jp
-    - ❖CN1❖❸gR.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸gR.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸gR.US川谱 [Hulu] [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸TJ.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN1❖❸TJ.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.HK天机 [荐] [1]  [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.JP武士 [荐] [1] [abema] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.SG烈焰 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❸V2.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸V2.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN2❖❸V2.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❻H2.HK判官 [荐] [2] [NF] [D+]
-    - ❖CN1❖❻TJ.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻TJ.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻TJ.TW剑魂 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻TJ.TW剑魂 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻V2.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻V2.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻V2.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN2❖❻V2.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN1❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN2❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN3❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❻V2.US猎鹰 [Hulu] [HBO] [荐] [1] [NF*] [D+]
+    - backhome
 
     url: http://captive.apple.com
     interval: 600
     
   - name: ⏲fallback
     type: fallback
-    proxies: 
-    - flyv2ray
-    - flyv2ray2
-    - flyv2ray3
-    - flyv2ray-hk
-    - flyv2ray2-hk
-    - flyv2ray3-hk
-    - flyv2ray-jp
-    - flyv2ray2-jp
-    - flyv2ray3-jp
-    - ❖CN1❖❸gR.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸gR.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸gR.US川谱 [Hulu] [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸TJ.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN1❖❸TJ.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.HK天机 [荐] [1]  [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.JP武士 [荐] [1] [abema] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.SG烈焰 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❸V2.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸V2.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN2❖❸V2.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❻H2.HK判官 [荐] [2] [NF] [D+]
-    - ❖CN1❖❻TJ.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻TJ.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻TJ.TW剑魂 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻TJ.TW剑魂 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻V2.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻V2.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻V2.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN2❖❻V2.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN1❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN2❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN3❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❻V2.US猎鹰 [Hulu] [HBO] [荐] [1] [NF*] [D+]
+    proxies:
+    - backhome
+
 
     url: http://captive.apple.com
     interval: 600
@@ -185,88 +120,8 @@ proxy-groups:
   - name: 🚧Proxy
     type: select
     proxies:
-    - 🐦FlyAuto-US
-    - 🐦FlyAuto-JP
-    - 🐦FlyAuto-HK
-    - 🚀Auto
-    - ⏲fallback
     - DIRECT
-    - flyv2ray
-    - flyv2ray2
-    - flyv2ray3
-    - flyv2ray-hk
-    - flyv2ray2-hk
-    - flyv2ray3-hk
-    - flyv2ray-jp
-    - flyv2ray2-jp
-    - flyv2ray3-jp
-    - ovm-amd1-vm
-    - ovm-amd1-tj
-    - ovm-amd2-vm
-    - ovm-amd2-tj
-    - ovm-amd1b-vm
-    - ovm-amd1b-tj
-    - ovm-amd2b-vm
-    - ovm-amd2b-tj
-    - hax-us-vm
-    - hax-us-tj
-    - dmit-us-vm
-    - dmit-us-tj
-    - ❖CN1❖❸gR.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸gR.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸gR.US川谱 [Hulu] [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸TJ.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN1❖❸TJ.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.HK天机 [荐] [1]  [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.JP武士 [荐] [1] [abema] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.SG烈焰 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❸V2.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸V2.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN2❖❸V2.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❻H2.HK判官 [荐] [2] [NF] [D+]
-    - ❖CN1❖❻TJ.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻TJ.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻TJ.TW剑魂 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻TJ.TW剑魂 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻V2.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻V2.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻V2.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN2❖❻V2.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN1❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN2❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN3❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❻V2.US猎鹰 [Hulu] [HBO] [荐] [1] [NF*] [D+]
-    
-  - name: 🐦FlyAuto-US
-    type: url-test
-    proxies:
-    - flyv2ray
-    - flyv2ray2
-    - flyv2ray3
-    
-    url: http://captive.apple.com
-    interval: 60
-    
-  - name: 🐦FlyAuto-JP
-    type: url-test
-    proxies:
-    - flyv2ray-jp
-    - flyv2ray2-jp
-    - flyv2ray3-jp
-    
-    url: http://captive.apple.com
-    interval: 60
-    
-  - name: 🐦FlyAuto-HK
-    type: url-test
-    proxies:
-    - flyv2ray-hk
-    - flyv2ray2-hk
-    - flyv2ray3-hk
-    
-    url: http://captive.apple.com
-    interval: 60
+    - backhome
 
   - name: 💳Paypal
     type: select
@@ -274,40 +129,8 @@ proxy-groups:
     - 🚧Proxy
     - 🇨🇳国内网站或资源
     - DIRECT
-    - flyv2ray
-    - flyv2ray2
-    - flyv2ray3
-    - flyv2ray-hk
-    - flyv2ray2-hk
-    - flyv2ray3-hk
-    - flyv2ray-jp
-    - flyv2ray2-jp
-    - flyv2ray3-jp
-    - ❖CN1❖❸gR.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸gR.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸gR.US川谱 [Hulu] [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸TJ.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN1❖❸TJ.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.HK天机 [荐] [1]  [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.JP武士 [荐] [1] [abema] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.SG烈焰 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❸V2.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸V2.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN2❖❸V2.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❻H2.HK判官 [荐] [2] [NF] [D+]
-    - ❖CN1❖❻TJ.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻TJ.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻TJ.TW剑魂 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻TJ.TW剑魂 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻V2.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻V2.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻V2.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN2❖❻V2.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN1❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN2❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN3❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❻V2.US猎鹰 [Hulu] [HBO] [荐] [1] [NF*] [D+]
+    - backhome
+
 
 
   - name: 🎬Netflix等国外流媒体
@@ -315,40 +138,10 @@ proxy-groups:
     proxies:
     - 🚧Proxy
     - DIRECT
-    - flyv2ray
-    - flyv2ray2
-    - flyv2ray3
-    - flyv2ray-hk
-    - flyv2ray2-hk
-    - flyv2ray3-hk
-    - flyv2ray-jp
-    - flyv2ray2-jp
-    - flyv2ray3-jp
-    - ❖CN1❖❸gR.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸gR.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸gR.US川谱 [Hulu] [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸TJ.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN1❖❸TJ.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.HK天机 [荐] [1]  [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.JP武士 [荐] [1] [abema] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.SG烈焰 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❸V2.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❸V2.TW彰化 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❸V2.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN2❖❸V2.TW高雄 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❻H2.HK判官 [荐] [2] [NF] [D+]
-    - ❖CN1❖❻TJ.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻TJ.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻TJ.TW剑魂 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻TJ.TW剑魂 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻V2.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN2❖❻V2.HK九龙 [荐] [1] [NF] [D+] [Yp]
-    - ❖CN1❖❻V2.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN2❖❻V2.HK判官 [荐] [1] [NF] [D+]
-    - ❖CN1❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN2❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN3❖❻V2.TW宝岛 [荐] [1] [NF*] [D+] [Yp]
-    - ❖CN1❖❻V2.US猎鹰 [Hulu] [HBO] [荐] [1] [NF*] [D+]
+    - backhome
+
+
+ 
     
   - name: 📺爱奇艺等国内流媒体
     type: select
