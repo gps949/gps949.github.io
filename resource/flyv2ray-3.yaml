@@ -83,7 +83,7 @@ proxies:
     type: vmess
     udp: true
     server: ovm-amd2.gps.moe
-    port: 8080
+    port: 18080
     uuid: 2d46a8c9-e758-4e2d-83d1-a51f8fafb51f
     alterId: 0
     cipher: auto
