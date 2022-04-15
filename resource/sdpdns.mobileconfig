@@ -12,7 +12,7 @@
 				<key>ServerAddresses</key>
 				<array>
 					<string>2603:c023:1:1414::1004</string>
-					<string>152.69.195.86</string>
+					<string>168.138.42.22</string>
 				</array>
 				<key>ServerURL</key>
 				<string>https://dns.gps.moe/dns-query</string>
@@ -22,11 +22,11 @@
 			<key>PayloadDisplayName</key>
 			<string>GPSMOE DNS over HTTPS</string>
 			<key>PayloadIdentifier</key>
-			<string>com.apple.vpn.managed.C06CADF7-7AAF-4426-933A-25E1792277CF</string>
+			<string>com.apple.dnsSettings.managed.e17cf1fa-0f0f-48a9-a68b-395804ed1850</string>
 			<key>PayloadType</key>
 			<string>com.apple.dnsSettings.managed</string>
 			<key>PayloadUUID</key>
-			<string>C06CADF7-7AAF-4426-933A-25E1792277CF</string>
+			<string>28b90644-fc1e-409a-81e7-939598fee661</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>ProhibitDisablement</key>
