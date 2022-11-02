@@ -20,37 +20,36 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
-<meta name="description" content="域名服务(Domain Name Service)发明于1983年。DNS是一个可以让你把名字转换成IP地址的系统，这样你的电脑就可以知道如何连接像google.com这样的网站。这是一个简单的服务，因此4.3 BSD的作者指定了一个名为&#x2F;etc&#x2F;resolv.conf的简单配置文件:    $ cat &#x2F;etc&#x2F;resolv.conf    nameserver 100.100.2.136">
+<meta name="description" content="之前有一篇译自Tailscale博客的关于DNS的技术文章，里面更主要的讨论的是终端设备上DNS配置管理的问题，今天这篇同样译自Tailscale博客的关于DNS的技术文章，可能更多的是讨论DNS的解析运作过程。那么下面是原博客文章内容：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux上DNS客户端配置的西西弗斯式任务">
-<meta property="og:url" content="https://www.gps949.com/2021/04/21/Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1/index.html">
+<meta property="og:title" content="关于DNS、魔法及其他的史诗论文">
+<meta property="og:url" content="https://www.gps949.com/2022/11/01/%E5%85%B3%E4%BA%8EDNS%E3%80%81%E9%AD%94%E6%B3%95%E5%8F%8A%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%B2%E8%AF%97%E8%AE%BA%E6%96%87/index.html">
 <meta property="og:site_name" content="小北极星笔记">
-<meta property="og:description" content="域名服务(Domain Name Service)发明于1983年。DNS是一个可以让你把名字转换成IP地址的系统，这样你的电脑就可以知道如何连接像google.com这样的网站。这是一个简单的服务，因此4.3 BSD的作者指定了一个名为&#x2F;etc&#x2F;resolv.conf的简单配置文件:    $ cat &#x2F;etc&#x2F;resolv.conf    nameserver 100.100.2.136">
+<meta property="og:description" content="之前有一篇译自Tailscale博客的关于DNS的技术文章，里面更主要的讨论的是终端设备上DNS配置管理的问题，今天这篇同样译自Tailscale博客的关于DNS的技术文章，可能更多的是讨论DNS的解析运作过程。那么下面是原博客文章内容：">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.gps949.com/images/dns_on_linux/image1.png">
-<meta property="og:image" content="https://www.gps949.com/images/dns_on_linux/image2.png">
-<meta property="og:image" content="https://www.gps949.com/images/dns_on_linux/image3.png">
-<meta property="og:image" content="https://www.gps949.com/images/dns_on_linux/image4.png">
-<meta property="og:image" content="https://www.gps949.com/images/dns_on_linux/image5.png">
-<meta property="article:published_time" content="2021-04-21T02:17:00.000Z">
-<meta property="article:modified_time" content="2021-04-21T02:17:00.000Z">
+<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/DNS.svg">
+<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/geolocated.svg">
+<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/hijacking.svg">
+<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/delegation.svg">
+<meta property="article:published_time" content="2022-11-01T08:22:35.000Z">
+<meta property="article:modified_time" content="2022-11-01T08:22:35.000Z">
 <meta property="article:author" content="小北极星">
 <meta property="article:tag" content="计算机">
 <meta property="article:tag" content="网络">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="DNS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.gps949.com/images/dns_on_linux/image1.png">
+<meta name="twitter:image" content="https://tailscale.com/blog/magicdns-why-name/DNS.svg">
 
 
-<link rel="canonical" href="https://www.gps949.com/2021/04/21/Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1/">
+<link rel="canonical" href="https://www.gps949.com/2022/11/01/%E5%85%B3%E4%BA%8EDNS%E3%80%81%E9%AD%94%E6%B3%95%E5%8F%8A%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%B2%E8%AF%97%E8%AE%BA%E6%96%87/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.gps949.com/2021/04/21/Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1/","path":"2021/04/21/Linux上DNS客户端配置的西西弗斯式任务/","title":"Linux上DNS客户端配置的西西弗斯式任务"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.gps949.com/2022/11/01/%E5%85%B3%E4%BA%8EDNS%E3%80%81%E9%AD%94%E6%B3%95%E5%8F%8A%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%B2%E8%AF%97%E8%AE%BA%E6%96%87/","path":"2022/11/01/关于DNS、魔法及其他的史诗论文/","title":"关于DNS、魔法及其他的史诗论文"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Linux上DNS客户端配置的西西弗斯式任务 | 小北极星笔记</title>
+<title>关于DNS、魔法及其他的史诗论文 | 小北极星笔记</title>
   
 
   <script src="/js/third-party/analytics/baidu-analytics.js"></script>
@@ -148,7 +147,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -161,6 +160,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS%E6%82%B2%E5%89%A7%EF%BC%9A%E5%91%BD%E5%90%8D%E4%BA%8B%E7%89%A9%E4%BD%86%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88"><span class="nav-number">1.</span> <span class="nav-text">DNS悲剧：命名事物但缓存失效</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS%E5%8A%A0%E5%AF%86%EF%BC%88%E5%B9%B6%E4%B8%8D%E6%98%AF%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">DNS加密（并不是）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A7%94%E6%89%98%EF%BC%88%E5%8F%AF%E8%83%BD%E5%8D%B1%E9%99%A9%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">委托（可能危险）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%90%91DNS%EF%BC%88%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84DNS%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">反向DNS（另一个完整的DNS）</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -282,7 +282,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.gps949.com/2021/04/21/Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1/">
+    <link itemprop="mainEntityOfPage" href="https://www.gps949.com/2022/11/01/%E5%85%B3%E4%BA%8EDNS%E3%80%81%E9%AD%94%E6%B3%95%E5%8F%8A%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%B2%E8%AF%97%E8%AE%BA%E6%96%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_3322.jpg">
@@ -295,7 +295,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux上DNS客户端配置的西西弗斯式任务
+          关于DNS、魔法及其他的史诗论文
         </h1>
 
         <div class="post-meta-container">
@@ -306,7 +306,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-04-21 10:17:00" itemprop="dateCreated datePublished" datetime="2021-04-21T10:17:00+08:00">2021-04-21</time>
+      <time title="创建时间：2022-11-01 16:22:35" itemprop="dateCreated datePublished" datetime="2022-11-01T16:22:35+08:00">2022-11-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -319,7 +319,7 @@
     </span>
 
   
-    <span id="/2021/04/21/Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1/" class="post-meta-item leancloud_visitors" data-flag-title="Linux上DNS客户端配置的西西弗斯式任务" title="阅读次数">
+    <span id="/2022/11/01/%E5%85%B3%E4%BA%8EDNS%E3%80%81%E9%AD%94%E6%B3%95%E5%8F%8A%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%B2%E8%AF%97%E8%AE%BA%E6%96%87/" class="post-meta-item leancloud_visitors" data-flag-title="关于DNS、魔法及其他的史诗论文" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -332,14 +332,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.2k</span>
+      <span>4.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -350,58 +350,60 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>　　域名服务(Domain Name Service)发明于1983年。DNS是一个可以让你把名字转换成IP地址的系统，这样你的电脑就可以知道如何连接像google.com这样的网站。这是一个简单的服务，因此4.3 BSD的作者指定了一个名为<code>/etc/resolv.conf</code>的简单配置文件:   </p>
-<pre><code class="shell">$ cat /etc/resolv.conf   
-nameserver 100.100.2.136   
-nameserver 100.100.2.138   
-</code></pre>
+        <p>之前有<a href="Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1">一篇译自Tailscale博客的关于DNS的技术文章</a>，里面更主要的讨论的是终端设备上DNS配置管理的问题，今天这篇同样译自Tailscale博客的关于DNS的技术文章，可能更多的是讨论DNS的解析运作过程。那么下面是原博客文章内容：   </p>
 <span id="more"></span>
-<p>　　在这种情况下，它告诉DNS解析函数使用192.168.122.1作为DNS服务器。这意味着当你查找像google.com这样的网站时，它会要求192.168.122.1为你查找:   </p>
-<pre><code class="shell">$ nslookup google.com
-Server:         100.100.2.136
-Address:        100.100.2.136#53
-
-Non-authoritative answer:
-Name:   google.com
-Address: 172.217.174.206
-Name:   google.com
-Address: 2404:6800:4005:809::200e 
-</code></pre>
-<p>　　如果是在以前，我们可能只需要安全地修改/etc/resolv.conf，这样就结束了。<br>　　然而，像DHCP这样的东西出现了，并且给这种对应增加了一些必要的复杂性。DHCP是一个协议，它让网络上的机器通过漫无目的地对网络上的每个设备大喊大叫，直到有人告诉他们应该使用什么配置。DHCP提供的东西之一是网络首选DNS服务器的IP地址。<code>/etc/resolv.conf</code>的内容需要由某个程序来管理，如果有分歧，不同意见的程序(如DHCP客户端和其他程序)需要竞争DNS控制权。大多数发行版和定制设置开始使用一个搜索不到的叫做<code>resolvconf</code>的程序来帮助实现这一点。<br>　　<code>resolvconf</code>会在<code>/etc/resolv.conf</code>的开头添加一条注释，让你知道<code>resolvconf</code>正在管理它:   </p>
-<pre><code class="shell"># Generated by resolvconf   
-</code></pre>
-<p>　　<code>resolvconf</code>是一个松散的管理DNS公约，由多个程序以略微互不兼容的方式实现。最常见的两个是<a target="_blank" rel="noopener" href="https://gitlab.com/jdthood/resolvconf">Debian的<code>resolvconf</code></a>和<a target="_blank" rel="noopener" href="http://roy.marples.name/projects/openresolv">openresolv</a>。<br>　　当一些东西对DNS配置有意见时，需要某种方法在它们之间进行仲裁。Debian的<code>resolvconf</code>采用了让每个人都赢的策略，并安装了一个混合了所有输入的配置。这在除了你实际上希望能够完全覆盖DNS配置(例如，因为一个管理员通过某程序设置了一个强制DNS配置）之外的情况是很好的。在其中某程序认为自己比其他程序更正确，但其他程序对自己的看法也是一样的，Debian resolvconf拒绝选出一个赢家。<br>　　<code>openresolv</code>则允许指定DNS服务器的优先级顺序。此外，它允许程序指定一个“独占”模式，在这种模式下，总是倾向于选择一种选项，而其他选项将被丢弃。如果两个程序想要处于“独占”模式，最后一个提供配置的程序获胜，我们将回到DNS控制权的竞争中。<br>　　之后FreeDesktop的人注意到这种持续不断的DNS控制权之争非常恼人(更不用说配置wifi连接更加恼人) ，他们一起创造了更好的路径并将之称为<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/NetworkManager">NetworkManager</a>。它使用称之为<a target="_blank" rel="noopener" href="https://www.freedesktop.org/wiki/Software/dbus/">D-Bus</a>的协议允许其他程序告诉他该做什么。这是在<code>resolvconf</code>上的显著改进。要使用<code>resolvconf</code>更新<code>/etc/resolv.conf</code>，您需要将所需的配置通过管道传送到<code>resolvconf</code>，并希望您所希望的事情真正发生。NetworkManager的API有个模式且允许内省（自检？），从而使得程序一端更加容易。<br>　　NetworkManager的目标是成为一个守护进程来制定Linux上所有的网络管理的规则。尽管它有自己的方式来管理<code>/etc/resolv.conf</code>，但有时可以将NetworkManager配置为使用<code>resolvconf</code>来管理<code>/etc/resolv.conf</code>。这发生在比想象更多的发行版上。网络管理器很好地隐藏了大量困难的部分，并允许用户使用GUI工具配置网络。<br>　　NetworkManager在很长一段时间内都是DNS配置的标准和最好的选择(到今天仍有些发行版更喜欢它) ，但是随着事情变得越来越复杂而需要一些功能更强大的东西。<a target="_blank" rel="noopener" href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a>项目创建了一个名为<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Systemd-resolved">systemd-resolved</a>的解决方案，允许管理员对每个网络接口上如何解析DNS进行更多的控制。以下是一台Linux机器的解析状态:   </p>
-<pre><code class="shell">$ resolvectl status
-Global
-           Protocols: +LLMNR +mDNS -DNSOverTLS DNSSEC=no/unsupported
-    resolv.conf mode: stub
-  Current DNS Server: 100.100.100.100
-         DNS Servers: 100.100.100.100 8.8.8.8 1.1.1.1
-Fallback DNS Servers: 100.100.100.100 8.8.8.8 1.1.1.1
-          DNS Domain: akua.xeserv.us christine.website.beta.tailscale.net
-
-Link 2 (enp5s0)
-Current Scopes: LLMNR/IPv4 LLMNR/IPv6
-     Protocols: -DefaultRoute +LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
-
-Link 9 (tailscale0)
-Current Scopes: LLMNR/IPv4 LLMNR/IPv6
-     Protocols: -DefaultRoute +LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported
-</code></pre>
-<p>　　systemd-resolved允许使用<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/DNS_over_TLS">DNS over TLS</a>，这是超出本文讨论中心的内容。不过systemd-resolved也允许第三方程序通过其D-Bus API(并非和 NetworkManager同样的API)可靠地配置它。<br>　　当然，这里假设我们将DNS视为一个全球一致的名称空间，就像DNS最初被发明时的设想一样，但事实并非总是如此。<br>　　一些网络或组织拥有处理无法通过互联网解析名称的自己的私有DNS服务器。这让事情变得更加复杂，由于缺乏更好的术语，可将这种设置称为“分裂DNS”。<br>　　IP流量使用路由表在其他机器之间进行路由。这个路由表有一个网络和如何使用它们的说明列表。要正确处理“分裂DNS”设置，您需要一个DNS的路由表，按子域而非IP地址拆分。这就是Windows、macOS和Linux（使用systemd-resolved）处理这类配置的方式。例如，您可以有一个DNS路由表看起来像下面这样:   </p>
+<p>命名产品是困难的，Tailscale的关键特性之一，MagicDNS，长期以来是词法正义的焦点。一些人认为我们应该叫它Magic DNS因为苹果将他们旗舰键盘和鼠标叫做Magic Keyboard和Magic Mouse。<br>但你注意到过没有，苹果也将它们的笔记本和无线耳机叫做MacBooks和AirPods？他们这样做是因为英语中一个晦涩（且呆板）的规则，当移除名词短语中的形容词会改变名词含义时，可以移除空格制造合成词。不含magic的Magic Keyboard依然是键盘，不含Mac的MacBook却不是本书了。由此，MagicDNS是一个词就是因为去掉magic不会只是DNS，它不会成为任何事物。Tailscale已经有了DNS和split DNS（两个词！）的配置，但MagicDNS是个不同的东西。   </p>
 <ul>
-<li>　　如果域名以<code>.akua</code>结尾，查询<code>10.77.2.2</code>   </li>
-<li>　　如果域名以<code>.local</code>结尾，查询Bonjour   </li>
-<li>　　其他情况查询<code>1.1.1.1</code>或<code>8.8.8.8</code>   　　这些设置比想象的更加普遍，几乎每个有Mac的家庭都在使用。这可以让你通过<code>computername.local</code>自动发现域计算机名的IP地址。大多数企业VPN也希望通过此将其内部服务(如git、数据库或IRC服务器)解析到VPN之后的IP地址。这可以防止将请求泄漏给公共DNS服务，而Linux(即在没有运行systemd-resolved时)缺乏这种开箱即用的支持一直是一个重大限制。<br>　　<code>/etc/resolv.conf</code>不支持基于域名的DNS路由，因此第三方应用在最基本的配置中，可能需要守护进程中的过程中解析器内实现路由，并告诉操作系统将其所有DNS流量发送到其指定的DNS（如100.100.100.100）。这些流量通过机器上程序的进程在本地处理，并让基于resolv.conf的系统拥有“分裂DNS”。这仍然不得不偶尔竞争DNS控制权，这取决于试图编辑<code>/etc/resolv.conf</code>的其他程序。<code>resolvconf</code>是类似，可能在配置竞争上要少一些。<br>　　然后，NetworkManager能够控制<code>/etc/resolv.conf</code>、 <code>resolvconf</code>，可能还有一个名为<a target="_blank" rel="noopener" href="https://thekelleys.org.uk/dnsmasq/doc.html"><code>dnsmasq</code></a>的DNS服务器。唯一允许“分裂DNS”的是<code>dnsmasq</code>模式。这意味着第三方程序需要关心NetworkManager处于哪种模式，可能使用这段<a target="_blank" rel="noopener" href="https://github.com/tailscale/tailscale/blob/main/net/dns/manager_linux.go#L22-L58">代码</a>来实现这一点。这有一些额外的代码来处理应该使用NetworkManager的情况，但是它不能响应Ping(感谢$DEITY，标准的D-Bus方式是让每个对象实现一个“Ping”方法) ，这种情况下再次陷入困境。<br>　　这一切的一个主要困难是Linux系统上的名称解析非常糟糕，这些方法中的每一个都会导致略微不同的行为。如果我们为<code>go.akua</code>做一个解析会发生什么？它会进入公共互联网的解析器吗？它会转到正确的“分裂DNS”吗？它会因为某种原因被送到Tor吗？它会被发送到你当地咖啡店的公共wifi热点上潜在的危险DNS服务器上吗？它会通过UDP，TCP或者DNS over HTTPS发送吗？我们不知道。这些东西没有被记录下来，因此你需要想尽办法来了解它做了什么。另外，glibc和musl的行为也有不同。<br>　　该如何正确做的一个例子是systemd-resolved，它可以原生地做到现代“分裂DNS”VPN的一切，因此理论上不需要额外的工作。systemd团队<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man8/systemd-resolved.service.8.html">细心地写下了他们所做的事情</a>，并且明确地表明了你应该如何摆弄来得到你想要的东西，这是基础设施项目应该努力拥有的那类文档。<br>　　现在，如果需要在Linux上提供一个DNS服务器，并且必须弄清楚应该如何配置系统的解析器，按照下面这样做：   　　首先，检查<code>/etc/resolv.conf</code>是否存在，如果没有则可以覆盖。<br><img data-src="/images/dns_on_linux/image1.png"><br>　　如果存在，那么需要检查文件的所有者（通过检查文件顶部的magic字段）例如：   <pre><code class="shell"># Generated by resolvconf
-</code></pre>
-<pre><code class="shell"># This is /run/systemd/resolve/stub-resolv.conf managed by man:systemd-resolved(8).
-# Do not edit.
-</code></pre>
-<pre><code class="shell"># Generated by NetworkManager
-</code></pre>
-　　这将告诉我们哪个服务在管理<code>/etc/resolv.conf</code>文件，如果找不到任何所有者则需要替换掉<code>/etc/resolv.conf</code>并祈祷。<br>　　如果<code>resolvconf</code>正在使用，那么你也应该使用，前提是<code>resolvconf</code>二进制文件在$PATH中:<br><img data-src="/images/dns_on_linux/image2.png"><br>　　如果这个配置看起来属于NetworkManager，那么需要检查NetworkManager是否可以通过D-Bus访问，如果可以那么使用它，否则，需要重新覆盖resolv.conf。<br>　　NetworkManager还给resolvconf的路径添加了一个问题: 如果resolvconf生成的配置来自NetworkManager，应当尝试使用NetworkManager而不是resolvconf。因此，需做一个额外的检测，看看是否resolvconf是由NetworkManager提供的，如果是则切换到NetworkManager。<br>　　如果resolvconf似乎是由NetworkManager提供的，但是无法与NetworkManager通信，就应该退回到使用resolvconf。<br><img data-src="/images/dns_on_linux/image3.png"><br>　　如果使用systemd-resolved，事情应该进行顺利… 但有一个问题，直到最近为止NetworkManager对systemd-resolved的配置有点不正确，从而使得如果自行与systemd-resolved进行对话不可能覆盖默认的解析程序。这点是在2020年12月通过NetworkManager 1.26.6修复的(<a target="_blank" rel="noopener" href="https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/issues/688">相关的错误报告</a>)。<br>　　因此，如果正在使用systemd-resolved，需要检查NetworkManager是否也存在以及它是否将其配置推送到systemd-resolved中。如果是则必须使用NetworkManager来配置DNS，即使它的功能比systemd-resolved稍少一些。<br><img data-src="/images/dns_on_linux/image4.png"><br>　　上面这样设置将允许以一致的方式在Linux系统上配置DNS。此外还需要为服务所需的DNS路由位实现一个“polyfill”，以应对每种没有路由感知DNS配置的情况(上图中的大多数情况)。<br>　　如果你决定将来要提供一些新的DNS配置管理服务，请确保它有文档记录包含它与图中其余部分的相互作用。<br>　　对于Linux发行版的维护者而言，可能会想知道应该给用户带来这些纷乱中的哪一部分。建议使用systemd-resolved，而如果需要用户友好的网络配置，则使用最新版本的NetworkManager(1.26.6或更好)。这将提供发行版最先进的DNS能力，并使网络软件的实现者更高兴。使用这种设置的DNS配置图像如下:<br><img data-src="/images/dns_on_linux/image5.png">   </li>
+<li>&lt;**Xe**&gt; 他们也可以为了商标这样做！相比“面包”、“键盘”、”书“等，非常规词更容易申请商标。   </li>
+<li>&lt;**Avery**&gt; 另一方面，为了避免商标雷区，有时大型公司会采用&lt;商标&gt;&lt;通用词&gt;的形式命名产品，如微软Word或谷歌Mail。如果一个产品名字包含公司名，你可以相当确信没别人能那样叫他们的产品。      </li>
 </ul>
-<p><sup>*</sup> <small>注：本文译自Tailscale的<a target="_blank" rel="noopener" href="https://tailscale.com/blog/sisyphean-dns-client-linux/">Blog</a>,并在其基础上有所删改。文本的全部最终权利归原作者所有。</small></p>
+<p>Tailscale允许你<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1054/dns/">管理你机器的DNS配置</a>，这使你可设置机器对整个互联网或者匹配特定域（split DNS）首选DNS服务器。这是整洁并且使得本地DNS配置更如人们在<code>/etc/resolve.conf</code>添加多条DNS解析器通常所期待的。<br>但那不是MagicDNS，仅仅是稍好点的DNS。MagicDNS在这些特性之上构建，完全改变名字解析工作方式令新使用场景DNS安全。它是Tailscale和你的基础设施可以构建在其上的构件。<br>今天我们看看DNS的问题空间，这些年复杂性怎么被层层叠加，MagicDNS怎样去除全部的复杂性并在过程中使得一切更可靠。   </p>
+<h1 id="DNS悲剧：命名事物但缓存失效"><a href="#DNS悲剧：命名事物但缓存失效" class="headerlink" title="DNS悲剧：命名事物但缓存失效"></a>DNS悲剧：命名事物但缓存失效</h1><p>DNS是种听起来简单的服务之一。将名字映射到数字，是吧？但在现代互联网背后它是更复杂的一件事。它早于现代互联网，我们今天先不讨论这点。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/DNS.svg">   </p>
+<center><p>解释DNS如何工作的图。笔记本向DNS服务器询问tailscale.com的IP地址得到82.58.46.8的回复</p></center>      
+
+<ul>
+<li>&lt;**Xe**&gt; 如果你要以一种更可视化的方法学习更多关于DNS如何查询，可以看Pingdom的<a target="_blank" rel="noopener" href="https://www.pingdom.com/blog/a-visual-explanation-of-how-dns-lookups-work/">这个解释</a>。它是复杂的，有许多我们在下面将讨论的单独的委托步骤。<br>我们可以将DNS认为是第一个全球分布式数据库。DNS设计成全局收敛的（随着时间推移整个系统同意什么名字指向什么IP地址），所以无论请求源自渥太华、旧金山、西雅图还是帕劳，查询<code>google.com</code>将总指向同样的IP。   </li>
+<li>&lt;**Avery**&gt;好，实际上google.com可能是互联网上最坏的例子了，因为他们采用了太多的泛播和DNS技巧令你永远不会知道你将得到什么IP地址。但为了我们的目的，让我们想象Google像一般人一样使用DNS。   </li>
+</ul>
+<p>DNS是全局收敛的，因为随着时间推移，如缓存过期，每个互联网上DNS服务器可以最终对同样查询同样回答。每个DNS记录有存活时间（TTL）设置，指定回答在多长时间有效。不幸的是，DNS客户端和服务器可能选择忽略建议的TTL值并使用他们自己的TTL。一些ISP声称这样是为了”减少网络流量“，但这样违背DNS RFC导致产生非常难以debug的微妙问题。   </p>
+<ul>
+<li>&lt;**Avery**&gt; 此外，任何基于轮询（相对于基于推送）的带静态时间周期的缓存总会有这样的问题：该选择怎样的缓存超时。如果太短，会增加查询延迟和服务器负载，如果太长，修改会需要时间（有时是数小时或数天）来传播。这就是为何中介人介入并试图通过扰乱TTL来”修复“这个问题。但他们总是最终产生不同的问题。   </li>
+</ul>
+<p>这种一个名字对一个 IP 地址的模式在互联网只有一块大陆那么大并且不经常重新布线时候运行良好。但当你在全世界都有服务器，希望用户直接访问最近的一个或者忽略刚好宕机区域时，就会失效了。所以运营者拉取DNS服务器到他们的负载均衡基础设施，将用户指向最近的应用服务器而非任何一个正确答案。   </p>
+<p><img data-src="https://tailscale.com/blog/magicdns-why-name/geolocated.svg">   </p>
+<center><p>一个DNS服务器为位于不同物理位置的两个笔记本提供不同的回答</p></center>   
+这有时会导致 ISP 设置的过于热心的缓存解析器出现问题，使得路由器无法使用符合规范的解析器，或者当您使用其他地方托管的 DNS 服务器时，无法从负载平衡器获得最佳本地化解决方案。但总体上它是可以奏效的。    
+
+<ul>
+<li>&lt;**Xe**&gt; 当然这里假设你的政府、ISP或是当地咖啡馆WiFi没有不怀好意地劫持DNS。<br>作为一个社会，我们放弃世界上每处都要将每个DNS名字总映射到相同的IP地址这一规则。实践中这通常不会伤害我们，除了我们试图调试它时。然后它可以是简单的，也可以是非常困难以至于使得你开始重新考虑你的职业抱负并考虑进入农业需要多少开销。奶牛<a target="_blank" rel="noopener" href="https://economicdashboard.alberta.ca/livestockprices">出奇的贵</a>！   </li>
+<li>&lt;**Xe**&gt; 将DNS变化如何被全球人们观察到的方法称作”传播“是个常见的误解。这技术上不正确。大多数情况下，你等待的是缓存过期，然后下个请求被转发到上游 DNS 服务器以获得准确的信息。这就是为什么人们称DNS为”全局一致“：随着时间的推移，整个互联网将逐渐在哪个名字指向哪个IP地址的回答集合上趋于一致。然而实践中ーー考虑到数据实际上是如何在互联网上移动的ーー说是 DNS 查询具有从原始 DNS 服务器传播出去的效果并非完全错误。   </li>
+</ul>
+<h1 id="DNS加密（并不是）"><a href="#DNS加密（并不是）" class="headerlink" title="DNS加密（并不是）"></a>DNS加密（并不是）</h1><p>DNS是非加密、无鉴别的协议。查询和响应在互联网上以明文发送。这意味着无论谁只要发送正确的名字就能得到IP地址。   </p>
+<ul>
+<li>&lt;**Xe**&gt; 通过设置私有DNS服务器（通常称之为”split horizon”DNS）可以将发布私有主机名到公共DNS的隐私风险最小化，私有DNS服务器拥有与公共互联网不同的域名相应集合。你可以通过VPN（例如Tailscale管理员控制台的DNS页签）连接那些，但你会失去DNS的全局一致性和缓存特性。在许多情形，你可以通过在公共DNS服务器返回私有IP段，但这取决于你偏执的程度。并且有时公共DNS服务器<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/DNS_rebinding">安全特性会拒绝私有IP段</a>。   </li>
+</ul>
+<p>由于DNS回复没有加密和签名，你也从不会十分确定你得到的DNS响应在中途被篡改。攻击者可以轻易地嗅探并返回个将<code>google.com</code>指向<code>badgooglephish.com</code>IP地址的包。你的iPhone也不会察觉。有一套叫做<a target="_blank" rel="noopener" href="https://www.cloudflare.com/en-ca/dns/dnssec/how-dnssec-works/">DNSSEC</a>的扩展试图使用我没有资格解释的有趣的密码学去修复这些问题。但这才是缺点真正显露出来的地方。Slack最近有个<a target="_blank" rel="noopener" href="https://slack.engineering/what-happened-during-slacks-dnssec-rollout/">相当严重的生产中断</a>，完全可以追溯到为了FedRAMP合规而启用DNSSEC的尝试。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/hijacking.svg">   </p>
+<center><p>DNS被劫持，展现劫持者可以扰乱DNS结果</p></center>   
+
+<ul>
+<li>&lt;**Avery**&gt; DNSSEC并不像听起来那么好。 @tqbf 有个详尽的呼吁叫做 <a target="_blank" rel="noopener" href="https://sockpuppet.org/blog/2015/01/15/against-dnssec/">反对DNSSEC</a> 系统地驳斥了你可能使用DNSSEC的每个原因。我猜，除了FedRAMP。   </li>
+</ul>
+<p>DNSSEC看起来并不会推广开。所以在空缺环境中，有一些至少通过加密信道携带（部分）DNS的新协议。但作为进程中的一部分，你的机器通常创建到Google、Cloudflare或者其他的HTTPS会话。中间人可以看到（并且理论上可以篡改）明文的DNS请求和响应。根据你的威胁profile，那通常不能解决你全部的安全和隐私担忧。   </p>
+<ul>
+<li>&lt;**Xe**&gt; 有像<a target="_blank" rel="noopener" href="https://www.gnunet.org/en/gns.html">GNS</a>这样的新项目开启端到端的请求隐私。但它们有其他缺点并且没有广泛部署。对于使用它的人们很好，但大多数人不用它。   </li>
+</ul>
+<p>所以在一般部署中，DNS没有中途加密、真实性或验证机制。这也意味着没有途径去指出一个客户端是否被授权访问一条给定的DNS记录。没有原生方法去建立身份和DNS请求之间的关联。这意味着更新DNS记录（例如动态DNS）不能通过DNS自身完成，就需要委托给使用非标准API的第三方。没有自动化DNS修改的好API，只有我们别无选择而容忍的API。   </p>
+<ul>
+<li>&lt;**Xe**&gt; 存在像<a target="_blank" rel="noopener" href="https://sssd.io/design-pages/active_directory_dns_updates.html">DNS UPDATE requests</a> 允许你通过DNS更新DNS记录，但这几乎只在部署Windows的Active Directory时使用。它也未修复以明文发送身份验证凭据的问题，所以只在公司私有网络有用，而不是互联网可通用的构件。   </li>
+</ul>
+<h1 id="委托（可能危险）"><a href="#委托（可能危险）" class="headerlink" title="委托（可能危险）"></a>委托（可能危险）</h1><p>当你在注册商注册一个域名，他们创建一条记录，将你的域名委托给在如<code>.com</code>顶域权威机构下一些其他域名服务器负责。（这就是域名注册和查询如何工作）然后，你可以将该域名的一个子集的责任委托给另一个第三方,它们需要和他们的注册商设置。例如，你在你的DNS注册商注册你的网站<code>example.com</code>，他们委托它给<code>.com</code>注册商。但你想委托对你域名子集的控制<code>cdm.example.com</code>给你的CDN供应商，以使他们可以不打扰你的情况下尽快做出他们需要的改变，<code>cdn.example.com</code>就有了它自己的DNS记录。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/delegation.svg">   </p>
+<center><p>DNS委托流程，这些往返以数十到数百毫秒计，想想这个累加起来。</p></center>   
+
+<p>读这个大多数人可能从没听说过像这样委托子域的子域，因为实际上它如此复杂和脆弱，除非DNS是双方的核心能力。当大企业将域名外包给其他企业，他们通常使用如<code>googleusercontent.com</code>完全独立的顶级域名，或者类似的以减少混乱。这也帮助防止在合作企业数据泄露导致一些人使用<code>facebook.com</code>发出惊人数量的垃圾邮件而产生的名誉受损。   </p>
+<ul>
+<li>&lt;**Avery**&gt; 子域的子域也不时兴了，因为在受信的父域和不信任的子域间意外共享HTTP cookie。另外DNS 中的每级子域委托都会带来额外的网络往返，以进行递归名称解析，从而增加延迟。结果是麻烦多过价值。   </li>
+</ul>
+<h1 id="反向DNS（另一个完整的DNS）"><a href="#反向DNS（另一个完整的DNS）" class="headerlink" title="反向DNS（另一个完整的DNS）"></a>反向DNS（另一个完整的DNS）</h1><p>（未完待续）</p>
 
     </div>
 
@@ -412,7 +414,7 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2022/11/01/关于DNS、魔法及其他的史诗论文/" rel="bookmark">关于DNS、魔法及其他的史诗论文</a></div>
+      <div class="popular-posts-title"><a href="/2021/04/21/Linux上DNS客户端配置的西西弗斯式任务/" rel="bookmark">Linux上DNS客户端配置的西西弗斯式任务</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2021/09/13/利用Tailscale快速部署跳板机安全分享访问/" rel="bookmark">利用Tailscale快速部署跳板机安全分享访问</a></div>
@@ -451,7 +453,7 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://www.gps949.com/2021/04/21/Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1/" title="Linux上DNS客户端配置的西西弗斯式任务">https://www.gps949.com/2021/04/21/Linux上DNS客户端配置的西西弗斯式任务/</a>
+      <a href="https://www.gps949.com/2022/11/01/%E5%85%B3%E4%BA%8EDNS%E3%80%81%E9%AD%94%E6%B3%95%E5%8F%8A%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%B2%E8%AF%97%E8%AE%BA%E6%96%87/" title="关于DNS、魔法及其他的史诗论文">https://www.gps949.com/2022/11/01/关于DNS、魔法及其他的史诗论文/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
@@ -502,14 +504,11 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/09/07/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0/" rel="prev" title="格密码学笔记">
-                  <i class="fa fa-chevron-left"></i> 格密码学笔记
+                <a href="/2022/10/27/Obsidian%E5%86%99%E6%96%87%E7%AB%A0%E6%B5%8B%E8%AF%95/" rel="prev" title="Obsidian写文章测试">
+                  <i class="fa fa-chevron-left"></i> Obsidian写文章测试
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/05/06/Hexo%20+%20GitHub%E5%AE%9E%E7%8E%B0%E9%9B%B6%E6%88%90%E6%9C%ACBlog/" rel="next" title="Hexo + GitHub实现零成本Blog">
-                  Hexo + GitHub实现零成本Blog <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -610,7 +609,7 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
 
 
   <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.gps949.com/2021/04/21/Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.gps949.com/2022/11/01/%E5%85%B3%E4%BA%8EDNS%E3%80%81%E9%AD%94%E6%B3%95%E5%8F%8A%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%B2%E8%AF%97%E8%AE%BA%E6%96%87/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"gps949/gps949.github.io","issue_term":"pathname","theme":"github-light"}</script>
 <script src="/js/third-party/comments/utterances.js"></script>
