@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>关于DNS魔法及其他的史诗论文</title>
+    <url>/2022/11/01/%E5%85%B3%E4%BA%8EDNS%E9%AD%94%E6%B3%95%E5%8F%8A%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%B2%E8%AF%97%E8%AE%BA%E6%96%87/</url>
+    <content><![CDATA[<p>之前有<a href="Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1">一篇译自Tailscale博客的关于DNS的技术文章</a>，里面更主要的讨论的是终端设备上DNS配置管理的问题，今天这篇同样译自Tailscale博客的关于DNS的技术文章，可能更多的是讨论DNS的解析运作过程。那么下面是原博客文章内容：   </p>
+<span id="more"></span>
+<p>命名产品是困难的，Tailscale的关键特性之一，MagicDNS，长期以来是词法正义的焦点。一些人认为我们应该叫它Magic DNS因为苹果将他们旗舰键盘和鼠标叫做Magic Keyboard和Magic Mouse。<br>但你注意到过没有，苹果也将它们的笔记本和无线耳机叫做MacBooks和AirPods？他们这样做是因为英语中一个晦涩（且呆板）的规则，当移除名词短语中的形容词会改变名词含义时，可以移除空格制造合成词。不含magic的Magic Keyboard依然是键盘，不含Mac的MacBook却不是本书了。由此，MagicDNS是一个词就是因为去掉magic不会只是DNS，它不会成为任何事物。Tailscale已经有了DNS和split DNS（两个词！）的配置，但MagicDNS是个不同的东西。   </p>
+<ul>
+<li>&lt;**Xe**&gt; 他们也可以为了商标这样做！相比“面包”、“键盘”、”书“等，非常规词更容易申请商标。   </li>
+<li>&lt;**Avery**&gt; 另一方面，为了避免商标雷区，有时大型公司会采用&lt;商标&gt;&lt;通用词&gt;的形式命名产品，如微软Word或谷歌Mail。如果一个产品名字包含公司名，你可以相当确信没别人能那样叫他们的产品。      </li>
+</ul>
+<p>Tailscale允许你<a href="https://tailscale.com/kb/1054/dns/">管理你机器的DNS配置</a>，这使你可设置机器对整个互联网或者匹配特定域（split DNS）首选DNS服务器。这是整洁并且使得本地DNS配置更如人们在<code>/etc/resolve.conf</code>添加多条DNS解析器通常所期待的。<br>但那不是MagicDNS，仅仅是稍好点的DNS。MagicDNS在这些特性之上构建，完全改变名字解析工作方式令新使用场景DNS安全。它是Tailscale和你的基础设施可以构建在其上的构件。<br>今天我们看看DNS的问题空间，这些年复杂性怎么被层层叠加，MagicDNS怎样去除全部的复杂性并在过程中使得一切更可靠。   </p>
+<h1 id="DNS悲剧：命名事物但缓存失效"><a href="#DNS悲剧：命名事物但缓存失效" class="headerlink" title="DNS悲剧：命名事物但缓存失效"></a>DNS悲剧：命名事物但缓存失效</h1><p>DNS是种听起来简单的服务之一。将名字映射到数字，是吧？但在现代互联网背后它是更复杂的一件事。它早于现代互联网，我们今天先不讨论这点。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/DNS.svg">   </p>
+<center><p>解释DNS如何工作的图。笔记本向DNS服务器询问tailscale.com的IP地址得到82.58.46.8的回复</p></center>      
+
+<ul>
+<li>&lt;**Xe**&gt; 如果你要以一种更可视化的方法学习更多关于DNS如何查询，可以看Pingdom的<a href="https://www.pingdom.com/blog/a-visual-explanation-of-how-dns-lookups-work/">这个解释</a>。它是复杂的，有许多我们在下面将讨论的单独的委托步骤。<br>我们可以将DNS认为是第一个全球分布式数据库。DNS设计成全局收敛的（随着时间推移整个系统同意什么名字指向什么IP地址），所以无论请求源自渥太华、旧金山、西雅图还是帕劳，查询<code>google.com</code>将总指向同样的IP。   </li>
+<li>&lt;**Avery**&gt;好，实际上google.com可能是互联网上最坏的例子了，因为他们采用了太多的泛播和DNS技巧令你永远不会知道你将得到什么IP地址。但为了我们的目的，让我们想象Google像一般人一样使用DNS。   </li>
+</ul>
+<p>DNS是全局收敛的，因为随着时间推移，如缓存过期，每个互联网上DNS服务器可以最终对同样查询同样回答。每个DNS记录有存活时间（TTL）设置，指定回答在多长时间有效。不幸的是，DNS客户端和服务器可能选择忽略建议的TTL值并使用他们自己的TTL。一些ISP声称这样是为了”减少网络流量“，但这样违背DNS RFC导致产生非常难以debug的微妙问题。   </p>
+<ul>
+<li>&lt;**Avery**&gt; 此外，任何基于轮询（相对于基于推送）的带静态时间周期的缓存总会有这样的问题：该选择怎样的缓存超时。如果太短，会增加查询延迟和服务器负载，如果太长，修改会需要时间（有时是数小时或数天）来传播。这就是为何中介人介入并试图通过扰乱TTL来”修复“这个问题。但他们总是最终产生不同的问题。   </li>
+</ul>
+<p>这种一个名字对一个 IP 地址的模式在互联网只有一块大陆那么大并且不经常重新布线时候运行良好。但当你在全世界都有服务器，希望用户直接访问最近的一个或者忽略刚好宕机区域时，就会失效了。所以运营者拉取DNS服务器到他们的负载均衡基础设施，将用户指向最近的应用服务器而非任何一个正确答案。   </p>
+<p><img data-src="https://tailscale.com/blog/magicdns-why-name/geolocated.svg">   </p>
+<center><p>一个DNS服务器为位于不同物理位置的两个笔记本提供不同的回答</p></center>   
+这有时会导致 ISP 设置的过于热心的缓存解析器出现问题，使得路由器无法使用符合规范的解析器，或者当您使用其他地方托管的 DNS 服务器时，无法从负载平衡器获得最佳本地化解决方案。但总体上它是可以奏效的。    
+
+<ul>
+<li>&lt;**Xe**&gt; 当然这里假设你的政府、ISP或是当地咖啡馆WiFi没有不怀好意地劫持DNS。<br>作为一个社会，我们放弃世界上每处都要将每个DNS名字总映射到相同的IP地址这一规则。实践中这通常不会伤害我们，除了我们试图调试它时。然后它可以是简单的，也可以是非常困难以至于使得你开始重新考虑你的职业抱负并考虑进入农业需要多少开销。奶牛<a href="https://economicdashboard.alberta.ca/livestockprices">出奇的贵</a>！   </li>
+<li>&lt;**Xe**&gt; 将DNS变化如何被全球人们观察到的方法称作”传播“是个常见的误解。这技术上不正确。大多数情况下，你等待的是缓存过期，然后下个请求被转发到上游 DNS 服务器以获得准确的信息。这就是为什么人们称DNS为”全局一致“：随着时间的推移，整个互联网将逐渐在哪个名字指向哪个IP地址的回答集合上趋于一致。然而实践中ーー考虑到数据实际上是如何在互联网上移动的ーー说是 DNS 查询具有从原始 DNS 服务器传播出去的效果并非完全错误。   </li>
+</ul>
+<h1 id="DNS加密（并不是）"><a href="#DNS加密（并不是）" class="headerlink" title="DNS加密（并不是）"></a>DNS加密（并不是）</h1><p>DNS是非加密、无鉴别的协议。查询和响应在互联网上以明文发送。这意味着无论谁只要发送正确的名字就能得到IP地址。   </p>
+<ul>
+<li>&lt;**Xe**&gt; 通过设置私有DNS服务器（通常称之为”split horizon”DNS）可以将发布私有主机名到公共DNS的隐私风险最小化，私有DNS服务器拥有与公共互联网不同的域名相应集合。你可以通过VPN（例如Tailscale管理员控制台的DNS页签）连接那些，但你会失去DNS的全局一致性和缓存特性。在许多情形，你可以通过在公共DNS服务器返回私有IP段，但这取决于你偏执的程度。并且有时公共DNS服务器<a href="https://en.wikipedia.org/wiki/DNS_rebinding">安全特性会拒绝私有IP段</a>。   </li>
+</ul>
+<p>由于DNS回复没有加密和签名，你也从不会十分确定你得到的DNS响应在中途被篡改。攻击者可以轻易地嗅探并返回个将<code>google.com</code>指向<code>badgooglephish.com</code>IP地址的包。你的iPhone也不会察觉。有一套叫做<a href="https://www.cloudflare.com/en-ca/dns/dnssec/how-dnssec-works/">DNSSEC</a>的扩展试图使用我没有资格解释的有趣的密码学去修复这些问题。但这才是缺点真正显露出来的地方。Slack最近有个<a href="https://slack.engineering/what-happened-during-slacks-dnssec-rollout/">相当严重的生产中断</a>，完全可以追溯到为了FedRAMP合规而启用DNSSEC的尝试。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/hijacking.svg">   </p>
+<center><p>DNS被劫持，展现劫持者可以扰乱DNS结果</p></center>   
+
+<ul>
+<li>&lt;**Avery**&gt; DNSSEC并不像听起来那么好。 @tqbf 有个详尽的呼吁叫做 <a href="https://sockpuppet.org/blog/2015/01/15/against-dnssec/">反对DNSSEC</a> 系统地驳斥了你可能使用DNSSEC的每个原因。我猜，除了FedRAMP。   </li>
+</ul>
+<p>DNSSEC看起来并不会推广开。所以在空缺环境中，有一些至少通过加密信道携带（部分）DNS的新协议。但作为进程中的一部分，你的机器通常创建到Google、Cloudflare或者其他的HTTPS会话。中间人可以看到（并且理论上可以篡改）明文的DNS请求和响应。根据你的威胁profile，那通常不能解决你全部的安全和隐私担忧。   </p>
+<ul>
+<li>&lt;**Xe**&gt; 有像<a href="https://www.gnunet.org/en/gns.html">GNS</a>这样的新项目开启端到端的请求隐私。但它们有其他缺点并且没有广泛部署。对于使用它的人们很好，但大多数人不用它。   </li>
+</ul>
+<p>所以在一般部署中，DNS没有中途加密、真实性或验证机制。这也意味着没有途径去指出一个客户端是否被授权访问一条给定的DNS记录。没有原生方法去建立身份和DNS请求之间的关联。这意味着更新DNS记录（例如动态DNS）不能通过DNS自身完成，就需要委托给使用非标准API的第三方。没有自动化DNS修改的好API，只有我们别无选择而容忍的API。   </p>
+<ul>
+<li>&lt;**Xe**&gt; 存在像<a href="https://sssd.io/design-pages/active_directory_dns_updates.html">DNS UPDATE requests</a> 允许你通过DNS更新DNS记录，但这几乎只在部署Windows的Active Directory时使用。它也未修复以明文发送身份验证凭据的问题，所以只在公司私有网络有用，而不是互联网可通用的构件。   </li>
+</ul>
+<h1 id="委托（可能危险）"><a href="#委托（可能危险）" class="headerlink" title="委托（可能危险）"></a>委托（可能危险）</h1><p>当你在注册商注册一个域名，他们创建一条记录，将你的域名委托给在如<code>.com</code>顶域权威机构下一些其他域名服务器负责。（这就是域名注册和查询如何工作）然后，你可以将该域名的一个子集的责任委托给另一个第三方,它们需要和他们的注册商设置。例如，你在你的DNS注册商注册你的网站<code>example.com</code>，他们委托它给<code>.com</code>注册商。但你想委托对你域名子集的控制<code>cdm.example.com</code>给你的CDN供应商，以使他们可以不打扰你的情况下尽快做出他们需要的改变，<code>cdn.example.com</code>就有了它自己的DNS记录。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/delegation.svg">   </p>
+<center><p>DNS委托流程，这些往返以数十到数百毫秒计，想想这个累加起来。</p></center>   
+
+<p>读这个大多数人可能从没听说过像这样委托子域的子域，因为实际上它如此复杂和脆弱，除非DNS是双方的核心能力。当大企业将域名外包给其他企业，他们通常使用如<code>googleusercontent.com</code>完全独立的顶级域名，或者类似的以减少混乱。这也帮助防止在合作企业数据泄露导致一些人使用<code>facebook.com</code>发出惊人数量的垃圾邮件而产生的名誉受损。   </p>
+<ul>
+<li>&lt;**Avery**&gt; 子域的子域也不时兴了，因为在受信的父域和不信任的子域间意外共享HTTP cookie。另外DNS 中的每级子域委托都会带来额外的网络往返，以进行递归名称解析，从而增加延迟。结果是麻烦多过价值。   </li>
+</ul>
+<h1 id="反向DNS（另一个完整的DNS）"><a href="#反向DNS（另一个完整的DNS）" class="headerlink" title="反向DNS（另一个完整的DNS）"></a>反向DNS（另一个完整的DNS）</h1><p>（未完待续）</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>计算机</tag>
+        <tag>网络</tag>
+        <tag>Linux</tag>
+        <tag>DNS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Obsidian写文章测试</title>
+    <url>/2022/10/27/Obsidian%E5%86%99%E6%96%87%E7%AB%A0%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<p>尝试进行一下链接，比如链接到<a href="%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0">另一篇博客</a></p>
+]]></content>
+      <categories>
+        <category>测试</category>
+      </categories>
+      <tags>
+        <tag>Obsidian</tag>
+        <tag>测试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>利用Tailscale快速部署跳板机安全分享访问</title>
     <url>/2021/09/13/%E5%88%A9%E7%94%A8Tailscale%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E8%B7%B3%E6%9D%BF%E6%9C%BA%E5%AE%89%E5%85%A8%E5%88%86%E4%BA%AB%E8%AE%BF%E9%97%AE/</url>
     <content><![CDATA[<p>　<br>　　有很多时候，我们希望向他人分享我们的数据或者服务资源，如一些文档、一个文档协作平台、一个SVN仓库。通常最可靠合理的方法是为这些数据或者服务搭建一个向公网暴露的服务站点，并配合防火墙、身份认证、访问控制等手段确保只有我们希望的人能看到这些数据/服务。抑或是在访问者和数据/服务之间拉一条专线，同时在内部做好这些资源和其他不希望被访资源之间的隔离。<br>　　对于长期、大量、访问者众多的情况，或许这是成熟经过长期验证的方式，但是，如果只是少量短期的资源分享，通常不会如此大动干戈。不少人或许会选择简便但是不够安全的方式，例如公共网盘分享文档、防火墙上设置特例开设代理分享服务等方式。<br>　　现如今，人们所热捧的零信任理念，除了能用来应对机构内部横向移动风险、机构内接入的BYOD设备等，本身也是对于Co-Work人员管理很好的方式。<br>　　Tailscale®是一家我个人觉得很Geek的公司在持续开发的产品，将它称之为SDN也好，ZTN也好，新一代VPN也好，总之这个很酷的产品有非常多的使用方式。本文就介绍利用其在（双方总共）十几分钟内，实现快速部署跳板机安全分享资源。   </p>
@@ -37,6 +118,118 @@
         <tag>安全</tag>
         <tag>Tailscale</tag>
         <tag>零信任</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo + GitHub实现零成本Blog</title>
+    <url>/2021/05/06/Hexo%20+%20GitHub%E5%AE%9E%E7%8E%B0%E9%9B%B6%E6%88%90%E6%9C%ACBlog/</url>
+    <content><![CDATA[<p>　　对于自己创造内容并不稳定的情况，花费金钱和精力去维护一个服务器（VPS/ECS）是不明智的。但是实际上难免会遇到记录和创作分享的需要，作为技术控，当然不想选用现成的商业化产品。那么，能够有个方式“白嫖”到资源存放静态博客/笔记站点内容的同时，再实现站点的部署更新都自动化完成（CI/CD概念），就很完美了。<br>　　恰巧，GitHub当前可以完成这种需求。这里记录一下完全利用GitHub （Repo + Pages + Action）建设Hexo站点的“最佳实践”。    </p>
+<span id="more"></span>   
+<p>　　首先，该方案的整体设计架构如下：<br>　　<img data-src="/images/github_blog/arch.jpg"><br>　　如图上的展示，整体思路是：   </p>
+<ul>
+<li>使用Hexo作为静态博客站点的框架，实现MarkDown编写日志文章内容；    </li>
+<li>使用GitHub的Private（私有）Repo作为Hexo源码（包括日志源码、Hexo配置及站点主题配置文件、其他一些数据等）；   </li>
+<li>使用GitHub Pages（网页代管服务）作为静态站点的承载展示；   </li>
+<li>使用GitHub Action（CI/CD）作为持续部署方案，将源码Repo生成部署到Pages；   </li>
+<li>为GitHub Pages配置个人域名；<br>　　后续即按照上面各点逐一介绍实现步骤，根据关键性不同，详细程度会有所不同。  <h3 id="构建Hexo源码Repo"><a href="#构建Hexo源码Repo" class="headerlink" title="构建Hexo源码Repo"></a>构建Hexo源码Repo</h3>　　在Github中创建新Repo（默认已注册GitHub账号）： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(如<strong>myblog</strong>)，类型选择<code>Private</code>。点击<code>Create repository</code>完成创建。<br>　　在本机进行Hexo的安装（由于网上有不少教程此处从简介绍）以及将其添加到GitHub的源码Repo中。确保机器已安装Node.js和Git的前提下执行下面命令（链接中<strong>username</strong>和<strong>myblog</strong>换成自己的GitHub用户名和刚创建时设置的源码Repo名称）：<pre><code class="bash">npm install -g hexo-cli
+hexo init myblog
+cd myblog
+npm install
+git init
+git add .* *
+git commit -m &quot;myblog init&quot;
+git branch -M main
+git remote add origin https://github.com/username/myblog.git
+git push -u origin main
+</code></pre>
+　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   <h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#117;&#115;&#x65;&#x72;&#x6e;&#x61;&#109;&#101;&#x40;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#117;&#115;&#x65;&#x72;&#x6e;&#x61;&#109;&#101;&#x40;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a></strong>为GitHub用户邮箱)：<pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
+</code></pre>
+　　根据之后提示选择密钥文件存储位置和密码（直接回车设置为空）。<br>　　在刚刚创建的<strong>username.github.io</strong> Repo的<code>Settings</code>中点击<code>Deploy keys</code>，选择<code>Add deploy key</code>。Title可以根据喜好设置（如myblog_deploy_pubkey），Key的内容复制进刚才使用命令生成的<code>.pub</code>扩展名的公钥文件内容。下面的<code>Allow write access</code>的复选框要勾选。   <h3 id="配置站点的自动化更新部署"><a href="#配置站点的自动化更新部署" class="headerlink" title="配置站点的自动化更新部署"></a>配置站点的自动化更新部署</h3>　　站点的自动化更新部署通过在源码Repo中配置GitHub Action来实现。关于GitHub Action的原理和更多技巧可参见网上资料。<br>　　先准备部署时使用的部署私钥（Deploy key），在<strong>myblog</strong>的<code>Settings</code>的<code>Secrets</code>中点击<code>New repository secret</code>，名称可以设置为如<strong>HEXO_DEPLOY_PRI</strong>，内容复制入上一节中除<code>.pub</code>文件之外的另一个私钥文件内容，再点击<code>Add secret</code>。<br>　　然后，在本机命令行下进入第一步中创建的<code>myblog</code>目录下执行：   <pre><code class="bash">mkdir .github/workflows
+touch .github/workflows/deploy.yml
+</code></pre>
+　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#117;&#x73;&#101;&#x72;&#110;&#x61;&#x6d;&#101;&#x40;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#109;">&#117;&#x73;&#101;&#x72;&#110;&#x61;&#x6d;&#101;&#x40;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#109;</a>为你的GitHub注册邮箱）：   </li>
+</ul>
+<pre><code class="yaml">name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  GIT_USER: username
+  GIT_EMAIL: username@email.com
+
+jobs:
+  build:
+    name: Build on node $&#123;&#123; matrix.node_version &#125;&#125; and $&#123;&#123; matrix.os &#125;&#125;
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [15.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js $&#123;&#123; matrix.node_version &#125;&#125;
+        uses: actions/setup-node@v1
+        with:
+          node-version: $&#123;&#123; matrix.node_version &#125;&#125;
+
+      - name: Configuration environment
+        env:
+          HEXO_DEPLOY_PRI: $&#123;&#123;secrets.HEXO_DEPLOY_PRI&#125;&#125;
+        run: |
+          sudo timedatectl set-timezone &quot;Asia/Shanghai&quot;
+          mkdir -p ~/.ssh/
+          echo &quot;$HEXO_DEPLOY_PRI&quot; &gt; ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts
+          git config --global user.name $GIT_USER
+          git config --global user.email $GIT_EMAIL
+          npm install -g hexo-cli
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: $&#123;&#123; runner.os &#125;&#125;-build-$&#123;&#123; env.cache-name &#125;&#125;-$&#123;&#123; hashFiles('**/package-lock.json') &#125;&#125;
+          restore-keys: |
+            $&#123;&#123; runner.os &#125;&#125;-build-$&#123;&#123; env.cache-name &#125;&#125;-
+            $&#123;&#123; runner.os &#125;&#125;-build-
+            $&#123;&#123; runner.os &#125;&#125;-
+      - name: Install dependencies
+        run: |
+          npm install
+      - name: Deploy hexo
+        run: |
+          hexo clean &amp;&amp; hexo deploy
+</code></pre>
+<p>　　另外，修改Hexo的配置文件（即myblog目录下的<code>_config.yml</code>)中的<code>deploy</code>片段如下(同样注意修改其中的用户名和repo名称)：  </p>
+<pre><code class="yaml">deploy:
+  type: git
+  repo: git@github.com:username/username.github.io.git
+  branch: main
+</code></pre>
+<p>　　修改完成后使用git add、git commit、git push等命令完成提交到GitHub。   </p>
+<p>　　以上即基本完成了源码Repo、发布Repo（Pages）和自动化部署的配置，在之后只需要在源码Repo中按照Hexo的使用方法用Markdown编写文章，再将更改提交到源码Repo，就会自动化更新到GitHub Pages的站点。而GitHub Pages站点的访问使用<a href="https://username.github.io/">https://username.github.io</a> 即可。   </p>
+<h3 id="配置站点个人域名"><a href="#配置站点个人域名" class="headerlink" title="配置站点个人域名"></a>配置站点个人域名</h3><p>　　通过前面步骤完成的个人网站的部署，访问网址是<code>username.github.io</code>这样的形式，对于想使用个人域名访问该站点的，也很容易实现。<br>　　先在个人域名的DNS设置解析，新增一条个人域名到<code>username.github.io</code>的CNAME解析。<br>　　然后在GitHub Pages Repo（<code>username/username.github.io</code>）的Settings的Pages下的<code>Custom domain</code>填写个人域名，建议勾选<code>Enforce HTTPS</code>。<br>　　最后，在<code>myblog</code>源码Repo中的<code>source</code>目录下添加一个名为<code>CNAME</code>的文件，其内容填写入个人域名（如<code>www.username.com</code>），并完成提交推送（commit &amp; push）。<br>　　这样，就实现了个人域名到GitHub Pages的映射，可以通过个人域名访问前面建立的个人站点了。   </p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>计算机</tag>
+        <tag>建站</tag>
+        <tag>GitHub</tag>
+        <tag>自动化</tag>
+        <tag>CI/CD</tag>
+        <tag>GitHub Action</tag>
+        <tag>Hexo</tag>
+        <tag>Blog</tag>
       </tags>
   </entry>
   <entry>
@@ -235,199 +428,6 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
         <tag>计算机</tag>
         <tag>密码学</tag>
         <tag>量子</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于DNS魔法及其他的史诗论文</title>
-    <url>/2022/11/01/%E5%85%B3%E4%BA%8EDNS%E9%AD%94%E6%B3%95%E5%8F%8A%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%B2%E8%AF%97%E8%AE%BA%E6%96%87/</url>
-    <content><![CDATA[<p>之前有<a href="Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1">一篇译自Tailscale博客的关于DNS的技术文章</a>，里面更主要的讨论的是终端设备上DNS配置管理的问题，今天这篇同样译自Tailscale博客的关于DNS的技术文章，可能更多的是讨论DNS的解析运作过程。那么下面是原博客文章内容：   </p>
-<span id="more"></span>
-<p>命名产品是困难的，Tailscale的关键特性之一，MagicDNS，长期以来是词法正义的焦点。一些人认为我们应该叫它Magic DNS因为苹果将他们旗舰键盘和鼠标叫做Magic Keyboard和Magic Mouse。<br>但你注意到过没有，苹果也将它们的笔记本和无线耳机叫做MacBooks和AirPods？他们这样做是因为英语中一个晦涩（且呆板）的规则，当移除名词短语中的形容词会改变名词含义时，可以移除空格制造合成词。不含magic的Magic Keyboard依然是键盘，不含Mac的MacBook却不是本书了。由此，MagicDNS是一个词就是因为去掉magic不会只是DNS，它不会成为任何事物。Tailscale已经有了DNS和split DNS（两个词！）的配置，但MagicDNS是个不同的东西。   </p>
-<ul>
-<li>&lt;**Xe**&gt; 他们也可以为了商标这样做！相比“面包”、“键盘”、”书“等，非常规词更容易申请商标。   </li>
-<li>&lt;**Avery**&gt; 另一方面，为了避免商标雷区，有时大型公司会采用&lt;商标&gt;&lt;通用词&gt;的形式命名产品，如微软Word或谷歌Mail。如果一个产品名字包含公司名，你可以相当确信没别人能那样叫他们的产品。      </li>
-</ul>
-<p>Tailscale允许你<a href="https://tailscale.com/kb/1054/dns/">管理你机器的DNS配置</a>，这使你可设置机器对整个互联网或者匹配特定域（split DNS）首选DNS服务器。这是整洁并且使得本地DNS配置更如人们在<code>/etc/resolve.conf</code>添加多条DNS解析器通常所期待的。<br>但那不是MagicDNS，仅仅是稍好点的DNS。MagicDNS在这些特性之上构建，完全改变名字解析工作方式令新使用场景DNS安全。它是Tailscale和你的基础设施可以构建在其上的构件。<br>今天我们看看DNS的问题空间，这些年复杂性怎么被层层叠加，MagicDNS怎样去除全部的复杂性并在过程中使得一切更可靠。   </p>
-<h1 id="DNS悲剧：命名事物但缓存失效"><a href="#DNS悲剧：命名事物但缓存失效" class="headerlink" title="DNS悲剧：命名事物但缓存失效"></a>DNS悲剧：命名事物但缓存失效</h1><p>DNS是种听起来简单的服务之一。将名字映射到数字，是吧？但在现代互联网背后它是更复杂的一件事。它早于现代互联网，我们今天先不讨论这点。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/DNS.svg">   </p>
-<center><p>解释DNS如何工作的图。笔记本向DNS服务器询问tailscale.com的IP地址得到82.58.46.8的回复</p></center>      
-
-<ul>
-<li>&lt;**Xe**&gt; 如果你要以一种更可视化的方法学习更多关于DNS如何查询，可以看Pingdom的<a href="https://www.pingdom.com/blog/a-visual-explanation-of-how-dns-lookups-work/">这个解释</a>。它是复杂的，有许多我们在下面将讨论的单独的委托步骤。<br>我们可以将DNS认为是第一个全球分布式数据库。DNS设计成全局收敛的（随着时间推移整个系统同意什么名字指向什么IP地址），所以无论请求源自渥太华、旧金山、西雅图还是帕劳，查询<code>google.com</code>将总指向同样的IP。   </li>
-<li>&lt;**Avery**&gt;好，实际上google.com可能是互联网上最坏的例子了，因为他们采用了太多的泛播和DNS技巧令你永远不会知道你将得到什么IP地址。但为了我们的目的，让我们想象Google像一般人一样使用DNS。   </li>
-</ul>
-<p>DNS是全局收敛的，因为随着时间推移，如缓存过期，每个互联网上DNS服务器可以最终对同样查询同样回答。每个DNS记录有存活时间（TTL）设置，指定回答在多长时间有效。不幸的是，DNS客户端和服务器可能选择忽略建议的TTL值并使用他们自己的TTL。一些ISP声称这样是为了”减少网络流量“，但这样违背DNS RFC导致产生非常难以debug的微妙问题。   </p>
-<ul>
-<li>&lt;**Avery**&gt; 此外，任何基于轮询（相对于基于推送）的带静态时间周期的缓存总会有这样的问题：该选择怎样的缓存超时。如果太短，会增加查询延迟和服务器负载，如果太长，修改会需要时间（有时是数小时或数天）来传播。这就是为何中介人介入并试图通过扰乱TTL来”修复“这个问题。但他们总是最终产生不同的问题。   </li>
-</ul>
-<p>这种一个名字对一个 IP 地址的模式在互联网只有一块大陆那么大并且不经常重新布线时候运行良好。但当你在全世界都有服务器，希望用户直接访问最近的一个或者忽略刚好宕机区域时，就会失效了。所以运营者拉取DNS服务器到他们的负载均衡基础设施，将用户指向最近的应用服务器而非任何一个正确答案。   </p>
-<p><img data-src="https://tailscale.com/blog/magicdns-why-name/geolocated.svg">   </p>
-<center><p>一个DNS服务器为位于不同物理位置的两个笔记本提供不同的回答</p></center>   
-这有时会导致 ISP 设置的过于热心的缓存解析器出现问题，使得路由器无法使用符合规范的解析器，或者当您使用其他地方托管的 DNS 服务器时，无法从负载平衡器获得最佳本地化解决方案。但总体上它是可以奏效的。    
-
-<ul>
-<li>&lt;**Xe**&gt; 当然这里假设你的政府、ISP或是当地咖啡馆WiFi没有不怀好意地劫持DNS。<br>作为一个社会，我们放弃世界上每处都要将每个DNS名字总映射到相同的IP地址这一规则。实践中这通常不会伤害我们，除了我们试图调试它时。然后它可以是简单的，也可以是非常困难以至于使得你开始重新考虑你的职业抱负并考虑进入农业需要多少开销。奶牛<a href="https://economicdashboard.alberta.ca/livestockprices">出奇的贵</a>！   </li>
-<li>&lt;**Xe**&gt; 将DNS变化如何被全球人们观察到的方法称作”传播“是个常见的误解。这技术上不正确。大多数情况下，你等待的是缓存过期，然后下个请求被转发到上游 DNS 服务器以获得准确的信息。这就是为什么人们称DNS为”全局一致“：随着时间的推移，整个互联网将逐渐在哪个名字指向哪个IP地址的回答集合上趋于一致。然而实践中ーー考虑到数据实际上是如何在互联网上移动的ーー说是 DNS 查询具有从原始 DNS 服务器传播出去的效果并非完全错误。   </li>
-</ul>
-<h1 id="DNS加密（并不是）"><a href="#DNS加密（并不是）" class="headerlink" title="DNS加密（并不是）"></a>DNS加密（并不是）</h1><p>DNS是非加密、无鉴别的协议。查询和响应在互联网上以明文发送。这意味着无论谁只要发送正确的名字就能得到IP地址。   </p>
-<ul>
-<li>&lt;**Xe**&gt; 通过设置私有DNS服务器（通常称之为”split horizon”DNS）可以将发布私有主机名到公共DNS的隐私风险最小化，私有DNS服务器拥有与公共互联网不同的域名相应集合。你可以通过VPN（例如Tailscale管理员控制台的DNS页签）连接那些，但你会失去DNS的全局一致性和缓存特性。在许多情形，你可以通过在公共DNS服务器返回私有IP段，但这取决于你偏执的程度。并且有时公共DNS服务器<a href="https://en.wikipedia.org/wiki/DNS_rebinding">安全特性会拒绝私有IP段</a>。   </li>
-</ul>
-<p>由于DNS回复没有加密和签名，你也从不会十分确定你得到的DNS响应在中途被篡改。攻击者可以轻易地嗅探并返回个将<code>google.com</code>指向<code>badgooglephish.com</code>IP地址的包。你的iPhone也不会察觉。有一套叫做<a href="https://www.cloudflare.com/en-ca/dns/dnssec/how-dnssec-works/">DNSSEC</a>的扩展试图使用我没有资格解释的有趣的密码学去修复这些问题。但这才是缺点真正显露出来的地方。Slack最近有个<a href="https://slack.engineering/what-happened-during-slacks-dnssec-rollout/">相当严重的生产中断</a>，完全可以追溯到为了FedRAMP合规而启用DNSSEC的尝试。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/hijacking.svg">   </p>
-<center><p>DNS被劫持，展现劫持者可以扰乱DNS结果</p></center>   
-
-<ul>
-<li>&lt;**Avery**&gt; DNSSEC并不像听起来那么好。 @tqbf 有个详尽的呼吁叫做 <a href="https://sockpuppet.org/blog/2015/01/15/against-dnssec/">反对DNSSEC</a> 系统地驳斥了你可能使用DNSSEC的每个原因。我猜，除了FedRAMP。   </li>
-</ul>
-<p>DNSSEC看起来并不会推广开。所以在空缺环境中，有一些至少通过加密信道携带（部分）DNS的新协议。但作为进程中的一部分，你的机器通常创建到Google、Cloudflare或者其他的HTTPS会话。中间人可以看到（并且理论上可以篡改）明文的DNS请求和响应。根据你的威胁profile，那通常不能解决你全部的安全和隐私担忧。   </p>
-<ul>
-<li>&lt;**Xe**&gt; 有像<a href="https://www.gnunet.org/en/gns.html">GNS</a>这样的新项目开启端到端的请求隐私。但它们有其他缺点并且没有广泛部署。对于使用它的人们很好，但大多数人不用它。   </li>
-</ul>
-<p>所以在一般部署中，DNS没有中途加密、真实性或验证机制。这也意味着没有途径去指出一个客户端是否被授权访问一条给定的DNS记录。没有原生方法去建立身份和DNS请求之间的关联。这意味着更新DNS记录（例如动态DNS）不能通过DNS自身完成，就需要委托给使用非标准API的第三方。没有自动化DNS修改的好API，只有我们别无选择而容忍的API。   </p>
-<ul>
-<li>&lt;**Xe**&gt; 存在像<a href="https://sssd.io/design-pages/active_directory_dns_updates.html">DNS UPDATE requests</a> 允许你通过DNS更新DNS记录，但这几乎只在部署Windows的Active Directory时使用。它也未修复以明文发送身份验证凭据的问题，所以只在公司私有网络有用，而不是互联网可通用的构件。   </li>
-</ul>
-<h1 id="委托（可能危险）"><a href="#委托（可能危险）" class="headerlink" title="委托（可能危险）"></a>委托（可能危险）</h1><p>当你在注册商注册一个域名，他们创建一条记录，将你的域名委托给在如<code>.com</code>顶域权威机构下一些其他域名服务器负责。（这就是域名注册和查询如何工作）然后，你可以将该域名的一个子集的责任委托给另一个第三方,它们需要和他们的注册商设置。例如，你在你的DNS注册商注册你的网站<code>example.com</code>，他们委托它给<code>.com</code>注册商。但你想委托对你域名子集的控制<code>cdm.example.com</code>给你的CDN供应商，以使他们可以不打扰你的情况下尽快做出他们需要的改变，<code>cdn.example.com</code>就有了它自己的DNS记录。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/delegation.svg">   </p>
-<center><p>DNS委托流程，这些往返以数十到数百毫秒计，想想这个累加起来。</p></center>   
-
-<p>读这个大多数人可能从没听说过像这样委托子域的子域，因为实际上它如此复杂和脆弱，除非DNS是双方的核心能力。当大企业将域名外包给其他企业，他们通常使用如<code>googleusercontent.com</code>完全独立的顶级域名，或者类似的以减少混乱。这也帮助防止在合作企业数据泄露导致一些人使用<code>facebook.com</code>发出惊人数量的垃圾邮件而产生的名誉受损。   </p>
-<ul>
-<li>&lt;**Avery**&gt; 子域的子域也不时兴了，因为在受信的父域和不信任的子域间意外共享HTTP cookie。另外DNS 中的每级子域委托都会带来额外的网络往返，以进行递归名称解析，从而增加延迟。结果是麻烦多过价值。   </li>
-</ul>
-<h1 id="反向DNS（另一个完整的DNS）"><a href="#反向DNS（另一个完整的DNS）" class="headerlink" title="反向DNS（另一个完整的DNS）"></a>反向DNS（另一个完整的DNS）</h1><p>（未完待续）</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>计算机</tag>
-        <tag>网络</tag>
-        <tag>Linux</tag>
-        <tag>DNS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Obsidian写文章测试</title>
-    <url>/2022/10/27/Obsidian%E5%86%99%E6%96%87%E7%AB%A0%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<p>尝试进行一下链接，比如链接到<a href="%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E7%AC%94%E8%AE%B0">另一篇博客</a></p>
-]]></content>
-      <categories>
-        <category>测试</category>
-      </categories>
-      <tags>
-        <tag>Obsidian</tag>
-        <tag>测试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo + GitHub实现零成本Blog</title>
-    <url>/2021/05/06/Hexo%20+%20GitHub%E5%AE%9E%E7%8E%B0%E9%9B%B6%E6%88%90%E6%9C%ACBlog/</url>
-    <content><![CDATA[<p>　　对于自己创造内容并不稳定的情况，花费金钱和精力去维护一个服务器（VPS/ECS）是不明智的。但是实际上难免会遇到记录和创作分享的需要，作为技术控，当然不想选用现成的商业化产品。那么，能够有个方式“白嫖”到资源存放静态博客/笔记站点内容的同时，再实现站点的部署更新都自动化完成（CI/CD概念），就很完美了。<br>　　恰巧，GitHub当前可以完成这种需求。这里记录一下完全利用GitHub （Repo + Pages + Action）建设Hexo站点的“最佳实践”。    </p>
-<span id="more"></span>   
-<p>　　首先，该方案的整体设计架构如下：<br>　　<img data-src="/images/github_blog/arch.jpg"><br>　　如图上的展示，整体思路是：   </p>
-<ul>
-<li>使用Hexo作为静态博客站点的框架，实现MarkDown编写日志文章内容；    </li>
-<li>使用GitHub的Private（私有）Repo作为Hexo源码（包括日志源码、Hexo配置及站点主题配置文件、其他一些数据等）；   </li>
-<li>使用GitHub Pages（网页代管服务）作为静态站点的承载展示；   </li>
-<li>使用GitHub Action（CI/CD）作为持续部署方案，将源码Repo生成部署到Pages；   </li>
-<li>为GitHub Pages配置个人域名；<br>　　后续即按照上面各点逐一介绍实现步骤，根据关键性不同，详细程度会有所不同。  <h3 id="构建Hexo源码Repo"><a href="#构建Hexo源码Repo" class="headerlink" title="构建Hexo源码Repo"></a>构建Hexo源码Repo</h3>　　在Github中创建新Repo（默认已注册GitHub账号）： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(如<strong>myblog</strong>)，类型选择<code>Private</code>。点击<code>Create repository</code>完成创建。<br>　　在本机进行Hexo的安装（由于网上有不少教程此处从简介绍）以及将其添加到GitHub的源码Repo中。确保机器已安装Node.js和Git的前提下执行下面命令（链接中<strong>username</strong>和<strong>myblog</strong>换成自己的GitHub用户名和刚创建时设置的源码Repo名称）：<pre><code class="bash">npm install -g hexo-cli
-hexo init myblog
-cd myblog
-npm install
-git init
-git add .* *
-git commit -m &quot;myblog init&quot;
-git branch -M main
-git remote add origin https://github.com/username/myblog.git
-git push -u origin main
-</code></pre>
-　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   <h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#x75;&#x73;&#101;&#x72;&#110;&#97;&#109;&#101;&#x40;&#101;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x75;&#x73;&#101;&#x72;&#110;&#97;&#109;&#101;&#x40;&#101;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a></strong>为GitHub用户邮箱)：<pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
-</code></pre>
-　　根据之后提示选择密钥文件存储位置和密码（直接回车设置为空）。<br>　　在刚刚创建的<strong>username.github.io</strong> Repo的<code>Settings</code>中点击<code>Deploy keys</code>，选择<code>Add deploy key</code>。Title可以根据喜好设置（如myblog_deploy_pubkey），Key的内容复制进刚才使用命令生成的<code>.pub</code>扩展名的公钥文件内容。下面的<code>Allow write access</code>的复选框要勾选。   <h3 id="配置站点的自动化更新部署"><a href="#配置站点的自动化更新部署" class="headerlink" title="配置站点的自动化更新部署"></a>配置站点的自动化更新部署</h3>　　站点的自动化更新部署通过在源码Repo中配置GitHub Action来实现。关于GitHub Action的原理和更多技巧可参见网上资料。<br>　　先准备部署时使用的部署私钥（Deploy key），在<strong>myblog</strong>的<code>Settings</code>的<code>Secrets</code>中点击<code>New repository secret</code>，名称可以设置为如<strong>HEXO_DEPLOY_PRI</strong>，内容复制入上一节中除<code>.pub</code>文件之外的另一个私钥文件内容，再点击<code>Add secret</code>。<br>　　然后，在本机命令行下进入第一步中创建的<code>myblog</code>目录下执行：   <pre><code class="bash">mkdir .github/workflows
-touch .github/workflows/deploy.yml
-</code></pre>
-　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#117;&#115;&#101;&#114;&#x6e;&#97;&#x6d;&#x65;&#x40;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#117;&#115;&#101;&#114;&#x6e;&#97;&#x6d;&#x65;&#x40;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a>为你的GitHub注册邮箱）：   </li>
-</ul>
-<pre><code class="yaml">name: CI
-
-on:
-  push:
-    branches:
-      - main
-
-env:
-  GIT_USER: username
-  GIT_EMAIL: username@email.com
-
-jobs:
-  build:
-    name: Build on node $&#123;&#123; matrix.node_version &#125;&#125; and $&#123;&#123; matrix.os &#125;&#125;
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node_version: [15.x]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Use Node.js $&#123;&#123; matrix.node_version &#125;&#125;
-        uses: actions/setup-node@v1
-        with:
-          node-version: $&#123;&#123; matrix.node_version &#125;&#125;
-
-      - name: Configuration environment
-        env:
-          HEXO_DEPLOY_PRI: $&#123;&#123;secrets.HEXO_DEPLOY_PRI&#125;&#125;
-        run: |
-          sudo timedatectl set-timezone &quot;Asia/Shanghai&quot;
-          mkdir -p ~/.ssh/
-          echo &quot;$HEXO_DEPLOY_PRI&quot; &gt; ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts
-          git config --global user.name $GIT_USER
-          git config --global user.email $GIT_EMAIL
-          npm install -g hexo-cli
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: $&#123;&#123; runner.os &#125;&#125;-build-$&#123;&#123; env.cache-name &#125;&#125;-$&#123;&#123; hashFiles('**/package-lock.json') &#125;&#125;
-          restore-keys: |
-            $&#123;&#123; runner.os &#125;&#125;-build-$&#123;&#123; env.cache-name &#125;&#125;-
-            $&#123;&#123; runner.os &#125;&#125;-build-
-            $&#123;&#123; runner.os &#125;&#125;-
-      - name: Install dependencies
-        run: |
-          npm install
-      - name: Deploy hexo
-        run: |
-          hexo clean &amp;&amp; hexo deploy
-</code></pre>
-<p>　　另外，修改Hexo的配置文件（即myblog目录下的<code>_config.yml</code>)中的<code>deploy</code>片段如下(同样注意修改其中的用户名和repo名称)：  </p>
-<pre><code class="yaml">deploy:
-  type: git
-  repo: git@github.com:username/username.github.io.git
-  branch: main
-</code></pre>
-<p>　　修改完成后使用git add、git commit、git push等命令完成提交到GitHub。   </p>
-<p>　　以上即基本完成了源码Repo、发布Repo（Pages）和自动化部署的配置，在之后只需要在源码Repo中按照Hexo的使用方法用Markdown编写文章，再将更改提交到源码Repo，就会自动化更新到GitHub Pages的站点。而GitHub Pages站点的访问使用<a href="https://username.github.io/">https://username.github.io</a> 即可。   </p>
-<h3 id="配置站点个人域名"><a href="#配置站点个人域名" class="headerlink" title="配置站点个人域名"></a>配置站点个人域名</h3><p>　　通过前面步骤完成的个人网站的部署，访问网址是<code>username.github.io</code>这样的形式，对于想使用个人域名访问该站点的，也很容易实现。<br>　　先在个人域名的DNS设置解析，新增一条个人域名到<code>username.github.io</code>的CNAME解析。<br>　　然后在GitHub Pages Repo（<code>username/username.github.io</code>）的Settings的Pages下的<code>Custom domain</code>填写个人域名，建议勾选<code>Enforce HTTPS</code>。<br>　　最后，在<code>myblog</code>源码Repo中的<code>source</code>目录下添加一个名为<code>CNAME</code>的文件，其内容填写入个人域名（如<code>www.username.com</code>），并完成提交推送（commit &amp; push）。<br>　　这样，就实现了个人域名到GitHub Pages的映射，可以通过个人域名访问前面建立的个人站点了。   </p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>计算机</tag>
-        <tag>建站</tag>
-        <tag>GitHub</tag>
-        <tag>自动化</tag>
-        <tag>CI/CD</tag>
-        <tag>GitHub Action</tag>
-        <tag>Hexo</tag>
-        <tag>Blog</tag>
       </tags>
   </entry>
   <entry>
