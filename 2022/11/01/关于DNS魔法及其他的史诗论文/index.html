@@ -354,7 +354,7 @@
 <span id="more"></span>
 <p>命名产品是困难的，Tailscale的关键特性之一，MagicDNS，长期以来是词法正义的焦点。一些人认为我们应该叫它Magic DNS因为苹果将他们旗舰键盘和鼠标叫做Magic Keyboard和Magic Mouse。<br>但你注意到过没有，苹果也将它们的笔记本和无线耳机叫做MacBooks和AirPods？他们这样做是因为英语中一个晦涩（且呆板）的规则，当移除名词短语中的形容词会改变名词含义时，可以移除空格制造合成词。不含magic的Magic Keyboard依然是键盘，不含Mac的MacBook却不是本书了。由此，MagicDNS是一个词就是因为去掉magic不会只是DNS，它不会成为任何事物。Tailscale已经有了DNS和split DNS（两个词！）的配置，但MagicDNS是个不同的东西。   </p>
 <ul>
-<li>&lt; **Xe** &gt; 他们也可以为了商标这样做！相比“面包”、“键盘”、”书“等，非常规词更容易申请商标。   </li>
+<li>&lt; __Xe__ &gt; 他们也可以为了商标这样做！相比“面包”、“键盘”、”书“等，非常规词更容易申请商标。   </li>
 <li>&lt;**Avery**&gt; 另一方面，为了避免商标雷区，有时大型公司会采用&lt;商标&gt;&lt;通用词&gt;的形式命名产品，如微软Word或谷歌Mail。如果一个产品名字包含公司名，你可以相当确信没别人能那样叫他们的产品。      </li>
 </ul>
 <p>Tailscale允许你<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1054/dns/">管理你机器的DNS配置</a>，这使你可设置机器对整个互联网或者匹配特定域（split DNS）首选DNS服务器。这是整洁并且使得本地DNS配置更如人们在<code>/etc/resolve.conf</code>添加多条DNS解析器通常所期待的。<br>但那不是MagicDNS，仅仅是稍好点的DNS。MagicDNS在这些特性之上构建，完全改变名字解析工作方式令新使用场景DNS安全。它是Tailscale和你的基础设施可以构建在其上的构件。<br>今天我们看看DNS的问题空间，这些年复杂性怎么被层层叠加，MagicDNS怎样去除全部的复杂性并在过程中使得一切更可靠。   </p>
