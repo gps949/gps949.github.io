@@ -419,14 +419,15 @@
 </ul>
 <p>这些分类不再使用了，但你可以在反向DNS的实现中看到它们残留的痕迹。<br>IPv4地址是32位（bit）数字，通常写成每8位数字用点分隔的序列，如：   </p>
 <pre class="line-numbers language-none"><code class="language-none">82.58.46.8
-&#96;&#96;&#96;   
-
+&#96;&#96;&#96;      
+   
+     
 这用来表示一个严格的层级结构，自&#96;82.0.0.0&#x2F;8&#96;块的拥有者，到&#96;82.58.0.0&#x2F;16&#96;块的拥有者，最终是&#96;82.58.46.0&#x2F;24&#96;块的拥有者。同样的层级被DNS委托用来分发反向DNS名字的拥有者。为了委托这个，你需要反转IP地址如下：   
 ![](https:&#x2F;&#x2F;tailscale.com&#x2F;blog&#x2F;magicdns-why-name&#x2F;reverse-dns-ip.svg)   
 &lt;center&gt;&lt;p&gt;反向DNS反转IP地址&lt;&#x2F;p&gt;&lt;&#x2F;center&gt;   
 
 这是反向DNS查询如何运作的核心，也是我们之所以称它是另一个完整的DNS的原因。它和DNS同样符号，但是反向。实现上有很多有意思的地方。   
-- &lt;**Xe**&gt; Tailscale在MagicDNS中实现了反向DNS。但Tailscale没有使用旧的典型地址，使用了&#96;100.64.0.0&#x2F;10&#96;，比&#96;&#x2F;8&#96;少了两位。这与只进行8位跳转的子网委托方式相冲突。为解决这点我们设置了一批反向DNS路由。可以在运行Tailscale和systemd的机器上执行&#96;resolvectl&#96;，或者在运行Tailscale的Mac上执行&#96;scutil --dns&#96;进行查看。下面是在我开发机上的输出：   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+- &lt;**Xe**&gt; Tailscale在MagicDNS中实现了反向DNS。但Tailscale没有使用旧的典型地址，使用了&#96;100.64.0.0&#x2F;10&#96;，比&#96;&#x2F;8&#96;少了两位。这与只进行8位跳转的子网委托方式相冲突。为解决这点我们设置了一批反向DNS路由。可以在运行Tailscale和systemd的机器上执行&#96;resolvectl&#96;，或者在运行Tailscale的Mac上执行&#96;scutil --dns&#96;进行查看。下面是在我开发机上的输出：   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>DNS Domain: telethia-pirhanax.ts.net example.com.beta.tailscale.net ~0.e.1.a.c.5.1.1.a.7.d.f.ip6.arpa ~100.100.in-addr.arpa ~101.100.in-addr.arpa ~102.100.in-addr.arpa ~103.100.in-addr.arpa ~104.100.in-addr.arpa ~105.100.in-addr.arpa ~106.100.in-addr.arpa ~107.100.in-addr.arpa ~108.100.in-addr.arpa ~109.100.in-addr.arpa ~110.100.in-addr.arpa ~111.100.in-addr.arpa ~112.100.in-addr.arpa ~113.100.in-addr.arpa ~114.100.in-addr.arpa ~115.100.in-addr.arpa ~116.100.in-addr.arpa ~117.100.in-addr.arpa ~118.100.in-addr.arpa ~119.100.in-addr.arpa ~120.100.in-addr.arpa ~121.100.in-addr.arpa ~122.100.in-addr.arpa ~123.100.in-addr.arpa ~124.100.in-addr.arpa ~125.100.in-addr.arpa ~126.100.in-addr.arpa ~127.100.in-addr.arpa ~64.100.in-addr.arpa ~65.100.in-addr.arpa ~66.100.in-addr.arpa ~67.100.in-addr.arpa ~68.100.in-addr.arpa ~69.100.in-addr.arpa ~70.100.in-addr.arpa ~71.100.in-addr.arpa ~72.100.in-addr.arpa ~73.100.in-addr.arpa ~74.100.in-addr.arpa ~75.100.in-addr.arpa ~76.100.in-addr.arpa ~77.100.in-addr.arpa ~78.100.in-addr.arpa ~79.100.in-addr.arpa ~80.100.in-addr.arpa ~81.100.in-addr.arpa ~82.100.in-addr.arpa ~83.100.in-addr.arpa ~84.100.in-addr.arpa ~85.100.in-addr.arpa ~86.100.in-addr.arpa ~87.100.in-addr.arpa ~88.100.in-addr.arpa ~89.100.in-addr.arpa ~90.100.in-addr.arpa ~91.100.in-addr.arpa ~92.100.in-addr.arpa ~93.100.in-addr.arpa ~94.100.in-addr.arpa ~95.100.in-addr.arpa ~96.100.in-addr.arpa ~97.100.in-addr.arpa ~98.100.in-addr.arpa ~99.100.in-addr.arpa</p>
 <p>```   </p>
 <p>但现在随着IP地址的稀缺和频繁重新分配，一组IP的反向DNS域通常属于你的云厂商，而不是你。因此提供”正确的“反向DNS回答需要许多我们不想牵扯的人大量协作。   </p>
