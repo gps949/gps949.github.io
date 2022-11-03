@@ -5,7 +5,7 @@
     <url>/2022/11/01/%E5%85%B3%E4%BA%8EDNS%E9%AD%94%E6%B3%95%E5%8F%8A%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%B2%E8%AF%97%E8%AE%BA%E6%96%87/</url>
     <content><![CDATA[<p>之前有<a href="Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1">一篇译自Tailscale博客的关于DNS的技术文章</a>，里面更主要的讨论的是终端设备上DNS配置管理的问题，今天这篇同样译自Tailscale博客的关于DNS的技术文章，可能更多的是讨论DNS的解析运作过程。那么下面是原博客文章内容：   </p>
 <span id="more"></span>
-<p>命名产品是困难的，Tailscale的关键特性之一，MagicDNS，长期以来是词法正义的焦点。一些人认为我们应该叫它Magic DNS因为苹果将他们旗舰键盘和鼠标叫做Magic Keyboard和Magic Mouse。<br>但你注意到过没有，苹果也将它们的笔记本和无线耳机叫做MacBooks和AirPods？他们这样做是因为英语中一个晦涩（且呆板）的规则，当移除名词短语中的形容词会改变名词含义时，可以移除空格制造合成词。不含magic的Magic Keyboard依然是键盘，不含Mac的MacBook却不是本书了。由此，MagicDNS是一个词就是因为去掉magic不会只是DNS，它不会成为任何事物。Tailscale已经有了DNS和split DNS（两个词！）的配置，但MagicDNS是个不同的东西。   </p>
+<p>命名产品是困难的，Tailscale的关键特性之一，MagicDNS，长期以来是词法争议的焦点。一些人认为我们应该叫它Magic DNS因为苹果将他们旗舰键盘和鼠标叫做Magic Keyboard和Magic Mouse。<br>但你注意到过没有，苹果也将它们的笔记本和无线耳机叫做MacBooks和AirPods？他们这样做是因为英语中一个晦涩（且呆板）的规则，当移除名词短语中的形容词会改变名词含义时，可以移除空格制造合成词。不含magic的Magic Keyboard依然是键盘，不含Mac的MacBook却不是本书了。由此，MagicDNS是一个词就是因为去掉magic不会只是DNS，它不会成为任何事物。Tailscale已经有了DNS和split DNS（两个词！）的配置，但MagicDNS是个不同的东西。   </p>
 <ul>
 <li> &lt;<strong>Xe</strong>&gt;  他们也可以为了商标这样做！相比“面包”、“键盘”、”书“等，非常规词更容易申请商标。   </li>
 <li>&lt;<strong>Avery</strong>&gt; 另一方面，为了避免商标雷区，有时大型公司会采用&lt;商标&gt;&lt;通用词&gt;的形式命名产品，如微软Word或谷歌Mail。如果一个产品名字包含公司名，你可以相当确信没别人能那样叫他们的产品。      </li>
@@ -15,7 +15,10 @@
 <center><p>解释DNS如何工作的图。笔记本向DNS服务器询问tailscale.com的IP地址得到82.58.46.8的回复</p></center>      
 
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; 如果你要以一种更可视化的方法学习更多关于DNS如何查询，可以看Pingdom的<a href="https://www.pingdom.com/blog/a-visual-explanation-of-how-dns-lookups-work/">这个解释</a>。它是复杂的，有许多我们在下面将讨论的单独的委托步骤。<br>我们可以将DNS认为是第一个全球分布式数据库。DNS设计成全局收敛的（随着时间推移整个系统同意什么名字指向什么IP地址），所以无论请求源自渥太华、旧金山、西雅图还是帕劳，查询<code>google.com</code>将总指向同样的IP。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 如果你要以一种更可视化的方法学习更多关于DNS如何查询，可以看Pingdom的<a href="https://www.pingdom.com/blog/a-visual-explanation-of-how-dns-lookups-work/">这个解释</a>。它是复杂的，有许多我们在下面将讨论的单独的委托步骤。   </li>
+</ul>
+<p>我们可以将DNS认为是第一个全球分布式数据库。DNS设计成全局收敛的（随着时间推移整个系统同意什么名字指向什么IP地址），所以无论请求源自渥太华、旧金山、西雅图还是帕劳，查询<code>google.com</code>将总指向同样的IP。   </p>
+<ul>
 <li>&lt;<strong>Avery</strong>&gt;好，实际上google.com可能是互联网上最坏的例子了，因为他们采用了太多的泛播和DNS技巧令你永远不会知道你将得到什么IP地址。但为了我们的目的，让我们想象Google像一般人一样使用DNS。   </li>
 </ul>
 <p>DNS是全局收敛的，因为随着时间推移，如缓存过期，每个互联网上DNS服务器可以最终对同样查询同样回答。每个DNS记录有存活时间（TTL）设置，指定回答在多长时间有效。不幸的是，DNS客户端和服务器可能选择忽略建议的TTL值并使用他们自己的TTL。一些ISP声称这样是为了”减少网络流量“，但这样违背DNS RFC导致产生非常难以debug的微妙问题。   </p>
@@ -28,7 +31,8 @@
 这有时会导致 ISP 设置的过于热心的缓存解析器出现问题，使得路由器无法使用符合规范的解析器，或者当您使用其他地方托管的 DNS 服务器时，无法从负载平衡器获得最佳本地化解决方案。但总体上它是可以奏效的。    
 
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; 当然这里假设你的政府、ISP或是当地咖啡馆WiFi没有不怀好意地劫持DNS。<br>作为一个社会，我们放弃世界上每处都要将每个DNS名字总映射到相同的IP地址这一规则。实践中这通常不会伤害我们，除了我们试图调试它时。然后它可以是简单的，也可以是非常困难以至于使得你开始重新考虑你的职业抱负并考虑进入农业需要多少开销。奶牛<a href="https://economicdashboard.alberta.ca/livestockprices">出奇的贵</a>！   </li>
+<li>&lt;<strong>Xe</strong>&gt; 当然这里假设你的政府、ISP或是当地咖啡馆WiFi没有不怀好意地劫持DNS。   </li>
+<li>作为一个社会，我们放弃世界上每处都要将每个DNS名字总映射到相同的IP地址这一规则。实践中这通常不会伤害我们，除了我们试图调试它时。然后它可以是简单的，也可以是非常困难以至于使得你开始重新考虑你的职业抱负并考虑进入农业需要多少开销。奶牛<a href="https://economicdashboard.alberta.ca/livestockprices">出奇的贵</a>！   </li>
 <li>&lt;<strong>Xe</strong>&gt; 将DNS变化如何被全球人们观察到的方法称作”传播“是个常见的误解。这技术上不正确。大多数情况下，你等待的是缓存过期，然后下个请求被转发到上游 DNS 服务器以获得准确的信息。这就是为什么人们称DNS为”全局一致“：随着时间的推移，整个互联网将逐渐在哪个名字指向哪个IP地址的回答集合上趋于一致。然而实践中ーー考虑到数据实际上是如何在互联网上移动的ーー说是 DNS 查询具有从原始 DNS 服务器传播出去的效果并非完全错误。   </li>
 </ul>
 <h1 id="DNS加密（并不是）"><a href="#DNS加密（并不是）" class="headerlink" title="DNS加密（并不是）"></a>DNS加密（并不是）</h1><p>DNS是非加密、无鉴别的协议。查询和响应在互联网上以明文发送。这意味着无论谁只要发送正确的名字就能得到IP地址。   </p>
@@ -56,7 +60,33 @@
 <ul>
 <li>&lt;<strong>Avery</strong>&gt; 子域的子域也不时兴了，因为在受信的父域和不信任的子域间意外共享HTTP cookie。另外DNS 中的每级子域委托都会带来额外的网络往返，以进行递归名称解析，从而增加延迟。结果是麻烦多过价值。   </li>
 </ul>
-<h1 id="反向DNS（另一个完整的DNS）"><a href="#反向DNS（另一个完整的DNS）" class="headerlink" title="反向DNS（另一个完整的DNS）"></a>反向DNS（另一个完整的DNS）</h1><p>（未完待续）</p>
+<h1 id="反向DNS（另一个完整的DNS）"><a href="#反向DNS（另一个完整的DNS）" class="headerlink" title="反向DNS（另一个完整的DNS）"></a>反向DNS（另一个完整的DNS）</h1><p>接下来是反向DNS，将IP地址翻译回一个域名。在电子邮件中，反向DNS仍被用作垃圾邮件过滤的风险评估，因为大多数配置良好的邮件服务器的正向和反向DNS名字相匹配。这也是互联网服务运营者判断IP是否住宅地址的方式。   </p>
+<ul>
+<li>&lt;<strong>Avery</strong>&gt; 不要忘记ssh的前身rlogin！以及<a href="https://en.wikipedia.org/wiki/TCP_Wrappers">TCP Wrappers</a>。在过去，我们习惯单纯依靠（当然是未加密的）反向DNS的回答来接受或者拒绝连接。我们也曾习惯认为<a href="https://www.staldal.nu/tech/2007/10/31/why-can-only-root-listen-to-ports-below-1024/">绑定在少于1024的端口更安全</a>。网络安全已经取得了长足的进步！   </li>
+</ul>
+<p>曾经每个公司拥有一整个分配给他们的IPv4子网，所以他们也拥有他们自己的反向DNS域。当互联网分配公司一个IP地址块时，会是以下三类中的一个：   </p>
+<ul>
+<li>A类：<code>/8</code>网络拥有1600万个地址   </li>
+<li>B类：<code>/16</code>网络拥有6万5千个地址   </li>
+<li>C类：<code>/24</code>网络拥有256个地址   </li>
+</ul>
+<p>这些分类不再使用了，但你可以在反向DNS的实现中看到它们残留的痕迹。<br>IPv4地址是32位（bit）数字，通常写成每8位数字用点分隔的序列，如：   </p>
+<pre class="line-numbers language-none"><code class="language-none">82.58.46.8
+&#96;&#96;&#96;   
+这用来表示一个严格的层级结构，自&#96;82.0.0.0&#x2F;8&#96;块的拥有者，到&#96;82.58.0.0&#x2F;16&#96;块的拥有者，最终是&#96;82.58.46.0&#x2F;24&#96;块的拥有者。同样的层级被DNS委托用来分发反向DNS名字的拥有者。为了委托这个，你需要反转IP地址如下：   
+![](https:&#x2F;&#x2F;tailscale.com&#x2F;blog&#x2F;magicdns-why-name&#x2F;reverse-dns-ip.svg)   
+&lt;center&gt;&lt;p&gt;反向DNS反转IP地址&lt;&#x2F;p&gt;&lt;&#x2F;center&gt;   
+
+这是反向DNS查询如何运作的核心，也是我们之所以称它是另一个完整的DNS的原因。它和DNS同样符号，但是反向。实现上有很多有意思的地方。   
+- &lt;**Xe**&gt; Tailscale在MagicDNS中实现了反向DNS。但Tailscale没有使用旧的典型地址，使用了&#96;100.64.0.0&#x2F;10&#96;，比&#96;&#x2F;8&#96;少了两位。这与只进行8位跳转的子网委托方式相冲突。为解决这点我们设置了一批反向DNS路由。可以在运行Tailscale和systemd的机器上执行&#96;resolvectl&#96;，或者在运行Tailscale的Mac上执行&#96;scutil --dns&#96;进行查看。下面是在我开发机上的输出：   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>DNS Domain: telethia-pirhanax.ts.net example.com.beta.tailscale.net ~0.e.1.a.c.5.1.1.a.7.d.f.ip6.arpa ~100.100.in-addr.arpa ~101.100.in-addr.arpa ~102.100.in-addr.arpa ~103.100.in-addr.arpa ~104.100.in-addr.arpa ~105.100.in-addr.arpa ~106.100.in-addr.arpa ~107.100.in-addr.arpa ~108.100.in-addr.arpa ~109.100.in-addr.arpa ~110.100.in-addr.arpa ~111.100.in-addr.arpa ~112.100.in-addr.arpa ~113.100.in-addr.arpa ~114.100.in-addr.arpa ~115.100.in-addr.arpa ~116.100.in-addr.arpa ~117.100.in-addr.arpa ~118.100.in-addr.arpa ~119.100.in-addr.arpa ~120.100.in-addr.arpa ~121.100.in-addr.arpa ~122.100.in-addr.arpa ~123.100.in-addr.arpa ~124.100.in-addr.arpa ~125.100.in-addr.arpa ~126.100.in-addr.arpa ~127.100.in-addr.arpa ~64.100.in-addr.arpa ~65.100.in-addr.arpa ~66.100.in-addr.arpa ~67.100.in-addr.arpa ~68.100.in-addr.arpa ~69.100.in-addr.arpa ~70.100.in-addr.arpa ~71.100.in-addr.arpa ~72.100.in-addr.arpa ~73.100.in-addr.arpa ~74.100.in-addr.arpa ~75.100.in-addr.arpa ~76.100.in-addr.arpa ~77.100.in-addr.arpa ~78.100.in-addr.arpa ~79.100.in-addr.arpa ~80.100.in-addr.arpa ~81.100.in-addr.arpa ~82.100.in-addr.arpa ~83.100.in-addr.arpa ~84.100.in-addr.arpa ~85.100.in-addr.arpa ~86.100.in-addr.arpa ~87.100.in-addr.arpa ~88.100.in-addr.arpa ~89.100.in-addr.arpa ~90.100.in-addr.arpa ~91.100.in-addr.arpa ~92.100.in-addr.arpa ~93.100.in-addr.arpa ~94.100.in-addr.arpa ~95.100.in-addr.arpa ~96.100.in-addr.arpa ~97.100.in-addr.arpa ~98.100.in-addr.arpa ~99.100.in-addr.arpa</p>
+<p>```   </p>
+<p>但现在随着IP地址的稀缺和频繁重新分配，一组IP的反向DNS域通常属于你的云厂商，而不是你。因此提供”正确的“反向DNS回答需要许多我们不想牵扯的人大量协作。   </p>
+<ul>
+<li>&lt;<strong>Avery</strong>&gt; 并且别忘了，结合<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Host">HTTP Host: header</a>和<a href="https://en.wikipedia.org/wiki/Server_Name_Indication">TLS SNI</a>，一个IP可以有许多名字！正向DNS没问题，你只要设置多个DNS名字翻译到同样的IP。但是反向DNS，每个IP只能翻译回一个名字。这在现代互联网中运作不好。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 有相当数量的人会经历在IRC上显示一个像<code>gimme-your.nickserv.pw</code>这样滑稽的反向DNS名字痛苦。随着IRC慢慢从公众视野淡出，这是个在消亡的艺术。   </li>
+</ul>
+<h1 id="它总是DNS"><a href="#它总是DNS" class="headerlink" title="它总是DNS"></a>它总是DNS</h1><p>（未完待续）</p>
 ]]></content>
       <categories>
         <category>技术</category>
@@ -142,12 +172,12 @@ git branch -M main
 git remote add origin https://github.com/username/myblog.git
 git push -u origin main
 </code></pre>
-　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   <h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#117;&#115;&#101;&#114;&#110;&#97;&#109;&#x65;&#x40;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;">&#117;&#115;&#101;&#114;&#110;&#97;&#109;&#x65;&#x40;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;</a></strong>为GitHub用户邮箱)：<pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
+　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   <h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#117;&#x73;&#101;&#x72;&#110;&#x61;&#x6d;&#x65;&#64;&#101;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#117;&#x73;&#101;&#x72;&#110;&#x61;&#x6d;&#x65;&#64;&#101;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></strong>为GitHub用户邮箱)：<pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
 </code></pre>
 　　根据之后提示选择密钥文件存储位置和密码（直接回车设置为空）。<br>　　在刚刚创建的<strong>username.github.io</strong> Repo的<code>Settings</code>中点击<code>Deploy keys</code>，选择<code>Add deploy key</code>。Title可以根据喜好设置（如myblog_deploy_pubkey），Key的内容复制进刚才使用命令生成的<code>.pub</code>扩展名的公钥文件内容。下面的<code>Allow write access</code>的复选框要勾选。   <h3 id="配置站点的自动化更新部署"><a href="#配置站点的自动化更新部署" class="headerlink" title="配置站点的自动化更新部署"></a>配置站点的自动化更新部署</h3>　　站点的自动化更新部署通过在源码Repo中配置GitHub Action来实现。关于GitHub Action的原理和更多技巧可参见网上资料。<br>　　先准备部署时使用的部署私钥（Deploy key），在<strong>myblog</strong>的<code>Settings</code>的<code>Secrets</code>中点击<code>New repository secret</code>，名称可以设置为如<strong>HEXO_DEPLOY_PRI</strong>，内容复制入上一节中除<code>.pub</code>文件之外的另一个私钥文件内容，再点击<code>Add secret</code>。<br>　　然后，在本机命令行下进入第一步中创建的<code>myblog</code>目录下执行：   <pre><code class="bash">mkdir .github/workflows
 touch .github/workflows/deploy.yml
 </code></pre>
-　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#117;&#x73;&#x65;&#x72;&#110;&#x61;&#109;&#x65;&#64;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#117;&#x73;&#x65;&#x72;&#110;&#x61;&#109;&#x65;&#64;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a>为你的GitHub注册邮箱）：   </li>
+　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#x75;&#x73;&#x65;&#x72;&#110;&#x61;&#x6d;&#101;&#x40;&#x65;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#x75;&#x73;&#x65;&#x72;&#110;&#x61;&#x6d;&#101;&#x40;&#x65;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;</a>为你的GitHub注册邮箱）：   </li>
 </ul>
 <pre><code class="yaml">name: CI
 
