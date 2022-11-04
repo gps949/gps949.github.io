@@ -32,6 +32,9 @@
 <meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/hijacking.svg">
 <meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/delegation.svg">
 <meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/reverse-dns-ip.svg">
+<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/image1.jpg">
+<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/new-device.svg">
+<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/magicdns-vs-dns.svg">
 <meta property="article:published_time" content="2022-11-01T08:22:35.000Z">
 <meta property="article:modified_time" content="2022-11-01T08:22:35.000Z">
 <meta property="article:author" content="小北极星">
@@ -161,7 +164,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS%E6%82%B2%E5%89%A7%EF%BC%9A%E5%91%BD%E5%90%8D%E4%BA%8B%E7%89%A9%E4%BD%86%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88"><span class="nav-number">1.</span> <span class="nav-text">DNS悲剧：命名事物但缓存失效</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS%E5%8A%A0%E5%AF%86%EF%BC%88%E5%B9%B6%E4%B8%8D%E6%98%AF%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">DNS加密（并不是）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A7%94%E6%89%98%EF%BC%88%E5%8F%AF%E8%83%BD%E5%8D%B1%E9%99%A9%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">委托（可能危险）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%90%91DNS%EF%BC%88%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84DNS%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">反向DNS（另一个完整的DNS）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%83%E6%80%BB%E6%98%AFDNS"><span class="nav-number">5.</span> <span class="nav-text">它总是DNS</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS%E6%82%B2%E5%89%A7%EF%BC%9A%E5%91%BD%E5%90%8D%E4%BA%8B%E7%89%A9%E4%BD%86%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88"><span class="nav-number">1.</span> <span class="nav-text">DNS悲剧：命名事物但缓存失效</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS%E5%8A%A0%E5%AF%86%EF%BC%88%E5%B9%B6%E4%B8%8D%E6%98%AF%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">DNS加密（并不是）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A7%94%E6%89%98%EF%BC%88%E5%8F%AF%E8%83%BD%E5%8D%B1%E9%99%A9%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">委托（可能危险）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%90%91DNS%EF%BC%88%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84DNS%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">反向DNS（另一个完整的DNS）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E6%98%AFDNS"><span class="nav-number">5.</span> <span class="nav-text">总是DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MagicDNS%E6%98%AFDNS%EF%BC%8C%E4%BD%86%E6%9C%89%E4%B8%8D%E5%90%8C"><span class="nav-number">6.</span> <span class="nav-text">MagicDNS是DNS，但有不同</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%8E%A8%E9%80%81%E7%9A%84%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88"><span class="nav-number">7.</span> <span class="nav-text">基于推送的缓存失效</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%86%E8%8A%82%E4%B8%8D%E5%8F%AF%E8%A7%81"><span class="nav-number">8.</span> <span class="nav-text">细节不可见</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -333,14 +336,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6.6k</span>
+      <span>9.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
+      <span>9 分钟</span>
     </span>
 </div>
 
@@ -437,7 +440,24 @@
 <li>&lt;<strong>Avery</strong>&gt; 并且别忘了，结合<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Host">HTTP Host: header</a>和<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Server_Name_Indication">TLS SNI</a>，一个IP可以有许多名字！正向DNS没问题，你只要设置多个DNS名字翻译到同样的IP。但是反向DNS，每个IP只能翻译回一个名字。这在现代互联网中运作不好。   </li>
 <li>&lt;<strong>Xe</strong>&gt; 有相当数量的人会经历在IRC上显示一个像<code>gimme-your.nickserv.pw</code>这样滑稽的反向DNS名字痛苦。随着IRC慢慢从公众视野淡出，这是个在消亡的艺术。   </li>
 </ul>
-<h1 id="它总是DNS"><a href="#它总是DNS" class="headerlink" title="它总是DNS"></a>它总是DNS</h1><p>（未完待续）</p>
+<h1 id="总是DNS"><a href="#总是DNS" class="headerlink" title="总是DNS"></a>总是DNS</h1><p>所有的这些甚至没有覆盖每个设备和操作系统上的DNS客户端配置。DNS客户端配置是每个平台独特的，可能微不足道也可能漫无止境，<a target="_blank" rel="noopener" href="https://tailscale.com/blog/sisyphean-dns-client-linux/">取决于你使用哪个平台以及已经有多少人有关于如何配置的意见</a>。多数时候你希望不必关心它。下一个大问题是当你需要关心的时候，有一个操作系统原生 API 来解决这个问题。最后一个问题是，你必须弄清楚在运行中操作系统发生了什么，然后将所有东西拼凑在一起，使事情像人们期望那样”Just Work <strong><sup>TM</sup></strong> “<br>所有的这一切疯狂就是为什么当你看到一个大网站挂掉时，通常是因为DNS服务器又失败了导致一起都宕机了。当你私有内部网络运行异常或者缓慢时，经常是本地DNS错误（或者旧缓存值、或节点间DNS配置不一致、或者月相产生的潮汐影响了海底光缆）。<br>DNS带来了许多关于停机时间本质的文化基因、艺术创作和哲学文献，比如下面这个：<br><img data-src="https://tailscale.com/blog/magicdns-why-name/image1.jpg">   </p>
+<h1 id="MagicDNS是DNS，但有不同"><a href="#MagicDNS是DNS，但有不同" class="headerlink" title="MagicDNS是DNS，但有不同"></a>MagicDNS是DNS，但有不同</h1><p>MagicDNS使用DNS作为它的查询协议，因此你可能认为它有同样的缺陷。但在MagicDNS中，方程式完全颠倒了。<br>在Tailscale中，协调服务有一个你tailnet中一切东西的列表。你有端到端的加密，所以你可以完全相信一个人所有的机器确实被那个人使用，并且从哪个机器来的数据包都与那个人相关。通过Tailscale加密强制执行的ACL，你只能访问你拥有权限的机器。由身份提供者进行的用户鉴别可以防止整体攻击。这一切使得网络层安全。——</p>
+<ul>
+<li>&lt;<strong>Avery</strong>&gt; ……就像我们假装回到rlogin和TCP Wrappers时代！<br>——是的，就像从前。但是一旦网络安全了，我们就可以在其上构建更酷的机制。<br>MagicDNS在DNS客户端配置中设置了一个相对罕见的称之为<a target="_blank" rel="noopener" href="https://superuser.com/a/184366">搜索域</a>的特性。这允许你在你的tailnet中不使用IP地址或是完整域名，而是使用简单主机名去连接个人机器。假如你的主服务器叫<code>pandoria</code>，你可以使用<code>pandoria</code>代替完整的域名<code>pandoria.example.com.beta.tailscale.net</code>（或者你<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1153/enabling-https/">配置了HTTPS</a> <code>pandoria.telethia-pirhanax.ts.net</code>）直接连接。这使你可以不用额外输入更简单的连接你关心的机器。你不需要设置SSH别名，而是直接使用<code>ssh pandoria</code>登录。<br>MagicDNS自动使用设备的<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1098/machine-names">机器名</a>作为DNS入口的一部分。如果你改变了你的设备名字，MagicDNS入口自动改变。如果你有想用来指代你设备的特殊名字，你可以<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1098/machine-names/#renaming-a-machine">编辑机器名</a>。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/new-device.svg">   <center><p>MagicDNS由Tailscale的控制服务器提供，所以请求永远不用离开你的机器</p></center>   
+# 每个机器是他自己的DNS服务器   
+传统 DNS 最大的可靠性缺点之一是，如果 DNS 服务器出现故障，客户端就无法再在该 DNS 服务器上查找主机，除非名称被缓存。然后，当缓存过期时，一切都会遇到更多的问题。这会把小的中断变成大的中断，让你登上 CNN 和 Reddit 的头版。   
+MagicDNS通过在tailnet中的每个机器上使用虚拟地址`100.100.100.100`本地运行MagicDNS服务器解决了这个问题。DNS服务器不会宕掉。它不会在负载中挂掉(除非你自己的机器也这样了) ，而且当你的机器由于某种原因宕掉时，其他所有机器都不会受到影响。   
+因为MagicDNS总是本地运行，你不必信任端到端加密：MagicDNS流量从不出你的机器。它是虚拟网络上的虚拟服务。   
+![](https://tailscale.com/blog/magicdns-why-name/search-domains.svg)   
+<center><p>如果你的浏览器不带顶级域名询问pandoria，操作系统会依次尝试这些域以得到可用的</p></center>   </li>
+<li>&lt;<strong>Xe</strong>&gt; 当DNS服务器跑在你网络中的每台机器上，你不用担心DNS服务器宕掉。如果你设备的DNS宕了，是因为你自己的设备不工作——你有了更大的问题。但愿不是火灾，火灾对计算机不好。<br>MagicDNS对Tailscale特定的DNS名称使用委托，但是所有的委托发生在你自己的内部，这意味着委托的延迟几乎为0，你无法把它配置错误。<br>MagicDNS从不需要担心授权更新或是篡改：更新来自通过控制平面的安全通道。<br>MagicDNS中反向DNS默认生效，因为每个Tailscale机器有它自己独特的私有IP，MagicDNS为子网管理反向DNS域名。<br>MagicDNS不必忍受延迟问题，延迟与设备发包到localhost一样低。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/magicdns-vs-dns.svg">   <center><p>MagicDNS记录总在设备上，因此你不用等待DNS服务器回应</p></center>   
+# 透明地提升你操作系统能力   
+因为Tailscale在每台机器上运行一个本地DNS服务器，MagicDNS可以规范和升级你tailnet中每台机器的DNS能力。   
+例如，MagicDNS可以[尽可能多的将DNS查询透明地升级为DNS-over-HTTPS](https://tailscale.com/blog/2021-09-private-dns-with-magicdns/)，以使对外部的DNS请求不被中途嗅探或篡改。这不能保护你的每条DNS请求与在技术上可以被Google、Cloudflare、Quad9或其他DNS-over-HTTPS服务商看到，但它应该可以从你的ISP运营商或着咖啡店WiFI网络中的脚本小子那里保护你的非MagicDNS查询。这点甚至可以在如Windows7那样太老旧不支持DNS-over-HTTPS操作系统的机器上工作。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 是的，我们支持Windows 7！<br>如果你创建了<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1054/dns/">split DNS</a>路由本地DNS服务器还可以委托子域，即使你的操作系统并不原生支持。当你在管理员控制台<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1054/dns">配置split DNS</a>，路由自动推送到你tailnet中的所有设备，并允许你将流量路由到你想要的任意子域或是虚拟顶域。比如你可以使用这点从非AWS的Tailscale节点来访问AWS VPC域名。即使是Windows 7上。   <h1 id="基于推送的缓存失效"><a href="#基于推送的缓存失效" class="headerlink" title="基于推送的缓存失效"></a>基于推送的缓存失效</h1>显而易见MagicDNS由于我们控制平面会立即推送更新到每个设备（DNS将周期轮询变更），而可以完全修复缓存失效问题，并且因为它直接运行在设备上，我们消除了中间环节扰乱缓存参数的可能性。这意味着你可以相信你的内部DNS总是最新的，永远不用担心又配另一个内部DNS TTL。   </li>
+<li>&lt;<strong>Avery</strong>&gt; 这意味着MagicDNS可以用作服务发现工具。推送你的代码到名为<code>git</code>的服务器。在<code>http://pastebin</code>分享文本。有些创业公司在做主要基于绕过DNS限制的新的服务发现机制。我们有在服务发现中不要信任DNS的教训，但那从不是DNS协议的问题。而是缓存、延迟、轮询。   <h1 id="细节不可见"><a href="#细节不可见" class="headerlink" title="细节不可见"></a>细节不可见</h1>有人可能会说”啊，那只是个动态DNS服务器。我可以在一个周末做出来，至少这些笨蛋写的一半代码“。但是没有像MagicDNS做的那样在每个机器上运行的DNS服务器，更新延迟会再次成为一个问题。安全和缓存不可用会再次成为问题。DNS服务器的启动和负载会成为问题。那将成为故障点而不是弹性点。<br>几十年来的常规DNS，即使你做了负载均衡也演变成了一个故障点。我们没有修复DNS近40年的设计缺陷，我们也不想在修复接下来40年的。MagicDNS以惊人少的代码，在惊人的深度解决了关键问题。<br>这边是我们之所以叫它MagicDNS：因为没有魔法就不只是DNS。MagicDNS建立在完全不同的基础上消除了DNS的大多数问题。如同魔法。   </li>
+</ul>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://tailscale.com/blog/magicdns-why-name/">https://tailscale.com/blog/magicdns-why-name/</a>    </p>
 
     </div>
 
@@ -577,13 +597,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">68k</span>
+    <span title="站点总字数">71k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:02</span>
+    <span title="站点阅读时长">1:04</span>
   </span>
 </div>
 <div class="busuanzi-count">
