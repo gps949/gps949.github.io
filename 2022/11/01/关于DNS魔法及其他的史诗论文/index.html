@@ -359,7 +359,7 @@
 <span id="more"></span>
 <p>命名产品是困难的，Tailscale的关键特性之一，MagicDNS，长期以来是词法争议的焦点。一些人认为我们应该叫它Magic DNS因为苹果将他们旗舰键盘和鼠标叫做Magic Keyboard和Magic Mouse。<br>但你注意到过没有，苹果也将它们的笔记本和无线耳机叫做MacBooks和AirPods？他们这样做是因为英语中一个晦涩（且呆板）的规则，当移除名词短语中的形容词会改变名词含义时，可以移除空格制造合成词。不含magic的Magic Keyboard依然是键盘，不含Mac的MacBook却不是本书了。由此，MagicDNS是一个词就是因为去掉magic不会只是DNS，它不会成为任何事物。Tailscale已经有了DNS和split DNS（两个词！）的配置，但MagicDNS是个不同的东西。   </p>
 <ul>
-<li> &lt;<strong>Xe</strong>&gt;  他们也可以为了商标这样做！相比“面包”、“键盘”、”书“等，非常规词更容易申请商标。   </li>
+<li> &lt;<strong>Xe</strong>&gt;  他们也可以为了商标这样做！相比“面包”、“键盘”、“书”等，非常规词更容易申请商标。   </li>
 <li>&lt;<strong>Avery</strong>&gt; 另一方面，为了避免商标雷区，有时大型公司会采用&lt;商标&gt;&lt;通用词&gt;的形式命名产品，如微软Word或谷歌Mail。如果一个产品名字包含公司名，你可以相当确信没别人能那样叫他们的产品。      </li>
 </ul>
 <p>Tailscale允许你<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1054/dns/">管理你机器的DNS配置</a>，这使你可设置机器对整个互联网或者匹配特定域（split DNS）首选DNS服务器。这是整洁并且使得本地DNS配置更如人们在<code>/etc/resolve.conf</code>添加多条DNS解析器通常所期待的。<br>但那不是MagicDNS，仅仅是稍好点的DNS。MagicDNS在这些特性之上构建，完全改变名字解析工作方式令新使用场景DNS安全。它是Tailscale和你的基础设施可以构建在其上的构件。<br>今天我们看看DNS的问题空间，这些年复杂性怎么被层层叠加，MagicDNS怎样去除全部的复杂性并在过程中使得一切更可靠。   </p>
@@ -373,9 +373,9 @@
 <ul>
 <li>&lt;<strong>Avery</strong>&gt;好，实际上google.com可能是互联网上最坏的例子了，因为他们采用了太多的泛播和DNS技巧令你永远不会知道你将得到什么IP地址。但为了我们的目的，让我们想象Google像一般人一样使用DNS。   </li>
 </ul>
-<p>DNS是全局收敛的，因为随着时间推移，如缓存过期，每个互联网上DNS服务器可以最终对同样查询同样回答。每个DNS记录有存活时间（TTL）设置，指定回答在多长时间有效。不幸的是，DNS客户端和服务器可能选择忽略建议的TTL值并使用他们自己的TTL。一些ISP声称这样是为了”减少网络流量“，但这样违背DNS RFC导致产生非常难以debug的微妙问题。   </p>
+<p>DNS是全局收敛的，因为随着时间推移，如缓存过期，每个互联网上DNS服务器可以最终对同样查询同样回答。每个DNS记录有存活时间（TTL）设置，指定回答在多长时间有效。不幸的是，DNS客户端和服务器可能选择忽略建议的TTL值并使用他们自己的TTL。一些ISP声称这样是为了“减少网络流量”，但这样违背DNS RFC导致产生非常难以debug的微妙问题。   </p>
 <ul>
-<li>&lt;<strong>Avery</strong>&gt; 此外，任何基于轮询（相对于基于推送）的带静态时间周期的缓存总会有这样的问题：该选择怎样的缓存超时。如果太短，会增加查询延迟和服务器负载，如果太长，修改会需要时间（有时是数小时或数天）来传播。这就是为何中介人介入并试图通过扰乱TTL来”修复“这个问题。但他们总是最终产生不同的问题。   </li>
+<li>&lt;<strong>Avery</strong>&gt; 此外，任何基于轮询（相对于基于推送）的带静态时间周期的缓存总会有这样的问题：该选择怎样的缓存超时。如果太短，会增加查询延迟和服务器负载，如果太长，修改会需要时间（有时是数小时或数天）来传播。这就是为何中介人介入并试图通过扰乱TTL来“修复”这个问题。但他们总是最终产生不同的问题。   </li>
 </ul>
 <p>这种一个名字对一个 IP 地址的模式在互联网只有一块大陆那么大并且不经常重新布线时候运行良好。但当你在全世界都有服务器，希望用户直接访问最近的一个或者忽略刚好宕机区域时，就会失效了。所以运营者拉取DNS服务器到他们的负载均衡基础设施，将用户指向最近的应用服务器而非任何一个正确答案。   </p>
 <p><img data-src="https://tailscale.com/blog/magicdns-why-name/geolocated.svg">   </p>
@@ -387,11 +387,11 @@
 </ul>
 <p>作为一个社会，我们放弃世界上每处都要将每个DNS名字总映射到相同的IP地址这一规则。实践中这通常不会伤害我们，除了我们试图调试它时。然后它可以是简单的，也可以是非常困难以至于使得你开始重新考虑你的职业抱负并考虑进入农业需要多少开销。奶牛<a target="_blank" rel="noopener" href="https://economicdashboard.alberta.ca/livestockprices">出奇的贵</a>！   </p>
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; 将DNS变化如何被全球人们观察到的方法称作”传播“是个常见的误解。这技术上不正确。大多数情况下，你等待的是缓存过期，然后下个请求被转发到上游 DNS 服务器以获得准确的信息。这就是为什么人们称DNS为”全局一致“：随着时间的推移，整个互联网将逐渐在哪个名字指向哪个IP地址的回答集合上趋于一致。然而实践中ーー考虑到数据实际上是如何在互联网上移动的ーー说是 DNS 查询具有从原始 DNS 服务器传播出去的效果并非完全错误。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 将DNS变化如何被全球人们观察到的方法称作”传播“是个常见的误解。这技术上不正确。大多数情况下，你等待的是缓存过期，然后下个请求被转发到上游 DNS 服务器以获得准确的信息。这就是为什么人们称DNS为“全局一致”：随着时间的推移，整个互联网将逐渐在哪个名字指向哪个IP地址的回答集合上趋于一致。然而实践中ーー考虑到数据实际上是如何在互联网上移动的ーー说是 DNS 查询具有从原始 DNS 服务器传播出去的效果并非完全错误。   </li>
 </ul>
 <h1 id="DNS加密（并不是）"><a href="#DNS加密（并不是）" class="headerlink" title="DNS加密（并不是）"></a>DNS加密（并不是）</h1><p>DNS是非加密、无鉴别的协议。查询和响应在互联网上以明文发送。这意味着无论谁只要发送正确的名字就能得到IP地址。   </p>
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; 通过设置私有DNS服务器（通常称之为”split horizon”DNS）可以将发布私有主机名到公共DNS的隐私风险最小化，私有DNS服务器拥有与公共互联网不同的域名相应集合。你可以通过VPN（例如Tailscale管理员控制台的DNS页签）连接那些，但你会失去DNS的全局一致性和缓存特性。在许多情形，你可以通过在公共DNS服务器返回私有IP段，但这取决于你偏执的程度。并且有时公共DNS服务器<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/DNS_rebinding">安全特性会拒绝私有IP段</a>。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 通过设置私有DNS服务器（通常称之为“split horizon”DNS）可以将发布私有主机名到公共DNS的隐私风险最小化，私有DNS服务器拥有与公共互联网不同的域名相应集合。你可以通过VPN（例如Tailscale管理员控制台的DNS页签）连接那些，但你会失去DNS的全局一致性和缓存特性。在许多情形，你可以通过在公共DNS服务器返回私有IP段，但这取决于你偏执的程度。并且有时公共DNS服务器<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/DNS_rebinding">安全特性会拒绝私有IP段</a>。   </li>
 </ul>
 <p>由于DNS回复没有加密和签名，你也从不会十分确定你得到的DNS响应在中途被篡改。攻击者可以轻易地嗅探并返回个将<code>google.com</code>指向<code>badgooglephish.com</code>IP地址的包。你的iPhone也不会察觉。有一套叫做<a target="_blank" rel="noopener" href="https://www.cloudflare.com/en-ca/dns/dnssec/how-dnssec-works/">DNSSEC</a>的扩展试图使用我没有资格解释的有趣的密码学去修复这些问题。但这才是缺点真正显露出来的地方。Slack最近有个<a target="_blank" rel="noopener" href="https://slack.engineering/what-happened-during-slacks-dnssec-rollout/">相当严重的生产中断</a>，完全可以追溯到为了FedRAMP合规而启用DNSSEC的尝试。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/hijacking.svg">   </p>
 <center><p>DNS被劫持，展现劫持者可以扰乱DNS结果</p></center>   
@@ -436,12 +436,12 @@
 </ul>
 <pre><code>DNS Domain: telethia-pirhanax.ts.net example.com.beta.tailscale.net ~0.e.1.a.c.5.1.1.a.7.d.f.ip6.arpa ~100.100.in-addr.arpa ~101.100.in-addr.arpa ~102.100.in-addr.arpa ~103.100.in-addr.arpa ~104.100.in-addr.arpa ~105.100.in-addr.arpa ~106.100.in-addr.arpa ~107.100.in-addr.arpa ~108.100.in-addr.arpa ~109.100.in-addr.arpa ~110.100.in-addr.arpa ~111.100.in-addr.arpa ~112.100.in-addr.arpa ~113.100.in-addr.arpa ~114.100.in-addr.arpa ~115.100.in-addr.arpa ~116.100.in-addr.arpa ~117.100.in-addr.arpa ~118.100.in-addr.arpa ~119.100.in-addr.arpa ~120.100.in-addr.arpa ~121.100.in-addr.arpa ~122.100.in-addr.arpa ~123.100.in-addr.arpa ~124.100.in-addr.arpa ~125.100.in-addr.arpa ~126.100.in-addr.arpa ~127.100.in-addr.arpa ~64.100.in-addr.arpa ~65.100.in-addr.arpa ~66.100.in-addr.arpa ~67.100.in-addr.arpa ~68.100.in-addr.arpa ~69.100.in-addr.arpa ~70.100.in-addr.arpa ~71.100.in-addr.arpa ~72.100.in-addr.arpa ~73.100.in-addr.arpa ~74.100.in-addr.arpa ~75.100.in-addr.arpa ~76.100.in-addr.arpa ~77.100.in-addr.arpa ~78.100.in-addr.arpa ~79.100.in-addr.arpa ~80.100.in-addr.arpa ~81.100.in-addr.arpa ~82.100.in-addr.arpa ~83.100.in-addr.arpa ~84.100.in-addr.arpa ~85.100.in-addr.arpa ~86.100.in-addr.arpa ~87.100.in-addr.arpa ~88.100.in-addr.arpa ~89.100.in-addr.arpa ~90.100.in-addr.arpa ~91.100.in-addr.arpa ~92.100.in-addr.arpa ~93.100.in-addr.arpa ~94.100.in-addr.arpa ~95.100.in-addr.arpa ~96.100.in-addr.arpa ~97.100.in-addr.arpa ~98.100.in-addr.arpa ~99.100.in-addr.arpa   
 </code></pre>
-<p>但现在随着IP地址的稀缺和频繁重新分配，一组IP的反向DNS域通常属于你的云厂商，而不是你。因此提供”正确的“反向DNS回答需要许多我们不想牵扯的人大量协作。   </p>
+<p>但现在随着IP地址的稀缺和频繁重新分配，一组IP的反向DNS域通常属于你的云厂商，而不是你。因此提供“正确的”反向DNS回答需要许多我们不想牵扯的人大量协作。   </p>
 <ul>
 <li>&lt;<strong>Avery</strong>&gt; 并且别忘了，结合<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Host">HTTP Host: header</a>和<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Server_Name_Indication">TLS SNI</a>，一个IP可以有许多名字！正向DNS没问题，你只要设置多个DNS名字翻译到同样的IP。但是反向DNS，每个IP只能翻译回一个名字。这在现代互联网中运作不好。   </li>
 <li>&lt;<strong>Xe</strong>&gt; 有相当数量的人会经历在IRC上显示一个像<code>gimme-your.nickserv.pw</code>这样滑稽的反向DNS名字痛苦。随着IRC慢慢从公众视野淡出，这是个在消亡的艺术。   </li>
 </ul>
-<h1 id="总是DNS"><a href="#总是DNS" class="headerlink" title="总是DNS"></a>总是DNS</h1><p>所有的这些甚至没有覆盖每个设备和操作系统上的DNS客户端配置。DNS客户端配置是每个平台独特的，可能微不足道也可能漫无止境，<a target="_blank" rel="noopener" href="https://tailscale.com/blog/sisyphean-dns-client-linux/">取决于你使用哪个平台以及已经有多少人有关于如何配置的意见</a>。多数时候你希望不必关心它。下一个大问题是当你需要关心的时候，有一个操作系统原生 API 来解决这个问题。最后一个问题是，你必须弄清楚在运行中操作系统发生了什么，然后将所有东西拼凑在一起，使事情像人们期望那样”Just Work <strong><sup>TM</sup></strong> “<br>所有的这一切疯狂就是为什么当你看到一个大网站挂掉时，通常是因为DNS服务器又失败了导致一起都宕机了。当你私有内部网络运行异常或者缓慢时，经常是本地DNS错误（或者旧缓存值、或节点间DNS配置不一致、或者月相产生的潮汐影响了海底光缆）。<br>DNS带来了许多关于停机时间本质的文化基因、艺术创作和哲学文献，比如下面这个：<br><img data-src="https://tailscale.com/blog/magicdns-why-name/image1.jpg">   </p>
+<h1 id="总是DNS"><a href="#总是DNS" class="headerlink" title="总是DNS"></a>总是DNS</h1><p>所有的这些甚至没有覆盖每个设备和操作系统上的DNS客户端配置。DNS客户端配置是每个平台独特的，可能微不足道也可能漫无止境，<a target="_blank" rel="noopener" href="https://tailscale.com/blog/sisyphean-dns-client-linux/">取决于你使用哪个平台以及已经有多少人有关于如何配置的意见</a>。多数时候你希望不必关心它。下一个大问题是当你需要关心的时候，有一个操作系统原生 API 来解决这个问题。最后一个问题是，你必须弄清楚在运行中操作系统发生了什么，然后将所有东西拼凑在一起，使事情像人们期望那样“Just Work <strong><sup>TM</sup></strong> ”<br>所有的这一切疯狂就是为什么当你看到一个大网站挂掉时，通常是因为DNS服务器又失败了导致一起都宕机了。当你私有内部网络运行异常或者缓慢时，经常是本地DNS错误（或者旧缓存值、或节点间DNS配置不一致、或者月相产生的潮汐影响了海底光缆）。<br>DNS带来了许多关于停机时间本质的文化基因、艺术创作和哲学文献，比如下面这个：<br><img data-src="https://tailscale.com/blog/magicdns-why-name/image1.jpg">   </p>
 <h1 id="MagicDNS是DNS，但有不同"><a href="#MagicDNS是DNS，但有不同" class="headerlink" title="MagicDNS是DNS，但有不同"></a>MagicDNS是DNS，但有不同</h1><p>MagicDNS使用DNS作为它的查询协议，因此你可能认为它有同样的缺陷。但在MagicDNS中，方程式完全颠倒了。<br>在Tailscale中，协调服务有一个你tailnet中一切东西的列表。你有端到端的加密，所以你可以完全相信一个人所有的机器确实被那个人使用，并且从哪个机器来的数据包都与那个人相关。通过Tailscale加密强制执行的ACL，你只能访问你拥有权限的机器。由身份提供者进行的用户鉴别可以防止整体攻击。这一切使得网络层安全。——</p>
 <ul>
 <li>&lt;<strong>Avery</strong>&gt; ……就像我们假装回到rlogin和TCP Wrappers时代！   </li>
@@ -467,7 +467,7 @@
 <ul>
 <li>&lt;<strong>Avery</strong>&gt; 这意味着MagicDNS可以用作服务发现工具。推送你的代码到名为<code>git</code>的服务器。在<code>http://pastebin</code>分享文本。有些创业公司在做主要基于绕过DNS限制的新的服务发现机制。我们有在服务发现中不要信任DNS的教训，但那从不是DNS协议的问题。而是缓存、延迟、轮询。 </li>
 </ul>
-<h1 id="细节不可见"><a href="#细节不可见" class="headerlink" title="细节不可见"></a>细节不可见</h1><p>有人可能会说”啊，那只是个动态DNS服务器。我可以在一个周末做出来，至少这些笨蛋写的一半代码“。但是没有像MagicDNS做的那样在每个机器上运行的DNS服务器，更新延迟会再次成为一个问题。安全和缓存不可用会再次成为问题。DNS服务器的启动和负载会成为问题。那将成为故障点而不是弹性点。<br>几十年来的常规DNS，即使你做了负载均衡也演变成了一个故障点。我们没有修复DNS近40年的设计缺陷，我们也不想在修复接下来40年的。MagicDNS以惊人少的代码，在惊人的深度解决了关键问题。<br>这边是我们之所以叫它MagicDNS：因为没有魔法就不只是DNS。MagicDNS建立在完全不同的基础上消除了DNS的大多数问题。如同魔法。   </p>
+<h1 id="细节不可见"><a href="#细节不可见" class="headerlink" title="细节不可见"></a>细节不可见</h1><p>有人可能会说“啊，那只是个动态DNS服务器。我可以在一个周末做出来，至少这些笨蛋写的一半代码”。但是没有像MagicDNS做的那样在每个机器上运行的DNS服务器，更新延迟会再次成为一个问题。安全和缓存不可用会再次成为问题。DNS服务器的启动和负载会成为问题。那将成为故障点而不是弹性点。<br>几十年来的常规DNS，即使你做了负载均衡也演变成了一个故障点。我们没有修复DNS近40年的设计缺陷，我们也不想在修复接下来40年的。MagicDNS以惊人少的代码，在惊人的深度解决了关键问题。<br>这边是我们之所以叫它MagicDNS：因为没有魔法就不只是DNS。MagicDNS建立在完全不同的基础上消除了DNS的大多数问题。如同魔法。   </p>
 <p>原文地址：<a target="_blank" rel="noopener" href="https://tailscale.com/blog/magicdns-why-name/">https://tailscale.com/blog/magicdns-why-name/</a>    </p>
 
     </div>
