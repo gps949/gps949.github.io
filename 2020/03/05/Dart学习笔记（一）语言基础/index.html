@@ -369,7 +369,7 @@ $ brew <span class="token function">install</span> dart<span aria-hidden="true" 
 <div class="note info"><p>实例变量可以是<code>final</code>但不能是<code>const</code></p>
 </div>
 <p>如果const变量是类级的，标记为<code>static const</code>。const变量需要在声明时设置它的值。</p>
-<h1 id="内建类型"><a href="#内建类型" class="headerlink" title="内建类型"></a>内建类型</h1><h2 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h2><p>Dart内数值类型有两种，<code>int</code>和<code>double</code>。<br><code>int</code>类型不大于64位（8字节），这取决于平台。Dart VM中值可以从-2<sup>63</sup>到2<sup>63</sup>-1，若编译到JavaScript则使用JS的数值范围为-2<sup>53</sup>到2<sup>53</sup>-1<br><code>double</code>为IEEE 754标准规定的64位双精度浮点数值。<br>这两种都是<code>num</code>类型的子类型。包含基本运算符+-*/，也可使用<code>abs()</code>、<code>ceil()</code>、<code>floor()</code>等方法。（位移运算符如&gt;&gt;定义在<code>int</code>类中）<br>自Dart2.1开始，int型在必要时会自动转换为double型。<br>下面是常见的数值和字符串的转换：</p>
+<h1 id="内建类型"><a href="#内建类型" class="headerlink" title="内建类型"></a>内建类型</h1><h2 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h2><p>Dart内数值类型有两种，<code>int</code>和<code>double</code>。<br><code>int</code>类型不大于64位（8字节），这取决于平台。Dart VM中值可以从-2<sup>63</sup>到2<sup>63</sup>-1，若编译到JavaScript则使用JS的数值范围为-2<sup>53</sup>到2<sup>53</sup>-1<br><code>double</code>为IEEE 754标准规定的64位双精度浮点数值。<br>这两种都是<code>num</code>类型的子类型。包含基本运算符+-*&#x2F;，也可使用<code>abs()</code>、<code>ceil()</code>、<code>floor()</code>等方法。（位移运算符如&gt;&gt;定义在<code>int</code>类中）<br>自Dart2.1开始，int型在必要时会自动转换为double型。<br>下面是常见的数值和字符串的转换：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token comment">// String -> int</span>
 <span class="token keyword">var</span> one <span class="token operator">=</span> int<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'1'</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">assert</span><span class="token punctuation">(</span>one <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -474,7 +474,7 @@ The last character: 🇩🇰<span aria-hidden="true" class="line-numbers-rows"><
 <p>只有一个表达式的函数，可以用简短符号：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart">bool <span class="token function">isNoble</span><span class="token punctuation">(</span>int atomicNumber<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> _nobleGases<span class="token punctuation">[</span>atomicNumber<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>符号<code>=&gt; expr</code>是<code>&#123; return expr; &#125;</code>的简略表达。</p>
-<div class="note info"><p>只有表达式（而非语句）可以出现在=&gt;和;之间</p>
+<div class="note info"><p>只有表达式（而非语句）可以出现在&#x3D;&gt;和;之间</p>
 </div>
 <p>函数可以有两种参数：必须的和可选的。必须参数在前，可选参数在后。可选参数可以是<code>命名参数</code>(<code>named</code>)或<code>位置参数</code>(<code>positional</code>)。</p>
 <h2 id="可选参数"><a href="#可选参数" class="headerlink" title="可选参数"></a>可选参数</h2><h3 id="命名参数"><a href="#命名参数" class="headerlink" title="命名参数"></a>命名参数</h3><p>命名参数的定义和使用时形式如下：</p>
@@ -555,12 +555,32 @@ list<span class="token punctuation">.</span><span class="token function">forEach
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
 <span class="token keyword">assert</span><span class="token punctuation">(</span><span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h1 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h1><h2 id="算术操作符"><a href="#算术操作符" class="headerlink" title="算术操作符"></a>算术操作符</h2><p>基本和C一致（<code>-expr</code>取反，<code>~/</code>整除）。</p>
-<h2 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h2><p>基本和C一致。<br>一般测试x、y代表的是否一样的事物使用==号（在少数情况下需要知道两个对象是否完全同一对象，使用<code>identical()</code>函数）。==操作符运作方式：   </p>
+<h2 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h2><p>基本和C一致。<br>一般测试x、y代表的是否一样的事物使用&#x3D;&#x3D;号（在少数情况下需要知道两个对象是否完全同一对象，使用<code>identical()</code>函数）。&#x3D;&#x3D;操作符运作方式：   </p>
 <ol>
 <li>如果x或y是null，当两个都为null时为true否则为false</li>
-<li>返回<code>x.==(y)</code>的结果（即==等操作符是第一个操作数的方法，可以被重写）</li>
+<li>返回<code>x.==(y)</code>的结果（即&#x3D;&#x3D;等操作符是第一个操作数的方法，可以被重写）</li>
 </ol>
-<h2 id="类型测试操作符"><a href="#类型测试操作符" class="headerlink" title="类型测试操作符"></a>类型测试操作符</h2><p><code>as</code>、<code>is</code>和<code>is!</code>为在运行时测试类型的操作符。<br>| 操作符 | 含义 |<br>|-|-|<br>| <code>as</code> | 类型转换，如<code>(emp as Person).firstName = &#39;Bob&#39;;</code>|<br>| <code>is</code> | 判断对象是否为指定类型 |<br>| <code>is!</code> | 判断对象是否非指定类型 |</p>
+<h2 id="类型测试操作符"><a href="#类型测试操作符" class="headerlink" title="类型测试操作符"></a>类型测试操作符</h2><p><code>as</code>、<code>is</code>和<code>is!</code>为在运行时测试类型的操作符。   </p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>as</code></td>
+<td>类型转换，如<code>(emp as Person).firstName = &#39;Bob&#39;;</code></td>
+</tr>
+<tr>
+<td><code>is</code></td>
+<td>判断对象是否为指定类型</td>
+</tr>
+<tr>
+<td><code>is!</code></td>
+<td>判断对象是否非指定类型</td>
+</tr>
+</tbody></table>
 <h2 id="赋值操作符"><a href="#赋值操作符" class="headerlink" title="赋值操作符"></a>赋值操作符</h2><p>除了常规的赋值操作符，还有只在被赋值变量为null时才赋值的<code>??=</code>操作符。<br>另外复合赋值操作符类似C，如<code>+=</code>。</p>
 <h2 id="逻辑操作符（类C）"><a href="#逻辑操作符（类C）" class="headerlink" title="逻辑操作符（类C）"></a>逻辑操作符（类C）</h2><h2 id="位操作符（类C）"><a href="#位操作符（类C）" class="headerlink" title="位操作符（类C）"></a>位操作符（类C）</h2><h2 id="条件表达式"><a href="#条件表达式" class="headerlink" title="条件表达式"></a>条件表达式</h2><p>有C中的三目算符<code>condition ? expr1 : expr2</code>。同时还有个双目的<code>expr1 ?? expr2</code>，表示expr1不为null则返回expr1，否则返回expr2（可以理解为是有默认值的取值）。</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">String</span> <span class="token function">playerName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> name <span class="token operator">?</span><span class="token operator">?</span> <span class="token string-literal"><span class="token string">'Guest'</span></span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -624,7 +644,7 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
 <ul>
 <li>Flutter在debug模式使能</li>
 <li>仅开发工具如dartdevc一般默认使能</li>
-<li>一些工具，如dart、dart2js，通过命令行标志<code>--enable-assert</code>使能   </li>
+<li>一些工具，如dart、dart2js，通过命令行标志<code>--enable-assert</code>使能</li>
 </ul>
 <p>在生产代码中assert被忽略。</p>
 <h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1><p>Dart代码可以抛出捕获异常。若异常未被捕获，则产生异常的隔离（isolate）被挂起，一般隔离和它的程序被终止。<br>相比Java，Dart所有的异常都是不受控异常，方法不声明它们可能抛出的异常，你也不被要求捕获任何异常。<br>Dart提供<code>Exception</code>和<code>Error</code>类型及很多预定义子类型。你也可以定义自己的异常。Dart可以将任何非null对象（而非仅Exception和Error）作为异常抛出。</p>
@@ -694,7 +714,7 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
 <ol>
 <li>初始化列表</li>
 <li>父类无参构造器</li>
-<li>主类无参构造器   </li>
+<li>主类无参构造器</li>
 </ol>
 <p>若父类没有无命名、无参构造器，则你必须手动调用父类中的一个构造器，在构造器体（如果有的话）前用冒号（:）指定：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">&#123;</span>
@@ -837,7 +857,7 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
   <span class="token keyword">assert</span><span class="token punctuation">(</span>v <span class="token operator">+</span> w <span class="token operator">==</span> <span class="token class-name">Vector</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">assert</span><span class="token punctuation">(</span>v <span class="token operator">-</span> w <span class="token operator">==</span> <span class="token class-name">Vector</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如果要重写==，就也需要重写对象的<code>hashCode</code>的getter。类似下面：</p>
+<p>如果要重写&#x3D;&#x3D;，就也需要重写对象的<code>hashCode</code>的getter。类似下面：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">final</span> <span class="token class-name">String</span> firstName<span class="token punctuation">,</span> lastName<span class="token punctuation">;</span>
   <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>firstName<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lastName<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1008,7 +1028,7 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">70k</span>
+    <span title="站点总字数">71k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

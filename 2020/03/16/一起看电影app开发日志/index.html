@@ -347,9 +347,9 @@
 <h1 id="日志记录"><a href="#日志记录" class="headerlink" title="日志记录"></a>日志记录</h1><h3 id="2020-03-14"><a href="#2020-03-14" class="headerlink" title="2020-03-14"></a>2020-03-14</h3><ul>
 <li><p>测试本地macOS使用<code>ffmpeg</code>推流rtmp，服务端使用找到的一个golang编写的直播服务器<a target="_blank" rel="noopener" href="https://github.com/gwuhaolin/livego"><code>golive</code></a>，手机端使用VLC播放体验。   </p>
 <ol>
-<li>本地推流命令： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">% brew <span class="token function">install</span> ffmpeg
+<li>本地推流命令：   <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">% brew <span class="token function">install</span> ffmpeg
 % ffmpeg -re -i <span class="token operator">&lt;</span>本地文件路径<span class="token operator">></span> -c copy -f flv <span class="token operator">&lt;</span>rtmp服务器地址<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li>使用livego： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">% <span class="token function">git</span> clone https://github.com/gwuhaolin/livego.git
+<li>使用livego：   <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">% <span class="token function">git</span> clone https://github.com/gwuhaolin/livego.git
 % go build
 % ./livego<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
 </ol>
@@ -390,7 +390,8 @@
   pod name<span class="token punctuation">,</span> <span class="token operator">:</span>path <span class="token operator">=</span><span class="token operator">></span> <span class="token class-name">File</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>symlink<span class="token punctuation">,</span> <span class="token char">'ios'</span><span class="token punctuation">)</span>
 end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
  <div class="note info"><p>若找不到Podfile，尝试执行run后会生成</p>
-</div></li>
+</div>
+</li>
 <li><p>flutter_ffmpeg测试推流成功：</p>
  <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:flutter_ffmpeg/flutter_ffmpeg.dart'</span></span><span class="token punctuation">;</span>
 
@@ -411,7 +412,7 @@ _flutterFFmpeg
 <li>经过一晚的测试，发现<a target="_blank" rel="noopener" href="https://pub.flutter-io.cn/packages/flutter_ijkplayer"><code>flutter_ijkplayer</code></a>主要存在两个问题：   <ol>
 <li>加入该包后会出现闪退，经调试发现，可能的原因是其本身也是基于ffmpeg的，所以会与已经引入的flutter_ffmpeg相冲突，当两个包都被引入，只要调用ffmpeg就会闪退；</li>
 <li>后暂时去掉flutter_ffmpeg包，仅引入此包，发现无论播放本地mp4还是播放rtmp地址视频，均是有声音无图像（黑屏）。初步查询问题时根据网上说法以为可能是对mp4格式支持问题（但同时播放采用flv的rtmp流也有这问题其实可以排除这种可能性），尝试<a target="_blank" rel="noopener" href="https://github.com/CaiJingLong/flutter_ijkplayer/blob/master/compile-cn.md">修改编译选项自编译flutter_ijkplayer</a>，发现本身其默认编译选项就是很全的，而且替换为自编译的包之后，依然同样问题。后阅读flutter_ijkplayer的<a target="_blank" rel="noopener" href="https://github.com/CaiJingLong/flutter_ijkplayer/blob/master/TODOLIST.md">TODOList</a>，发现其中写道：<ul>
-<li><input checked="" disabled="" type="checkbox"> <mark>iOS 部分视频无法显示图像的问题: 可能很长时间内都无法解决</mark>   </li>
+<li><input checked="" disabled="" type="checkbox"> <mark>iOS 部分视频无法显示图像的问题: 可能很长时间内都无法解决</mark></li>
 </ul>
 </li>
 </ol>
@@ -435,10 +436,8 @@ _flutterFFmpeg
 <li>又尝试了一遍flutter_ijkplayer，使用线上版本，发现可以播放rtmp地址视频了！但是似乎有些不稳定。</li>
 </ul>
 <h3 id="2020-03-20"><a href="#2020-03-20" class="headerlink" title="2020-03-20"></a>2020-03-20</h3><ul>
-<li><p>之前尝试flutter_ijkplayer成功，但是依然存在和flutter_ffmpeg冲突的问题。这是因为两者最底层都用到了ffmpeg，从而导致有duplicated symbol。另外，flutter_ijkplayer基于的ffmpeg版本本身是3.4的（可更改支持到4.0），而flutter_ffmpeg基于的mobile_ffmpeg是基于ffmpeg4.3的，这两者版本也不一致。</p>
-</li>
-<li><p>经过两天多的痛苦尝试，终于有了进展：</p>
-<ul>
+<li>之前尝试flutter_ijkplayer成功，但是依然存在和flutter_ffmpeg冲突的问题。这是因为两者最底层都用到了ffmpeg，从而导致有duplicated symbol。另外，flutter_ijkplayer基于的ffmpeg版本本身是3.4的（可更改支持到4.0），而flutter_ffmpeg基于的mobile_ffmpeg是基于ffmpeg4.3的，这两者版本也不一致。</li>
+<li>经过两天多的痛苦尝试，终于有了进展：<ul>
 <li><p>先将<code>flutter_ijkplayer</code>的使用方式更改为本地包的使用方式：   </p>
 <ol>
 <li>将<a target="_blank" rel="noopener" href="https://github.com/CaiJingLong/flutter_ijkplayer">flutter_ijkplayer包</a>下到本地，放置在flutter项目目录中；</li>
@@ -468,7 +467,7 @@ export COMMON_FF_CFG_FLAGS&#x3D;&quot;$COMMON_FF_CFG_FLAGS --disable-bsf&#x3D;ea
 <li>将得到的<code>IJKMediaFramework.framework</code>复制进前面第一步flutter_ijkplayer目录中ios目录下；</li>
 <li>本地包的引入为修改<code>pubspec.yaml</code>的依赖项如下： <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">flutter_ijkplayer</span><span class="token punctuation">:</span> <span class="token comment">#^0.3.5+1</span>
   <span class="token key atrule">path</span><span class="token punctuation">:</span> ./flutter_ijkplayer<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
- 在flutter_ijkplayer本地包的ios/.podspec中修改如下： <pre class="line-numbers language-podspec" data-language="podspec"><code class="language-podspec">s.ios.vendored_frameworks &#x3D; &#39;IJKMediaFramework.framework&#39;
+ 在flutter_ijkplayer本地包的ios&#x2F;.podspec中修改如下： <pre class="line-numbers language-podspec" data-language="podspec"><code class="language-podspec">s.ios.vendored_frameworks &#x3D; &#39;IJKMediaFramework.framework&#39;
 s.frameworks  &#x3D; &quot;AudioToolbox&quot;, &quot;AVFoundation&quot;, &quot;CoreGraphics&quot;, &quot;CoreMedia&quot;, &quot;CoreVideo&quot;, &quot;MobileCoreServices&quot;, &quot;OpenGLES&quot;, &quot;QuartzCore&quot;, &quot;VideoToolbox&quot;, &quot;Foundation&quot;, &quot;UIKit&quot;, &quot;MediaPlayer&quot;
 s.libraries   &#x3D; &quot;bz2&quot;, &quot;z&quot;, &quot;stdc++&quot;
 #s.dependency &#39;FlutterIJK&#39;, &#39;~&gt; 0.2.3&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
@@ -587,7 +586,7 @@ NSString<span class="token operator">*</span> delimiter <span class="token opera
     <span class="token function">result</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token keyword">self</span> toIntDictionary<span class="token punctuation">:</span><span class="token string">@"rc"</span> <span class="token punctuation">:</span><span class="token punctuation">[</span>NSNumber numberWithInt<span class="token punctuation">:</span>rc<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-如上述这几步骤后，即可令flutter_ffmpeg的主要功能“带参数执行ffmpeg命令”引入flutter_ijkplayer。但后来编译还发现<code>ffmpeg.c</code>中存在个小问题（似乎是fd_set溢出）如下修复:   <pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;*
+ 如上述这几步骤后，即可令flutter_ffmpeg的主要功能“带参数执行ffmpeg命令”引入flutter_ijkplayer。但后来编译还发现<code>ffmpeg.c</code>中存在个小问题（似乎是fd_set溢出）如下修复:     <pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;*
 fd_set rfds;
 FD_ZERO(&amp;rfds);
 FD_SET(0, &amp;rfds);
@@ -606,7 +605,7 @@ n&#x3D;poll(&amp;rfds,1,&amp;tv);<span aria-hidden="true" class="line-numbers-ro
 </li>
 <li><p>经过前面的整合，在Flutter项目中使用<code>controller.executeWithArguments</code>和<code>controller.setNetworkDataSource</code>均可成功了（需要注意这两个均是async函数，谨慎使用await放置前一操作的等待阻拦后一操作）</p>
 </li>
-<li><p>但如此做似乎仍然存在问题，那便是在点击按钮执行一次<code>executeWithArguments</code>后如果再点一次按钮执行此操作即会闪退。这个问题还需要解决，因为app中可能存在需求需要在已发推流后重发推流。那么这种需要两种实现，要么设法取消前一命令，要么重推一命令覆盖掉前一命令。前者需研究如何实现通信，后者则需解决当前的这个“再触发闪退问题”。   </p>
+<li><p>但如此做似乎仍然存在问题，那便是在点击按钮执行一次<code>executeWithArguments</code>后如果再点一次按钮执行此操作即会闪退。这个问题还需要解决，因为app中可能存在需求需要在已发推流后重发推流。那么这种需要两种实现，要么设法取消前一命令，要么重推一命令覆盖掉前一命令。前者需研究如何实现通信，后者则需解决当前的这个“再触发闪退问题”。</p>
 </li>
 </ul>
 </li>
@@ -656,7 +655,7 @@ os_support.h
 url.h
 version.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li>之后将其中一些include路径进行订正（因为由原目录层级变成可直接使用的）</li>
-<li>需要将之后要暴露在framework库外供Flutter Plugin调用的头文件设置为公共可见<br><img data-src="/images/ST/FrameworkHeadList.png" alt="Framework库头文件设置">   </li>
+<li>需要将之后要暴露在framework库外供Flutter Plugin调用的头文件设置为公共可见<br><img data-src="/images/ST/FrameworkHeadList.png" alt="Framework库头文件设置"></li>
 </ul>
 </li>
 <li>将flutter_ffmpeg整合入flutter_ijkplayer插件，最开始是想依然将原文件保留（即进行文件级别整合），但是会出现invokeMethod无法在Channel中找到的情况，后来发现，flutter插件需要在其<code>pubspec.yaml</code>中<code>flutter-&gt;plugin-&gt;platforms-&gt;ios-&gt;pluginClass</code>设置插件类，之后在构建过程中便会由此在项目（而非插件）的<code>ios/Runner</code>下生成<code>GeneratedPluginRegistrant.h</code>和<code>GeneratedPluginRegistrant.m</code>。其m文件结构如下：<br><img data-src="/images/ST/GeneratedPluginRegistrant.png" alt="GeneratedPluginRegistrant"><br>也即是说，只有登记在插件的<code>pubspec.yaml</code>中的插件类，才会被调用其<code>registerWithRegistrar</code>方法，从而注册MethodChannel等。尝试在一个插件的pubspec中注册两个插件类，似乎没有办法。于是，也只能在Flutter插件这边，Dart文件进行文件级整合、iOS实现进行代码（类）级别整合：<ul>
@@ -672,7 +671,7 @@ version.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
 <li>在使用时即可flutter项目只设置pubspec使用本地修改过的flutter_ijkplayer，在需要用到flutter_ffmpeg的方法时<code>import &#39;package:flutter_ijkplayer/flutter_ffmpeg.dart&#39;;</code></li>
 </ul>
 </li>
-<li>至此，flutter选择文件、执行推流命令、拉流播放的基本功能点打通。接下来暂时不考虑客户端了，因为客户端除UI/UE外功能部分剩余为播放时间点记录与同步、创建进入房间，而这两点基本都需要仰仗于服务端，故接下来的计划是先改造服务端golang版流媒体服务器livego。</li>
+<li>至此，flutter选择文件、执行推流命令、拉流播放的基本功能点打通。接下来暂时不考虑客户端了，因为客户端除UI&#x2F;UE外功能部分剩余为播放时间点记录与同步、创建进入房间，而这两点基本都需要仰仗于服务端，故接下来的计划是先改造服务端golang版流媒体服务器livego。</li>
 </ul>
 <h1 id="持续更新中……"><a href="#持续更新中……" class="headerlink" title="持续更新中……"></a>持续更新中……</h1>
     </div>
@@ -801,7 +800,7 @@ version.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">70k</span>
+    <span title="站点总字数">71k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

@@ -312,7 +312,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.2k</span>
+      <span>4.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -342,7 +342,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>&#124;ψ&gt;=&#124;0&gt;+&#124;1&gt;</td>
+<td>&amp;#124;ψ&gt;&#x3D;&amp;#124;0&gt;+&amp;#124;1&gt;</td>
 <td>测量影响系统，系统中的两个不同物理量不可同时准确测量</td>
 <td>多粒子组成的系统，每个粒子状态无法被分离出。但容易量子退相干</td>
 </tr>
@@ -350,12 +350,12 @@
 </li>
 </ul>
 <p>利用量子的特性，量子计算可以实现一个量子比特同时具备两种状态且可通过纠缠与其他量子比特共享自身状态，从而实现并行计算，计算能力将随量子比特数增加呈指数增长。<br>目前可用于密码破译的量子计算算法主要有<strong>Grover算法</strong>和<strong>Shor算法</strong>。前者可相当于<code>将密码密钥长度减少一半</code>，后者适用于<code>解决大整数分解、离散对数求逆</code>等困难数学问题。   </p>
-<h2 id="量子密码（量子密钥分发、量子安全通信）"><a href="#量子密码（量子密钥分发、量子安全通信）" class="headerlink" title="量子密码（量子密钥分发、量子安全通信）"></a>量子密码（量子密钥分发、量子安全通信）</h2><div class="note info"><h4 id="无条件安全"><a href="#无条件安全" class="headerlink" title="无条件安全"></a>无条件安全</h4><p>香农证明，若密钥是长度不小于待加密明文长度的随机序列，且任何一密钥仅使用一次，则该加密体制（C=PK）是无条件安全的（Perfect Secrecy）</p>
+<h2 id="量子密码（量子密钥分发、量子安全通信）"><a href="#量子密码（量子密钥分发、量子安全通信）" class="headerlink" title="量子密码（量子密钥分发、量子安全通信）"></a>量子密码（量子密钥分发、量子安全通信）</h2><div class="note info"><h4 id="无条件安全"><a href="#无条件安全" class="headerlink" title="无条件安全"></a>无条件安全</h4><p>香农证明，若密钥是长度不小于待加密明文长度的随机序列，且任何一密钥仅使用一次，则该加密体制（C&#x3D;PK）是无条件安全的（Perfect Secrecy）</p>
 </div>   
 <p>无条件安全主要受限于庞大的密钥消耗量，一个是密钥长度，一个是要求“一次一密”。而“一次一密”对于密钥分发能力的要求是传统方式难以支持的。<br>量子密码本质是试图解决密钥分配问题。理想的量子密码（密钥分发）应该是可以保证密钥安全性的，但实际和理论是两码事，如单光子探测效率、传输损耗、器件不完善、要求可信中继、成码率限制等等都是制约问题。   </p>
 <h2 id="后量子密码"><a href="#后量子密码" class="headerlink" title="后量子密码"></a>后量子密码</h2><p>前面提到量子计算因为量子特性而具备天然的并行性，计算能力可随量子比特位增加指数级增长，这一特性对于基于数学难题的传统公钥密码安全受到挑战。但是，量子计算机并不能解决电子计算机难于求解的所有数学问题，所以可以针对量子计算机不擅长计算的数学问题构造密码进行抵抗。   </p>
 <ul>
-<li>2015年，NSA宣布面临量子计算威胁，计划将联邦政府使用的RSA/ECC体系向后量子算法迁移   </li>
+<li>2015年，NSA宣布面临量子计算威胁，计划将联邦政府使用的RSA&#x2F;ECC体系向后量子算法迁移   </li>
 <li>2016年，NIST向全球公开后量子密码标准化路线图，并征集密码系统建议（约1年），包含公钥密码、数字签名及密钥交换算法；此后3-5年分析并公布分析报告，1-2年最终标准拟制   </li>
 <li>2015年，欧洲量子密码学术和工业界研究者联合组织“后量子密码”项目（PQCrypto）发布初始报告在对称加密授权、公钥加密签名领域提出了标准化建议。</li>
 <li>当前（2020年7月22日）开始，NIST的征集进入了<a target="_blank" rel="noopener" href="https://csrc.nist.gov/projects/post-quantum-cryptography/round-3-submissions"><mark>第三轮</mark></a><br><code>下面是NIST的第二轮征集结束报告</code>   <div class="pdf-container" data-target="/pdf/NIST.IR.8309.pdf" data-height="500px"></div>   
@@ -376,7 +376,7 @@
 </tr>
 <tr>
 <td>SHA-2，SHA-3</td>
-<td>N/A</td>
+<td>N&#x2F;A</td>
 <td>哈希函数</td>
 <td>需要更大输出量</td>
 </tr>
@@ -404,16 +404,16 @@
 <h3 id="NIST提出的PQC"><a href="#NIST提出的PQC" class="headerlink" title="NIST提出的PQC"></a>NIST提出的PQC</h3><p>NIST在发布的PQC报告中，提供了PQC的四个密码算法类型：<br><strong>格密码</strong> 基于格问题的密码系统重新引起兴趣，新应用（如同态加密、代码混淆及属性加密）使用格密码而成为可能。大部分基于格的密钥生成时相对简单、高效、高并发的。同样，一些基于格系统相比平均情况在最坏情况假设下可证明安全。另外，已证明在已知密码分析技术下很难对格方案安全性做出精确估计。<br><strong>基于编码的密码</strong> 1978年McEliece密码体系被首次提出后尚未被攻破。如基于纠错码。密钥长度较大。<br><strong>多元多项式密码</strong> 这些方案基于有限域内多元多项式求解系统的困难，过去几十年提出的一些被攻破。似乎作为签名手段更成功些。<br><strong>基于哈希的签名</strong> 使用哈希函数构建数字签名，其安全在面对量子攻击时很好。但缺点一是需要记录之前签名过的消息数量，另一个缺点是只能生成有限数量的签名（因为签名大小会伴随上升）。   </p>
 <h1 id="格密码基础"><a href="#格密码基础" class="headerlink" title="格密码基础"></a>格密码基础</h1><h2 id="一些数学"><a href="#一些数学" class="headerlink" title="一些数学"></a>一些数学</h2><p>现代密码学的基础都是近世代数，是基于数学难题，因此离不开对于数学知识的了解研究。    </p>
 <blockquote>
-<p><strong>格</strong>是n维线性空间中离散点的集合，格中每个元素都是一个向量，在n维线性空间R<sup>n</sup>中m（m≤n）个线性无关向量（b<sub>1</sub>,b<sub>2</sub>,…,b<sub>m</sub>)所生成的向量集合称为<strong>格</strong>。<br>这个向量组称为格的一组基，空间维数n为格的维，基向量个数m称为格的秩，同一个格可以有多组不同的基，但基的维数相同。当m=n时格是<strong>满秩</strong>的，一般只讨论满秩的格。<br>将格基表示成矩阵形式<strong>B</strong>，其每个列向量即为格的基<strong>b<sub>1</sub></strong>,…,**b<sub>n</sub>**，则格可定义为 $ \pmb L=\lbrace\pmb B\pmb z | \pmb z\in \mathbb{Z}^n \rbrace $    </p>
+<p><strong>格</strong>是n维线性空间中离散点的集合，格中每个元素都是一个向量，在n维线性空间R<sup>n</sup>中m（m≤n）个线性无关向量（b<sub>1</sub>,b<sub>2</sub>,…,b<sub>m</sub>)所生成的向量集合称为<strong>格</strong>。<br>这个向量组称为格的一组基，空间维数n为格的维，基向量个数m称为格的秩，同一个格可以有多组不同的基，但基的维数相同。当m&#x3D;n时格是<strong>满秩</strong>的，一般只讨论满秩的格。<br>将格基表示成矩阵形式<strong>B</strong>，其每个列向量即为格的基<strong>b<sub>1</sub></strong>,…,**b<sub>n</sub>**，则格可定义为 $ \pmb L&#x3D;\lbrace\pmb B\pmb z | \pmb z\in \mathbb{Z}^n \rbrace $    </p>
 </blockquote>
 <blockquote>
-<p><strong>格的行列式</strong> det(<strong>L</strong>)的值定义为格基本体的体积，$ det(\pmb L)=\sqrt{\pmb B^T\pmb B} $</p>
+<p><strong>格的行列式</strong> det(<strong>L</strong>)的值定义为格基本体的体积，$ det(\pmb L)&#x3D;\sqrt{\pmb B^T\pmb B} $</p>
 </blockquote>
 <blockquote>
-<p><strong>对偶格</strong> 与原格在同一线性空间$R^n$中，$ \pmb L^*=\lbrace\pmb x \in\mathbb R^m , \forall\pmb v \in \pmb L ,\langle\pmb x , \pmb v \rangle\in\mathbb Z\rbrace $</p>
+<p><strong>对偶格</strong> 与原格在同一线性空间$R^n$中，$ \pmb L^*&#x3D;\lbrace\pmb x \in\mathbb R^m , \forall\pmb v \in \pmb L ,\langle\pmb x , \pmb v \rangle\in\mathbb Z\rbrace $</p>
 </blockquote>
 <blockquote>
-<p><strong>逐次最小长度</strong> 第i个逐次最小长度$ \lambda_i $，定义为以原点为球心，包含i个线性无关格向量的最小球半径，即$ \lambda_i(\pmb L)=inf\lbrace r|dim(span(\pmb L\bigcap\pmb B_n(r)))\geq i\rbrace,(i=1,…,n) $</p>
+<p><strong>逐次最小长度</strong> 第i个逐次最小长度$ \lambda_i $，定义为以原点为球心，包含i个线性无关格向量的最小球半径，即$ \lambda_i(\pmb L)&#x3D;inf\lbrace r|dim(span(\pmb L\bigcap\pmb B_n(r)))\geq i\rbrace,(i&#x3D;1,…,n) $</p>
 </blockquote>
 <p>从上面可以看出格的定义和向量空间类似，但通过基生成向量时要求整数系数。这一点使得格在几何上由离散且呈周期性结构的点构成，这大概也是“格”这个名字的由来。具备直观感受的格的维度是2或者3，即可对应生活中可感知的几何空间，但在密码学中为了达到足够安全性，格的维度一般在1000左右。<br>格的一个基本困难问题——<code>最短向量问题</code>（SVP）：给定格的一个基，在格中找到一个非零向量，其长度在所有非零格向量上最短。   </p>
 <blockquote>
@@ -423,10 +423,10 @@
 <p><strong>$ \gamma $-近似最短问题（SVP-$ \gamma $）</strong> 给定格$ \pmb L $，找一个非零向量$ \pmb v $，满足对任意非零向量$ \pmb u\in\pmb L, \parallel\pmb v\parallel\leq\gamma\parallel\pmb u\parallel$</p>
 </blockquote>
 <blockquote>
-<p><strong>逐次最小长度问题（Successive Minima Problem，SMP）</strong> 给定秩为n的格$ \pmb L $，找n个线性无关的格向量$ \pmb s_i $，满足$ \lambda_i(\pmb L)= \parallel\pmb s_i\parallel,(i=1,…,n) $</p>
+<p><strong>逐次最小长度问题（Successive Minima Problem，SMP）</strong> 给定秩为n的格$ \pmb L $，找n个线性无关的格向量$ \pmb s_i $，满足$ \lambda_i(\pmb L)&#x3D; \parallel\pmb s_i\parallel,(i&#x3D;1,…,n) $</p>
 </blockquote>
 <blockquote>
-<p><strong>最短线性无关向量问题（Shortest Independent Vector Problem, SIVP)</strong> 给定一个秩为n的格$ \pmb L $，找到n个无关的格向量$ \pmb s_i $ 满足 $ \parallel\pmb s_i\parallel\leq\lambda_n(\pmb L),(i=1,…,n) $</p>
+<p><strong>最短线性无关向量问题（Shortest Independent Vector Problem, SIVP)</strong> 给定一个秩为n的格$ \pmb L $，找到n个无关的格向量$ \pmb s_i $ 满足 $ \parallel\pmb s_i\parallel\leq\lambda_n(\pmb L),(i&#x3D;1,…,n) $</p>
 </blockquote>
 <blockquote>
 <p><strong>唯一最短向量问题（Unique Shortest Vector Problem, uSVP-$ \gamma $）</strong> 给定格$ \pmb L $，满足$ \lambda_2(\pmb L)\gt\gamma\lambda_1(\pmb L) $，找出该格的最短向量</p>
@@ -443,12 +443,12 @@
 </blockquote>
 <p>实际上格理论的产生最初似乎是基于对空间内放置球体体积与空间容积比的讨论，所以从上面的“逐次最小长度”的定义也能看出与球有一定关系，那么下面再补充两个概念：</p>
 <blockquote>
-<p><strong>堆积半径</strong> 对$ n $维格，以格点为球心，$ r $为半径做$ n $维球，使得球两辆不想交，最大的$ r $称作堆积半径，事实上这里 $ r=\lambda_1(\pmb L)/2 $</p>
+<p><strong>堆积半径</strong> 对$ n $维格，以格点为球心，$ r $为半径做$ n $维球，使得球两辆不想交，最大的$ r $称作堆积半径，事实上这里 $ r&#x3D;\lambda_1(\pmb L)&#x2F;2 $</p>
 </blockquote>
 <blockquote>
 <p><strong>覆盖半径</strong> 对$ n $维格，以格点为球心，$ r $为半径做$ n $维球，能覆盖整个空间的最小半径$ r $称作覆盖半径</p>
 </blockquote>
-<p>以上这些概念，都源于刚说的空间内放置球体的问题。确定球的最大格堆积密度（堆积半径下体积/容积）等价于求格的最短向量（SVP）长度，确定球的最小格覆盖密度（覆盖密度下体积/容积）则等价于求到格点的最近距离（CVP）。<br>基于格的密码体制的安全性依赖于格中困难问题的难解程度 , 格中很多困难问题被证明是 NP 困难的 , 因此 这类体制被普遍认为具有抗量子攻击的特性</p>
+<p>以上这些概念，都源于刚说的空间内放置球体的问题。确定球的最大格堆积密度（堆积半径下体积&#x2F;容积）等价于求格的最短向量（SVP）长度，确定球的最小格覆盖密度（覆盖密度下体积&#x2F;容积）则等价于求到格点的最近距离（CVP）。<br>基于格的密码体制的安全性依赖于格中困难问题的难解程度 , 格中很多困难问题被证明是 NP 困难的 , 因此 这类体制被普遍认为具有抗量子攻击的特性</p>
 <h1 id="To-Be-Continued"><a href="#To-Be-Continued" class="headerlink" title="To Be Continued..."></a><code>To Be Continued...</code></h1>
     </div>
 
@@ -574,7 +574,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">70k</span>
+    <span title="站点总字数">71k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

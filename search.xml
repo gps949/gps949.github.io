@@ -7,23 +7,23 @@
 <span id="more"></span>
 <p>命名产品是困难的，Tailscale的关键特性之一，MagicDNS，长期以来是词法争议的焦点。一些人认为我们应该叫它Magic DNS因为苹果将他们旗舰键盘和鼠标叫做Magic Keyboard和Magic Mouse。<br>但你注意到过没有，苹果也将它们的笔记本和无线耳机叫做MacBooks和AirPods？他们这样做是因为英语中一个晦涩（且呆板）的规则，当移除名词短语中的形容词会改变名词含义时，可以移除空格制造合成词。不含magic的Magic Keyboard依然是键盘，不含Mac的MacBook却不是本书了。由此，MagicDNS是一个词就是因为去掉magic不会只是DNS，它不会成为任何事物。Tailscale已经有了DNS和split DNS（两个词！）的配置，但MagicDNS是个不同的东西。   </p>
 <ul>
-<li> &lt;<strong>Xe</strong>&gt;  他们也可以为了商标这样做！相比“面包”、“键盘”、“书”等，非常规词更容易申请商标。   </li>
-<li>&lt;<strong>Avery</strong>&gt; 另一方面，为了避免商标雷区，有时大型公司会采用&lt;商标&gt;&lt;通用词&gt;的形式命名产品，如微软Word或谷歌Mail。如果一个产品名字包含公司名，你可以相当确信没别人能那样叫他们的产品。      </li>
+<li>&lt;<strong>Xe</strong>&gt;  他们也可以为了商标这样做！相比“面包”、“键盘”、“书”等，非常规词更容易申请商标。   </li>
+<li>&lt;<strong>Avery</strong>&gt; 另一方面，为了避免商标雷区，有时大型公司会采用&lt;商标&gt;&lt;通用词&gt;的形式命名产品，如微软Word或谷歌Mail。如果一个产品名字包含公司名，你可以相当确信没别人能那样叫他们的产品。</li>
 </ul>
 <p>Tailscale允许你<a href="https://tailscale.com/kb/1054/dns/">管理你机器的DNS配置</a>，这使你可设置机器对整个互联网或者匹配特定域（split DNS）首选DNS服务器。这是整洁并且使得本地DNS配置更如人们在<code>/etc/resolve.conf</code>添加多条DNS解析器通常所期待的。<br>但那不是MagicDNS，仅仅是稍好点的DNS。MagicDNS在这些特性之上构建，完全改变名字解析工作方式令新使用场景DNS安全。它是Tailscale和你的基础设施可以构建在其上的构件。<br>今天我们看看DNS的问题空间，这些年复杂性怎么被层层叠加，MagicDNS怎样去除全部的复杂性并在过程中使得一切更可靠。   </p>
 <h1 id="DNS悲剧：命名事物但缓存失效"><a href="#DNS悲剧：命名事物但缓存失效" class="headerlink" title="DNS悲剧：命名事物但缓存失效"></a>DNS悲剧：命名事物但缓存失效</h1><p>DNS是种听起来简单的服务之一。将名字映射到数字，是吧？但在现代互联网背后它是更复杂的一件事。它早于现代互联网，我们今天先不讨论这点。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/DNS.svg">   </p>
 <center><p>解释DNS如何工作的图。笔记本向DNS服务器询问tailscale.com的IP地址得到82.58.46.8的回复</p></center>      
 
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; 如果你要以一种更可视化的方法学习更多关于DNS如何查询，可以看Pingdom的<a href="https://www.pingdom.com/blog/a-visual-explanation-of-how-dns-lookups-work/">这个解释</a>。它是复杂的，有许多我们在下面将讨论的单独的委托步骤。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 如果你要以一种更可视化的方法学习更多关于DNS如何查询，可以看Pingdom的<a href="https://www.pingdom.com/blog/a-visual-explanation-of-how-dns-lookups-work/">这个解释</a>。它是复杂的，有许多我们在下面将讨论的单独的委托步骤。</li>
 </ul>
 <p>我们可以将DNS认为是第一个全球分布式数据库。DNS设计成全局收敛的（随着时间推移整个系统同意什么名字指向什么IP地址），所以无论请求源自渥太华、旧金山、西雅图还是帕劳，查询<code>google.com</code>将总指向同样的IP。   </p>
 <ul>
-<li>&lt;<strong>Avery</strong>&gt;好，实际上google.com可能是互联网上最坏的例子了，因为他们采用了太多的泛播和DNS技巧令你永远不会知道你将得到什么IP地址。但为了我们的目的，让我们想象Google像一般人一样使用DNS。   </li>
+<li>&lt;<strong>Avery</strong>&gt;好，实际上google.com可能是互联网上最坏的例子了，因为他们采用了太多的泛播和DNS技巧令你永远不会知道你将得到什么IP地址。但为了我们的目的，让我们想象Google像一般人一样使用DNS。</li>
 </ul>
 <p>DNS是全局收敛的，因为随着时间推移，如缓存过期，每个互联网上DNS服务器可以最终对同样查询同样回答。每个DNS记录有存活时间（TTL）设置，指定回答在多长时间有效。不幸的是，DNS客户端和服务器可能选择忽略建议的TTL值并使用他们自己的TTL。一些ISP声称这样是为了“减少网络流量”，但这样违背DNS RFC导致产生非常难以debug的微妙问题。   </p>
 <ul>
-<li>&lt;<strong>Avery</strong>&gt; 此外，任何基于轮询（相对于基于推送）的带静态时间周期的缓存总会有这样的问题：该选择怎样的缓存超时。如果太短，会增加查询延迟和服务器负载，如果太长，修改会需要时间（有时是数小时或数天）来传播。这就是为何中介人介入并试图通过扰乱TTL来“修复”这个问题。但他们总是最终产生不同的问题。   </li>
+<li>&lt;<strong>Avery</strong>&gt; 此外，任何基于轮询（相对于基于推送）的带静态时间周期的缓存总会有这样的问题：该选择怎样的缓存超时。如果太短，会增加查询延迟和服务器负载，如果太长，修改会需要时间（有时是数小时或数天）来传播。这就是为何中介人介入并试图通过扰乱TTL来“修复”这个问题。但他们总是最终产生不同的问题。</li>
 </ul>
 <p>这种一个名字对一个 IP 地址的模式在互联网只有一块大陆那么大并且不经常重新布线时候运行良好。但当你在全世界都有服务器，希望用户直接访问最近的一个或者忽略刚好宕机区域时，就会失效了。所以运营者拉取DNS服务器到他们的负载均衡基础设施，将用户指向最近的应用服务器而非任何一个正确答案。   </p>
 <p><img data-src="https://tailscale.com/blog/magicdns-why-name/geolocated.svg">   </p>
@@ -31,46 +31,46 @@
 这有时会导致 ISP 设置的过于热心的缓存解析器出现问题，使得路由器无法使用符合规范的解析器，或者当您使用其他地方托管的 DNS 服务器时，无法从负载平衡器获得最佳本地化解决方案。但总体上它是可以奏效的。    
 
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; 当然这里假设你的政府、ISP或是当地咖啡馆WiFi没有不怀好意地劫持DNS。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 当然这里假设你的政府、ISP或是当地咖啡馆WiFi没有不怀好意地劫持DNS。</li>
 </ul>
 <p>作为一个社会，我们放弃世界上每处都要将每个DNS名字总映射到相同的IP地址这一规则。实践中这通常不会伤害我们，除了我们试图调试它时。然后它可以是简单的，也可以是非常困难以至于使得你开始重新考虑你的职业抱负并考虑进入农业需要多少开销。奶牛<a href="https://economicdashboard.alberta.ca/livestockprices">出奇的贵</a>！   </p>
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; 将DNS变化如何被全球人们观察到的方法称作”传播“是个常见的误解。这技术上不正确。大多数情况下，你等待的是缓存过期，然后下个请求被转发到上游 DNS 服务器以获得准确的信息。这就是为什么人们称DNS为“全局一致”：随着时间的推移，整个互联网将逐渐在哪个名字指向哪个IP地址的回答集合上趋于一致。然而实践中ーー考虑到数据实际上是如何在互联网上移动的ーー说是 DNS 查询具有从原始 DNS 服务器传播出去的效果并非完全错误。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 将DNS变化如何被全球人们观察到的方法称作”传播“是个常见的误解。这技术上不正确。大多数情况下，你等待的是缓存过期，然后下个请求被转发到上游 DNS 服务器以获得准确的信息。这就是为什么人们称DNS为“全局一致”：随着时间的推移，整个互联网将逐渐在哪个名字指向哪个IP地址的回答集合上趋于一致。然而实践中ーー考虑到数据实际上是如何在互联网上移动的ーー说是 DNS 查询具有从原始 DNS 服务器传播出去的效果并非完全错误。</li>
 </ul>
 <h1 id="DNS加密（并不是）"><a href="#DNS加密（并不是）" class="headerlink" title="DNS加密（并不是）"></a>DNS加密（并不是）</h1><p>DNS是非加密、无鉴别的协议。查询和响应在互联网上以明文发送。这意味着无论谁只要发送正确的名字就能得到IP地址。   </p>
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; 通过设置私有DNS服务器（通常称之为“split horizon”DNS）可以将发布私有主机名到公共DNS的隐私风险最小化，私有DNS服务器拥有与公共互联网不同的域名相应集合。你可以通过VPN（例如Tailscale管理员控制台的DNS页签）连接那些，但你会失去DNS的全局一致性和缓存特性。在许多情形，你可以通过在公共DNS服务器返回私有IP段，但这取决于你偏执的程度。并且有时公共DNS服务器<a href="https://en.wikipedia.org/wiki/DNS_rebinding">安全特性会拒绝私有IP段</a>。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 通过设置私有DNS服务器（通常称之为“split horizon”DNS）可以将发布私有主机名到公共DNS的隐私风险最小化，私有DNS服务器拥有与公共互联网不同的域名相应集合。你可以通过VPN（例如Tailscale管理员控制台的DNS页签）连接那些，但你会失去DNS的全局一致性和缓存特性。在许多情形，你可以通过在公共DNS服务器返回私有IP段，但这取决于你偏执的程度。并且有时公共DNS服务器<a href="https://en.wikipedia.org/wiki/DNS_rebinding">安全特性会拒绝私有IP段</a>。</li>
 </ul>
 <p>由于DNS回复没有加密和签名，你也从不会十分确定你得到的DNS响应在中途被篡改。攻击者可以轻易地嗅探并返回个将<code>google.com</code>指向<code>badgooglephish.com</code>IP地址的包。你的iPhone也不会察觉。有一套叫做<a href="https://www.cloudflare.com/en-ca/dns/dnssec/how-dnssec-works/">DNSSEC</a>的扩展试图使用我没有资格解释的有趣的密码学去修复这些问题。但这才是缺点真正显露出来的地方。Slack最近有个<a href="https://slack.engineering/what-happened-during-slacks-dnssec-rollout/">相当严重的生产中断</a>，完全可以追溯到为了FedRAMP合规而启用DNSSEC的尝试。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/hijacking.svg">   </p>
 <center><p>DNS被劫持，展现劫持者可以扰乱DNS结果</p></center>   
 
 <ul>
-<li>&lt;<strong>Avery</strong>&gt; DNSSEC并不像听起来那么好。 @tqbf 有个详尽的呼吁叫做 <a href="https://sockpuppet.org/blog/2015/01/15/against-dnssec/">反对DNSSEC</a> 系统地驳斥了你可能使用DNSSEC的每个原因。我猜，除了FedRAMP。   </li>
+<li>&lt;<strong>Avery</strong>&gt; DNSSEC并不像听起来那么好。 @tqbf 有个详尽的呼吁叫做 <a href="https://sockpuppet.org/blog/2015/01/15/against-dnssec/">反对DNSSEC</a> 系统地驳斥了你可能使用DNSSEC的每个原因。我猜，除了FedRAMP。</li>
 </ul>
 <p>DNSSEC看起来并不会推广开。所以在空缺环境中，有一些至少通过加密信道携带（部分）DNS的新协议。但作为进程中的一部分，你的机器通常创建到Google、Cloudflare或者其他的HTTPS会话。中间人可以看到（并且理论上可以篡改）明文的DNS请求和响应。根据你的威胁profile，那通常不能解决你全部的安全和隐私担忧。   </p>
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; 有像<a href="https://www.gnunet.org/en/gns.html">GNS</a>这样的新项目开启端到端的请求隐私。但它们有其他缺点并且没有广泛部署。对于使用它的人们很好，但大多数人不用它。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 有像<a href="https://www.gnunet.org/en/gns.html">GNS</a>这样的新项目开启端到端的请求隐私。但它们有其他缺点并且没有广泛部署。对于使用它的人们很好，但大多数人不用它。</li>
 </ul>
 <p>所以在一般部署中，DNS没有中途加密、真实性或验证机制。这也意味着没有途径去指出一个客户端是否被授权访问一条给定的DNS记录。没有原生方法去建立身份和DNS请求之间的关联。这意味着更新DNS记录（例如动态DNS）不能通过DNS自身完成，就需要委托给使用非标准API的第三方。没有自动化DNS修改的好API，只有我们别无选择而容忍的API。   </p>
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; 存在像<a href="https://sssd.io/design-pages/active_directory_dns_updates.html">DNS UPDATE requests</a> 允许你通过DNS更新DNS记录，但这几乎只在部署Windows的Active Directory时使用。它也未修复以明文发送身份验证凭据的问题，所以只在公司私有网络有用，而不是互联网可通用的构件。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 存在像<a href="https://sssd.io/design-pages/active_directory_dns_updates.html">DNS UPDATE requests</a> 允许你通过DNS更新DNS记录，但这几乎只在部署Windows的Active Directory时使用。它也未修复以明文发送身份验证凭据的问题，所以只在公司私有网络有用，而不是互联网可通用的构件。</li>
 </ul>
 <h1 id="委托（可能危险）"><a href="#委托（可能危险）" class="headerlink" title="委托（可能危险）"></a>委托（可能危险）</h1><p>当你在注册商注册一个域名，他们创建一条记录，将你的域名委托给在如<code>.com</code>顶域权威机构下一些其他域名服务器负责。（这就是域名注册和查询如何工作）然后，你可以将该域名的一个子集的责任委托给另一个第三方,它们需要和他们的注册商设置。例如，你在你的DNS注册商注册你的网站<code>example.com</code>，他们委托它给<code>.com</code>注册商。但你想委托对你域名子集的控制<code>cdm.example.com</code>给你的CDN供应商，以使他们可以不打扰你的情况下尽快做出他们需要的改变，<code>cdn.example.com</code>就有了它自己的DNS记录。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/delegation.svg">   </p>
 <center><p>DNS委托流程，这些往返以数十到数百毫秒计，想想这个累加起来。</p></center>   
 
 <p>读这个大多数人可能从没听说过像这样委托子域的子域，因为实际上它如此复杂和脆弱，除非DNS是双方的核心能力。当大企业将域名外包给其他企业，他们通常使用如<code>googleusercontent.com</code>完全独立的顶级域名，或者类似的以减少混乱。这也帮助防止在合作企业数据泄露导致一些人使用<code>facebook.com</code>发出惊人数量的垃圾邮件而产生的名誉受损。   </p>
 <ul>
-<li>&lt;<strong>Avery</strong>&gt; 子域的子域也不时兴了，因为在受信的父域和不信任的子域间意外共享HTTP cookie。另外DNS 中的每级子域委托都会带来额外的网络往返，以进行递归名称解析，从而增加延迟。结果是麻烦多过价值。   </li>
+<li>&lt;<strong>Avery</strong>&gt; 子域的子域也不时兴了，因为在受信的父域和不信任的子域间意外共享HTTP cookie。另外DNS 中的每级子域委托都会带来额外的网络往返，以进行递归名称解析，从而增加延迟。结果是麻烦多过价值。</li>
 </ul>
 <h1 id="反向DNS（另一个完整的DNS）"><a href="#反向DNS（另一个完整的DNS）" class="headerlink" title="反向DNS（另一个完整的DNS）"></a>反向DNS（另一个完整的DNS）</h1><p>接下来是反向DNS，将IP地址翻译回一个域名。在电子邮件中，反向DNS仍被用作垃圾邮件过滤的风险评估，因为大多数配置良好的邮件服务器的正向和反向DNS名字相匹配。这也是互联网服务运营者判断IP是否住宅地址的方式。   </p>
 <ul>
-<li>&lt;<strong>Avery</strong>&gt; 不要忘记ssh的前身rlogin！以及<a href="https://en.wikipedia.org/wiki/TCP_Wrappers">TCP Wrappers</a>。在过去，我们习惯单纯依靠（当然是未加密的）反向DNS的回答来接受或者拒绝连接。我们也曾习惯认为<a href="https://www.staldal.nu/tech/2007/10/31/why-can-only-root-listen-to-ports-below-1024/">绑定在少于1024的端口更安全</a>。网络安全已经取得了长足的进步！   </li>
+<li>&lt;<strong>Avery</strong>&gt; 不要忘记ssh的前身rlogin！以及<a href="https://en.wikipedia.org/wiki/TCP_Wrappers">TCP Wrappers</a>。在过去，我们习惯单纯依靠（当然是未加密的）反向DNS的回答来接受或者拒绝连接。我们也曾习惯认为<a href="https://www.staldal.nu/tech/2007/10/31/why-can-only-root-listen-to-ports-below-1024/">绑定在少于1024的端口更安全</a>。网络安全已经取得了长足的进步！</li>
 </ul>
 <p>曾经每个公司拥有一整个分配给他们的IPv4子网，所以他们也拥有他们自己的反向DNS域。当互联网分配公司一个IP地址块时，会是以下三类中的一个：   </p>
 <ul>
 <li>A类：<code>/8</code>网络拥有1600万个地址   </li>
 <li>B类：<code>/16</code>网络拥有6万5千个地址   </li>
-<li>C类：<code>/24</code>网络拥有256个地址   </li>
+<li>C类：<code>/24</code>网络拥有256个地址</li>
 </ul>
 <p>这些分类不再使用了，但你可以在反向DNS的实现中看到它们残留的痕迹。<br>IPv4地址是32位（bit）数字，通常写成每8位数字用点分隔的序列，如：   </p>
 <pre><code>82.58.46.8   
@@ -80,19 +80,19 @@
 
 <p>这是反向DNS查询如何运作的核心，也是我们之所以称它是另一个完整的DNS的原因。它和DNS同样符号，但是反向。实现上有很多有意思的地方。   </p>
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; Tailscale在MagicDNS中实现了反向DNS。但Tailscale没有使用旧的典型地址，使用了<code>100.64.0.0/10</code>，比<code>/8</code>少了两位。这与只进行8位跳转的子网委托方式相冲突。为解决这点我们设置了一批反向DNS路由。可以在运行Tailscale和systemd的机器上执行<code>resolvectl</code>，或者在运行Tailscale的Mac上执行<code>scutil --dns</code>进行查看。下面是在我开发机上的输出：  </li>
+<li>&lt;<strong>Xe</strong>&gt; Tailscale在MagicDNS中实现了反向DNS。但Tailscale没有使用旧的典型地址，使用了<code>100.64.0.0/10</code>，比<code>/8</code>少了两位。这与只进行8位跳转的子网委托方式相冲突。为解决这点我们设置了一批反向DNS路由。可以在运行Tailscale和systemd的机器上执行<code>resolvectl</code>，或者在运行Tailscale的Mac上执行<code>scutil --dns</code>进行查看。下面是在我开发机上的输出：</li>
 </ul>
 <pre><code>DNS Domain: telethia-pirhanax.ts.net example.com.beta.tailscale.net ~0.e.1.a.c.5.1.1.a.7.d.f.ip6.arpa ~100.100.in-addr.arpa ~101.100.in-addr.arpa ~102.100.in-addr.arpa ~103.100.in-addr.arpa ~104.100.in-addr.arpa ~105.100.in-addr.arpa ~106.100.in-addr.arpa ~107.100.in-addr.arpa ~108.100.in-addr.arpa ~109.100.in-addr.arpa ~110.100.in-addr.arpa ~111.100.in-addr.arpa ~112.100.in-addr.arpa ~113.100.in-addr.arpa ~114.100.in-addr.arpa ~115.100.in-addr.arpa ~116.100.in-addr.arpa ~117.100.in-addr.arpa ~118.100.in-addr.arpa ~119.100.in-addr.arpa ~120.100.in-addr.arpa ~121.100.in-addr.arpa ~122.100.in-addr.arpa ~123.100.in-addr.arpa ~124.100.in-addr.arpa ~125.100.in-addr.arpa ~126.100.in-addr.arpa ~127.100.in-addr.arpa ~64.100.in-addr.arpa ~65.100.in-addr.arpa ~66.100.in-addr.arpa ~67.100.in-addr.arpa ~68.100.in-addr.arpa ~69.100.in-addr.arpa ~70.100.in-addr.arpa ~71.100.in-addr.arpa ~72.100.in-addr.arpa ~73.100.in-addr.arpa ~74.100.in-addr.arpa ~75.100.in-addr.arpa ~76.100.in-addr.arpa ~77.100.in-addr.arpa ~78.100.in-addr.arpa ~79.100.in-addr.arpa ~80.100.in-addr.arpa ~81.100.in-addr.arpa ~82.100.in-addr.arpa ~83.100.in-addr.arpa ~84.100.in-addr.arpa ~85.100.in-addr.arpa ~86.100.in-addr.arpa ~87.100.in-addr.arpa ~88.100.in-addr.arpa ~89.100.in-addr.arpa ~90.100.in-addr.arpa ~91.100.in-addr.arpa ~92.100.in-addr.arpa ~93.100.in-addr.arpa ~94.100.in-addr.arpa ~95.100.in-addr.arpa ~96.100.in-addr.arpa ~97.100.in-addr.arpa ~98.100.in-addr.arpa ~99.100.in-addr.arpa   
 </code></pre>
 <p>但现在随着IP地址的稀缺和频繁重新分配，一组IP的反向DNS域通常属于你的云厂商，而不是你。因此提供“正确的”反向DNS回答需要许多我们不想牵扯的人大量协作。   </p>
 <ul>
 <li>&lt;<strong>Avery</strong>&gt; 并且别忘了，结合<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Host">HTTP Host: header</a>和<a href="https://en.wikipedia.org/wiki/Server_Name_Indication">TLS SNI</a>，一个IP可以有许多名字！正向DNS没问题，你只要设置多个DNS名字翻译到同样的IP。但是反向DNS，每个IP只能翻译回一个名字。这在现代互联网中运作不好。   </li>
-<li>&lt;<strong>Xe</strong>&gt; 有相当数量的人会经历在IRC上显示一个像<code>gimme-your.nickserv.pw</code>这样滑稽的反向DNS名字痛苦。随着IRC慢慢从公众视野淡出，这是个在消亡的艺术。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 有相当数量的人会经历在IRC上显示一个像<code>gimme-your.nickserv.pw</code>这样滑稽的反向DNS名字痛苦。随着IRC慢慢从公众视野淡出，这是个在消亡的艺术。</li>
 </ul>
 <h1 id="总是DNS"><a href="#总是DNS" class="headerlink" title="总是DNS"></a>总是DNS</h1><p>所有的这些甚至没有覆盖每个设备和操作系统上的DNS客户端配置。DNS客户端配置是每个平台独特的，可能微不足道也可能漫无止境，<a href="https://tailscale.com/blog/sisyphean-dns-client-linux/">取决于你使用哪个平台以及已经有多少人有关于如何配置的意见</a>。多数时候你希望不必关心它。下一个大问题是当你需要关心的时候，有一个操作系统原生 API 来解决这个问题。最后一个问题是，你必须弄清楚在运行中操作系统发生了什么，然后将所有东西拼凑在一起，使事情像人们期望那样“Just Work <strong><sup>TM</sup></strong> ”<br>所有的这一切疯狂就是为什么当你看到一个大网站挂掉时，通常是因为DNS服务器又失败了导致一起都宕机了。当你私有内部网络运行异常或者缓慢时，经常是本地DNS错误（或者旧缓存值、或节点间DNS配置不一致、或者月相产生的潮汐影响了海底光缆）。<br>DNS带来了许多关于停机时间本质的文化基因、艺术创作和哲学文献，比如下面这个：<br><img data-src="https://tailscale.com/blog/magicdns-why-name/image1.jpg">   </p>
 <h1 id="MagicDNS是DNS，但有不同"><a href="#MagicDNS是DNS，但有不同" class="headerlink" title="MagicDNS是DNS，但有不同"></a>MagicDNS是DNS，但有不同</h1><p>MagicDNS使用DNS作为它的查询协议，因此你可能认为它有同样的缺陷。但在MagicDNS中，方程式完全颠倒了。<br>在Tailscale中，协调服务有一个你tailnet中一切东西的列表。你有端到端的加密，所以你可以完全相信一个人所有的机器确实被那个人使用，并且从哪个机器来的数据包都与那个人相关。通过Tailscale加密强制执行的ACL，你只能访问你拥有权限的机器。由身份提供者进行的用户鉴别可以防止整体攻击。这一切使得网络层安全。——</p>
 <ul>
-<li>&lt;<strong>Avery</strong>&gt; ……就像我们假装回到rlogin和TCP Wrappers时代！   </li>
+<li>&lt;<strong>Avery</strong>&gt; ……就像我们假装回到rlogin和TCP Wrappers时代！</li>
 </ul>
 <p>——是的，就像从前。但是一旦网络安全了，我们就可以在其上构建更酷的机制。<br>MagicDNS在DNS客户端配置中设置了一个相对罕见的称之为<a href="https://superuser.com/a/184366">搜索域</a>的特性。这允许你在你的tailnet中不使用IP地址或是完整域名，而是使用简单主机名去连接个人机器。假如你的主服务器叫<code>pandoria</code>，你可以使用<code>pandoria</code>代替完整的域名<code>pandoria.example.com.beta.tailscale.net</code>（或者你<a href="https://tailscale.com/kb/1153/enabling-https/">配置了HTTPS</a> <code>pandoria.telethia-pirhanax.ts.net</code>）直接连接。这使你可以不用额外输入更简单的连接你关心的机器。你不需要设置SSH别名，而是直接使用<code>ssh pandoria</code>登录。<br>MagicDNS自动使用设备的<a href="https://tailscale.com/kb/1098/machine-names">机器名</a>作为DNS入口的一部分。如果你改变了你的设备名字，MagicDNS入口自动改变。如果你有想用来指代你设备的特殊名字，你可以<a href="https://tailscale.com/kb/1098/machine-names/#renaming-a-machine">编辑机器名</a>。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/new-device.svg">   </p>
 <center><p>MagicDNS由Tailscale的控制服务器提供，所以请求永远不用离开你的机器</p></center>   
@@ -101,19 +101,19 @@
 <center><p>如果你的浏览器不带顶级域名询问pandoria，操作系统会依次尝试这些域以得到可用的</p></center>   
    
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; 当DNS服务器跑在你网络中的每台机器上，你不用担心DNS服务器宕掉。如果你设备的DNS宕了，是因为你自己的设备不工作——你有了更大的问题。但愿不是火灾，火灾对计算机不好。   </li>
+<li>&lt;<strong>Xe</strong>&gt; 当DNS服务器跑在你网络中的每台机器上，你不用担心DNS服务器宕掉。如果你设备的DNS宕了，是因为你自己的设备不工作——你有了更大的问题。但愿不是火灾，火灾对计算机不好。</li>
 </ul>
 <p>MagicDNS对Tailscale特定的DNS名称使用委托，但是所有的委托发生在你自己的内部，这意味着委托的延迟几乎为0，你无法把它配置错误。<br>MagicDNS从不需要担心授权更新或是篡改：更新来自通过控制平面的安全通道。<br>MagicDNS中反向DNS默认生效，因为每个Tailscale机器有它自己独特的私有IP，MagicDNS为子网管理反向DNS域名。<br>MagicDNS不必忍受延迟问题，延迟与设备发包到localhost一样低。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/magicdns-vs-dns.svg">   </p>
 <center><p>MagicDNS记录总在设备上，因此你不用等待DNS服务器回应</p></center>   
 
 <h1 id="透明地提升你操作系统能力"><a href="#透明地提升你操作系统能力" class="headerlink" title="透明地提升你操作系统能力"></a>透明地提升你操作系统能力</h1><p>因为Tailscale在每台机器上运行一个本地DNS服务器，MagicDNS可以规范和升级你tailnet中每台机器的DNS能力。<br>例如，MagicDNS可以<a href="https://tailscale.com/blog/2021-09-private-dns-with-magicdns/">尽可能多的将DNS查询透明地升级为DNS-over-HTTPS</a>，以使对外部的DNS请求不被中途嗅探或篡改。这不能保护你的每条DNS请求与在技术上可以被Google、Cloudflare、Quad9或其他DNS-over-HTTPS服务商看到，但它应该可以从你的ISP运营商或着咖啡店WiFI网络中的脚本小子那里保护你的非MagicDNS查询。这点甚至可以在如Windows7那样太老旧不支持DNS-over-HTTPS操作系统的机器上工作。   </p>
 <ul>
-<li>&lt;<strong>Xe</strong>&gt; 是的，我们支持Windows 7！   </li>
+<li>&lt;<strong>Xe</strong>&gt; 是的，我们支持Windows 7！</li>
 </ul>
 <p>如果你创建了<a href="https://tailscale.com/kb/1054/dns/">split DNS</a>路由本地DNS服务器还可以委托子域，即使你的操作系统并不原生支持。当你在管理员控制台<a href="https://tailscale.com/kb/1054/dns">配置split DNS</a>，路由自动推送到你tailnet中的所有设备，并允许你将流量路由到你想要的任意子域或是虚拟顶域。比如你可以使用这点从非AWS的Tailscale节点来访问AWS VPC域名。即使是Windows 7上。   </p>
 <h1 id="基于推送的缓存失效"><a href="#基于推送的缓存失效" class="headerlink" title="基于推送的缓存失效"></a>基于推送的缓存失效</h1><p>显而易见MagicDNS由于我们控制平面会立即推送更新到每个设备（DNS将周期轮询变更），而可以完全修复缓存失效问题，并且因为它直接运行在设备上，我们消除了中间环节扰乱缓存参数的可能性。这意味着你可以相信你的内部DNS总是最新的，永远不用担心又配另一个内部DNS TTL。   </p>
 <ul>
-<li>&lt;<strong>Avery</strong>&gt; 这意味着MagicDNS可以用作服务发现工具。推送你的代码到名为<code>git</code>的服务器。在<code>http://pastebin</code>分享文本。有些创业公司在做主要基于绕过DNS限制的新的服务发现机制。我们有在服务发现中不要信任DNS的教训，但那从不是DNS协议的问题。而是缓存、延迟、轮询。 </li>
+<li>&lt;<strong>Avery</strong>&gt; 这意味着MagicDNS可以用作服务发现工具。推送你的代码到名为<code>git</code>的服务器。在<code>http://pastebin</code>分享文本。有些创业公司在做主要基于绕过DNS限制的新的服务发现机制。我们有在服务发现中不要信任DNS的教训，但那从不是DNS协议的问题。而是缓存、延迟、轮询。</li>
 </ul>
 <h1 id="细节不可见"><a href="#细节不可见" class="headerlink" title="细节不可见"></a>细节不可见</h1><p>有人可能会说“啊，那只是个动态DNS服务器。我可以在一个周末做出来，至少这些笨蛋写的一半代码”。但是没有像MagicDNS做的那样在每个机器上运行的DNS服务器，更新延迟会再次成为一个问题。安全和缓存不可用会再次成为问题。DNS服务器的启动和负载会成为问题。那将成为故障点而不是弹性点。<br>几十年来的常规DNS，即使你做了负载均衡也演变成了一个故障点。我们没有修复DNS近40年的设计缺陷，我们也不想在修复接下来40年的。MagicDNS以惊人少的代码，在惊人的深度解决了关键问题。<br>这边是我们之所以叫它MagicDNS：因为没有魔法就不只是DNS。MagicDNS建立在完全不同的基础上消除了DNS的大多数问题。如同魔法。   </p>
 <p>原文地址：<a href="https://tailscale.com/blog/magicdns-why-name/">https://tailscale.com/blog/magicdns-why-name/</a>    </p>
@@ -144,10 +144,10 @@
   <entry>
     <title>利用Tailscale快速部署跳板机安全分享访问</title>
     <url>/2021/09/13/%E5%88%A9%E7%94%A8Tailscale%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E8%B7%B3%E6%9D%BF%E6%9C%BA%E5%AE%89%E5%85%A8%E5%88%86%E4%BA%AB%E8%AE%BF%E9%97%AE/</url>
-    <content><![CDATA[<p>　<br>　　有很多时候，我们希望向他人分享我们的数据或者服务资源，如一些文档、一个文档协作平台、一个SVN仓库。通常最可靠合理的方法是为这些数据或者服务搭建一个向公网暴露的服务站点，并配合防火墙、身份认证、访问控制等手段确保只有我们希望的人能看到这些数据/服务。抑或是在访问者和数据/服务之间拉一条专线，同时在内部做好这些资源和其他不希望被访资源之间的隔离。<br>　　对于长期、大量、访问者众多的情况，或许这是成熟经过长期验证的方式，但是，如果只是少量短期的资源分享，通常不会如此大动干戈。不少人或许会选择简便但是不够安全的方式，例如公共网盘分享文档、防火墙上设置特例开设代理分享服务等方式。<br>　　现如今，人们所热捧的零信任理念，除了能用来应对机构内部横向移动风险、机构内接入的BYOD设备等，本身也是对于Co-Work人员管理很好的方式。<br>　　Tailscale®是一家我个人觉得很Geek的公司在持续开发的产品，将它称之为SDN也好，ZTN也好，新一代VPN也好，总之这个很酷的产品有非常多的使用方式。本文就介绍利用其在（双方总共）十几分钟内，实现快速部署跳板机安全分享资源。   </p>
+    <content><![CDATA[<p>　<br>　　有很多时候，我们希望向他人分享我们的数据或者服务资源，如一些文档、一个文档协作平台、一个SVN仓库。通常最可靠合理的方法是为这些数据或者服务搭建一个向公网暴露的服务站点，并配合防火墙、身份认证、访问控制等手段确保只有我们希望的人能看到这些数据&#x2F;服务。抑或是在访问者和数据&#x2F;服务之间拉一条专线，同时在内部做好这些资源和其他不希望被访资源之间的隔离。<br>　　对于长期、大量、访问者众多的情况，或许这是成熟经过长期验证的方式，但是，如果只是少量短期的资源分享，通常不会如此大动干戈。不少人或许会选择简便但是不够安全的方式，例如公共网盘分享文档、防火墙上设置特例开设代理分享服务等方式。<br>　　现如今，人们所热捧的零信任理念，除了能用来应对机构内部横向移动风险、机构内接入的BYOD设备等，本身也是对于Co-Work人员管理很好的方式。<br>　　Tailscale®是一家我个人觉得很Geek的公司在持续开发的产品，将它称之为SDN也好，ZTN也好，新一代VPN也好，总之这个很酷的产品有非常多的使用方式。本文就介绍利用其在（双方总共）十几分钟内，实现快速部署跳板机安全分享资源。   </p>
 <span id="more"></span>   
 
-<p>　　在本文中，让我们假设Bob希望访问Alice在自己家内网启动的一个服务A（这个服务可能是一个协作平台网站，也可能是一个文档的ftp服务器smba服务器等）。如下图展示，在Alice家的路由器下有Alice的服务器、 数据库等，都处于其路由器管理的内网之下（192.168.1.0/24）。我们的目标是让Bob可以从他家内网直接访问Alice这些设备中的Service A所在设备（192.168.1.33），当然实际控制颗粒度可以结合其他配置做到更细，但鉴于现在虚拟化、容器化技术，这里不妨先假设Alice在192.168.1.33上只有Service A这一个资源。   </p>
+<p>　　在本文中，让我们假设Bob希望访问Alice在自己家内网启动的一个服务A（这个服务可能是一个协作平台网站，也可能是一个文档的ftp服务器smba服务器等）。如下图展示，在Alice家的路由器下有Alice的服务器、 数据库等，都处于其路由器管理的内网之下（192.168.1.0&#x2F;24）。我们的目标是让Bob可以从他家内网直接访问Alice这些设备中的Service A所在设备（192.168.1.33），当然实际控制颗粒度可以结合其他配置做到更细，但鉴于现在虚拟化、容器化技术，这里不妨先假设Alice在192.168.1.33上只有Service A这一个资源。   </p>
 <img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step0.png" width="100%" />    
 
 <h2 id="第一步：-Bob注册Tailscale®"><a href="#第一步：-Bob注册Tailscale®" class="headerlink" title="第一步： Bob注册Tailscale®"></a>第一步： Bob注册Tailscale®</h2><p>　　Alice先告诉Bob去<a href="https://login.tailscale.com/start">注册Tailscale®</a>. Bob可以用Microsoft®,Goolge或GitHub账户进行注册登录，当然Tailscale®也支持其他的一些账号注册，感兴趣的可以自行研究。<br><img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step1-1.png" width="100%" /><br>　　完成注册后,Bob可以根据引导介绍在其设备上安装Tailscale®的客户端将其访问设备连入他个人的Tailscale®网络。<br><img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step1-2.png" width="100%" /><br>　　Bob也可以选择之后按照<a href="https://tailscale.com/download">下载页面</a>的介绍再添加以及其他更多自己的设备。   </p>
@@ -183,15 +183,18 @@
   <entry>
     <title>Hexo + GitHub实现零成本Blog</title>
     <url>/2021/05/06/Hexo%20+%20GitHub%E5%AE%9E%E7%8E%B0%E9%9B%B6%E6%88%90%E6%9C%ACBlog/</url>
-    <content><![CDATA[<p>　　对于自己创造内容并不稳定的情况，花费金钱和精力去维护一个服务器（VPS/ECS）是不明智的。但是实际上难免会遇到记录和创作分享的需要，作为技术控，当然不想选用现成的商业化产品。那么，能够有个方式“白嫖”到资源存放静态博客/笔记站点内容的同时，再实现站点的部署更新都自动化完成（CI/CD概念），就很完美了。<br>　　恰巧，GitHub当前可以完成这种需求。这里记录一下完全利用GitHub （Repo + Pages + Action）建设Hexo站点的“最佳实践”。    </p>
+    <content><![CDATA[<p>　　对于自己创造内容并不稳定的情况，花费金钱和精力去维护一个服务器（VPS&#x2F;ECS）是不明智的。但是实际上难免会遇到记录和创作分享的需要，作为技术控，当然不想选用现成的商业化产品。那么，能够有个方式“白嫖”到资源存放静态博客&#x2F;笔记站点内容的同时，再实现站点的部署更新都自动化完成（CI&#x2F;CD概念），就很完美了。<br>　　恰巧，GitHub当前可以完成这种需求。这里记录一下完全利用GitHub （Repo + Pages + Action）建设Hexo站点的“最佳实践”。    </p>
 <span id="more"></span>   
 <p>　　首先，该方案的整体设计架构如下：<br>　　<img data-src="/images/github_blog/arch.jpg"><br>　　如图上的展示，整体思路是：   </p>
 <ul>
 <li>使用Hexo作为静态博客站点的框架，实现MarkDown编写日志文章内容；    </li>
 <li>使用GitHub的Private（私有）Repo作为Hexo源码（包括日志源码、Hexo配置及站点主题配置文件、其他一些数据等）；   </li>
 <li>使用GitHub Pages（网页代管服务）作为静态站点的承载展示；   </li>
-<li>使用GitHub Action（CI/CD）作为持续部署方案，将源码Repo生成部署到Pages；   </li>
-<li>为GitHub Pages配置个人域名；<br>　　后续即按照上面各点逐一介绍实现步骤，根据关键性不同，详细程度会有所不同。  <h3 id="构建Hexo源码Repo"><a href="#构建Hexo源码Repo" class="headerlink" title="构建Hexo源码Repo"></a>构建Hexo源码Repo</h3>　　在Github中创建新Repo（默认已注册GitHub账号）： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(如<strong>myblog</strong>)，类型选择<code>Private</code>。点击<code>Create repository</code>完成创建。<br>　　在本机进行Hexo的安装（由于网上有不少教程此处从简介绍）以及将其添加到GitHub的源码Repo中。确保机器已安装Node.js和Git的前提下执行下面命令（链接中<strong>username</strong>和<strong>myblog</strong>换成自己的GitHub用户名和刚创建时设置的源码Repo名称）：<pre><code class="bash">npm install -g hexo-cli
+<li>使用GitHub Action（CI&#x2F;CD）作为持续部署方案，将源码Repo生成部署到Pages；   </li>
+<li>为GitHub Pages配置个人域名；<br>　　后续即按照上面各点逐一介绍实现步骤，根据关键性不同，详细程度会有所不同。</li>
+</ul>
+<h3 id="构建Hexo源码Repo"><a href="#构建Hexo源码Repo" class="headerlink" title="构建Hexo源码Repo"></a>构建Hexo源码Repo</h3><p>　　在Github中创建新Repo（默认已注册GitHub账号）： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(如<strong>myblog</strong>)，类型选择<code>Private</code>。点击<code>Create repository</code>完成创建。<br>　　在本机进行Hexo的安装（由于网上有不少教程此处从简介绍）以及将其添加到GitHub的源码Repo中。确保机器已安装Node.js和Git的前提下执行下面命令（链接中<strong>username</strong>和<strong>myblog</strong>换成自己的GitHub用户名和刚创建时设置的源码Repo名称）：</p>
+<pre><code class="bash">npm install -g hexo-cli
 hexo init myblog
 cd myblog
 npm install
@@ -202,13 +205,16 @@ git branch -M main
 git remote add origin https://github.com/username/myblog.git
 git push -u origin main
 </code></pre>
-　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   <h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#x75;&#x73;&#x65;&#114;&#110;&#97;&#x6d;&#101;&#64;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#x75;&#x73;&#x65;&#114;&#110;&#97;&#x6d;&#101;&#64;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a></strong>为GitHub用户邮箱)：<pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
+<p>　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   </p>
+<h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3><p>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#x75;&#115;&#x65;&#114;&#x6e;&#97;&#x6d;&#101;&#64;&#101;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x75;&#115;&#x65;&#114;&#x6e;&#97;&#x6d;&#101;&#64;&#101;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></strong>为GitHub用户邮箱)：</p>
+<pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
 </code></pre>
-　　根据之后提示选择密钥文件存储位置和密码（直接回车设置为空）。<br>　　在刚刚创建的<strong>username.github.io</strong> Repo的<code>Settings</code>中点击<code>Deploy keys</code>，选择<code>Add deploy key</code>。Title可以根据喜好设置（如myblog_deploy_pubkey），Key的内容复制进刚才使用命令生成的<code>.pub</code>扩展名的公钥文件内容。下面的<code>Allow write access</code>的复选框要勾选。   <h3 id="配置站点的自动化更新部署"><a href="#配置站点的自动化更新部署" class="headerlink" title="配置站点的自动化更新部署"></a>配置站点的自动化更新部署</h3>　　站点的自动化更新部署通过在源码Repo中配置GitHub Action来实现。关于GitHub Action的原理和更多技巧可参见网上资料。<br>　　先准备部署时使用的部署私钥（Deploy key），在<strong>myblog</strong>的<code>Settings</code>的<code>Secrets</code>中点击<code>New repository secret</code>，名称可以设置为如<strong>HEXO_DEPLOY_PRI</strong>，内容复制入上一节中除<code>.pub</code>文件之外的另一个私钥文件内容，再点击<code>Add secret</code>。<br>　　然后，在本机命令行下进入第一步中创建的<code>myblog</code>目录下执行：   <pre><code class="bash">mkdir .github/workflows
+<p>　　根据之后提示选择密钥文件存储位置和密码（直接回车设置为空）。<br>　　在刚刚创建的<strong>username.github.io</strong> Repo的<code>Settings</code>中点击<code>Deploy keys</code>，选择<code>Add deploy key</code>。Title可以根据喜好设置（如myblog_deploy_pubkey），Key的内容复制进刚才使用命令生成的<code>.pub</code>扩展名的公钥文件内容。下面的<code>Allow write access</code>的复选框要勾选。   </p>
+<h3 id="配置站点的自动化更新部署"><a href="#配置站点的自动化更新部署" class="headerlink" title="配置站点的自动化更新部署"></a>配置站点的自动化更新部署</h3><p>　　站点的自动化更新部署通过在源码Repo中配置GitHub Action来实现。关于GitHub Action的原理和更多技巧可参见网上资料。<br>　　先准备部署时使用的部署私钥（Deploy key），在<strong>myblog</strong>的<code>Settings</code>的<code>Secrets</code>中点击<code>New repository secret</code>，名称可以设置为如<strong>HEXO_DEPLOY_PRI</strong>，内容复制入上一节中除<code>.pub</code>文件之外的另一个私钥文件内容，再点击<code>Add secret</code>。<br>　　然后，在本机命令行下进入第一步中创建的<code>myblog</code>目录下执行：   </p>
+<pre><code class="bash">mkdir .github/workflows
 touch .github/workflows/deploy.yml
 </code></pre>
-　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#x75;&#x73;&#101;&#x72;&#110;&#97;&#109;&#101;&#x40;&#x65;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#x75;&#x73;&#101;&#x72;&#110;&#97;&#109;&#101;&#x40;&#x65;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>为你的GitHub注册邮箱）：   </li>
-</ul>
+<p>　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#117;&#115;&#101;&#x72;&#110;&#97;&#109;&#x65;&#x40;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#117;&#115;&#101;&#x72;&#110;&#97;&#109;&#x65;&#x40;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a>为你的GitHub注册邮箱）：   </p>
 <pre><code class="yaml">name: CI
 
 on:
@@ -312,7 +318,7 @@ Address: 172.217.174.206
 Name:   google.com
 Address: 2404:6800:4005:809::200e 
 </code></pre>
-<p>　　如果是在以前，我们可能只需要安全地修改/etc/resolv.conf，这样就结束了。<br>　　然而，像DHCP这样的东西出现了，并且给这种对应增加了一些必要的复杂性。DHCP是一个协议，它让网络上的机器通过漫无目的地对网络上的每个设备大喊大叫，直到有人告诉他们应该使用什么配置。DHCP提供的东西之一是网络首选DNS服务器的IP地址。<code>/etc/resolv.conf</code>的内容需要由某个程序来管理，如果有分歧，不同意见的程序(如DHCP客户端和其他程序)需要竞争DNS控制权。大多数发行版和定制设置开始使用一个搜索不到的叫做<code>resolvconf</code>的程序来帮助实现这一点。<br>　　<code>resolvconf</code>会在<code>/etc/resolv.conf</code>的开头添加一条注释，让你知道<code>resolvconf</code>正在管理它:   </p>
+<p>　　如果是在以前，我们可能只需要安全地修改&#x2F;etc&#x2F;resolv.conf，这样就结束了。<br>　　然而，像DHCP这样的东西出现了，并且给这种对应增加了一些必要的复杂性。DHCP是一个协议，它让网络上的机器通过漫无目的地对网络上的每个设备大喊大叫，直到有人告诉他们应该使用什么配置。DHCP提供的东西之一是网络首选DNS服务器的IP地址。<code>/etc/resolv.conf</code>的内容需要由某个程序来管理，如果有分歧，不同意见的程序(如DHCP客户端和其他程序)需要竞争DNS控制权。大多数发行版和定制设置开始使用一个搜索不到的叫做<code>resolvconf</code>的程序来帮助实现这一点。<br>　　<code>resolvconf</code>会在<code>/etc/resolv.conf</code>的开头添加一条注释，让你知道<code>resolvconf</code>正在管理它:   </p>
 <pre><code class="shell"># Generated by resolvconf   
 </code></pre>
 <p>　　<code>resolvconf</code>是一个松散的管理DNS公约，由多个程序以略微互不兼容的方式实现。最常见的两个是<a href="https://gitlab.com/jdthood/resolvconf">Debian的<code>resolvconf</code></a>和<a href="http://roy.marples.name/projects/openresolv">openresolv</a>。<br>　　当一些东西对DNS配置有意见时，需要某种方法在它们之间进行仲裁。Debian的<code>resolvconf</code>采用了让每个人都赢的策略，并安装了一个混合了所有输入的配置。这在除了你实际上希望能够完全覆盖DNS配置(例如，因为一个管理员通过某程序设置了一个强制DNS配置）之外的情况是很好的。在其中某程序认为自己比其他程序更正确，但其他程序对自己的看法也是一样的，Debian resolvconf拒绝选出一个赢家。<br>　　<code>openresolv</code>则允许指定DNS服务器的优先级顺序。此外，它允许程序指定一个“独占”模式，在这种模式下，总是倾向于选择一种选项，而其他选项将被丢弃。如果两个程序想要处于“独占”模式，最后一个提供配置的程序获胜，我们将回到DNS控制权的竞争中。<br>　　之后FreeDesktop的人注意到这种持续不断的DNS控制权之争非常恼人(更不用说配置wifi连接更加恼人) ，他们一起创造了更好的路径并将之称为<a href="https://en.wikipedia.org/wiki/NetworkManager">NetworkManager</a>。它使用称之为<a href="https://www.freedesktop.org/wiki/Software/dbus/">D-Bus</a>的协议允许其他程序告诉他该做什么。这是在<code>resolvconf</code>上的显著改进。要使用<code>resolvconf</code>更新<code>/etc/resolv.conf</code>，您需要将所需的配置通过管道传送到<code>resolvconf</code>，并希望您所希望的事情真正发生。NetworkManager的API有个模式且允许内省（自检？），从而使得程序一端更加容易。<br>　　NetworkManager的目标是成为一个守护进程来制定Linux上所有的网络管理的规则。尽管它有自己的方式来管理<code>/etc/resolv.conf</code>，但有时可以将NetworkManager配置为使用<code>resolvconf</code>来管理<code>/etc/resolv.conf</code>。这发生在比想象更多的发行版上。网络管理器很好地隐藏了大量困难的部分，并允许用户使用GUI工具配置网络。<br>　　NetworkManager在很长一段时间内都是DNS配置的标准和最好的选择(到今天仍有些发行版更喜欢它) ，但是随着事情变得越来越复杂而需要一些功能更强大的东西。<a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a>项目创建了一个名为<a href="https://wiki.archlinux.org/index.php/Systemd-resolved">systemd-resolved</a>的解决方案，允许管理员对每个网络接口上如何解析DNS进行更多的控制。以下是一台Linux机器的解析状态:   </p>
@@ -337,15 +343,18 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
 <ul>
 <li>　　如果域名以<code>.akua</code>结尾，查询<code>10.77.2.2</code>   </li>
 <li>　　如果域名以<code>.local</code>结尾，查询Bonjour   </li>
-<li>　　其他情况查询<code>1.1.1.1</code>或<code>8.8.8.8</code>   　　这些设置比想象的更加普遍，几乎每个有Mac的家庭都在使用。这可以让你通过<code>computername.local</code>自动发现域计算机名的IP地址。大多数企业VPN也希望通过此将其内部服务(如git、数据库或IRC服务器)解析到VPN之后的IP地址。这可以防止将请求泄漏给公共DNS服务，而Linux(即在没有运行systemd-resolved时)缺乏这种开箱即用的支持一直是一个重大限制。<br>　　<code>/etc/resolv.conf</code>不支持基于域名的DNS路由，因此第三方应用在最基本的配置中，可能需要守护进程中的过程中解析器内实现路由，并告诉操作系统将其所有DNS流量发送到其指定的DNS（如100.100.100.100）。这些流量通过机器上程序的进程在本地处理，并让基于resolv.conf的系统拥有“分裂DNS”。这仍然不得不偶尔竞争DNS控制权，这取决于试图编辑<code>/etc/resolv.conf</code>的其他程序。<code>resolvconf</code>是类似，可能在配置竞争上要少一些。<br>　　然后，NetworkManager能够控制<code>/etc/resolv.conf</code>、 <code>resolvconf</code>，可能还有一个名为<a href="https://thekelleys.org.uk/dnsmasq/doc.html"><code>dnsmasq</code></a>的DNS服务器。唯一允许“分裂DNS”的是<code>dnsmasq</code>模式。这意味着第三方程序需要关心NetworkManager处于哪种模式，可能使用这段<a href="https://github.com/tailscale/tailscale/blob/main/net/dns/manager_linux.go#L22-L58">代码</a>来实现这一点。这有一些额外的代码来处理应该使用NetworkManager的情况，但是它不能响应Ping(感谢$DEITY，标准的D-Bus方式是让每个对象实现一个“Ping”方法) ，这种情况下再次陷入困境。<br>　　这一切的一个主要困难是Linux系统上的名称解析非常糟糕，这些方法中的每一个都会导致略微不同的行为。如果我们为<code>go.akua</code>做一个解析会发生什么？它会进入公共互联网的解析器吗？它会转到正确的“分裂DNS”吗？它会因为某种原因被送到Tor吗？它会被发送到你当地咖啡店的公共wifi热点上潜在的危险DNS服务器上吗？它会通过UDP，TCP或者DNS over HTTPS发送吗？我们不知道。这些东西没有被记录下来，因此你需要想尽办法来了解它做了什么。另外，glibc和musl的行为也有不同。<br>　　该如何正确做的一个例子是systemd-resolved，它可以原生地做到现代“分裂DNS”VPN的一切，因此理论上不需要额外的工作。systemd团队<a href="https://man7.org/linux/man-pages/man8/systemd-resolved.service.8.html">细心地写下了他们所做的事情</a>，并且明确地表明了你应该如何摆弄来得到你想要的东西，这是基础设施项目应该努力拥有的那类文档。<br>　　现在，如果需要在Linux上提供一个DNS服务器，并且必须弄清楚应该如何配置系统的解析器，按照下面这样做：   　　首先，检查<code>/etc/resolv.conf</code>是否存在，如果没有则可以覆盖。<br><img data-src="/images/dns_on_linux/image1.png"><br>　　如果存在，那么需要检查文件的所有者（通过检查文件顶部的magic字段）例如：   <pre><code class="shell"># Generated by resolvconf
+<li>　　其他情况查询<code>1.1.1.1</code>或<code>8.8.8.8</code></li>
+</ul>
+<p>　　这些设置比想象的更加普遍，几乎每个有Mac的家庭都在使用。这可以让你通过<code>computername.local</code>自动发现域计算机名的IP地址。大多数企业VPN也希望通过此将其内部服务(如git、数据库或IRC服务器)解析到VPN之后的IP地址。这可以防止将请求泄漏给公共DNS服务，而Linux(即在没有运行systemd-resolved时)缺乏这种开箱即用的支持一直是一个重大限制。<br>　　<code>/etc/resolv.conf</code>不支持基于域名的DNS路由，因此第三方应用在最基本的配置中，可能需要守护进程中的过程中解析器内实现路由，并告诉操作系统将其所有DNS流量发送到其指定的DNS（如100.100.100.100）。这些流量通过机器上程序的进程在本地处理，并让基于resolv.conf的系统拥有“分裂DNS”。这仍然不得不偶尔竞争DNS控制权，这取决于试图编辑<code>/etc/resolv.conf</code>的其他程序。<code>resolvconf</code>是类似，可能在配置竞争上要少一些。<br>　　然后，NetworkManager能够控制<code>/etc/resolv.conf</code>、 <code>resolvconf</code>，可能还有一个名为<a href="https://thekelleys.org.uk/dnsmasq/doc.html"><code>dnsmasq</code></a>的DNS服务器。唯一允许“分裂DNS”的是<code>dnsmasq</code>模式。这意味着第三方程序需要关心NetworkManager处于哪种模式，可能使用这段<a href="https://github.com/tailscale/tailscale/blob/main/net/dns/manager_linux.go#L22-L58">代码</a>来实现这一点。这有一些额外的代码来处理应该使用NetworkManager的情况，但是它不能响应Ping(感谢$DEITY，标准的D-Bus方式是让每个对象实现一个“Ping”方法) ，这种情况下再次陷入困境。<br>　　这一切的一个主要困难是Linux系统上的名称解析非常糟糕，这些方法中的每一个都会导致略微不同的行为。如果我们为<code>go.akua</code>做一个解析会发生什么？它会进入公共互联网的解析器吗？它会转到正确的“分裂DNS”吗？它会因为某种原因被送到Tor吗？它会被发送到你当地咖啡店的公共wifi热点上潜在的危险DNS服务器上吗？它会通过UDP，TCP或者DNS over HTTPS发送吗？我们不知道。这些东西没有被记录下来，因此你需要想尽办法来了解它做了什么。另外，glibc和musl的行为也有不同。<br>　　该如何正确做的一个例子是systemd-resolved，它可以原生地做到现代“分裂DNS”VPN的一切，因此理论上不需要额外的工作。systemd团队<a href="https://man7.org/linux/man-pages/man8/systemd-resolved.service.8.html">细心地写下了他们所做的事情</a>，并且明确地表明了你应该如何摆弄来得到你想要的东西，这是基础设施项目应该努力拥有的那类文档。<br>　　现在，如果需要在Linux上提供一个DNS服务器，并且必须弄清楚应该如何配置系统的解析器，按照下面这样做：   </p>
+<p>　　首先，检查<code>/etc/resolv.conf</code>是否存在，如果没有则可以覆盖。<br><img data-src="/images/dns_on_linux/image1.png"><br>　　如果存在，那么需要检查文件的所有者（通过检查文件顶部的magic字段）例如：   </p>
+<pre><code class="shell"># Generated by resolvconf
 </code></pre>
 <pre><code class="shell"># This is /run/systemd/resolve/stub-resolv.conf managed by man:systemd-resolved(8).
 # Do not edit.
 </code></pre>
 <pre><code class="shell"># Generated by NetworkManager
 </code></pre>
-　　这将告诉我们哪个服务在管理<code>/etc/resolv.conf</code>文件，如果找不到任何所有者则需要替换掉<code>/etc/resolv.conf</code>并祈祷。<br>　　如果<code>resolvconf</code>正在使用，那么你也应该使用，前提是<code>resolvconf</code>二进制文件在$PATH中:<br><img data-src="/images/dns_on_linux/image2.png"><br>　　如果这个配置看起来属于NetworkManager，那么需要检查NetworkManager是否可以通过D-Bus访问，如果可以那么使用它，否则，需要重新覆盖resolv.conf。<br>　　NetworkManager还给resolvconf的路径添加了一个问题: 如果resolvconf生成的配置来自NetworkManager，应当尝试使用NetworkManager而不是resolvconf。因此，需做一个额外的检测，看看是否resolvconf是由NetworkManager提供的，如果是则切换到NetworkManager。<br>　　如果resolvconf似乎是由NetworkManager提供的，但是无法与NetworkManager通信，就应该退回到使用resolvconf。<br><img data-src="/images/dns_on_linux/image3.png"><br>　　如果使用systemd-resolved，事情应该进行顺利… 但有一个问题，直到最近为止NetworkManager对systemd-resolved的配置有点不正确，从而使得如果自行与systemd-resolved进行对话不可能覆盖默认的解析程序。这点是在2020年12月通过NetworkManager 1.26.6修复的(<a href="https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/issues/688">相关的错误报告</a>)。<br>　　因此，如果正在使用systemd-resolved，需要检查NetworkManager是否也存在以及它是否将其配置推送到systemd-resolved中。如果是则必须使用NetworkManager来配置DNS，即使它的功能比systemd-resolved稍少一些。<br><img data-src="/images/dns_on_linux/image4.png"><br>　　上面这样设置将允许以一致的方式在Linux系统上配置DNS。此外还需要为服务所需的DNS路由位实现一个“polyfill”，以应对每种没有路由感知DNS配置的情况(上图中的大多数情况)。<br>　　如果你决定将来要提供一些新的DNS配置管理服务，请确保它有文档记录包含它与图中其余部分的相互作用。<br>　　对于Linux发行版的维护者而言，可能会想知道应该给用户带来这些纷乱中的哪一部分。建议使用systemd-resolved，而如果需要用户友好的网络配置，则使用最新版本的NetworkManager(1.26.6或更好)。这将提供发行版最先进的DNS能力，并使网络软件的实现者更高兴。使用这种设置的DNS配置图像如下:<br><img data-src="/images/dns_on_linux/image5.png">   </li>
-</ul>
+<p>　　这将告诉我们哪个服务在管理<code>/etc/resolv.conf</code>文件，如果找不到任何所有者则需要替换掉<code>/etc/resolv.conf</code>并祈祷。<br>　　如果<code>resolvconf</code>正在使用，那么你也应该使用，前提是<code>resolvconf</code>二进制文件在$PATH中:<br><img data-src="/images/dns_on_linux/image2.png"><br>　　如果这个配置看起来属于NetworkManager，那么需要检查NetworkManager是否可以通过D-Bus访问，如果可以那么使用它，否则，需要重新覆盖resolv.conf。<br>　　NetworkManager还给resolvconf的路径添加了一个问题: 如果resolvconf生成的配置来自NetworkManager，应当尝试使用NetworkManager而不是resolvconf。因此，需做一个额外的检测，看看是否resolvconf是由NetworkManager提供的，如果是则切换到NetworkManager。<br>　　如果resolvconf似乎是由NetworkManager提供的，但是无法与NetworkManager通信，就应该退回到使用resolvconf。<br><img data-src="/images/dns_on_linux/image3.png"><br>　　如果使用systemd-resolved，事情应该进行顺利… 但有一个问题，直到最近为止NetworkManager对systemd-resolved的配置有点不正确，从而使得如果自行与systemd-resolved进行对话不可能覆盖默认的解析程序。这点是在2020年12月通过NetworkManager 1.26.6修复的(<a href="https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/issues/688">相关的错误报告</a>)。<br>　　因此，如果正在使用systemd-resolved，需要检查NetworkManager是否也存在以及它是否将其配置推送到systemd-resolved中。如果是则必须使用NetworkManager来配置DNS，即使它的功能比systemd-resolved稍少一些。<br><img data-src="/images/dns_on_linux/image4.png"><br>　　上面这样设置将允许以一致的方式在Linux系统上配置DNS。此外还需要为服务所需的DNS路由位实现一个“polyfill”，以应对每种没有路由感知DNS配置的情况(上图中的大多数情况)。<br>　　如果你决定将来要提供一些新的DNS配置管理服务，请确保它有文档记录包含它与图中其余部分的相互作用。<br>　　对于Linux发行版的维护者而言，可能会想知道应该给用户带来这些纷乱中的哪一部分。建议使用systemd-resolved，而如果需要用户友好的网络配置，则使用最新版本的NetworkManager(1.26.6或更好)。这将提供发行版最先进的DNS能力，并使网络软件的实现者更高兴。使用这种设置的DNS配置图像如下:<br><img data-src="/images/dns_on_linux/image5.png">   </p>
 <p><sup>*</sup> <small>注：本文译自Tailscale的<a href="https://tailscale.com/blog/sisyphean-dns-client-linux/">Blog</a>,并在其基础上有所删改。文本的全部最终权利归原作者所有。</small></p>
 ]]></content>
       <categories>
@@ -373,7 +382,7 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
 </tr>
 </thead>
 <tbody><tr>
-<td>&#124;ψ&gt;=&#124;0&gt;+&#124;1&gt;</td>
+<td>&amp;#124;ψ&gt;&#x3D;&amp;#124;0&gt;+&amp;#124;1&gt;</td>
 <td>测量影响系统，系统中的两个不同物理量不可同时准确测量</td>
 <td>多粒子组成的系统，每个粒子状态无法被分离出。但容易量子退相干</td>
 </tr>
@@ -381,12 +390,12 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
 </li>
 </ul>
 <p>利用量子的特性，量子计算可以实现一个量子比特同时具备两种状态且可通过纠缠与其他量子比特共享自身状态，从而实现并行计算，计算能力将随量子比特数增加呈指数增长。<br>目前可用于密码破译的量子计算算法主要有<strong>Grover算法</strong>和<strong>Shor算法</strong>。前者可相当于<code>将密码密钥长度减少一半</code>，后者适用于<code>解决大整数分解、离散对数求逆</code>等困难数学问题。   </p>
-<h2 id="量子密码（量子密钥分发、量子安全通信）"><a href="#量子密码（量子密钥分发、量子安全通信）" class="headerlink" title="量子密码（量子密钥分发、量子安全通信）"></a>量子密码（量子密钥分发、量子安全通信）</h2><div class="note info"><h4 id="无条件安全"><a href="#无条件安全" class="headerlink" title="无条件安全"></a>无条件安全</h4><p>香农证明，若密钥是长度不小于待加密明文长度的随机序列，且任何一密钥仅使用一次，则该加密体制（C=PK）是无条件安全的（Perfect Secrecy）</p>
+<h2 id="量子密码（量子密钥分发、量子安全通信）"><a href="#量子密码（量子密钥分发、量子安全通信）" class="headerlink" title="量子密码（量子密钥分发、量子安全通信）"></a>量子密码（量子密钥分发、量子安全通信）</h2><div class="note info"><h4 id="无条件安全"><a href="#无条件安全" class="headerlink" title="无条件安全"></a>无条件安全</h4><p>香农证明，若密钥是长度不小于待加密明文长度的随机序列，且任何一密钥仅使用一次，则该加密体制（C&#x3D;PK）是无条件安全的（Perfect Secrecy）</p>
 </div>   
 <p>无条件安全主要受限于庞大的密钥消耗量，一个是密钥长度，一个是要求“一次一密”。而“一次一密”对于密钥分发能力的要求是传统方式难以支持的。<br>量子密码本质是试图解决密钥分配问题。理想的量子密码（密钥分发）应该是可以保证密钥安全性的，但实际和理论是两码事，如单光子探测效率、传输损耗、器件不完善、要求可信中继、成码率限制等等都是制约问题。   </p>
 <h2 id="后量子密码"><a href="#后量子密码" class="headerlink" title="后量子密码"></a>后量子密码</h2><p>前面提到量子计算因为量子特性而具备天然的并行性，计算能力可随量子比特位增加指数级增长，这一特性对于基于数学难题的传统公钥密码安全受到挑战。但是，量子计算机并不能解决电子计算机难于求解的所有数学问题，所以可以针对量子计算机不擅长计算的数学问题构造密码进行抵抗。   </p>
 <ul>
-<li>2015年，NSA宣布面临量子计算威胁，计划将联邦政府使用的RSA/ECC体系向后量子算法迁移   </li>
+<li>2015年，NSA宣布面临量子计算威胁，计划将联邦政府使用的RSA&#x2F;ECC体系向后量子算法迁移   </li>
 <li>2016年，NIST向全球公开后量子密码标准化路线图，并征集密码系统建议（约1年），包含公钥密码、数字签名及密钥交换算法；此后3-5年分析并公布分析报告，1-2年最终标准拟制   </li>
 <li>2015年，欧洲量子密码学术和工业界研究者联合组织“后量子密码”项目（PQCrypto）发布初始报告在对称加密授权、公钥加密签名领域提出了标准化建议。</li>
 <li>当前（2020年7月22日）开始，NIST的征集进入了<a href="https://csrc.nist.gov/projects/post-quantum-cryptography/round-3-submissions"><mark>第三轮</mark></a><br><code>下面是NIST的第二轮征集结束报告</code>   <div class="pdf-container" data-target="/pdf/NIST.IR.8309.pdf" data-height="500px"></div>   
@@ -407,7 +416,7 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
 </tr>
 <tr>
 <td>SHA-2，SHA-3</td>
-<td>N/A</td>
+<td>N&#x2F;A</td>
 <td>哈希函数</td>
 <td>需要更大输出量</td>
 </tr>
@@ -435,16 +444,16 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
 <h3 id="NIST提出的PQC"><a href="#NIST提出的PQC" class="headerlink" title="NIST提出的PQC"></a>NIST提出的PQC</h3><p>NIST在发布的PQC报告中，提供了PQC的四个密码算法类型：<br><strong>格密码</strong> 基于格问题的密码系统重新引起兴趣，新应用（如同态加密、代码混淆及属性加密）使用格密码而成为可能。大部分基于格的密钥生成时相对简单、高效、高并发的。同样，一些基于格系统相比平均情况在最坏情况假设下可证明安全。另外，已证明在已知密码分析技术下很难对格方案安全性做出精确估计。<br><strong>基于编码的密码</strong> 1978年McEliece密码体系被首次提出后尚未被攻破。如基于纠错码。密钥长度较大。<br><strong>多元多项式密码</strong> 这些方案基于有限域内多元多项式求解系统的困难，过去几十年提出的一些被攻破。似乎作为签名手段更成功些。<br><strong>基于哈希的签名</strong> 使用哈希函数构建数字签名，其安全在面对量子攻击时很好。但缺点一是需要记录之前签名过的消息数量，另一个缺点是只能生成有限数量的签名（因为签名大小会伴随上升）。   </p>
 <h1 id="格密码基础"><a href="#格密码基础" class="headerlink" title="格密码基础"></a>格密码基础</h1><h2 id="一些数学"><a href="#一些数学" class="headerlink" title="一些数学"></a>一些数学</h2><p>现代密码学的基础都是近世代数，是基于数学难题，因此离不开对于数学知识的了解研究。    </p>
 <blockquote>
-<p><strong>格</strong>是n维线性空间中离散点的集合，格中每个元素都是一个向量，在n维线性空间R<sup>n</sup>中m（m≤n）个线性无关向量（b<sub>1</sub>,b<sub>2</sub>,…,b<sub>m</sub>)所生成的向量集合称为<strong>格</strong>。<br>这个向量组称为格的一组基，空间维数n为格的维，基向量个数m称为格的秩，同一个格可以有多组不同的基，但基的维数相同。当m=n时格是<strong>满秩</strong>的，一般只讨论满秩的格。<br>将格基表示成矩阵形式<strong>B</strong>，其每个列向量即为格的基<strong>b<sub>1</sub></strong>,…,**b<sub>n</sub>**，则格可定义为 $ \pmb L=\lbrace\pmb B\pmb z | \pmb z\in \mathbb{Z}^n \rbrace $    </p>
+<p><strong>格</strong>是n维线性空间中离散点的集合，格中每个元素都是一个向量，在n维线性空间R<sup>n</sup>中m（m≤n）个线性无关向量（b<sub>1</sub>,b<sub>2</sub>,…,b<sub>m</sub>)所生成的向量集合称为<strong>格</strong>。<br>这个向量组称为格的一组基，空间维数n为格的维，基向量个数m称为格的秩，同一个格可以有多组不同的基，但基的维数相同。当m&#x3D;n时格是<strong>满秩</strong>的，一般只讨论满秩的格。<br>将格基表示成矩阵形式<strong>B</strong>，其每个列向量即为格的基<strong>b<sub>1</sub></strong>,…,**b<sub>n</sub>**，则格可定义为 $ \pmb L&#x3D;\lbrace\pmb B\pmb z | \pmb z\in \mathbb{Z}^n \rbrace $    </p>
 </blockquote>
 <blockquote>
-<p><strong>格的行列式</strong> det(<strong>L</strong>)的值定义为格基本体的体积，$ det(\pmb L)=\sqrt{\pmb B^T\pmb B} $</p>
+<p><strong>格的行列式</strong> det(<strong>L</strong>)的值定义为格基本体的体积，$ det(\pmb L)&#x3D;\sqrt{\pmb B^T\pmb B} $</p>
 </blockquote>
 <blockquote>
-<p><strong>对偶格</strong> 与原格在同一线性空间$R^n$中，$ \pmb L^*=\lbrace\pmb x \in\mathbb R^m , \forall\pmb v \in \pmb L ,\langle\pmb x , \pmb v \rangle\in\mathbb Z\rbrace $</p>
+<p><strong>对偶格</strong> 与原格在同一线性空间$R^n$中，$ \pmb L^*&#x3D;\lbrace\pmb x \in\mathbb R^m , \forall\pmb v \in \pmb L ,\langle\pmb x , \pmb v \rangle\in\mathbb Z\rbrace $</p>
 </blockquote>
 <blockquote>
-<p><strong>逐次最小长度</strong> 第i个逐次最小长度$ \lambda_i $，定义为以原点为球心，包含i个线性无关格向量的最小球半径，即$ \lambda_i(\pmb L)=inf\lbrace r|dim(span(\pmb L\bigcap\pmb B_n(r)))\geq i\rbrace,(i=1,…,n) $</p>
+<p><strong>逐次最小长度</strong> 第i个逐次最小长度$ \lambda_i $，定义为以原点为球心，包含i个线性无关格向量的最小球半径，即$ \lambda_i(\pmb L)&#x3D;inf\lbrace r|dim(span(\pmb L\bigcap\pmb B_n(r)))\geq i\rbrace,(i&#x3D;1,…,n) $</p>
 </blockquote>
 <p>从上面可以看出格的定义和向量空间类似，但通过基生成向量时要求整数系数。这一点使得格在几何上由离散且呈周期性结构的点构成，这大概也是“格”这个名字的由来。具备直观感受的格的维度是2或者3，即可对应生活中可感知的几何空间，但在密码学中为了达到足够安全性，格的维度一般在1000左右。<br>格的一个基本困难问题——<code>最短向量问题</code>（SVP）：给定格的一个基，在格中找到一个非零向量，其长度在所有非零格向量上最短。   </p>
 <blockquote>
@@ -454,10 +463,10 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
 <p><strong>$ \gamma $-近似最短问题（SVP-$ \gamma $）</strong> 给定格$ \pmb L $，找一个非零向量$ \pmb v $，满足对任意非零向量$ \pmb u\in\pmb L, \parallel\pmb v\parallel\leq\gamma\parallel\pmb u\parallel$</p>
 </blockquote>
 <blockquote>
-<p><strong>逐次最小长度问题（Successive Minima Problem，SMP）</strong> 给定秩为n的格$ \pmb L $，找n个线性无关的格向量$ \pmb s_i $，满足$ \lambda_i(\pmb L)= \parallel\pmb s_i\parallel,(i=1,…,n) $</p>
+<p><strong>逐次最小长度问题（Successive Minima Problem，SMP）</strong> 给定秩为n的格$ \pmb L $，找n个线性无关的格向量$ \pmb s_i $，满足$ \lambda_i(\pmb L)&#x3D; \parallel\pmb s_i\parallel,(i&#x3D;1,…,n) $</p>
 </blockquote>
 <blockquote>
-<p><strong>最短线性无关向量问题（Shortest Independent Vector Problem, SIVP)</strong> 给定一个秩为n的格$ \pmb L $，找到n个无关的格向量$ \pmb s_i $ 满足 $ \parallel\pmb s_i\parallel\leq\lambda_n(\pmb L),(i=1,…,n) $</p>
+<p><strong>最短线性无关向量问题（Shortest Independent Vector Problem, SIVP)</strong> 给定一个秩为n的格$ \pmb L $，找到n个无关的格向量$ \pmb s_i $ 满足 $ \parallel\pmb s_i\parallel\leq\lambda_n(\pmb L),(i&#x3D;1,…,n) $</p>
 </blockquote>
 <blockquote>
 <p><strong>唯一最短向量问题（Unique Shortest Vector Problem, uSVP-$ \gamma $）</strong> 给定格$ \pmb L $，满足$ \lambda_2(\pmb L)\gt\gamma\lambda_1(\pmb L) $，找出该格的最短向量</p>
@@ -474,12 +483,12 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
 </blockquote>
 <p>实际上格理论的产生最初似乎是基于对空间内放置球体体积与空间容积比的讨论，所以从上面的“逐次最小长度”的定义也能看出与球有一定关系，那么下面再补充两个概念：</p>
 <blockquote>
-<p><strong>堆积半径</strong> 对$ n $维格，以格点为球心，$ r $为半径做$ n $维球，使得球两辆不想交，最大的$ r $称作堆积半径，事实上这里 $ r=\lambda_1(\pmb L)/2 $</p>
+<p><strong>堆积半径</strong> 对$ n $维格，以格点为球心，$ r $为半径做$ n $维球，使得球两辆不想交，最大的$ r $称作堆积半径，事实上这里 $ r&#x3D;\lambda_1(\pmb L)&#x2F;2 $</p>
 </blockquote>
 <blockquote>
 <p><strong>覆盖半径</strong> 对$ n $维格，以格点为球心，$ r $为半径做$ n $维球，能覆盖整个空间的最小半径$ r $称作覆盖半径</p>
 </blockquote>
-<p>以上这些概念，都源于刚说的空间内放置球体的问题。确定球的最大格堆积密度（堆积半径下体积/容积）等价于求格的最短向量（SVP）长度，确定球的最小格覆盖密度（覆盖密度下体积/容积）则等价于求到格点的最近距离（CVP）。<br>基于格的密码体制的安全性依赖于格中困难问题的难解程度 , 格中很多困难问题被证明是 NP 困难的 , 因此 这类体制被普遍认为具有抗量子攻击的特性</p>
+<p>以上这些概念，都源于刚说的空间内放置球体的问题。确定球的最大格堆积密度（堆积半径下体积&#x2F;容积）等价于求格的最短向量（SVP）长度，确定球的最小格覆盖密度（覆盖密度下体积&#x2F;容积）则等价于求到格点的最近距离（CVP）。<br>基于格的密码体制的安全性依赖于格中困难问题的难解程度 , 格中很多困难问题被证明是 NP 困难的 , 因此 这类体制被普遍认为具有抗量子攻击的特性</p>
 <h1 id="To-Be-Continued"><a href="#To-Be-Continued" class="headerlink" title="To Be Continued..."></a><code>To Be Continued...</code></h1>]]></content>
       <categories>
         <category>学术</category>
@@ -505,9 +514,9 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
 <h1 id="日志记录"><a href="#日志记录" class="headerlink" title="日志记录"></a>日志记录</h1><h3 id="2020-03-14"><a href="#2020-03-14" class="headerlink" title="2020-03-14"></a>2020-03-14</h3><ul>
 <li><p>测试本地macOS使用<code>ffmpeg</code>推流rtmp，服务端使用找到的一个golang编写的直播服务器<a href="https://github.com/gwuhaolin/livego"><code>golive</code></a>，手机端使用VLC播放体验。   </p>
 <ol>
-<li>本地推流命令： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">% brew <span class="token function">install</span> ffmpeg
+<li>本地推流命令：   <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">% brew <span class="token function">install</span> ffmpeg
 % ffmpeg -re -i <span class="token operator">&lt;</span>本地文件路径<span class="token operator">></span> -c copy -f flv <span class="token operator">&lt;</span>rtmp服务器地址<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li>使用livego： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">% <span class="token function">git</span> clone https://github.com/gwuhaolin/livego.git
+<li>使用livego：   <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">% <span class="token function">git</span> clone https://github.com/gwuhaolin/livego.git
 % go build
 % ./livego<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
 </ol>
@@ -548,7 +557,8 @@ Current Scopes: LLMNR/IPv4 LLMNR/IPv6
   pod name<span class="token punctuation">,</span> <span class="token operator">:</span>path <span class="token operator">=</span><span class="token operator">></span> <span class="token class-name">File</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>symlink<span class="token punctuation">,</span> <span class="token char">'ios'</span><span class="token punctuation">)</span>
 end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
  <div class="note info"><p>若找不到Podfile，尝试执行run后会生成</p>
-</div></li>
+</div>
+</li>
 <li><p>flutter_ffmpeg测试推流成功：</p>
  <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:flutter_ffmpeg/flutter_ffmpeg.dart'</span></span><span class="token punctuation">;</span>
 
@@ -569,7 +579,7 @@ _flutterFFmpeg
 <li>经过一晚的测试，发现<a href="https://pub.flutter-io.cn/packages/flutter_ijkplayer"><code>flutter_ijkplayer</code></a>主要存在两个问题：   <ol>
 <li>加入该包后会出现闪退，经调试发现，可能的原因是其本身也是基于ffmpeg的，所以会与已经引入的flutter_ffmpeg相冲突，当两个包都被引入，只要调用ffmpeg就会闪退；</li>
 <li>后暂时去掉flutter_ffmpeg包，仅引入此包，发现无论播放本地mp4还是播放rtmp地址视频，均是有声音无图像（黑屏）。初步查询问题时根据网上说法以为可能是对mp4格式支持问题（但同时播放采用flv的rtmp流也有这问题其实可以排除这种可能性），尝试<a href="https://github.com/CaiJingLong/flutter_ijkplayer/blob/master/compile-cn.md">修改编译选项自编译flutter_ijkplayer</a>，发现本身其默认编译选项就是很全的，而且替换为自编译的包之后，依然同样问题。后阅读flutter_ijkplayer的<a href="https://github.com/CaiJingLong/flutter_ijkplayer/blob/master/TODOLIST.md">TODOList</a>，发现其中写道：<ul>
-<li><input checked="" disabled="" type="checkbox"> <mark>iOS 部分视频无法显示图像的问题: 可能很长时间内都无法解决</mark>   </li>
+<li><input checked="" disabled="" type="checkbox"> <mark>iOS 部分视频无法显示图像的问题: 可能很长时间内都无法解决</mark></li>
 </ul>
 </li>
 </ol>
@@ -593,10 +603,8 @@ _flutterFFmpeg
 <li>又尝试了一遍flutter_ijkplayer，使用线上版本，发现可以播放rtmp地址视频了！但是似乎有些不稳定。</li>
 </ul>
 <h3 id="2020-03-20"><a href="#2020-03-20" class="headerlink" title="2020-03-20"></a>2020-03-20</h3><ul>
-<li><p>之前尝试flutter_ijkplayer成功，但是依然存在和flutter_ffmpeg冲突的问题。这是因为两者最底层都用到了ffmpeg，从而导致有duplicated symbol。另外，flutter_ijkplayer基于的ffmpeg版本本身是3.4的（可更改支持到4.0），而flutter_ffmpeg基于的mobile_ffmpeg是基于ffmpeg4.3的，这两者版本也不一致。</p>
-</li>
-<li><p>经过两天多的痛苦尝试，终于有了进展：</p>
-<ul>
+<li>之前尝试flutter_ijkplayer成功，但是依然存在和flutter_ffmpeg冲突的问题。这是因为两者最底层都用到了ffmpeg，从而导致有duplicated symbol。另外，flutter_ijkplayer基于的ffmpeg版本本身是3.4的（可更改支持到4.0），而flutter_ffmpeg基于的mobile_ffmpeg是基于ffmpeg4.3的，这两者版本也不一致。</li>
+<li>经过两天多的痛苦尝试，终于有了进展：<ul>
 <li><p>先将<code>flutter_ijkplayer</code>的使用方式更改为本地包的使用方式：   </p>
 <ol>
 <li>将<a href="https://github.com/CaiJingLong/flutter_ijkplayer">flutter_ijkplayer包</a>下到本地，放置在flutter项目目录中；</li>
@@ -626,7 +634,7 @@ export COMMON_FF_CFG_FLAGS&#x3D;&quot;$COMMON_FF_CFG_FLAGS --disable-bsf&#x3D;ea
 <li>将得到的<code>IJKMediaFramework.framework</code>复制进前面第一步flutter_ijkplayer目录中ios目录下；</li>
 <li>本地包的引入为修改<code>pubspec.yaml</code>的依赖项如下： <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">flutter_ijkplayer</span><span class="token punctuation">:</span> <span class="token comment">#^0.3.5+1</span>
   <span class="token key atrule">path</span><span class="token punctuation">:</span> ./flutter_ijkplayer<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
- 在flutter_ijkplayer本地包的ios/.podspec中修改如下： <pre class="line-numbers language-podspec" data-language="podspec"><code class="language-podspec">s.ios.vendored_frameworks &#x3D; &#39;IJKMediaFramework.framework&#39;
+ 在flutter_ijkplayer本地包的ios&#x2F;.podspec中修改如下： <pre class="line-numbers language-podspec" data-language="podspec"><code class="language-podspec">s.ios.vendored_frameworks &#x3D; &#39;IJKMediaFramework.framework&#39;
 s.frameworks  &#x3D; &quot;AudioToolbox&quot;, &quot;AVFoundation&quot;, &quot;CoreGraphics&quot;, &quot;CoreMedia&quot;, &quot;CoreVideo&quot;, &quot;MobileCoreServices&quot;, &quot;OpenGLES&quot;, &quot;QuartzCore&quot;, &quot;VideoToolbox&quot;, &quot;Foundation&quot;, &quot;UIKit&quot;, &quot;MediaPlayer&quot;
 s.libraries   &#x3D; &quot;bz2&quot;, &quot;z&quot;, &quot;stdc++&quot;
 #s.dependency &#39;FlutterIJK&#39;, &#39;~&gt; 0.2.3&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
@@ -745,7 +753,7 @@ NSString<span class="token operator">*</span> delimiter <span class="token opera
     <span class="token function">result</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token keyword">self</span> toIntDictionary<span class="token punctuation">:</span><span class="token string">@"rc"</span> <span class="token punctuation">:</span><span class="token punctuation">[</span>NSNumber numberWithInt<span class="token punctuation">:</span>rc<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-如上述这几步骤后，即可令flutter_ffmpeg的主要功能“带参数执行ffmpeg命令”引入flutter_ijkplayer。但后来编译还发现<code>ffmpeg.c</code>中存在个小问题（似乎是fd_set溢出）如下修复:   <pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;*
+ 如上述这几步骤后，即可令flutter_ffmpeg的主要功能“带参数执行ffmpeg命令”引入flutter_ijkplayer。但后来编译还发现<code>ffmpeg.c</code>中存在个小问题（似乎是fd_set溢出）如下修复:     <pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;*
 fd_set rfds;
 FD_ZERO(&amp;rfds);
 FD_SET(0, &amp;rfds);
@@ -764,7 +772,7 @@ n&#x3D;poll(&amp;rfds,1,&amp;tv);<span aria-hidden="true" class="line-numbers-ro
 </li>
 <li><p>经过前面的整合，在Flutter项目中使用<code>controller.executeWithArguments</code>和<code>controller.setNetworkDataSource</code>均可成功了（需要注意这两个均是async函数，谨慎使用await放置前一操作的等待阻拦后一操作）</p>
 </li>
-<li><p>但如此做似乎仍然存在问题，那便是在点击按钮执行一次<code>executeWithArguments</code>后如果再点一次按钮执行此操作即会闪退。这个问题还需要解决，因为app中可能存在需求需要在已发推流后重发推流。那么这种需要两种实现，要么设法取消前一命令，要么重推一命令覆盖掉前一命令。前者需研究如何实现通信，后者则需解决当前的这个“再触发闪退问题”。   </p>
+<li><p>但如此做似乎仍然存在问题，那便是在点击按钮执行一次<code>executeWithArguments</code>后如果再点一次按钮执行此操作即会闪退。这个问题还需要解决，因为app中可能存在需求需要在已发推流后重发推流。那么这种需要两种实现，要么设法取消前一命令，要么重推一命令覆盖掉前一命令。前者需研究如何实现通信，后者则需解决当前的这个“再触发闪退问题”。</p>
 </li>
 </ul>
 </li>
@@ -814,7 +822,7 @@ os_support.h
 url.h
 version.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 <li>之后将其中一些include路径进行订正（因为由原目录层级变成可直接使用的）</li>
-<li>需要将之后要暴露在framework库外供Flutter Plugin调用的头文件设置为公共可见<br><img data-src="/images/ST/FrameworkHeadList.png" alt="Framework库头文件设置">   </li>
+<li>需要将之后要暴露在framework库外供Flutter Plugin调用的头文件设置为公共可见<br><img data-src="/images/ST/FrameworkHeadList.png" alt="Framework库头文件设置"></li>
 </ul>
 </li>
 <li>将flutter_ffmpeg整合入flutter_ijkplayer插件，最开始是想依然将原文件保留（即进行文件级别整合），但是会出现invokeMethod无法在Channel中找到的情况，后来发现，flutter插件需要在其<code>pubspec.yaml</code>中<code>flutter-&gt;plugin-&gt;platforms-&gt;ios-&gt;pluginClass</code>设置插件类，之后在构建过程中便会由此在项目（而非插件）的<code>ios/Runner</code>下生成<code>GeneratedPluginRegistrant.h</code>和<code>GeneratedPluginRegistrant.m</code>。其m文件结构如下：<br><img data-src="/images/ST/GeneratedPluginRegistrant.png" alt="GeneratedPluginRegistrant"><br>也即是说，只有登记在插件的<code>pubspec.yaml</code>中的插件类，才会被调用其<code>registerWithRegistrar</code>方法，从而注册MethodChannel等。尝试在一个插件的pubspec中注册两个插件类，似乎没有办法。于是，也只能在Flutter插件这边，Dart文件进行文件级整合、iOS实现进行代码（类）级别整合：<ul>
@@ -830,7 +838,7 @@ version.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
 <li>在使用时即可flutter项目只设置pubspec使用本地修改过的flutter_ijkplayer，在需要用到flutter_ffmpeg的方法时<code>import &#39;package:flutter_ijkplayer/flutter_ffmpeg.dart&#39;;</code></li>
 </ul>
 </li>
-<li>至此，flutter选择文件、执行推流命令、拉流播放的基本功能点打通。接下来暂时不考虑客户端了，因为客户端除UI/UE外功能部分剩余为播放时间点记录与同步、创建进入房间，而这两点基本都需要仰仗于服务端，故接下来的计划是先改造服务端golang版流媒体服务器livego。</li>
+<li>至此，flutter选择文件、执行推流命令、拉流播放的基本功能点打通。接下来暂时不考虑客户端了，因为客户端除UI&#x2F;UE外功能部分剩余为播放时间点记录与同步、创建进入房间，而这两点基本都需要仰仗于服务端，故接下来的计划是先改造服务端golang版流媒体服务器livego。</li>
 </ul>
 <h1 id="持续更新中……"><a href="#持续更新中……" class="headerlink" title="持续更新中……"></a>持续更新中……</h1>]]></content>
       <categories>
@@ -886,7 +894,7 @@ $ brew <span class="token function">install</span> dart<span aria-hidden="true" 
 <div class="note info"><p>实例变量可以是<code>final</code>但不能是<code>const</code></p>
 </div>
 <p>如果const变量是类级的，标记为<code>static const</code>。const变量需要在声明时设置它的值。</p>
-<h1 id="内建类型"><a href="#内建类型" class="headerlink" title="内建类型"></a>内建类型</h1><h2 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h2><p>Dart内数值类型有两种，<code>int</code>和<code>double</code>。<br><code>int</code>类型不大于64位（8字节），这取决于平台。Dart VM中值可以从-2<sup>63</sup>到2<sup>63</sup>-1，若编译到JavaScript则使用JS的数值范围为-2<sup>53</sup>到2<sup>53</sup>-1<br><code>double</code>为IEEE 754标准规定的64位双精度浮点数值。<br>这两种都是<code>num</code>类型的子类型。包含基本运算符+-*/，也可使用<code>abs()</code>、<code>ceil()</code>、<code>floor()</code>等方法。（位移运算符如&gt;&gt;定义在<code>int</code>类中）<br>自Dart2.1开始，int型在必要时会自动转换为double型。<br>下面是常见的数值和字符串的转换：</p>
+<h1 id="内建类型"><a href="#内建类型" class="headerlink" title="内建类型"></a>内建类型</h1><h2 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h2><p>Dart内数值类型有两种，<code>int</code>和<code>double</code>。<br><code>int</code>类型不大于64位（8字节），这取决于平台。Dart VM中值可以从-2<sup>63</sup>到2<sup>63</sup>-1，若编译到JavaScript则使用JS的数值范围为-2<sup>53</sup>到2<sup>53</sup>-1<br><code>double</code>为IEEE 754标准规定的64位双精度浮点数值。<br>这两种都是<code>num</code>类型的子类型。包含基本运算符+-*&#x2F;，也可使用<code>abs()</code>、<code>ceil()</code>、<code>floor()</code>等方法。（位移运算符如&gt;&gt;定义在<code>int</code>类中）<br>自Dart2.1开始，int型在必要时会自动转换为double型。<br>下面是常见的数值和字符串的转换：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token comment">// String -> int</span>
 <span class="token keyword">var</span> one <span class="token operator">=</span> int<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'1'</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">assert</span><span class="token punctuation">(</span>one <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -991,7 +999,7 @@ The last character: 🇩🇰<span aria-hidden="true" class="line-numbers-rows"><
 <p>只有一个表达式的函数，可以用简短符号：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart">bool <span class="token function">isNoble</span><span class="token punctuation">(</span>int atomicNumber<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> _nobleGases<span class="token punctuation">[</span>atomicNumber<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>符号<code>=&gt; expr</code>是<code>&#123; return expr; &#125;</code>的简略表达。</p>
-<div class="note info"><p>只有表达式（而非语句）可以出现在=&gt;和;之间</p>
+<div class="note info"><p>只有表达式（而非语句）可以出现在&#x3D;&gt;和;之间</p>
 </div>
 <p>函数可以有两种参数：必须的和可选的。必须参数在前，可选参数在后。可选参数可以是<code>命名参数</code>(<code>named</code>)或<code>位置参数</code>(<code>positional</code>)。</p>
 <h2 id="可选参数"><a href="#可选参数" class="headerlink" title="可选参数"></a>可选参数</h2><h3 id="命名参数"><a href="#命名参数" class="headerlink" title="命名参数"></a>命名参数</h3><p>命名参数的定义和使用时形式如下：</p>
@@ -1072,12 +1080,32 @@ list<span class="token punctuation">.</span><span class="token function">forEach
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
 <span class="token keyword">assert</span><span class="token punctuation">(</span><span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h1 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h1><h2 id="算术操作符"><a href="#算术操作符" class="headerlink" title="算术操作符"></a>算术操作符</h2><p>基本和C一致（<code>-expr</code>取反，<code>~/</code>整除）。</p>
-<h2 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h2><p>基本和C一致。<br>一般测试x、y代表的是否一样的事物使用==号（在少数情况下需要知道两个对象是否完全同一对象，使用<code>identical()</code>函数）。==操作符运作方式：   </p>
+<h2 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h2><p>基本和C一致。<br>一般测试x、y代表的是否一样的事物使用&#x3D;&#x3D;号（在少数情况下需要知道两个对象是否完全同一对象，使用<code>identical()</code>函数）。&#x3D;&#x3D;操作符运作方式：   </p>
 <ol>
 <li>如果x或y是null，当两个都为null时为true否则为false</li>
-<li>返回<code>x.==(y)</code>的结果（即==等操作符是第一个操作数的方法，可以被重写）</li>
+<li>返回<code>x.==(y)</code>的结果（即&#x3D;&#x3D;等操作符是第一个操作数的方法，可以被重写）</li>
 </ol>
-<h2 id="类型测试操作符"><a href="#类型测试操作符" class="headerlink" title="类型测试操作符"></a>类型测试操作符</h2><p><code>as</code>、<code>is</code>和<code>is!</code>为在运行时测试类型的操作符。<br>| 操作符 | 含义 |<br>|-|-|<br>| <code>as</code> | 类型转换，如<code>(emp as Person).firstName = &#39;Bob&#39;;</code>|<br>| <code>is</code> | 判断对象是否为指定类型 |<br>| <code>is!</code> | 判断对象是否非指定类型 |</p>
+<h2 id="类型测试操作符"><a href="#类型测试操作符" class="headerlink" title="类型测试操作符"></a>类型测试操作符</h2><p><code>as</code>、<code>is</code>和<code>is!</code>为在运行时测试类型的操作符。   </p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>as</code></td>
+<td>类型转换，如<code>(emp as Person).firstName = &#39;Bob&#39;;</code></td>
+</tr>
+<tr>
+<td><code>is</code></td>
+<td>判断对象是否为指定类型</td>
+</tr>
+<tr>
+<td><code>is!</code></td>
+<td>判断对象是否非指定类型</td>
+</tr>
+</tbody></table>
 <h2 id="赋值操作符"><a href="#赋值操作符" class="headerlink" title="赋值操作符"></a>赋值操作符</h2><p>除了常规的赋值操作符，还有只在被赋值变量为null时才赋值的<code>??=</code>操作符。<br>另外复合赋值操作符类似C，如<code>+=</code>。</p>
 <h2 id="逻辑操作符（类C）"><a href="#逻辑操作符（类C）" class="headerlink" title="逻辑操作符（类C）"></a>逻辑操作符（类C）</h2><h2 id="位操作符（类C）"><a href="#位操作符（类C）" class="headerlink" title="位操作符（类C）"></a>位操作符（类C）</h2><h2 id="条件表达式"><a href="#条件表达式" class="headerlink" title="条件表达式"></a>条件表达式</h2><p>有C中的三目算符<code>condition ? expr1 : expr2</code>。同时还有个双目的<code>expr1 ?? expr2</code>，表示expr1不为null则返回expr1，否则返回expr2（可以理解为是有默认值的取值）。</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">String</span> <span class="token function">playerName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> name <span class="token operator">?</span><span class="token operator">?</span> <span class="token string-literal"><span class="token string">'Guest'</span></span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -1141,7 +1169,7 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
 <ul>
 <li>Flutter在debug模式使能</li>
 <li>仅开发工具如dartdevc一般默认使能</li>
-<li>一些工具，如dart、dart2js，通过命令行标志<code>--enable-assert</code>使能   </li>
+<li>一些工具，如dart、dart2js，通过命令行标志<code>--enable-assert</code>使能</li>
 </ul>
 <p>在生产代码中assert被忽略。</p>
 <h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1><p>Dart代码可以抛出捕获异常。若异常未被捕获，则产生异常的隔离（isolate）被挂起，一般隔离和它的程序被终止。<br>相比Java，Dart所有的异常都是不受控异常，方法不声明它们可能抛出的异常，你也不被要求捕获任何异常。<br>Dart提供<code>Exception</code>和<code>Error</code>类型及很多预定义子类型。你也可以定义自己的异常。Dart可以将任何非null对象（而非仅Exception和Error）作为异常抛出。</p>
@@ -1211,7 +1239,7 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
 <ol>
 <li>初始化列表</li>
 <li>父类无参构造器</li>
-<li>主类无参构造器   </li>
+<li>主类无参构造器</li>
 </ol>
 <p>若父类没有无命名、无参构造器，则你必须手动调用父类中的一个构造器，在构造器体（如果有的话）前用冒号（:）指定：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">&#123;</span>
@@ -1354,7 +1382,7 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
   <span class="token keyword">assert</span><span class="token punctuation">(</span>v <span class="token operator">+</span> w <span class="token operator">==</span> <span class="token class-name">Vector</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">assert</span><span class="token punctuation">(</span>v <span class="token operator">-</span> w <span class="token operator">==</span> <span class="token class-name">Vector</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如果要重写==，就也需要重写对象的<code>hashCode</code>的getter。类似下面：</p>
+<p>如果要重写&#x3D;&#x3D;，就也需要重写对象的<code>hashCode</code>的getter。类似下面：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">final</span> <span class="token class-name">String</span> firstName<span class="token punctuation">,</span> lastName<span class="token punctuation">;</span>
   <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>firstName<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lastName<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1465,7 +1493,7 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
 <h2 id="3-添加可见小部件到布局小部件"><a href="#3-添加可见小部件到布局小部件" class="headerlink" title="3.添加可见小部件到布局小部件"></a>3.添加可见小部件到布局小部件</h2><p>任一个布局小部件都有下面两者之一：</p>
 <ul>
 <li><code>child</code>属性：即只接收一个子小部件——例如<code>Center</code>、<code>Container</code>；</li>
-<li><code>children</code>属性：即可接收一个小部件列表——例如<code>Row</code>、<code>Column</code>、<code>ListView</code>、<code>Stack</code>  </li>
+<li><code>children</code>属性：即可接收一个小部件列表——例如<code>Row</code>、<code>Column</code>、<code>ListView</code>、<code>Stack</code></li>
 </ul>
 <p>将<code>Text</code>小部件添加到<code>Center</code>小部件：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Center</span><span class="token punctuation">(</span>
