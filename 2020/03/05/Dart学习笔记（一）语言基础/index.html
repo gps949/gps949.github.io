@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 6.3.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -345,8 +345,8 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>作为Flutter和下一代系统Fuchsia‘钦定’的语言，Dart还是有兴了解一下的。<br>安装方式，在已经有brew的macOS系统下很简单：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ brew tap dart-lang&#x2F;dart
-$ brew install dart<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ brew tap dart-lang/dart
+$ brew <span class="token function">install</span> dart<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>如需升级更新Dart SDK版本的话，直接使用<code>brew upgrade dart</code>即可。<br>查看已安装dart版本信息，使用<code>brew info dart</code>   </p>
 <span id="more"></span>
 <p>一般来说学新语言都会有个hello world程序，主要目的在于观察这种语言与已掌握语言有哪些地方长得像，又有哪些地方长得不像。其实各种语言也许底层实现、编译翻译方式、SDK函数API及一些高级用法会有很大差别，但最基本的地方往往彼此彼此。下面就是官方给的一个小例子：</p>
@@ -472,7 +472,7 @@ gifts<span class="token punctuation">[</span><span class="token string-literal">
 <span class="token function">print</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'The end of the string: </span><span class="token interpolation"><span class="token punctuation">$&#123;</span><span class="token expression">hi<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>hi<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span></span><span class="token punctuation">&#125;</span></span><span class="token string">'</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">print</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'The last character: </span><span class="token interpolation"><span class="token punctuation">$&#123;</span><span class="token expression">hi<span class="token punctuation">.</span>characters<span class="token punctuation">.</span>last</span><span class="token punctuation">&#125;</span></span><span class="token string">\n'</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>输出结果取决于运行环境，可能是类似下面这样：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ dart bin&#x2F;main.dart
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ dart bin/main.dart
 Hi 🇩🇰
 The end of the string: ???
 The last character: 🇩🇰<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
@@ -1038,7 +1038,7 @@ callbacks<span class="token punctuation">.</span><span class="token function">fo
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">71k</span>
+    <span title="站点总字数">70k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

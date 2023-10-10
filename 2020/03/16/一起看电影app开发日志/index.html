@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 6.3.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -361,11 +361,11 @@
 <h1 id="日志记录"><a href="#日志记录" class="headerlink" title="日志记录"></a>日志记录</h1><h3 id="2020-03-14"><a href="#2020-03-14" class="headerlink" title="2020-03-14"></a>2020-03-14</h3><ul>
 <li><p>测试本地macOS使用<code>ffmpeg</code>推流rtmp，服务端使用找到的一个golang编写的直播服务器<a target="_blank" rel="noopener" href="https://github.com/gwuhaolin/livego"><code>golive</code></a>，手机端使用VLC播放体验。   </p>
 <ol>
-<li>本地推流命令： <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">% brew install ffmpeg
-% ffmpeg -re -i &lt;本地文件路径&gt; -c copy -f flv &lt;rtmp服务器地址&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li>使用livego： <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">% git clone https:&#x2F;&#x2F;github.com&#x2F;gwuhaolin&#x2F;livego.git
+<li>本地推流命令： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">% brew <span class="token function">install</span> ffmpeg
+% ffmpeg -re -i <span class="token operator">&lt;</span>本地文件路径<span class="token operator">></span> -c copy -f flv <span class="token operator">&lt;</span>rtmp服务器地址<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li>使用livego： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">% <span class="token function">git</span> clone https://github.com/gwuhaolin/livego.git
 % go build
-% .&#x2F;livego<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+% ./livego<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 </li>
 </ul>
@@ -384,11 +384,11 @@
 <span class="token class-name">String</span> content <span class="token operator">=</span> <span class="token keyword">await</span> file<span class="token punctuation">.</span><span class="token function">readAsString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">//文档写入</span>
 <span class="token keyword">await</span> file<span class="token punctuation">.</span><span class="token function">writeAsString</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'</span><span class="token interpolation"><span class="token punctuation">$</span><span class="token expression">_counter</span></span><span class="token string">'</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>要想让App的文档目录在iOS的“文件”中可见，需要在<mark>Info.plist</mark>文件中添加键值对： <pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>UIFileSharingEnabled<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
+<li>要想让App的文档目录在iOS的“文件”中可见，需要在<mark>Info.plist</mark>文件中添加键值对： <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>UIFileSharingEnabled<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>true</span><span class="token punctuation">/></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>key</span><span class="token punctuation">></span></span>LSSupportsOpeningDocumentsInPlace<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>key</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>true</span><span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
- 这一步可在Flutter的VS Code环境中<code>ios/Runner</code>目录中修改，也可打开Xcode修改。    <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">% open ios&#x2F;Runner.xcworkspace<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+ 这一步可在Flutter的VS Code环境中<code>ios/Runner</code>目录中修改，也可打开Xcode修改。    <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">% <span class="token function">open</span> ios/Runner.xcworkspace<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ol>
 </li>
 <li><p>要实现iOS端推流，需要在iOS端集成ffmpeg。找到Flutter pub包<a target="_blank" rel="noopener" href="https://pub.flutter-io.cn/packages/flutter_ffmpeg">flutter_ffmpeg</a></p>
@@ -417,7 +417,7 @@ _flutterFFmpeg
 </ol>
 </li>
 <li><p>在安装这些包，尝试运行时常遇到卡在<strong>Pod Installing</strong>的状态，可尝试单独执行下面命令：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">% pod install --verbose <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">% pod <span class="token function">install</span> --verbose <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 <li><p>视频播放部分，考虑使用Flutter版的ijkplayer中……</p>
 </li>
 </ul>
@@ -504,20 +504,20 @@ ffmpeg_filter.c
 exception.c
 exception.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
  其实以添加mobile_ffmpeg为主，逐渐发现编译问题及后期加入Flutter项目之后编译问题再慢慢修改添加。</li>
-<li>【mobile-ffmpeg】入【ijkplayer】：依然在Xcode中，修改<code>Classses/IJKFFMoviePlayerController/ffmpeg/IJKFFMoviePlayerController.h</code>加入接口函数声明： <pre class="line-numbers language-objc" data-language="objc"><code class="language-objc">+ (int)executeWithArguments: (NSArray*)arguments;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
- 修改<code>Classses/IJKFFMoviePlayerController/ffmpeg/IJKFFMoviePlayerController.m</code>加入接口函数： <pre class="line-numbers language-objc" data-language="objc"><code class="language-objc">+ (int)executeWithArguments: (NSArray*)arguments &#123;
+<li>【mobile-ffmpeg】入【ijkplayer】：依然在Xcode中，修改<code>Classses/IJKFFMoviePlayerController/ffmpeg/IJKFFMoviePlayerController.h</code>加入接口函数声明： <pre class="line-numbers language-objectivec" data-language="objectivec"><code class="language-objectivec"><span class="token operator">+</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span>executeWithArguments<span class="token punctuation">:</span> <span class="token punctuation">(</span>NSArray<span class="token operator">*</span><span class="token punctuation">)</span>arguments<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+ 修改<code>Classses/IJKFFMoviePlayerController/ffmpeg/IJKFFMoviePlayerController.m</code>加入接口函数： <pre class="line-numbers language-objectivec" data-language="objectivec"><code class="language-objectivec"><span class="token operator">+</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span>executeWithArguments<span class="token punctuation">:</span> <span class="token punctuation">(</span>NSArray<span class="token operator">*</span><span class="token punctuation">)</span>arguments <span class="token punctuation">&#123;</span>
   
-  char **commandCharPArray &#x3D; (char **)av_malloc(sizeof(char*) * ([arguments count]));
-  for (int i&#x3D;0; i &lt; [arguments count]; i++) &#123;
-    NSString *argument &#x3D; [arguments objectAtIndex:i];
-    commandCharPArray[i] &#x3D; (char *) [argument UTF8String];
-  &#125;
+  <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>commandCharPArray <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">av_malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>arguments count<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">[</span>arguments count<span class="token punctuation">]</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    NSString <span class="token operator">*</span>argument <span class="token operator">=</span> <span class="token punctuation">[</span>arguments objectAtIndex<span class="token punctuation">:</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    commandCharPArray<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>argument UTF8String<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
 
-  int lastReturnCode &#x3D; mobileffmpeg_execute(([arguments count]), commandCharPArray);
+  <span class="token keyword">int</span> lastReturnCode <span class="token operator">=</span> <span class="token function">mobileffmpeg_execute</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">[</span>arguments count<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> commandCharPArray<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  av_free(commandCharPArray);
-  return lastReturnCode;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token function">av_free</span><span class="token punctuation">(</span>commandCharPArray<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> lastReturnCode<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
  <div class="note info"><p>注意：修改完成后重复进行前一环节的后续步骤。</p>
 </div>   </li>
 <li>【flutter-ffmpeg】入【fluter-ijkplayer】：在本地包flutter_ijkplayer下<code>lib/src/controller.dart</code>下加入如下代码： <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">static</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> <span class="token function">parseArguments</span><span class="token punctuation">(</span><span class="token class-name">String</span> command<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -584,23 +584,23 @@ exception.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span
     <span class="token punctuation">&#125;</span>
     <span class="token keyword">return</span> <span class="token keyword">await</span> channel<span class="token punctuation">.</span><span class="token function">invokeMethod</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"executeFFmpegWithArguments"</span></span><span class="token punctuation">,</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token keyword">dynamic</span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span><span class="token string-literal"><span class="token string">'arguments'</span></span><span class="token punctuation">:</span> arguments<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>【flutter-ffmpeg】入【fluter-ijkplayer】：在本地包flutter_ijkplayer下<code>ios/Classes/CoolFlutterIJK.m</code>中增加如下代码： <pre class="line-numbers language-objc" data-language="objc"><code class="language-objc">- (NSDictionary *)toIntDictionary:(NSString*)key :(NSNumber*)value &#123;
-   NSMutableDictionary *dictionary &#x3D; [[NSMutableDictionary alloc] init];
-   dictionary[key] &#x3D; value;
-   return dictionary;
- &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
- 在<code>handleMethodCall</code>方法中头部加定义，并在其中判断<code>call.method</code>的判断语句中加入分支如下： <pre class="line-numbers language-objc" data-language="objc"><code class="language-objc">NSArray* arguments &#x3D; call.arguments[@&quot;arguments&quot;];
-NSString* command &#x3D; call.arguments[@&quot;command&quot;];
-NSString* delimiter &#x3D; call.arguments[@&quot;delimiter&quot;];
+<li>【flutter-ffmpeg】入【fluter-ijkplayer】：在本地包flutter_ijkplayer下<code>ios/Classes/CoolFlutterIJK.m</code>中增加如下代码： <pre class="line-numbers language-objectivec" data-language="objectivec"><code class="language-objectivec"><span class="token operator">-</span> <span class="token punctuation">(</span>NSDictionary <span class="token operator">*</span><span class="token punctuation">)</span>toIntDictionary<span class="token punctuation">:</span><span class="token punctuation">(</span>NSString<span class="token operator">*</span><span class="token punctuation">)</span>key <span class="token punctuation">:</span><span class="token punctuation">(</span>NSNumber<span class="token operator">*</span><span class="token punctuation">)</span>value <span class="token punctuation">&#123;</span>
+   NSMutableDictionary <span class="token operator">*</span>dictionary <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span>NSMutableDictionary alloc<span class="token punctuation">]</span> init<span class="token punctuation">]</span><span class="token punctuation">;</span>
+   dictionary<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> value<span class="token punctuation">;</span>
+   <span class="token keyword">return</span> dictionary<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ 在<code>handleMethodCall</code>方法中头部加定义，并在其中判断<code>call.method</code>的判断语句中加入分支如下： <pre class="line-numbers language-objectivec" data-language="objectivec"><code class="language-objectivec">NSArray<span class="token operator">*</span> arguments <span class="token operator">=</span> call<span class="token punctuation">.</span>arguments<span class="token punctuation">[</span><span class="token string">@"arguments"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+NSString<span class="token operator">*</span> command <span class="token operator">=</span> call<span class="token punctuation">.</span>arguments<span class="token punctuation">[</span><span class="token string">@"command"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+NSString<span class="token operator">*</span> delimiter <span class="token operator">=</span> call<span class="token punctuation">.</span>arguments<span class="token punctuation">[</span><span class="token string">@"delimiter"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-else if   ([@&quot;executeFFmpegWithArguments&quot; isEqualToString:call.method]) &#123;
-  NSLog(@&quot;Running FFmpeg with arguments: %@.\n&quot;, arguments);
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;
-    int rc &#x3D; [IJKFFMoviePlayerController executeWithArguments:arguments];
-    NSLog(@&quot;FFmpeg exited with rc: %d\n&quot;, rc);
-    result([self toIntDictionary:@&quot;rc&quot; :[NSNumber numberWithInt:rc]]);
-  &#125;);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">else</span> <span class="token keyword">if</span>   <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">@"executeFFmpegWithArguments"</span> isEqualToString<span class="token punctuation">:</span>call<span class="token punctuation">.</span>method<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">NSLog</span><span class="token punctuation">(</span><span class="token string">@"Running FFmpeg with arguments: %@.\n"</span><span class="token punctuation">,</span> arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">dispatch_async</span><span class="token punctuation">(</span><span class="token function">dispatch_get_global_queue</span><span class="token punctuation">(</span>DISPATCH_QUEUE_PRIORITY_DEFAULT<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">^</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> rc <span class="token operator">=</span> <span class="token punctuation">[</span>IJKFFMoviePlayerController executeWithArguments<span class="token punctuation">:</span>arguments<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">NSLog</span><span class="token punctuation">(</span><span class="token string">@"FFmpeg exited with rc: %d\n"</span><span class="token punctuation">,</span> rc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">result</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token keyword">self</span> toIntDictionary<span class="token punctuation">:</span><span class="token string">@"rc"</span> <span class="token punctuation">:</span><span class="token punctuation">[</span>NSNumber numberWithInt<span class="token punctuation">:</span>rc<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 如上述这几步骤后，即可令flutter_ffmpeg的主要功能“带参数执行ffmpeg命令”引入flutter_ijkplayer。但后来编译还发现<code>ffmpeg.c</code>中存在个小问题（似乎是fd_set溢出）如下修复:   <pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;*
 fd_set rfds;
 FD_ZERO(&amp;rfds);
@@ -677,7 +677,7 @@ version.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
 <li>将flutter_ffmpeg插件的lib中两个dart文件<code>flutter_ffmpeg.dart</code>和<code>log_level.dart</code>复制到本地flutter_ijkplayer的lib文件夹中；</li>
 <li>将前一步骤生成的Framework目录放入本地flutter_ijkplayer的ios文件夹中；</li>
 <li>在flutter_ijkplayer的ios文件夹中将IjkplayerPlugin.m修改如下：<ul>
-<li>加入<pre class="line-numbers language-objc" data-language="objc"><code class="language-objc">#import &lt;IJKMediaFramework&#x2F;IJKMediaFramework.h&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>加入<pre class="line-numbers language-objectivec" data-language="objectivec"><code class="language-objectivec"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">import</span> <span class="token expression"><span class="token operator">&lt;</span>IJKMediaFramework<span class="token operator">/</span>IJKMediaFramework<span class="token punctuation">.</span>h<span class="token operator">></span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 <li>将全局常量、成员变量和方法、invokeMethod的判断分支整合到<code>IjkplayerPlugin</code>中;</li>
 </ul>
 </li>
@@ -831,7 +831,7 @@ version.h<span aria-hidden="true" class="line-numbers-rows"><span></span><span><
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">71k</span>
+    <span title="站点总字数">70k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
