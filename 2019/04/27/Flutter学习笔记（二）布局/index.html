@@ -380,10 +380,10 @@
 <h1 id="布局一个小部件"><a href="#布局一个小部件" class="headerlink" title="布局一个小部件"></a>布局一个小部件</h1><p>如何在Flutter中布局单独一个小部件？这小节展示你如何创建展示一个简单的小部件，以及一个简单的Hello World应用的完整代码。<br>Flutter中，只需几步在屏幕上放置文字、图标和图像：</p>
 <h2 id="1-选择一个布局小部件"><a href="#1-选择一个布局小部件" class="headerlink" title="1.选择一个布局小部件"></a>1.选择一个布局小部件</h2><p>根据你想要如何对齐与约束可见小部件来在各种<a target="_blank" rel="noopener" href="https://flutter.dev/docs/development/ui/widgets/layout">布局小部件</a>中选择一个。这个例子中使用<code>Center</code>来将其内容在横纵向上置于居中。</p>
 <h2 id="2-创建一个可见小部件"><a href="#2-创建一个可见小部件" class="headerlink" title="2.创建一个可见小部件"></a>2.创建一个可见小部件</h2><p>例如，创建一个<code>Text</code>小部件：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Hello World'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>创建一个<code>Image</code>小部件：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>
-  <span class="token string">'images/lake.jpg'</span><span class="token punctuation">,</span>
+  <span class="token string-literal"><span class="token string">'images/lake.jpg'</span></span><span class="token punctuation">,</span>
   fit<span class="token punctuation">:</span> <span class="token class-name">BoxFit</span><span class="token punctuation">.</span>cover<span class="token punctuation">,</span>
 <span class="token punctuation">)</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>创建一个<code>Icon</code>小部件：</p>
@@ -398,18 +398,18 @@
 </ul>
 <p>将<code>Text</code>小部件添加到<code>Center</code>小部件：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Center</span><span class="token punctuation">(</span>
-  child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Hello World'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 <span class="token punctuation">)</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h2 id="4-将布局小部件添加到页"><a href="#4-将布局小部件添加到页" class="headerlink" title="4.将布局小部件添加到页"></a>4.将布局小部件添加到页</h2><p>Flutter应用是自身的一个小部件，而大部分小部件都有<code>build()</code>方法，在app的<code>build()</code>方法中实例化并返回一个小部件来显示它。</p>
 <h3 id="Material-apps"><a href="#Material-apps" class="headerlink" title="Material apps"></a>Material apps</h3><p>对于Material应用你可以使用<code>Scaffold</code>小部件，它提供了默认横幅、背景颜色且有添加drawer、snack bar和bottom sheet的接口<code>（这里没找到很合适的词翻译）</code>。然后你可以直接将<code>Center</code>小部件添加到主页的<code>body</code>属性。</p>
 <pre class="line-numbers language-dart" data-language="dart"><div class="caption"><span><font color=black><strong>lib/main.dart (MyApp)</strong></font></span></div><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">MyApp</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token class-name">MaterialAp</span>     appBar<span class="token punctuation">:</span> <span class="token class-name">AppBar</span><span class="token punctuation">(</span>
-          title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Flutter layout demo'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Flutter layout demo'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
         body<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>
-          child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Hello World'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -419,11 +419,11 @@
 </div>
 <h3 id="非Material-apps"><a href="#非Material-apps" class="headerlink" title="非Material apps"></a>非Material apps</h3><p>对于非Material应用，可以将<code>Center</code>小部件添加到app的<code>build()</code>方法：</p>
 <pre class="line-numbers language-dart" data-language="dart"><div class="caption"><span><font color=black><strong>lib/main.dart (MyApp)</strong></font></span></div><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">MyApp</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>ld<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>
         child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span>
-          <span class="token string">'Hello World'</span><span class="token punctuation">,</span>
+          <span class="token string-literal"><span class="token string">'Hello World'</span></span><span class="token punctuation">,</span>
           textDirection<span class="token punctuation">:</span> <span class="token class-name">TextDirection</span><span class="token punctuation">.</span>ltr<span class="token punctuation">,</span>
           style<span class="token punctuation">:</span> <span class="token class-name">TextStyle</span><span class="token punctuation">(</span>
             fontSize<span class="token punctuation">:</span> <span class="token number">32</span><span class="token punctuation">,</span>
@@ -528,18 +528,18 @@
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">final</span> <span class="token punctuation">&#123;</span><span class="token operator">%</span> label warning <span class="token metadata symbol">@ratings</span> <span class="token operator">%</span><span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>
+<span class="token keyword">final</span> <span class="token punctuation">&#123;</span><span class="token operator">%</span> label warning <span class="token metadata function">@ratings</span> <span class="token operator">%</span><span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>
   padding<span class="token punctuation">:</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
   child<span class="token punctuation">:</span> <span class="token class-name">Row</span><span class="token punctuation">(</span>
     mainAxisAlignment<span class="token punctuation">:</span> <span class="token class-name">MainAxisAlignment</span><span class="token punctuation">.</span>spaceEvenly<span class="token punctuation">,</span>
     children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
       stars<span class="token punctuation">,</span>
       <span class="token class-name">Text</span><span class="token punctuation">(</span>
-        <span class="token string">'170 Reviews'</span><span class="token punctuation">,</span>
+        <span class="token string-literal"><span class="token string">'170 Reviews'</span></span><span class="token punctuation">,</span>
         style<span class="token punctuation">:</span> <span class="token class-name">TextStyle</span><span class="token punctuation">(</span>
           color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>black<span class="token punctuation">,</span>
           fontWeight<span class="token punctuation">:</span> <span class="token class-name">FontWeight</span><span class="token punctuation">.</span>w800<span class="token punctuation">,</span>
-          fontFamily<span class="token punctuation">:</span> <span class="token string">'Roboto'</span><span class="token punctuation">,</span>
+          fontFamily<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Roboto'</span></span><span class="token punctuation">,</span>
           letterSpacing<span class="token punctuation">:</span> <span class="token number">0.5</span><span class="token punctuation">,</span>
           fontSize<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -553,7 +553,7 @@
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">final</span> descTextStyle <span class="token operator">=</span> <span class="token class-name">TextStyle</span><span class="token punctuation">(</span>
   color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>black<span class="token punctuation">,</span>
   fontWeight<span class="token punctuation">:</span> <span class="token class-name">FontWeight</span><span class="token punctuation">.</span>w800<span class="token punctuation">,</span>
-  fontFamily<span class="token punctuation">:</span> <span class="token string">'Roboto'</span><span class="token punctuation">,</span>
+  fontFamily<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Roboto'</span></span><span class="token punctuation">,</span>
   letterSpacing<span class="token punctuation">:</span> <span class="token number">0.5</span><span class="token punctuation">,</span>
   fontSize<span class="token punctuation">:</span> <span class="token number">18</span><span class="token punctuation">,</span>
   height<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
@@ -570,22 +570,22 @@
         <span class="token class-name">Column</span><span class="token punctuation">(</span>
           children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
             <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>kitchen<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'PREP:'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'25 min'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'PREP:'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'25 min'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
           <span class="token punctuation">]</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token class-name">Column</span><span class="token punctuation">(</span>
           children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
             <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>timer<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'COOK:'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'1 hr'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'COOK:'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'1 hr'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
           <span class="token punctuation">]</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token class-name">Column</span><span class="token punctuation">(</span>
           children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
             <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>restaurant<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'FEEDS:'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'4-6'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'FEEDS:'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'4-6'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
           <span class="token punctuation">]</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">]</span><span class="token punctuation">,</span>

@@ -348,13 +348,13 @@
         <p>在昨天已经完成了在macOS上安装配置Flutter开发环境并真机调试成功第一个iOS App based on Flutter，也在Windows上搭建了Flutter环境。对这个开发方式感觉还是有点意思的，今天继续学一下Flutter的知识。<br>一开始根据官方教程建App时，就指出了在Flutter中一切都以Widget的形式存在的。Flutter的Widget是受React影响以现代框架进行创建的，它们描述自己在当前配置与状态下的样式。当状态改变时它就改变描述，框架根据与之前描述的差异以最小的变动展现状态变化带来的样式变化。</p>
 <span id="more"></span>
 <h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h1><p>最小的一个Flutter App如下，仅单纯地调用一个<code>runApp()</code>（入口是<code>void main()</code>）：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string">'package:flutter/material.dart'</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:flutter/material.dart'</span></span><span class="token punctuation">;</span>
 
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token function">runApp</span><span class="token punctuation">(</span>
     <span class="token class-name">Center</span><span class="token punctuation">(</span>
       child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span>
-        <span class="token string">'Hello, world!'</span><span class="token punctuation">,</span>
+        <span class="token string-literal"><span class="token string">'Hello, world!'</span></span><span class="token punctuation">,</span>
         textDirection<span class="token punctuation">:</span> <span class="token class-name">TextDirection</span><span class="token punctuation">.</span>ltr<span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -368,7 +368,7 @@
 <li><strong>Stack</strong>：相较于线性排列，Stack小部件让你可以将小部件们在绘制时相互堆叠。之后可以使用<code>Positioned</code>小部件作用于Stack小部件的子部件们，指定他们在Stack中相对于上下左右边缘的位置。这一点的设计可参考WEB中的绝对位置。</li>
 <li><strong>Container</strong>：Container小部件可创建矩形区域，它可以被<code>BoxDecoration</code>修饰，如背景、边缘、阴影等。它的尺寸还可以被设定margins，padding，constraints。Containter小部件可以用矩阵转换到三维空间。<br>下面是演示了这些以及其他一些小组件：</li>
 </ul>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string">'package:flutter/material.dart'</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:flutter/material.dart'</span></span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">MyAppBar</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
   <span class="token class-name">MyAppBar</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>title<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -377,7 +377,7 @@
 
   <span class="token keyword">final</span> <span class="token class-name">Widget</span> title<span class="token punctuation">;</span>
 
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>
       height<span class="token punctuation">:</span> <span class="token number">56.0</span><span class="token punctuation">,</span> <span class="token comment">// 单位为逻辑像素</span>
@@ -389,7 +389,7 @@
         children<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
           <span class="token class-name">IconButton</span><span class="token punctuation">(</span>
             icon<span class="token punctuation">:</span> <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>menu<span class="token punctuation">)</span><span class="token punctuation">,</span>
-            tooltip<span class="token punctuation">:</span> <span class="token string">'Navigation menu'</span><span class="token punctuation">,</span>
+            tooltip<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Navigation menu'</span></span><span class="token punctuation">,</span>
             onPressed<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token comment">// 禁用按钮</span>
           <span class="token punctuation">)</span><span class="token punctuation">,</span>
           <span class="token comment">// Expanded 将它的child填满整个可用空间</span>
@@ -398,7 +398,7 @@
           <span class="token punctuation">)</span><span class="token punctuation">,</span>
           <span class="token class-name">IconButton</span><span class="token punctuation">(</span>
             icon<span class="token punctuation">:</span> <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>search<span class="token punctuation">)</span><span class="token punctuation">,</span>
-            tooltip<span class="token punctuation">:</span> <span class="token string">'Search'</span><span class="token punctuation">,</span>
+            tooltip<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Search'</span></span><span class="token punctuation">,</span>
             onPressed<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
           <span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
@@ -408,7 +408,7 @@
 <span class="token punctuation">&#125;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">MyScaffold</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// Material 是显示UI的概念上的一张纸.</span>
     <span class="token keyword">return</span> <span class="token class-name">Material</span><span class="token punctuation">(</span>
@@ -417,13 +417,13 @@
         children<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
           <span class="token class-name">MyAppBar</span><span class="token punctuation">(</span>
             title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span>
-              <span class="token string">'Example title'</span><span class="token punctuation">,</span>
+              <span class="token string-literal"><span class="token string">'Example title'</span></span><span class="token punctuation">,</span>
               style<span class="token punctuation">:</span> <span class="token class-name">Theme</span><span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span>primaryTextTheme<span class="token punctuation">.</span>title<span class="token punctuation">,</span>
             <span class="token punctuation">)</span><span class="token punctuation">,</span>
           <span class="token punctuation">)</span><span class="token punctuation">,</span>
           <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
             child<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>
-              child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Hello, world!'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+              child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Hello, world!'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
             <span class="token punctuation">)</span><span class="token punctuation">,</span>
           <span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
@@ -434,7 +434,7 @@
 
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token function">runApp</span><span class="token punctuation">(</span><span class="token class-name">MaterialApp</span><span class="token punctuation">(</span>
-    title<span class="token punctuation">:</span> <span class="token string">'My app'</span><span class="token punctuation">,</span> <span class="token comment">// 此标题被系统的任务管理器使用</span>
+    title<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'My app'</span></span><span class="token punctuation">,</span> <span class="token comment">// 此标题被系统的任务管理器使用</span>
     home<span class="token punctuation">:</span> <span class="token class-name">MyScaffold</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -444,41 +444,41 @@
   <span class="token key atrule">uses-material-design</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>许多小部件需要在<code>MaterialApp</code>内部以继承主题，因此我们带<code>MaterialApp</code>运行应用。<br>上面的代码中，<code>MyAppBar</code>创建了56设备无关像素高度的<code>Container</code>并在水平向（左右侧）各设置8像素的padding。在Containter的内部，使用<code>Row</code>布局组织子成员们。位于中间的<code>title</code>子成员被标记为<code>Expanded</code>从而令其填满其他子成员未占用的空间，使用多个Expanded时可用<a target="_blank" rel="noopener" href="https://api.flutter.dev/flutter/widgets/Expanded-class.html#flex">flex</a>参数来设置各自占用的比例。<br><code>MyScaffold</code>小部件将其子成员以竖直方向一列组织，顶部放置MyAppBar实例，并传递给它一个<code>Text</code>小部件作为title。传递参数给widget是一个令你能以多种方式复用它的一个有力技术。最终MyScaffold使用Expanded以一个居中的消息填满其剩余空间。<br><a target="_blank" rel="noopener" href="https://flutter.dev/docs/development/ui/widgets/layout">关于Flutter布局的更多信息</a></p>
 <h1 id="使用Material组件"><a href="#使用Material组件" class="headerlink" title="使用Material组件"></a>使用Material组件</h1><p>Flutter提供许多小部件帮你遵守Material Desgn规范。Material应用以<code>MaterialApp</code>小部件启动，其在你应用的根构建许多有用的小部件，包含一个<code>Navigator</code>。Navigator管理一叠以字符串标识的小部件，亦即“路由”，令你应用在屏幕之间平滑跳转。使用MaterialApp小部件并非强制，但是一个好的实践。</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string">'package:flutter/material.dart'</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:flutter/material.dart'</span></span><span class="token punctuation">;</span>
 
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token function">runApp</span><span class="token punctuation">(</span><span class="token class-name">MaterialApp</span><span class="token punctuation">(</span>
-    title<span class="token punctuation">:</span> <span class="token string">'Flutter Tutorial'</span><span class="token punctuation">,</span>
+    title<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Flutter Tutorial'</span></span><span class="token punctuation">,</span>
     home<span class="token punctuation">:</span> <span class="token class-name">TutorialHome</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">TutorialHome</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// Scaffold 是主要Material组件的一个布局.</span>
     <span class="token keyword">return</span> <span class="token class-name">Scaffold</span><span class="token punctuation">(</span>
       appBar<span class="token punctuation">:</span> <span class="token class-name">AppBar</span><span class="token punctuation">(</span>
         leading<span class="token punctuation">:</span> <span class="token class-name">IconButton</span><span class="token punctuation">(</span>
           icon<span class="token punctuation">:</span> <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>menu<span class="token punctuation">)</span><span class="token punctuation">,</span>
-          tooltip<span class="token punctuation">:</span> <span class="token string">'Navigation menu'</span><span class="token punctuation">,</span>
+          tooltip<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Navigation menu'</span></span><span class="token punctuation">,</span>
           onPressed<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
-        title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Example title'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Example title'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
         actions<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
           <span class="token class-name">IconButton</span><span class="token punctuation">(</span>
             icon<span class="token punctuation">:</span> <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>search<span class="token punctuation">)</span><span class="token punctuation">,</span>
-            tooltip<span class="token punctuation">:</span> <span class="token string">'Search'</span><span class="token punctuation">,</span>
+            tooltip<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Search'</span></span><span class="token punctuation">,</span>
             onPressed<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
           <span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">]</span><span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token comment">// body 为屏幕的主要部分.</span>
       body<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>
-        child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Hello, world!'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Hello, world!'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
       floatingActionButton<span class="token punctuation">:</span> <span class="token class-name">FloatingActionButton</span><span class="token punctuation">(</span>
-        tooltip<span class="token punctuation">:</span> <span class="token string">'Add'</span><span class="token punctuation">,</span> <span class="token comment">// 为辅助功能使用</span>
+        tooltip<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Add'</span></span><span class="token punctuation">,</span> <span class="token comment">// 为辅助功能使用</span>
         child<span class="token punctuation">:</span> <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>add<span class="token punctuation">)</span><span class="token punctuation">,</span>
         onPressed<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -488,11 +488,11 @@
 <p>现在我们从<code>MyAppBar</code>和<code>MyScaffold</code>切换到<code>material.dart</code>中的<code>AppBar</code>和<code>Scaffold</code>，从而上一节中Demo的样子更符合Mertial一些。比如，app bar有阴影并且标题文本自动继承正确样式。另外我们还添加了一个浮动按钮。<br>注意到我们又将一个小部件当做参数传递给其他小部件。<code>Scaffold</code>小部件通过接收许多小部件作为参数，将其放到Scaffold布局合适的位置。类似的，<code>AppBar</code>小部件也是由我们传递小部件设置<code>title</code>小部件的<code>leading</code>和<code>action</code>。该模式遍及于框架中，在你设计自己的小部件时也应该如此考虑。<br><a target="_blank" rel="noopener" href="https://flutter.dev/docs/development/ui/widgets/material">关于Material组件的更多信息</a></p>
 <h1 id="处理手势"><a href="#处理手势" class="headerlink" title="处理手势"></a>处理手势</h1><p>大多数应用含有一些用户与系统间的交互。构建一个交互应用的第一步即是用户手势操作的探测。我们下面通过创建一个简单的按钮来看看它如何运作：</p>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">MyButton</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token class-name">GestureDetector</span><span class="token punctuation">(</span>
       onTap<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string">'MyButton was tapped!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">print</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'MyButton was tapped!'</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
       <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
       child<span class="token punctuation">:</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>
         height<span class="token punctuation">:</span> <span class="token number">36.0</span><span class="token punctuation">,</span>
@@ -503,7 +503,7 @@
           color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>lightGreen<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
         child<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>
-          child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Engage'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Engage'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -516,7 +516,7 @@
   <span class="token comment">// 它持有由其父提供的被State构造方法使用的值（本例中为空）</span>
   <span class="token comment">// Widget的子类中的域都被标记为“final”</span>
 
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   _CounterState <span class="token function">createState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">_CounterState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
@@ -534,7 +534,7 @@
     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token comment">// 如本实例上面_increment方法做的</span>
     <span class="token comment">// 该方法在每次setState被调用时执行</span>
@@ -544,9 +544,9 @@
       children<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
         <span class="token class-name">RaisedButton</span><span class="token punctuation">(</span>
           onPressed<span class="token punctuation">:</span> _increment<span class="token punctuation">,</span>
-          child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Increment'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Increment'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
         <span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Count: $_counter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Count: </span><span class="token interpolation"><span class="token punctuation">$</span><span class="token expression">_counter</span></span><span class="token string">'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">]</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
@@ -557,9 +557,9 @@
 
   <span class="token keyword">final</span> int count<span class="token punctuation">;</span>
 
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Count: $count'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Count: </span><span class="token interpolation"><span class="token punctuation">$</span><span class="token expression">count</span></span><span class="token string">'</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span>
 
@@ -568,17 +568,17 @@
 
   <span class="token keyword">final</span> <span class="token class-name">VoidCallback</span> onPressed<span class="token punctuation">;</span>
 
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token class-name">RaisedButton</span><span class="token punctuation">(</span>
       onPressed<span class="token punctuation">:</span> onPressed<span class="token punctuation">,</span>
-      child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Increment'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Increment'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">Counter</span> <span class="token keyword">extends</span> <span class="token class-name">StatefulWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   _CounterState <span class="token function">createState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">_CounterState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
@@ -591,7 +591,7 @@
     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token class-name">Row</span><span class="token punctuation">(</span>children<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Widget</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
       <span class="token class-name">CounterIncrementor</span><span class="token punctuation">(</span>onPressed<span class="token punctuation">:</span> _increment<span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -634,7 +634,7 @@
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token class-name">ListTile</span><span class="token punctuation">(</span>
       onTap<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -658,7 +658,7 @@
   <span class="token comment">// 如果其父重新构造并使用同样同一小部件类型（带同样key）</span>
   <span class="token comment">// 框架会复用这个State对象而非创建新的State对象</span>
 
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   _ShoppingListState <span class="token function">createState</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">_ShoppingListState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
 
@@ -678,11 +678,11 @@
     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">&#125;</span>
 
-  <span class="token metadata symbol">@override</span>
+  <span class="token metadata function">@override</span>
   <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">return</span> <span class="token class-name">Scaffold</span><span class="token punctuation">(</span>
       appBar<span class="token punctuation">:</span> <span class="token class-name">AppBar</span><span class="token punctuation">(</span>
-        title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string">'Shopping List'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Shopping List'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">)</span><span class="token punctuation">,</span>
       body<span class="token punctuation">:</span> <span class="token class-name">ListView</span><span class="token punctuation">(</span>
         padding<span class="token punctuation">:</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">symmetric</span><span class="token punctuation">(</span>vertical<span class="token punctuation">:</span> <span class="token number">8.0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -700,12 +700,12 @@
 
 <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token function">runApp</span><span class="token punctuation">(</span><span class="token class-name">MaterialApp</span><span class="token punctuation">(</span>
-    title<span class="token punctuation">:</span> <span class="token string">'Shopping App'</span><span class="token punctuation">,</span>
+    title<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Shopping App'</span></span><span class="token punctuation">,</span>
     home<span class="token punctuation">:</span> <span class="token class-name">ShoppingList</span><span class="token punctuation">(</span>
       products<span class="token punctuation">:</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Product</span><span class="token punctuation">></span></span><span class="token punctuation">[</span>
-        <span class="token class-name">Product</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'Eggs'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token class-name">Product</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'Flour'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token class-name">Product</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string">'Chocolate chips'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token class-name">Product</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Eggs'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token class-name">Product</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Flour'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token class-name">Product</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Chocolate chips'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
       <span class="token punctuation">]</span><span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">,</span>
   <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
