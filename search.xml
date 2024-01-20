@@ -31,12 +31,18 @@ mysql -h <span class="token operator">&lt;</span>mysql服务容器IP<span class=
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> keycloak <span class="token keyword">CHARACTER</span> <span class="token keyword">SET</span> utf8 <span class="token keyword">COLLATE</span> utf8_general_ci<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><em>需要注意的是，这里是使用utf8还是utf8mb4并不十分确定。按照<a href="https://www.keycloak.org/server/db#_configuring_unicode_support_for_a_mysql_database">keycloak官方说法</a> 是不支持utf8mb4，后续如有结论再进行更新。这里先如此设置，并且在连接时不按支持utf8处理。</em><br>之后就是docker创建keycloak容器，此处采用portainer部署，故不再给出命令了，可以根据需要自行拼接命令。</p>
 <ol>
-<li>容器名称：<code>keycloak</code></li>
-<li>镜像：<code>quay.io/keycloak/keycloak:latest</code></li>
-<li>覆写镜像命令：<code>start --proxy edge</code><br><em>这里添加代理模式是考虑前面要加Nginx反代通过域名暴露服务，不加是否可以还未确认。这里因为外面套有隧道保障安全，故在反代和服务间采用HTTP连接，所以设置为edge模式。</em></li>
-<li>文件映射：<code>/opt/keycloak/server.pem</code>映射到主机证书文件路径，<code>/opt/keycloak/server.key</code>映射到主机密钥文件。<em>实际上因为前面有反代，这里并不需要HTTPS，只是貌似keycloak没法禁掉HTTPS故保留证书配置，证书的DN无所谓。</em></li>
-<li>网络：选择前面MySQL同样的bridge网络，并指定其IP</li>
-<li>设置以下环境变量值：<table>
+<li><p>容器名称：<code>keycloak</code></p>
+</li>
+<li><p>镜像：<code>quay.io/keycloak/keycloak:latest</code></p>
+</li>
+<li><p>覆写镜像命令：<code>start --proxy edge</code><br><em>这里添加代理模式是考虑前面要加Nginx反代通过域名暴露服务，不加是否可以还未确认。这里因为外面套有隧道保障安全，故在反代和服务间采用HTTP连接，所以设置为edge模式。</em></p>
+</li>
+<li><p>文件映射：<code>/opt/keycloak/server.pem</code>映射到主机证书文件路径，<code>/opt/keycloak/server.key</code>映射到主机密钥文件。<em>实际上因为前面有反代，这里并不需要HTTPS，只是貌似keycloak没法禁掉HTTPS故保留证书配置，证书的DN无所谓。</em></p>
+</li>
+<li><p>网络：选择前面MySQL同样的bridge网络，并指定其IP</p>
+</li>
+<li><p>设置以下环境变量值：</p>
+<table>
 <thead>
 <tr>
 <th>环境变量名</th>
@@ -97,7 +103,8 @@ mysql -h <span class="token operator">&lt;</span>mysql服务容器IP<span class=
 </tr>
 </tbody></table>
 </li>
-<li>设置重启策略：按需求设置即可。</li>
+<li><p>设置重启策略：按需求设置即可。</p>
+</li>
 </ol>
 <h2 id="配置Keycloak前置反代"><a href="#配置Keycloak前置反代" class="headerlink" title="配置Keycloak前置反代"></a>配置Keycloak前置反代</h2><p>这里已经在公网机器上配置好了<strong>NginxProxyManager</strong>，并将CLoudflare的DNS配置为使用严格安全（Full strict）的DNS代理到这台NPM所在机器地址。<br>然后，在NPM上面添加前面设置的Keycloak的反代，域名为前面环境变量设置过的域名，后端协议设置为http、端口为8080、主机为Keycloak容器在bridge网络中的IP。<br>之后应该就可以通过Keycloak的URL进行访问了。</p>
 <h2 id="为Krill进行Keycloak初始配置"><a href="#为Krill进行Keycloak初始配置" class="headerlink" title="为Krill进行Keycloak初始配置"></a>为Krill进行Keycloak初始配置</h2><p>之后就可以在Keycloak上为Krill进行一些初始的配置了。主要是参考Krill<a href="https://krill.docs.nlnetlabs.nl/en/stable/multi-user/openid-connect-provider.html?highlight=keycloak">官方文档</a>，但不得不说Krill官方文档还是以Keycloak 12.0.4版本为依据来写的（我部署时Keycloak已经到23.0.4），并不是能很精确地对应上。所以，接下来的这些配置中也可能会存在一些问题，等遇到后会更新说明。</p>
@@ -136,15 +143,10 @@ mysql -h <span class="token operator">&lt;</span>mysql服务容器IP<span class=
 <td>TZ</td>
 <td>Asia&#x2F;Shanghai</td>
 </tr>
-<tr>
-<td>然后完成部署。</td>
-<td></td>
-</tr>
-<tr>
-<td>然后修改Krill的配置文件，到前面挂载的数据卷中，修改<strong>krill.conf</strong>文件，添加以下Keycloak的OIDC配置：</td>
-<td></td>
-</tr>
 </tbody></table>
+</li>
+</ol>
+<p>然后完成部署。<br>然后修改Krill的配置文件，到前面挂载的数据卷中，修改<strong>krill.conf</strong>文件，添加以下Keycloak的OIDC配置：   </p>
 <pre class="line-numbers language-none"><code class="language-none">service_uri &#x3D; &quot;https:&#x2F;&#x2F;&lt;krill服务域名&gt;&#x2F;&quot;
 auth_type &#x3D; &quot;openid-connect&quot;
 
@@ -152,14 +154,15 @@ auth_type &#x3D; &quot;openid-connect&quot;
 issuer_url &#x3D; &quot;https:&#x2F;&#x2F;&lt;keycloak服务域名&gt;&#x2F;realms&#x2F;&lt;为krill创建的租户名&gt;&quot;
 client_id &#x3D; &quot;krill&quot;
 client_secret &#x3D; &quot;&lt;krill客户端连接密钥&gt;&quot;
-&#96;&#96;&#96;   
+&#96;&#96;&#96;     
+
 其中，krill客户端连接密钥在Keycloak的Clients页面中查看krill的详情，并在Credentials页签下可以拿到。
 修改完成后重启容器即可。
 ## **Krill反代设置**
-这里类似的在NPM上为Krill域名配置反代。但需要注意的是，一是Krill服务端口是3000且协议是HTTPS，二是因为Keycloak认证信息体积大，需要在高级配置中添加以下两条（否则存在可能使用Keycloak认证完成跳转回Krill时出现500错误）：<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-proxy_buffer_size   128k;<br>proxy_buffers   4 256k;</li>
-</ol>
-<pre><code>配置好后访问Krill服务域名，正常连接并跳转到Keycloak使用Krill管理员进行认证登录，正常情况下应该能进入Krill的欢迎页面。
+这里类似的在NPM上为Krill域名配置反代。但需要注意的是，一是Krill服务端口是3000且协议是HTTPS，二是因为Keycloak认证信息体积大，需要在高级配置中添加以下两条（否则存在可能使用Keycloak认证完成跳转回Krill时出现500错误）：   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>proxy_buffer_size   128k;<br>proxy_buffers   4 256k;</p>
+<pre><code>
+配置好后访问Krill服务域名，正常连接并跳转到Keycloak使用Krill管理员进行认证登录，正常情况下应该能进入Krill的欢迎页面。
 # RPKI的CA配置
 首先在进入欢迎页后创建CA句柄，以用来和父CA交互。起个名称即可。
 接下来配置步骤主要参考nlnetlabs的[这篇博客](https://blog.nlnetlabs.nl/running-krill-under-ripe-ncc/)。
@@ -388,7 +391,7 @@ git remote add origin https://github.com/username/myblog.git
 git push -u origin main
 </code></pre>
 <p>　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   </p>
-<h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3><p>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#x75;&#x73;&#101;&#x72;&#110;&#97;&#x6d;&#101;&#64;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#x75;&#x73;&#101;&#x72;&#110;&#97;&#x6d;&#101;&#64;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></strong>为GitHub用户邮箱)：</p>
+<h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3><p>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#x75;&#115;&#x65;&#114;&#110;&#97;&#109;&#x65;&#x40;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x75;&#115;&#x65;&#114;&#110;&#97;&#109;&#x65;&#x40;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a></strong>为GitHub用户邮箱)：</p>
 <pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
 </code></pre>
 <p>　　根据之后提示选择密钥文件存储位置和密码（直接回车设置为空）。<br>　　在刚刚创建的<strong>username.github.io</strong> Repo的<code>Settings</code>中点击<code>Deploy keys</code>，选择<code>Add deploy key</code>。Title可以根据喜好设置（如myblog_deploy_pubkey），Key的内容复制进刚才使用命令生成的<code>.pub</code>扩展名的公钥文件内容。下面的<code>Allow write access</code>的复选框要勾选。   </p>
@@ -396,7 +399,7 @@ git push -u origin main
 <pre><code class="bash">mkdir .github/workflows
 touch .github/workflows/deploy.yml
 </code></pre>
-<p>　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#117;&#x73;&#x65;&#x72;&#110;&#97;&#x6d;&#101;&#64;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#117;&#x73;&#x65;&#x72;&#110;&#97;&#x6d;&#101;&#64;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a>为你的GitHub注册邮箱）：   </p>
+<p>　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#x75;&#115;&#x65;&#x72;&#x6e;&#97;&#109;&#101;&#64;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x75;&#115;&#x65;&#x72;&#x6e;&#97;&#109;&#101;&#64;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a>为你的GitHub注册邮箱）：   </p>
 <pre><code class="yaml">name: CI
 
 on:
