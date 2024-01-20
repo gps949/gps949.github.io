@@ -149,7 +149,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E9%83%A8%E7%BD%B2"><span class="nav-number">1.</span> <span class="nav-text">MySQL数据库部署</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Keycloak%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">Keycloak部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEKeycloak%E5%89%8D%E7%BD%AE%E5%8F%8D%E4%BB%A3"><span class="nav-number">2.1.</span> <span class="nav-text">配置Keycloak前置反代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BAKrill%E8%BF%9B%E8%A1%8CKeycloak%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">为Krill进行Keycloak初始配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Krill%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">Krill部署</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E9%83%A8%E7%BD%B2"><span class="nav-number">1.</span> <span class="nav-text">MySQL数据库部署</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Keycloak%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">Keycloak部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEKeycloak%E5%89%8D%E7%BD%AE%E5%8F%8D%E4%BB%A3"><span class="nav-number">2.1.</span> <span class="nav-text">配置Keycloak前置反代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BAKrill%E8%BF%9B%E8%A1%8CKeycloak%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">为Krill进行Keycloak初始配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Krill%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">Krill部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Krill%E5%8F%8D%E4%BB%A3%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.1.</span> <span class="nav-text">Krill反代设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RPKI%E7%9A%84CA%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">RPKI的CA配置</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -318,7 +318,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.2k</span>
+      <span>5.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -344,35 +344,17 @@
    --mount <span class="token assign-left variable">type</span><span class="token operator">=</span>bind,src<span class="token operator">=</span><span class="token operator">&lt;</span>主机挂载NAS路径（需存在的文件）<span class="token operator">></span>,dst<span class="token operator">=</span>/etc/my.cnf <span class="token punctuation">\</span> 
    --mount <span class="token assign-left variable">type</span><span class="token operator">=</span>bind,src<span class="token operator">=</span><span class="token operator">&lt;</span>主机挂载NAS路径（需存在的目录）<span class="token operator">></span>,dst<span class="token operator">=</span>/var/lib/mysql <span class="token punctuation">\</span> 
    --network<span class="token operator">=</span>bridge --ip <span class="token operator">&lt;</span>mysql服务容器IP<span class="token operator">></span> <span class="token punctuation">\</span> 
-   -d container-registry.oracle.com/mysql/community-server:latest
-``<span class="token variable"><span class="token variable">`</span>      
-    
-    
-启动之后可以查看容器日志找到root用户的临时密码，以下面命令连接：
-<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>shell
-mysql -h <span class="token operator">&lt;</span>mysql服务容器IP<span class="token operator">></span> -u root -p
-<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>    
-    
-    
-如遇到主机没装mysql-client可通过下面命令安装（Debian环境为例）
-<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>shell
-<span class="token function">apt</span> <span class="token function">install</span> mysql-client
-<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>    
-    
-    
-或
-   
-   
-<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>shell
-<span class="token function">apt</span> <span class="token function">install</span> default-mysql-client
-<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>   
-   
-   
-连接上mysql后，进行root密码修改和创建DBA用户并授权远程连接权限：
-<span class="token variable">`</span></span>``sql
-ALTER <span class="token environment constant">USER</span> <span class="token string">'root'</span>@<span class="token string">'localhost'</span> IDENTIFIED BY <span class="token string">'&lt;新的root密码>'</span><span class="token punctuation">;</span>
-CREATE <span class="token environment constant">USER</span> <span class="token string">'&lt;新建DBA用户名>'</span>@<span class="token string">'%'</span> IDENTIFIED WITH mysql_native_password BY <span class="token string">'&lt;DBA用户密码>'</span><span class="token punctuation">;</span>
-GRANT ALL PRIVILEGES ON *.* TO <span class="token string">'&lt;DBA用户名>'</span>@<span class="token string">'%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+   -d container-registry.oracle.com/mysql/community-server:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>启动之后可以查看容器日志找到root用户的临时密码，以下面命令连接：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mysql -h <span class="token operator">&lt;</span>mysql服务容器IP<span class="token operator">></span> -u root -p<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如遇到主机没装mysql-client可通过下面命令安装（Debian环境为例）</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> <span class="token function">install</span> mysql-client<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>或</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> <span class="token function">install</span> default-mysql-client<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>连接上mysql后，进行root密码修改和创建DBA用户并授权远程连接权限：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">USER</span> <span class="token string">'root'</span><span class="token variable">@'localhost'</span> IDENTIFIED <span class="token keyword">BY</span> <span class="token string">'&lt;新的root密码>'</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">USER</span> <span class="token string">'&lt;新建DBA用户名>'</span><span class="token variable">@'%'</span> IDENTIFIED <span class="token keyword">WITH</span> mysql_native_password <span class="token keyword">BY</span> <span class="token string">'&lt;DBA用户密码>'</span><span class="token punctuation">;</span>
+<span class="token keyword">GRANT</span> <span class="token keyword">ALL</span> <span class="token keyword">PRIVILEGES</span> <span class="token keyword">ON</span> <span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">TO</span> <span class="token string">'&lt;DBA用户名>'</span><span class="token variable">@'%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><em>注：如此设置会在MySQL日志产生<code>&#39;mysql_native_password&#39; is deprecated and will be removed</code>警告，但实际当前最新版8.3.0仍可用，暂时不作处理</em></p>
 <h1 id="Keycloak部署"><a href="#Keycloak部署" class="headerlink" title="Keycloak部署"></a>Keycloak部署</h1><p>由于期望使用krill自建RPKI并实现可以多用户管理krill去自主创建ROA，并与网站用户管理统一起来，因此暂时考虑搭建Keycloak。<br>首先，在前面建设的MySQL服务上使用DBA创建数据库：</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> keycloak <span class="token keyword">CHARACTER</span> <span class="token keyword">SET</span> utf8 <span class="token keyword">COLLATE</span> utf8_general_ci<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -459,8 +441,9 @@ GRANT ALL PRIVILEGES ON *.* TO <span class="token string">'&lt;DBA用户名>'</s
 <li><strong>创建租户</strong><br>访问Keycloak的URL地址，点击在左侧的Administration Console进入管理员控制台，使用管理员的账户和口令登入。点击左侧导航栏顶部下拉菜单创建realm（类似tenant概念），为Krill创建组织（日后网络服务平台可以考虑和Krill共用realm，也可以分开，到时候再看了），创建时仅需要设置个名字即可创建，但是需要注意的是，这里名字在后续使用时会区分大小写，建议都小写避免不必要的麻烦。</li>
 <li><strong>创建Krill连接客户端</strong><br>在当前选择前面创建的realm情况下，点左侧导航栏的Clients并点击页面上的Create Clients，在创建页面上把Client ID设置为krill即可。点击Next在下面页面把Client authentication打开。再点击Next在页面上设置重要的几个URL，其中最主要的是把Valid redirect URIs设置为<code>https://&lt;将给Krill的域名&gt;/auth/callback</code>和<code>https://&lt;将给Krill的域名&gt;/</code>两条，其他的可以根据需要后续再配。</li>
 <li><strong>添加用户角色属性映射</strong><br>这一步的页面就跟Krill的文档不大一致了。点击左侧导航的Client scope，并点击页面的Create client scope。Name设置为role，Type考虑设置为Default，其它可以默认完成创建。之后出现的页面上选择Mappers页签，配置新映射，映射类型选择User Attribute。映射名称krill_role，User Attribute设置为role，Token Claim Name设置为role，进行保存。完成scope添加后记得回到krill这个Client的详情中的Client scope页签下把这个新scope添加进去。</li>
-<li><strong>创建Krill管理员用户</strong><br>Keycloak这边最后的配置是为Krill创建管理员用户。点左侧导航栏Users，然后选择添加用户。<br>设置用户名、邮箱、邮箱已验证、姓名，保存后再到用户的Credentials页签下设置密码（按需要可以把临时密码选项去掉），在Attributes页签添加一条role属性的值为admin。<br>至此，完成Keycloak这边的初始配置。</li>
+<li><strong>创建Krill管理员用户</strong><br>Keycloak这边最后的配置是为Krill创建管理员用户。点左侧导航栏Users，然后选择添加用户。<br>设置用户名、邮箱、邮箱已验证、姓名，保存后再到用户的Credentials页签下设置密码（按需要可以把临时密码选项去掉），在Attributes页签添加一条role属性的值为admin。</li>
 </ol>
+<p>至此，完成Keycloak这边的初始配置。</p>
 <h1 id="Krill部署"><a href="#Krill部署" class="headerlink" title="Krill部署"></a>Krill部署</h1><p>同样这边Krill也选择Docker部署模式，便于携带迁移。同样采用Portainer部署，首先创建好krill的数据卷以供挂载进行数据持久化，依旧是挂载NAS目录。<br>部署设置为：卷宗挂载&#x2F;var&#x2F;krill&#x2F;data到刚创建的数据卷、&#x2F;var&#x2F;krill&#x2F;data&#x2F;repo&#x2F;rsync到主机的&#x2F;tmp&#x2F;krill_rsync。</p>
 <ol>
 <li>容器名称：<code>krill</code></li>
@@ -500,25 +483,13 @@ auth_type &#x3D; &quot;openid-connect&quot;
 [auth_openidconnect]
 issuer_url &#x3D; &quot;https:&#x2F;&#x2F;&lt;keycloak服务域名&gt;&#x2F;realms&#x2F;&lt;为krill创建的租户名&gt;&quot;
 client_id &#x3D; &quot;krill&quot;
-client_secret &#x3D; &quot;&lt;krill客户端连接密钥&gt;&quot;
-&#96;&#96;&#96;     
-
-其中，krill客户端连接密钥在Keycloak的Clients页面中查看krill的详情，并在Credentials页签下可以拿到。
-修改完成后重启容器即可。
-## **Krill反代设置**
-这里类似的在NPM上为Krill域名配置反代。但需要注意的是，一是Krill服务端口是3000且协议是HTTPS，二是因为Keycloak认证信息体积大，需要在高级配置中添加以下两条（否则存在可能使用Keycloak认证完成跳转回Krill时出现500错误）：   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>proxy_buffer_size   128k;<br>proxy_buffers   4 256k;</p>
-<pre><code>
-配置好后访问Krill服务域名，正常连接并跳转到Keycloak使用Krill管理员进行认证登录，正常情况下应该能进入Krill的欢迎页面。
-# RPKI的CA配置
-首先在进入欢迎页后创建CA句柄，以用来和父CA交互。起个名称即可。
-接下来配置步骤主要参考nlnetlabs的[这篇博客](https://blog.nlnetlabs.nl/running-krill-under-ripe-ncc/)。
-如果之前在RIPE使用hosted CA的需要先将其注销（revoke）掉，其中配置的ROA均会丢失，因此做好备份记录。
-然后在RIPE的RPKI Dashboard上选择创建Delegated CA。回到Krill上在父级CA页签上选择添加额外的父级CA，将子CA请求XML下载，并上传回RIPE页面上显示的下一步中。然后在RIPE页面上下载父CA应答给Krill上传。然后给其取个名字并确认。之后等待在Krill父CA页面上正常显示父CA相关信息即可。
-然后在Krill上创建新数据库，这个过程和前面添加父CA可以说完全一样，就不再赘述了。
-等待数据库也接入完成后，就可以愉快地添加ROA了！
-
-</code></pre>
+client_secret &#x3D; &quot;&lt;krill客户端连接密钥&gt;&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其中，krill客户端连接密钥在Keycloak的Clients页面中查看krill的详情，并在Credentials页签下可以拿到。<br>修改完成后重启容器即可。</p>
+<h2 id="Krill反代设置"><a href="#Krill反代设置" class="headerlink" title="Krill反代设置"></a><strong>Krill反代设置</strong></h2><p>这里类似的在NPM上为Krill域名配置反代。但需要注意的是，一是Krill服务端口是3000且协议是HTTPS，二是因为Keycloak认证信息体积大，需要在高级配置中添加以下两条（否则存在可能使用Keycloak认证完成跳转回Krill时出现500错误）：   </p>
+<pre class="line-numbers language-none"><code class="language-none">proxy_buffer_size   128k;
+proxy_buffers   4 256k;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>配置好后访问Krill服务域名，正常连接并跳转到Keycloak使用Krill管理员进行认证登录，正常情况下应该能进入Krill的欢迎页面。</p>
+<h1 id="RPKI的CA配置"><a href="#RPKI的CA配置" class="headerlink" title="RPKI的CA配置"></a>RPKI的CA配置</h1><p>首先在进入欢迎页后创建CA句柄，以用来和父CA交互。起个名称即可。<br>接下来配置步骤主要参考nlnetlabs的<a target="_blank" rel="noopener" href="https://blog.nlnetlabs.nl/running-krill-under-ripe-ncc/">这篇博客</a>。<br>如果之前在RIPE使用hosted CA的需要先将其注销（revoke）掉，其中配置的ROA均会丢失，因此做好备份记录。<br>然后在RIPE的RPKI Dashboard上选择创建Delegated CA。回到Krill上在父级CA页签上选择添加额外的父级CA，将子CA请求XML下载，并上传回RIPE页面上显示的下一步中。然后在RIPE页面上下载父CA应答给Krill上传。然后给其取个名字并确认。之后等待在Krill父CA页面上正常显示父CA相关信息即可。<br>然后在Krill上创建新数据库，这个过程和前面添加父CA可以说完全一样，就不再赘述了。<br>等待数据库也接入完成后，就可以愉快地添加ROA了！</p>
 
     </div>
 
