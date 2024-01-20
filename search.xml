@@ -12,19 +12,34 @@
    --mount <span class="token assign-left variable">type</span><span class="token operator">=</span>bind,src<span class="token operator">=</span><span class="token operator">&lt;</span>主机挂载NAS路径（需存在的目录）<span class="token operator">></span>,dst<span class="token operator">=</span>/var/lib/mysql <span class="token punctuation">\</span> 
    --network<span class="token operator">=</span>bridge --ip <span class="token operator">&lt;</span>mysql服务容器IP<span class="token operator">></span> <span class="token punctuation">\</span> 
    -d container-registry.oracle.com/mysql/community-server:latest
-``<span class="token variable"><span class="token variable">`</span>  
-   
+``<span class="token variable"><span class="token variable">`</span>      
+    
+    
 启动之后可以查看容器日志找到root用户的临时密码，以下面命令连接：
-<span class="token variable">`</span></span>``shell
-mysql -h <span class="token operator">&lt;</span>mysql服务容器IP<span class="token operator">></span> -u root -p<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>如遇到主机没装mysql-client可通过下面命令安装（Debian环境为例）</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> <span class="token function">install</span> mysql-client<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>或</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> <span class="token function">install</span> default-mysql-client<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>连接上mysql后，进行root密码修改和创建DBA用户并授权远程连接权限：</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">USER</span> <span class="token string">'root'</span><span class="token variable">@'localhost'</span> IDENTIFIED <span class="token keyword">BY</span> <span class="token string">'&lt;新的root密码>'</span><span class="token punctuation">;</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">USER</span> <span class="token string">'&lt;新建DBA用户名>'</span><span class="token variable">@'%'</span> IDENTIFIED <span class="token keyword">WITH</span> mysql_native_password <span class="token keyword">BY</span> <span class="token string">'&lt;DBA用户密码>'</span><span class="token punctuation">;</span>
-<span class="token keyword">GRANT</span> <span class="token keyword">ALL</span> <span class="token keyword">PRIVILEGES</span> <span class="token keyword">ON</span> <span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">TO</span> <span class="token string">'&lt;DBA用户名>'</span><span class="token variable">@'%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>shell
+mysql -h <span class="token operator">&lt;</span>mysql服务容器IP<span class="token operator">></span> -u root -p
+<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>    
+    
+    
+如遇到主机没装mysql-client可通过下面命令安装（Debian环境为例）
+<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>shell
+<span class="token function">apt</span> <span class="token function">install</span> mysql-client
+<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>    
+    
+    
+或
+   
+   
+<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>shell
+<span class="token function">apt</span> <span class="token function">install</span> default-mysql-client
+<span class="token variable">`</span></span>`<span class="token variable"><span class="token variable">`</span>   
+   
+   
+连接上mysql后，进行root密码修改和创建DBA用户并授权远程连接权限：
+<span class="token variable">`</span></span>``sql
+ALTER <span class="token environment constant">USER</span> <span class="token string">'root'</span>@<span class="token string">'localhost'</span> IDENTIFIED BY <span class="token string">'&lt;新的root密码>'</span><span class="token punctuation">;</span>
+CREATE <span class="token environment constant">USER</span> <span class="token string">'&lt;新建DBA用户名>'</span>@<span class="token string">'%'</span> IDENTIFIED WITH mysql_native_password BY <span class="token string">'&lt;DBA用户密码>'</span><span class="token punctuation">;</span>
+GRANT ALL PRIVILEGES ON *.* TO <span class="token string">'&lt;DBA用户名>'</span>@<span class="token string">'%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><em>注：如此设置会在MySQL日志产生<code>&#39;mysql_native_password&#39; is deprecated and will be removed</code>警告，但实际当前最新版8.3.0仍可用，暂时不作处理</em></p>
 <h1 id="Keycloak部署"><a href="#Keycloak部署" class="headerlink" title="Keycloak部署"></a>Keycloak部署</h1><p>由于期望使用krill自建RPKI并实现可以多用户管理krill去自主创建ROA，并与网站用户管理统一起来，因此暂时考虑搭建Keycloak。<br>首先，在前面建设的MySQL服务上使用DBA创建数据库：</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> keycloak <span class="token keyword">CHARACTER</span> <span class="token keyword">SET</span> utf8 <span class="token keyword">COLLATE</span> utf8_general_ci<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -390,7 +405,7 @@ git remote add origin https://github.com/username/myblog.git
 git push -u origin main
 </code></pre>
 <p>　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   </p>
-<h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3><p>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#117;&#115;&#x65;&#114;&#110;&#97;&#109;&#x65;&#64;&#x65;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#117;&#115;&#x65;&#114;&#110;&#97;&#109;&#x65;&#64;&#x65;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></strong>为GitHub用户邮箱)：</p>
+<h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3><p>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#117;&#115;&#101;&#x72;&#110;&#97;&#109;&#101;&#x40;&#101;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#117;&#115;&#101;&#x72;&#110;&#97;&#109;&#101;&#x40;&#101;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></strong>为GitHub用户邮箱)：</p>
 <pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
 </code></pre>
 <p>　　根据之后提示选择密钥文件存储位置和密码（直接回车设置为空）。<br>　　在刚刚创建的<strong>username.github.io</strong> Repo的<code>Settings</code>中点击<code>Deploy keys</code>，选择<code>Add deploy key</code>。Title可以根据喜好设置（如myblog_deploy_pubkey），Key的内容复制进刚才使用命令生成的<code>.pub</code>扩展名的公钥文件内容。下面的<code>Allow write access</code>的复选框要勾选。   </p>
@@ -398,7 +413,7 @@ git push -u origin main
 <pre><code class="bash">mkdir .github/workflows
 touch .github/workflows/deploy.yml
 </code></pre>
-<p>　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#x75;&#x73;&#x65;&#114;&#110;&#97;&#109;&#101;&#64;&#101;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x75;&#x73;&#x65;&#114;&#110;&#97;&#109;&#101;&#64;&#101;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a>为你的GitHub注册邮箱）：   </p>
+<p>　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#x75;&#115;&#x65;&#114;&#110;&#x61;&#x6d;&#x65;&#64;&#101;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x75;&#115;&#x65;&#114;&#110;&#x61;&#x6d;&#x65;&#64;&#101;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a>为你的GitHub注册邮箱）：   </p>
 <pre><code class="yaml">name: CI
 
 on:
