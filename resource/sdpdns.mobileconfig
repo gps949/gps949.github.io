@@ -15,7 +15,7 @@
 					<string>168.138.42.22</string>
 				</array>
 				<key>ServerURL</key>
-				<string>https://dns.gps.moe/dns-query</string>
+				<string>https://dns.pcdn.uk/dns-query</string>
 			</dict>
 			<key>PayloadDescription</key>
 			<string>Configures device to use GPSMOE DNS over HTTPS</string>
