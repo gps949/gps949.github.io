@@ -367,7 +367,7 @@ git remote add origin https://github.com/username/myblog.git
 git push -u origin main
 </code></pre>
 <p>　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   </p>
-<h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3><p>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#x75;&#x73;&#101;&#114;&#x6e;&#97;&#x6d;&#x65;&#64;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#x75;&#x73;&#101;&#114;&#x6e;&#97;&#x6d;&#x65;&#64;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></strong>为GitHub用户邮箱)：</p>
+<h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3><p>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#x75;&#x73;&#x65;&#114;&#x6e;&#x61;&#109;&#101;&#x40;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#x75;&#x73;&#x65;&#114;&#x6e;&#x61;&#109;&#101;&#x40;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></strong>为GitHub用户邮箱)：</p>
 <pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
 </code></pre>
 <p>　　根据之后提示选择密钥文件存储位置和密码（直接回车设置为空）。<br>　　在刚刚创建的<strong>username.github.io</strong> Repo的<code>Settings</code>中点击<code>Deploy keys</code>，选择<code>Add deploy key</code>。Title可以根据喜好设置（如myblog_deploy_pubkey），Key的内容复制进刚才使用命令生成的<code>.pub</code>扩展名的公钥文件内容。下面的<code>Allow write access</code>的复选框要勾选。   </p>
@@ -375,7 +375,7 @@ git push -u origin main
 <pre><code class="bash">mkdir .github/workflows
 touch .github/workflows/deploy.yml
 </code></pre>
-<p>　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#117;&#115;&#x65;&#x72;&#x6e;&#97;&#109;&#101;&#x40;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#117;&#115;&#x65;&#x72;&#x6e;&#97;&#109;&#101;&#x40;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;</a>为你的GitHub注册邮箱）：   </p>
+<p>　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#117;&#x73;&#x65;&#x72;&#110;&#97;&#109;&#x65;&#64;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#117;&#x73;&#x65;&#x72;&#110;&#97;&#109;&#x65;&#64;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a>为你的GitHub注册邮箱）：   </p>
 <pre><code class="yaml">name: CI
 
 on:
