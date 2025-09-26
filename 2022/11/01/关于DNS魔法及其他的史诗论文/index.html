@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -15,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="之前有一篇译自Tailscale博客的关于DNS的技术文章，里面更主要的讨论的是终端设备上DNS配置管理的问题，今天这篇同样译自Tailscale博客的关于DNS的技术文章，可能更多的是讨论DNS的解析运作过程。那么下面是原博客文章内容：">
 <meta property="og:type" content="article">
@@ -27,24 +27,24 @@
 <meta property="og:site_name" content="小北极星笔记">
 <meta property="og:description" content="之前有一篇译自Tailscale博客的关于DNS的技术文章，里面更主要的讨论的是终端设备上DNS配置管理的问题，今天这篇同样译自Tailscale博客的关于DNS的技术文章，可能更多的是讨论DNS的解析运作过程。那么下面是原博客文章内容：">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/DNS.svg">
-<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/geolocated.svg">
-<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/hijacking.svg">
-<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/delegation.svg">
-<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/reverse-dns-ip.svg">
+<meta property="og:image" content="https://cdn.sanity.io/images/w77i7m8x/production/af3296fc821c7a6db74317cee6261135b5646957-768x303.svg">
+<meta property="og:image" content="https://cdn.sanity.io/images/w77i7m8x/production/fb720de4f868ebac33c99e7fcaf7c758cfa53478-768x668.svg">
+<meta property="og:image" content="https://cdn.sanity.io/images/w77i7m8x/production/abcbaa9b4676d33f66c96104b56eb17d4a6c153d-768x668.svg">
+<meta property="og:image" content="https://cdn.sanity.io/images/w77i7m8x/production/6f9af40a0a5773783d605c93bcdcff2e4f9cf6f0-768x606.svg">
+<meta property="og:image" content="https://cdn.sanity.io/images/w77i7m8x/production/5db68af48a9b3493a58ac0be96b15e5b177d3931-768x274.svg">
 <meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/image1.jpg">
-<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/new-device.svg">
-<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/search-domains.svg">
-<meta property="og:image" content="https://tailscale.com/blog/magicdns-why-name/magicdns-vs-dns.svg">
+<meta property="og:image" content="https://cdn.sanity.io/images/w77i7m8x/production/4f6e7d15fe1680c959a4edd993de688e7dfa4a2f-768x475.svg">
+<meta property="og:image" content="https://cdn.sanity.io/images/w77i7m8x/production/34606b9e4be0c67dd89483961bd3b67d399fb485-768x466.svg">
+<meta property="og:image" content="https://cdn.sanity.io/images/w77i7m8x/production/512d9d6e307ba16a8e7ba740ce1adc93d7405031-768x750.svg">
 <meta property="article:published_time" content="2022-11-01T08:22:35.000Z">
 <meta property="article:modified_time" content="2022-11-01T08:22:35.000Z">
 <meta property="article:author" content="小北极星">
-<meta property="article:tag" content="计算机">
 <meta property="article:tag" content="网络">
+<meta property="article:tag" content="计算机">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="DNS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://tailscale.com/blog/magicdns-why-name/DNS.svg">
+<meta name="twitter:image" content="https://cdn.sanity.io/images/w77i7m8x/production/af3296fc821c7a6db74317cee6261135b5646957-768x303.svg">
 
 
 <link rel="canonical" href="https://www.gps949.com/2022/11/01/%E5%85%B3%E4%BA%8EDNS%E9%AD%94%E6%B3%95%E5%8F%8A%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%B2%E8%AF%97%E8%AE%BA%E6%96%87/">
@@ -173,18 +173,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -347,8 +347,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p>之前有<a href="Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1">一篇译自Tailscale博客的关于DNS的技术文章</a>，里面更主要的讨论的是终端设备上DNS配置管理的问题，今天这篇同样译自Tailscale博客的关于DNS的技术文章，可能更多的是讨论DNS的解析运作过程。那么下面是原博客文章内容：   </p>
+    <div class="post-body" itemprop="articleBody"><p>之前有<a href="Linux%E4%B8%8ADNS%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E7%9A%84%E8%A5%BF%E8%A5%BF%E5%BC%97%E6%96%AF%E5%BC%8F%E4%BB%BB%E5%8A%A1">一篇译自Tailscale博客的关于DNS的技术文章</a>，里面更主要的讨论的是终端设备上DNS配置管理的问题，今天这篇同样译自Tailscale博客的关于DNS的技术文章，可能更多的是讨论DNS的解析运作过程。那么下面是原博客文章内容：   </p>
 <span id="more"></span>
 <p>命名产品是困难的，Tailscale的关键特性之一，MagicDNS，长期以来是词法争议的焦点。一些人认为我们应该叫它Magic DNS因为苹果将他们旗舰键盘和鼠标叫做Magic Keyboard和Magic Mouse。<br>但你注意到过没有，苹果也将它们的笔记本和无线耳机叫做MacBooks和AirPods？他们这样做是因为英语中一个晦涩（且呆板）的规则，当移除名词短语中的形容词会改变名词含义时，可以移除空格制造合成词。不含magic的Magic Keyboard依然是键盘，不含Mac的MacBook却不是本书了。由此，MagicDNS是一个词就是因为去掉magic不会只是DNS，它不会成为任何事物。Tailscale已经有了DNS和split DNS（两个词！）的配置，但MagicDNS是个不同的东西。   </p>
 <ul>
@@ -356,7 +355,7 @@
 <li>&lt;<strong>Avery</strong>&gt; 另一方面，为了避免商标雷区，有时大型公司会采用&lt;商标&gt;&lt;通用词&gt;的形式命名产品，如微软Word或谷歌Mail。如果一个产品名字包含公司名，你可以相当确信没别人能那样叫他们的产品。</li>
 </ul>
 <p>Tailscale允许你<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1054/dns/">管理你机器的DNS配置</a>，这使你可设置机器对整个互联网或者匹配特定域（split DNS）首选DNS服务器。这是整洁并且使得本地DNS配置更如人们在<code>/etc/resolve.conf</code>添加多条DNS解析器通常所期待的。<br>但那不是MagicDNS，仅仅是稍好点的DNS。MagicDNS在这些特性之上构建，完全改变名字解析工作方式令新使用场景DNS安全。它是Tailscale和你的基础设施可以构建在其上的构件。<br>今天我们看看DNS的问题空间，这些年复杂性怎么被层层叠加，MagicDNS怎样去除全部的复杂性并在过程中使得一切更可靠。   </p>
-<h1 id="DNS悲剧：命名事物但缓存失效"><a href="#DNS悲剧：命名事物但缓存失效" class="headerlink" title="DNS悲剧：命名事物但缓存失效"></a>DNS悲剧：命名事物但缓存失效</h1><p>DNS是种听起来简单的服务之一。将名字映射到数字，是吧？但在现代互联网背后它是更复杂的一件事。它早于现代互联网，我们今天先不讨论这点。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/DNS.svg">   </p>
+<h1 id="DNS悲剧：命名事物但缓存失效"><a href="#DNS悲剧：命名事物但缓存失效" class="headerlink" title="DNS悲剧：命名事物但缓存失效"></a>DNS悲剧：命名事物但缓存失效</h1><p>DNS是种听起来简单的服务之一。将名字映射到数字，是吧？但在现代互联网背后它是更复杂的一件事。它早于现代互联网，我们今天先不讨论这点。<br><img data-src="https://cdn.sanity.io/images/w77i7m8x/production/af3296fc821c7a6db74317cee6261135b5646957-768x303.svg">   </p>
 <center><p>解释DNS如何工作的图。笔记本向DNS服务器询问tailscale.com的IP地址得到82.58.46.8的回复</p></center>      
 
 <ul>
@@ -371,7 +370,7 @@
 <li>&lt;<strong>Avery</strong>&gt; 此外，任何基于轮询（相对于基于推送）的带静态时间周期的缓存总会有这样的问题：该选择怎样的缓存超时。如果太短，会增加查询延迟和服务器负载，如果太长，修改会需要时间（有时是数小时或数天）来传播。这就是为何中介人介入并试图通过扰乱TTL来“修复”这个问题。但他们总是最终产生不同的问题。</li>
 </ul>
 <p>这种一个名字对一个 IP 地址的模式在互联网只有一块大陆那么大并且不经常重新布线时候运行良好。但当你在全世界都有服务器，希望用户直接访问最近的一个或者忽略刚好宕机区域时，就会失效了。所以运营者拉取DNS服务器到他们的负载均衡基础设施，将用户指向最近的应用服务器而非任何一个正确答案。   </p>
-<p><img data-src="https://tailscale.com/blog/magicdns-why-name/geolocated.svg">   </p>
+<p><img data-src="https://cdn.sanity.io/images/w77i7m8x/production/fb720de4f868ebac33c99e7fcaf7c758cfa53478-768x668.svg">   </p>
 <center><p>一个DNS服务器为位于不同物理位置的两个笔记本提供不同的回答</p></center>   
 这有时会导致 ISP 设置的过于热心的缓存解析器出现问题，使得路由器无法使用符合规范的解析器，或者当您使用其他地方托管的 DNS 服务器时，无法从负载平衡器获得最佳本地化解决方案。但总体上它是可以奏效的。    
 
@@ -386,7 +385,7 @@
 <ul>
 <li>&lt;<strong>Xe</strong>&gt; 通过设置私有DNS服务器（通常称之为“split horizon”DNS）可以将发布私有主机名到公共DNS的隐私风险最小化，私有DNS服务器拥有与公共互联网不同的域名相应集合。你可以通过VPN（例如Tailscale管理员控制台的DNS页签）连接那些，但你会失去DNS的全局一致性和缓存特性。在许多情形，你可以通过在公共DNS服务器返回私有IP段，但这取决于你偏执的程度。并且有时公共DNS服务器<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/DNS_rebinding">安全特性会拒绝私有IP段</a>。</li>
 </ul>
-<p>由于DNS回复没有加密和签名，你也从不会十分确定你得到的DNS响应在中途被篡改。攻击者可以轻易地嗅探并返回个将<code>google.com</code>指向<code>badgooglephish.com</code>IP地址的包。你的iPhone也不会察觉。有一套叫做<a target="_blank" rel="noopener" href="https://www.cloudflare.com/en-ca/dns/dnssec/how-dnssec-works/">DNSSEC</a>的扩展试图使用我没有资格解释的有趣的密码学去修复这些问题。但这才是缺点真正显露出来的地方。Slack最近有个<a target="_blank" rel="noopener" href="https://slack.engineering/what-happened-during-slacks-dnssec-rollout/">相当严重的生产中断</a>，完全可以追溯到为了FedRAMP合规而启用DNSSEC的尝试。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/hijacking.svg">   </p>
+<p>由于DNS回复没有加密和签名，你也从不会十分确定你得到的DNS响应在中途被篡改。攻击者可以轻易地嗅探并返回个将<code>google.com</code>指向<code>badgooglephish.com</code>IP地址的包。你的iPhone也不会察觉。有一套叫做<a target="_blank" rel="noopener" href="https://www.cloudflare.com/en-ca/dns/dnssec/how-dnssec-works/">DNSSEC</a>的扩展试图使用我没有资格解释的有趣的密码学去修复这些问题。但这才是缺点真正显露出来的地方。Slack最近有个<a target="_blank" rel="noopener" href="https://slack.engineering/what-happened-during-slacks-dnssec-rollout/">相当严重的生产中断</a>，完全可以追溯到为了FedRAMP合规而启用DNSSEC的尝试。<br><img data-src="https://cdn.sanity.io/images/w77i7m8x/production/abcbaa9b4676d33f66c96104b56eb17d4a6c153d-768x668.svg">   </p>
 <center><p>DNS被劫持，展现劫持者可以扰乱DNS结果</p></center>   
 
 <ul>
@@ -400,7 +399,7 @@
 <ul>
 <li>&lt;<strong>Xe</strong>&gt; 存在像<a target="_blank" rel="noopener" href="https://sssd.io/design-pages/active_directory_dns_updates.html">DNS UPDATE requests</a> 允许你通过DNS更新DNS记录，但这几乎只在部署Windows的Active Directory时使用。它也未修复以明文发送身份验证凭据的问题，所以只在公司私有网络有用，而不是互联网可通用的构件。</li>
 </ul>
-<h1 id="委托（可能危险）"><a href="#委托（可能危险）" class="headerlink" title="委托（可能危险）"></a>委托（可能危险）</h1><p>当你在注册商注册一个域名，他们创建一条记录，将你的域名委托给在如<code>.com</code>顶域权威机构下一些其他域名服务器负责。（这就是域名注册和查询如何工作）然后，你可以将该域名的一个子集的责任委托给另一个第三方,它们需要和他们的注册商设置。例如，你在你的DNS注册商注册你的网站<code>example.com</code>，他们委托它给<code>.com</code>注册商。但你想委托对你域名子集的控制<code>cdm.example.com</code>给你的CDN供应商，以使他们可以不打扰你的情况下尽快做出他们需要的改变，<code>cdn.example.com</code>就有了它自己的DNS记录。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/delegation.svg">   </p>
+<h1 id="委托（可能危险）"><a href="#委托（可能危险）" class="headerlink" title="委托（可能危险）"></a>委托（可能危险）</h1><p>当你在注册商注册一个域名，他们创建一条记录，将你的域名委托给在如<code>.com</code>顶域权威机构下一些其他域名服务器负责。（这就是域名注册和查询如何工作）然后，你可以将该域名的一个子集的责任委托给另一个第三方,它们需要和他们的注册商设置。例如，你在你的DNS注册商注册你的网站<code>example.com</code>，他们委托它给<code>.com</code>注册商。但你想委托对你域名子集的控制<code>cdm.example.com</code>给你的CDN供应商，以使他们可以不打扰你的情况下尽快做出他们需要的改变，<code>cdn.example.com</code>就有了它自己的DNS记录。<br><img data-src="https://cdn.sanity.io/images/w77i7m8x/production/6f9af40a0a5773783d605c93bcdcff2e4f9cf6f0-768x606.svg">   </p>
 <center><p>DNS委托流程，这些往返以数十到数百毫秒计，想想这个累加起来。</p></center>   
 
 <p>读这个大多数人可能从没听说过像这样委托子域的子域，因为实际上它如此复杂和脆弱，除非DNS是双方的核心能力。当大企业将域名外包给其他企业，他们通常使用如<code>googleusercontent.com</code>完全独立的顶级域名，或者类似的以减少混乱。这也帮助防止在合作企业数据泄露导致一些人使用<code>facebook.com</code>发出惊人数量的垃圾邮件而产生的名誉受损。   </p>
@@ -420,7 +419,7 @@
 <p>这些分类不再使用了，但你可以在反向DNS的实现中看到它们残留的痕迹。<br>IPv4地址是32位（bit）数字，通常写成每8位数字用点分隔的序列，如：   </p>
 <pre><code>82.58.46.8   
 </code></pre>
-<p>这用来表示一个严格的层级结构，自<code>82.0.0.0/8</code>块的拥有者，到<code>82.58.0.0/16</code>块的拥有者，最终是<code>82.58.46.0/24</code>块的拥有者。同样的层级被DNS委托用来分发反向DNS名字的拥有者。为了委托这个，你需要反转IP地址如下：<br><img data-src="https://tailscale.com/blog/magicdns-why-name/reverse-dns-ip.svg">   </p>
+<p>这用来表示一个严格的层级结构，自<code>82.0.0.0/8</code>块的拥有者，到<code>82.58.0.0/16</code>块的拥有者，最终是<code>82.58.46.0/24</code>块的拥有者。同样的层级被DNS委托用来分发反向DNS名字的拥有者。为了委托这个，你需要反转IP地址如下：<br><img data-src="https://cdn.sanity.io/images/w77i7m8x/production/5db68af48a9b3493a58ac0be96b15e5b177d3931-768x274.svg">   </p>
 <center><p>反向DNS反转IP地址</p></center>   
 
 <p>这是反向DNS查询如何运作的核心，也是我们之所以称它是另一个完整的DNS的原因。它和DNS同样符号，但是反向。实现上有很多有意思的地方。   </p>
@@ -439,16 +438,16 @@
 <ul>
 <li>&lt;<strong>Avery</strong>&gt; ……就像我们假装回到rlogin和TCP Wrappers时代！</li>
 </ul>
-<p>——是的，就像从前。但是一旦网络安全了，我们就可以在其上构建更酷的机制。<br>MagicDNS在DNS客户端配置中设置了一个相对罕见的称之为<a target="_blank" rel="noopener" href="https://superuser.com/a/184366">搜索域</a>的特性。这允许你在你的tailnet中不使用IP地址或是完整域名，而是使用简单主机名去连接个人机器。假如你的主服务器叫<code>pandoria</code>，你可以使用<code>pandoria</code>代替完整的域名<code>pandoria.example.com.beta.tailscale.net</code>（或者你<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1153/enabling-https/">配置了HTTPS</a> <code>pandoria.telethia-pirhanax.ts.net</code>）直接连接。这使你可以不用额外输入更简单的连接你关心的机器。你不需要设置SSH别名，而是直接使用<code>ssh pandoria</code>登录。<br>MagicDNS自动使用设备的<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1098/machine-names">机器名</a>作为DNS入口的一部分。如果你改变了你的设备名字，MagicDNS入口自动改变。如果你有想用来指代你设备的特殊名字，你可以<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1098/machine-names/#renaming-a-machine">编辑机器名</a>。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/new-device.svg">   </p>
+<p>——是的，就像从前。但是一旦网络安全了，我们就可以在其上构建更酷的机制。<br>MagicDNS在DNS客户端配置中设置了一个相对罕见的称之为<a target="_blank" rel="noopener" href="https://superuser.com/a/184366">搜索域</a>的特性。这允许你在你的tailnet中不使用IP地址或是完整域名，而是使用简单主机名去连接个人机器。假如你的主服务器叫<code>pandoria</code>，你可以使用<code>pandoria</code>代替完整的域名<code>pandoria.example.com.beta.tailscale.net</code>（或者你<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1153/enabling-https/">配置了HTTPS</a> <code>pandoria.telethia-pirhanax.ts.net</code>）直接连接。这使你可以不用额外输入更简单的连接你关心的机器。你不需要设置SSH别名，而是直接使用<code>ssh pandoria</code>登录。<br>MagicDNS自动使用设备的<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1098/machine-names">机器名</a>作为DNS入口的一部分。如果你改变了你的设备名字，MagicDNS入口自动改变。如果你有想用来指代你设备的特殊名字，你可以<a target="_blank" rel="noopener" href="https://tailscale.com/kb/1098/machine-names/#renaming-a-machine">编辑机器名</a>。<br><img data-src="https://cdn.sanity.io/images/w77i7m8x/production/4f6e7d15fe1680c959a4edd993de688e7dfa4a2f-768x475.svg">   </p>
 <center><p>MagicDNS由Tailscale的控制服务器提供，所以请求永远不用离开你的机器</p></center>   
    
-<h1 id="每个机器是他自己的DNS服务器"><a href="#每个机器是他自己的DNS服务器" class="headerlink" title="每个机器是他自己的DNS服务器"></a>每个机器是他自己的DNS服务器</h1><p>传统 DNS 最大的可靠性缺点之一是，如果 DNS 服务器出现故障，客户端就无法再在该 DNS 服务器上查找主机，除非名称被缓存。然后，当缓存过期时，一切都会遇到更多的问题。这会把小的中断变成大的中断，让你登上 CNN 和 Reddit 的头版。<br>MagicDNS通过在tailnet中的每个机器上使用虚拟地址<code>100.100.100.100</code>本地运行MagicDNS服务器解决了这个问题。DNS服务器不会宕掉。它不会在负载中挂掉(除非你自己的机器也这样了) ，而且当你的机器由于某种原因宕掉时，其他所有机器都不会受到影响。<br>因为MagicDNS总是本地运行，你不必信任端到端加密：MagicDNS流量从不出你的机器。它是虚拟网络上的虚拟服务。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/search-domains.svg">   </p>
+<h1 id="每个机器是他自己的DNS服务器"><a href="#每个机器是他自己的DNS服务器" class="headerlink" title="每个机器是他自己的DNS服务器"></a>每个机器是他自己的DNS服务器</h1><p>传统 DNS 最大的可靠性缺点之一是，如果 DNS 服务器出现故障，客户端就无法再在该 DNS 服务器上查找主机，除非名称被缓存。然后，当缓存过期时，一切都会遇到更多的问题。这会把小的中断变成大的中断，让你登上 CNN 和 Reddit 的头版。<br>MagicDNS通过在tailnet中的每个机器上使用虚拟地址<code>100.100.100.100</code>本地运行MagicDNS服务器解决了这个问题。DNS服务器不会宕掉。它不会在负载中挂掉(除非你自己的机器也这样了) ，而且当你的机器由于某种原因宕掉时，其他所有机器都不会受到影响。<br>因为MagicDNS总是本地运行，你不必信任端到端加密：MagicDNS流量从不出你的机器。它是虚拟网络上的虚拟服务。<br><img data-src="https://cdn.sanity.io/images/w77i7m8x/production/34606b9e4be0c67dd89483961bd3b67d399fb485-768x466.svg">   </p>
 <center><p>如果你的浏览器不带顶级域名询问pandoria，操作系统会依次尝试这些域以得到可用的</p></center>   
    
 <ul>
 <li>&lt;<strong>Xe</strong>&gt; 当DNS服务器跑在你网络中的每台机器上，你不用担心DNS服务器宕掉。如果你设备的DNS宕了，是因为你自己的设备不工作——你有了更大的问题。但愿不是火灾，火灾对计算机不好。</li>
 </ul>
-<p>MagicDNS对Tailscale特定的DNS名称使用委托，但是所有的委托发生在你自己的内部，这意味着委托的延迟几乎为0，你无法把它配置错误。<br>MagicDNS从不需要担心授权更新或是篡改：更新来自通过控制平面的安全通道。<br>MagicDNS中反向DNS默认生效，因为每个Tailscale机器有它自己独特的私有IP，MagicDNS为子网管理反向DNS域名。<br>MagicDNS不必忍受延迟问题，延迟与设备发包到localhost一样低。<br><img data-src="https://tailscale.com/blog/magicdns-why-name/magicdns-vs-dns.svg">   </p>
+<p>MagicDNS对Tailscale特定的DNS名称使用委托，但是所有的委托发生在你自己的内部，这意味着委托的延迟几乎为0，你无法把它配置错误。<br>MagicDNS从不需要担心授权更新或是篡改：更新来自通过控制平面的安全通道。<br>MagicDNS中反向DNS默认生效，因为每个Tailscale机器有它自己独特的私有IP，MagicDNS为子网管理反向DNS域名。<br>MagicDNS不必忍受延迟问题，延迟与设备发包到localhost一样低。<br><img data-src="https://cdn.sanity.io/images/w77i7m8x/production/512d9d6e307ba16a8e7ba740ce1adc93d7405031-768x750.svg">   </p>
 <center><p>MagicDNS记录总在设备上，因此你不用等待DNS服务器回应</p></center>   
 
 <h1 id="透明地提升你操作系统能力"><a href="#透明地提升你操作系统能力" class="headerlink" title="透明地提升你操作系统能力"></a>透明地提升你操作系统能力</h1><p>因为Tailscale在每台机器上运行一个本地DNS服务器，MagicDNS可以规范和升级你tailnet中每台机器的DNS能力。<br>例如，MagicDNS可以<a target="_blank" rel="noopener" href="https://tailscale.com/blog/2021-09-private-dns-with-magicdns/">尽可能多的将DNS查询透明地升级为DNS-over-HTTPS</a>，以使对外部的DNS请求不被中途嗅探或篡改。这不能保护你的每条DNS请求与在技术上可以被Google、Cloudflare、Quad9或其他DNS-over-HTTPS服务商看到，但它应该可以从你的ISP运营商或着咖啡店WiFI网络中的脚本小子那里保护你的非MagicDNS查询。这点甚至可以在如Windows7那样太老旧不支持DNS-over-HTTPS操作系统的机器上工作。   </p>
@@ -471,7 +470,7 @@
 
     <footer class="post-footer">
           <div class="reward-container">
-  <div>Buy me a coffee</div>
+  <div>请我一杯咖啡吧！</div>
   <button>
     赞赏
   </button>
@@ -500,7 +499,7 @@
       <a href="https://www.gps949.com/2022/11/01/%E5%85%B3%E4%BA%8EDNS%E9%AD%94%E6%B3%95%E5%8F%8A%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%B2%E8%AF%97%E8%AE%BA%E6%96%87/" title="关于DNS魔法及其他的史诗论文">https://www.gps949.com/2022/11/01/关于DNS魔法及其他的史诗论文/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
   </li>
 </ul>
 </div>
@@ -533,26 +532,23 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag"><i class="fa fa-tag"></i> 计算机</a>
               <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 网络</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag"><i class="fa fa-tag"></i> 计算机</a>
               <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
               <a href="/tags/DNS/" rel="tag"><i class="fa fa-tag"></i> DNS</a>
           </div>
 
         
-  <div class="addthis_inline_share_toolbox social-like">
-    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e699e61d32a5378" async="async"></script>
-  </div>
 
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/2022/10/27/Obsidian%E5%86%99%E6%96%87%E7%AB%A0%E6%B5%8B%E8%AF%95/" rel="prev" title="Obsidian写文章测试">
-                  <i class="fa fa-chevron-left"></i> Obsidian写文章测试
+                  <i class="fa fa-angle-left"></i> Obsidian写文章测试
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2024/01/19/NoPKT%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%80%EF%BC%89/" rel="next" title="NoPKT网络构建日志（一）">
-                  NoPKT网络构建日志（一） <i class="fa fa-chevron-right"></i>
+                <a href="/2024/01/19/Krill%20RPKI%E6%90%AD%E5%BB%BA%E6%97%A5%E5%BF%97/" rel="next" title="Krill RPKI搭建日志">
+                  Krill RPKI搭建日志 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -574,27 +570,26 @@
 
   <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备16022527号-1 </a>
   </div>
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">小北极星</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">小北极星</span>
+  </div>
 <div class="wordcount">
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">76k</span>
+    <span title="站点总字数">85k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:09</span>
+    <span title="站点阅读时长">1:17</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -623,7 +618,7 @@
   <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
-  <a href="https://github.com/gps949" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+  <a href="https://github.com/gps949" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -632,15 +627,17 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/js/third-party/search/local-search.js"></script>
 
-  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.8/pdfobject.min.js","integrity":"sha256-tu9j5pBilBQrWSDePOOajCUdz6hWsid/lBNzK4KgEPM="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.12/pdfobject.min.js","integrity":"sha256-g2xji1rlE3KsGVClvuxTbcR0Kn2+wtQADSff2Tbb4zA="},"url":"/lib/pdf/web/viewer.html"}</script>
   <script src="/js/third-party/tags/pdf.js"></script>
+
+
 
 
 

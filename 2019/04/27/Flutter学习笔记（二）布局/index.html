@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -15,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="上一篇是对于Flutter当中Widget概念的简要介绍，从而对于无状态及有状态的小部件有一定的认识，并对于它们在实际中的使用进行了了解，包括状态的设置、用户交互的响应等。那么，我们知道要是构建一个应用，在让功能实现前先需要将小部件们合理的组织在一起。在Flutter中，可见的元素以小部件的形式存在，而小部件的位置布局关系等也是以小部件形式存在的。">
 <meta property="og:type" content="article">
@@ -181,18 +181,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -338,14 +338,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6.8k</span>
+      <span>7.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
+      <span>7 分钟</span>
     </span>
 </div>
 
@@ -355,8 +355,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p><a href="Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89Widget%E4%BB%8B%E7%BB%8D">上一篇</a>是对于Flutter当中Widget概念的简要介绍，从而对于无状态及有状态的小部件有一定的认识，并对于它们在实际中的使用进行了了解，包括状态的设置、用户交互的响应等。那么，我们知道要是构建一个应用，在让功能实现前先需要将小部件们合理的组织在一起。在Flutter中，可见的元素以小部件的形式存在，而小部件的位置布局关系等也是以小部件形式存在的。</p>
+    <div class="post-body" itemprop="articleBody"><p><a href="Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89Widget%E4%BB%8B%E7%BB%8D">上一篇</a>是对于Flutter当中Widget概念的简要介绍，从而对于无状态及有状态的小部件有一定的认识，并对于它们在实际中的使用进行了了解，包括状态的设置、用户交互的响应等。那么，我们知道要是构建一个应用，在让功能实现前先需要将小部件们合理的组织在一起。在Flutter中，可见的元素以小部件的形式存在，而小部件的位置布局关系等也是以小部件形式存在的。</p>
 <span id="more"></span>
 <div class="note default"><p><strong>要点提示</strong></p>
 <ul>
@@ -373,60 +372,25 @@
 <h1 id="布局一个小部件"><a href="#布局一个小部件" class="headerlink" title="布局一个小部件"></a>布局一个小部件</h1><p>如何在Flutter中布局单独一个小部件？这小节展示你如何创建展示一个简单的小部件，以及一个简单的Hello World应用的完整代码。<br>Flutter中，只需几步在屏幕上放置文字、图标和图像：</p>
 <h2 id="1-选择一个布局小部件"><a href="#1-选择一个布局小部件" class="headerlink" title="1.选择一个布局小部件"></a>1.选择一个布局小部件</h2><p>根据你想要如何对齐与约束可见小部件来在各种<a target="_blank" rel="noopener" href="https://flutter.dev/docs/development/ui/widgets/layout">布局小部件</a>中选择一个。这个例子中使用<code>Center</code>来将其内容在横纵向上置于居中。</p>
 <h2 id="2-创建一个可见小部件"><a href="#2-创建一个可见小部件" class="headerlink" title="2.创建一个可见小部件"></a>2.创建一个可见小部件</h2><p>例如，创建一个<code>Text</code>小部件：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Hello World'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Text(<span class="string">&#x27;Hello World&#x27;</span>),</span><br></pre></td></tr></table></figure>
 <p>创建一个<code>Image</code>小部件：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>
-  <span class="token string-literal"><span class="token string">'images/lake.jpg'</span></span><span class="token punctuation">,</span>
-  fit<span class="token punctuation">:</span> <span class="token class-name">BoxFit</span><span class="token punctuation">.</span>cover<span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Image.asset(</span><br><span class="line">  <span class="string">&#x27;images/lake.jpg&#x27;</span>,</span><br><span class="line">  fit: BoxFit.cover,</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
 <p>创建一个<code>Icon</code>小部件：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Icon</span><span class="token punctuation">(</span>
-  <span class="token class-name">Icons</span><span class="token punctuation">.</span>star<span class="token punctuation">,</span>
-  color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>red<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Icon(</span><br><span class="line">  Icons.star,</span><br><span class="line">  color: Colors.red[<span class="number">500</span>],</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
 <h2 id="3-添加可见小部件到布局小部件"><a href="#3-添加可见小部件到布局小部件" class="headerlink" title="3.添加可见小部件到布局小部件"></a>3.添加可见小部件到布局小部件</h2><p>任一个布局小部件都有下面两者之一：</p>
 <ul>
 <li><code>child</code>属性：即只接收一个子小部件——例如<code>Center</code>、<code>Container</code>；</li>
 <li><code>children</code>属性：即可接收一个小部件列表——例如<code>Row</code>、<code>Column</code>、<code>ListView</code>、<code>Stack</code></li>
 </ul>
 <p>将<code>Text</code>小部件添加到<code>Center</code>小部件：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Center</span><span class="token punctuation">(</span>
-  child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Hello World'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Center(</span><br><span class="line">  child: Text(<span class="string">&#x27;Hello World&#x27;</span>),</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
 <h2 id="4-将布局小部件添加到页"><a href="#4-将布局小部件添加到页" class="headerlink" title="4.将布局小部件添加到页"></a>4.将布局小部件添加到页</h2><p>Flutter应用是自身的一个小部件，而大部分小部件都有<code>build()</code>方法，在app的<code>build()</code>方法中实例化并返回一个小部件来显示它。</p>
 <h3 id="Material-apps"><a href="#Material-apps" class="headerlink" title="Material apps"></a>Material apps</h3><p>对于Material应用你可以使用<code>Scaffold</code>小部件，它提供了默认横幅、背景颜色且有添加drawer、snack bar和bottom sheet的接口<code>（这里没找到很合适的词翻译）</code>。然后你可以直接将<code>Center</code>小部件添加到主页的<code>body</code>属性。</p>
-<pre class="line-numbers language-dart" data-language="dart"><div class="caption"><span><font color=black><strong>lib/main.dart (MyApp)</strong></font></span></div><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">MyApp</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token metadata function">@override</span>
-  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token class-name">MaterialAp</span>     appBar<span class="token punctuation">:</span> <span class="token class-name">AppBar</span><span class="token punctuation">(</span>
-          title<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Flutter layout demo'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token punctuation">)</span><span class="token punctuation">,</span>
-        body<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>
-          child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'Hello World'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token punctuation">)</span><span class="token punctuation">,</span>
-      <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight dart"><figcaption><span><font color=black><strong>lib/main.dart (MyApp)</strong></font></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialAp     appBar: AppBar(</span><br><span class="line">          title: Text(<span class="string">&#x27;Flutter layout demo&#x27;</span>),</span><br><span class="line">        ),</span><br><span class="line">        body: Center(</span><br><span class="line">          child: Text(<span class="string">&#x27;Hello World&#x27;</span>),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <div class="note info"><p><strong>注意</strong><br><a target="_blank" rel="noopener" href="https://api.flutter.dev/flutter/material/material-library.html">Material库</a>遵循Material Design原则实现小部件。设计UI时你可以仅仅使用<a target="_blank" rel="noopener" href="https://api.flutter.dev/flutter/widgets/widgets-library.html">标准小部件库</a>中的小部件，也可以使用Material库中的。你可以混合两个库中的小部件、定制已有小部件或者可以创建你自己的定制化小部件集。</p>
 </div>
 <h3 id="非Material-apps"><a href="#非Material-apps" class="headerlink" title="非Material apps"></a>非Material apps</h3><p>对于非Material应用，可以将<code>Center</code>小部件添加到app的<code>build()</code>方法：</p>
-<pre class="line-numbers language-dart" data-language="dart"><div class="caption"><span><font color=black><strong>lib/main.dart (MyApp)</strong></font></span></div><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">MyApp</span> <span class="token keyword">extends</span> <span class="token class-name">StatelessWidget</span> <span class="token punctuation">&#123;</span>
-  <span class="token metadata function">@override</span>
-  <span class="token class-name">Widget</span> <span class="token function">build</span><span class="token punctuation">(</span><span class="token class-name">BuildContext</span> context<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>ld<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>
-        child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span>
-          <span class="token string-literal"><span class="token string">'Hello World'</span></span><span class="token punctuation">,</span>
-          textDirection<span class="token punctuation">:</span> <span class="token class-name">TextDirection</span><span class="token punctuation">.</span>ltr<span class="token punctuation">,</span>
-          style<span class="token punctuation">:</span> <span class="token class-name">TextStyle</span><span class="token punctuation">(</span>
-            fontSize<span class="token punctuation">:</span> <span class="token number">32</span><span class="token punctuation">,</span>
-            color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>black87<span class="token punctuation">,</span>
-          <span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token punctuation">)</span><span class="token punctuation">,</span>
-      <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight dart"><figcaption><span><font color=black><strong>lib/main.dart (MyApp)</strong></font></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Container(ld: Center(</span><br><span class="line">        child: Text(</span><br><span class="line">          <span class="string">&#x27;Hello World&#x27;</span>,</span><br><span class="line">          textDirection: TextDirection.ltr,</span><br><span class="line">          style: TextStyle(</span><br><span class="line">            fontSize: <span class="number">32</span>,</span><br><span class="line">            color: Colors.black87,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>默认的非Material应用不带有<code>AappBar</code>、标题栏和背景色，如果你希望在非Material应用中使用这些特性你可以自己去创建。这个应用修改背景色到白色、文字到深灰来模仿Material应用。<br>当你运行应用，你会看到如图的Hello World：<br><img data-src="/images/layout_in_flutter/3.png" alt="Hello World App"><br>应用的源码：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/flutter/website/tree/master/examples/layout/base">Material app</a></li>
@@ -450,172 +414,25 @@
 <div class="note info"><p><strong>注意</strong><br>当你往工程中添加图片时，需要更新<code>pubspec</code>文件以能访问到它——本例中用<code>Image.asset</code>来展示图片。更多信息参考<a target="_blank" rel="noopener" href="https://github.com/flutter/website/tree/master/examples/layout/row/pubspec.yaml">样例pubspec.yaml文件</a>或是<a target="_blank" rel="noopener" href="https://flutter.dev/docs/development/ui/assets-and-images">Flutter中添加资产和图片</a>。你如果使用<code>Image.network</code>获取网络上图片则不需做此操作。</p>
 </div>
 <p>在接下来的这个例子中，三个图片都是100像素宽，绘制空间(render box)（在本例中为整个屏幕）比300像素要宽，所以将主轴对齐设置为<code>spaceEvenly</code>来将水平的可用空间在图片前后和之间留空进行划分。</p>
-<div class="tabs" id="图片水平排列"><ul class="nav-tabs"><li class="tab"><a href="#图片水平排列-1">代码</a></li><li class="tab active"><a href="#图片水平排列-2">效果及源码</a></li></ul><div class="tab-content"><div class="tab-pane" id="图片水平排列-1"><pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Row</span><span class="token punctuation">(</span>
-  mainAxisAlignment<span class="token punctuation">:</span> <span class="token class-name">MainAxisAlignment</span><span class="token punctuation">.</span>spaceEvenly<span class="token punctuation">,</span>
-  children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-    <span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>‘images<span class="token operator">/</span>pic1<span class="token punctuation">.</span>jpg’<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>‘images<span class="token operator">/</span>pic2<span class="token punctuation">.</span>jpg’<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>‘images<span class="token operator">/</span>pic3<span class="token punctuation">.</span>jpg’<span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane active" id="图片水平排列-2"><p><img data-src="/images/layout_in_flutter/7-1.png" alt="图片水平排列"><br><strong>源码：</strong><a target="_blank" rel="noopener" href="https://github.com/flutter/website/tree/master/examples/layout/row_column">row_column</a></p></div></div></div>
+<div class="tabs" id="图片水平排列"><ul class="nav-tabs"><li class="tab"><a href="#图片水平排列-1">代码</a></li><li class="tab active"><a href="#图片水平排列-2">效果及源码</a></li></ul><div class="tab-content"><div class="tab-pane" id="图片水平排列-1"><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Row(</span><br><span class="line">  mainAxisAlignment: MainAxisAlignment.spaceEvenly,</span><br><span class="line">  children: [</span><br><span class="line">    Image.asset(‘images/pic1.jpg’),</span><br><span class="line">    Image.asset(‘images/pic2.jpg’),</span><br><span class="line">    Image.asset(‘images/pic3.jpg’),</span><br><span class="line">  ],</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div><div class="tab-pane active" id="图片水平排列-2"><p><img data-src="/images/layout_in_flutter/7-1.png" alt="图片水平排列"><br><strong>源码：</strong><a target="_blank" rel="noopener" href="https://github.com/flutter/website/tree/master/examples/layout/row_column">row_column</a></p></div></div></div>
 <p>列和行是类似的，下面例子中展示了一列高度都是100像素的3个图像。绘制空间(render box)（在本例中为整个屏幕）比300像素要高，所以将主轴对齐设置为<code>spaceEvenly</code>来将竖直的可用空间在图片前后和之间留空进行划分。</p>
-<div class="tabs" id="图片竖直排列"><ul class="nav-tabs"><li class="tab"><a href="#图片竖直排列-1">代码</a></li><li class="tab active"><a href="#图片竖直排列-2">效果及源码</a></li></ul><div class="tab-content"><div class="tab-pane" id="图片竖直排列-1"><pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Column</span><span class="token punctuation">(</span>
-  mainAxisAlignment<span class="token punctuation">:</span> <span class="token class-name">MainAxisAlignment</span><span class="token punctuation">.</span>spaceEvenly<span class="token punctuation">,</span>
-  children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-    <span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>‘images<span class="token operator">/</span>pic1<span class="token punctuation">.</span>jpg’<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>‘images<span class="token operator">/</span>pic2<span class="token punctuation">.</span>jpg’<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>‘images<span class="token operator">/</span>pic3<span class="token punctuation">.</span>jpg’<span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane active" id="图片竖直排列-2"><p><img data-src="/images/layout_in_flutter/7-2.png" alt="图片竖直排列"><br><strong>源码：</strong><a target="_blank" rel="noopener" href="https://github.com/flutter/website/tree/master/examples/layout/row_column">row_column</a></p></div></div></div>
+<div class="tabs" id="图片竖直排列"><ul class="nav-tabs"><li class="tab"><a href="#图片竖直排列-1">代码</a></li><li class="tab active"><a href="#图片竖直排列-2">效果及源码</a></li></ul><div class="tab-content"><div class="tab-pane" id="图片竖直排列-1"><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Column(</span><br><span class="line">  mainAxisAlignment: MainAxisAlignment.spaceEvenly,</span><br><span class="line">  children: [</span><br><span class="line">    Image.asset(‘images/pic1.jpg’),</span><br><span class="line">    Image.asset(‘images/pic2.jpg’),</span><br><span class="line">    Image.asset(‘images/pic3.jpg’),</span><br><span class="line">  ],</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div><div class="tab-pane active" id="图片竖直排列-2"><p><img data-src="/images/layout_in_flutter/7-2.png" alt="图片竖直排列"><br><strong>源码：</strong><a target="_blank" rel="noopener" href="https://github.com/flutter/website/tree/master/examples/layout/row_column">row_column</a></p></div></div></div>
 <h1 id="调整小部件尺寸"><a href="#调整小部件尺寸" class="headerlink" title="调整小部件尺寸"></a>调整小部件尺寸</h1><p>当布局对于设备来说太大了，黑黄条纹相间条带会出现在受影响的边缘。这是一个行太宽的<a target="_blank" rel="noopener" href="https://github.com/flutter/website/tree/master/examples/layout/sizing">例子</a>：<br><img data-src="/images/layout_in_flutter/8.png" alt="行太宽"><br>小部件可以通过<code>Expanded</code>小部件来调整尺寸以适应行或列。将每个图片用<code>Expanded</code>小部件包围来修复前面的一行图片对于渲染空间太宽的问题：</p>
-<div class="tabs" id="图片尺寸过大"><ul class="nav-tabs"><li class="tab"><a href="#图片尺寸过大-1">代码</a></li><li class="tab active"><a href="#图片尺寸过大-2">效果及源码</a></li></ul><div class="tab-content"><div class="tab-pane" id="图片尺寸过大-1"><pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Row</span><span class="token punctuation">(</span>
-  crossAxisAlignment<span class="token punctuation">:</span> <span class="token class-name">CrossAxisAlignment</span><span class="token punctuation">.</span>center<span class="token punctuation">,</span>
-  children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-    <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
-      child<span class="token punctuation">:</span> <span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>‘images<span class="token operator">/</span>pic1<span class="token punctuation">.</span>jpg’<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
-      child<span class="token punctuation">:</span> <span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>‘images<span class="token operator">/</span>pic2<span class="token punctuation">.</span>jpg’<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
-      child<span class="token punctuation">:</span> <span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>‘images<span class="token operator">/</span>pic3<span class="token punctuation">.</span>jpg’<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane active" id="图片尺寸过大-2"><p><img data-src="/images/layout_in_flutter/9-1.png" alt="图片尺寸过大调整"><br><strong>源码：</strong><a target="_blank" rel="noopener" href="https://github.com/flutter/websitelesles/layout/sizing">sizing</a></p></div></div></div>
+<div class="tabs" id="图片尺寸过大"><ul class="nav-tabs"><li class="tab"><a href="#图片尺寸过大-1">代码</a></li><li class="tab active"><a href="#图片尺寸过大-2">效果及源码</a></li></ul><div class="tab-content"><div class="tab-pane" id="图片尺寸过大-1"><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Row(</span><br><span class="line">  crossAxisAlignment: CrossAxisAlignment.center,</span><br><span class="line">  children: [</span><br><span class="line">    Expanded(</span><br><span class="line">      child: Image.asset(‘images/pic1.jpg’),</span><br><span class="line">    ),</span><br><span class="line">    Expanded(</span><br><span class="line">      child: Image.asset(‘images/pic2.jpg’),</span><br><span class="line">    ),</span><br><span class="line">    Expanded(</span><br><span class="line">      child: Image.asset(‘images/pic3.jpg’),</span><br><span class="line">    ),</span><br><span class="line">  ],</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div><div class="tab-pane active" id="图片尺寸过大-2"><p><img data-src="/images/layout_in_flutter/9-1.png" alt="图片尺寸过大调整"><br><strong>源码：</strong><a target="_blank" rel="noopener" href="https://github.com/flutter/websitelesles/layout/sizing">sizing</a></p></div></div></div>
 <p>或许你或许你许你或许你你许你或或你或你你许你或或或许你希望令一个小部件拥有其兄弟的2倍大小，则使用<code>Expanded</code>小部件的<code>flex</code>属性来指定其缩放因子。该参数默认为1，下面代码设置中间图片的缩放因子为2：</p>
-<div class="tabs" id="图片大小缩放"><ul class="nav-tabs"><li class="tab"><a href="#图片大小缩放-1">代码</a></li><li class="tab active"><a href="#图片大小缩放-2">效果及源码</a></li></ul><div class="tab-content"><div class="tab-pane" id="图片大小缩放-1"><pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Row</span><span class="token punctuation">(</span>
-  crossAxisAlignment<span class="token punctuation">:</span> <span class="token class-name">CrossAxisAlignment</span><span class="token punctuation">.</span>center<span class="token punctuation">,</span>
-  children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-    <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
-      child<span class="token punctuation">:</span> <span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>‘images<span class="token operator">/</span>pic1<span class="token punctuation">.</span>jpg’<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
-      flex<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
-      child<span class="token punctuation">:</span> <span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>‘images<span class="token operator">/</span>pic2<span class="token punctuation">.</span>jpg’<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Expanded</span><span class="token punctuation">(</span>
-      child<span class="token punctuation">:</span> <span class="token class-name">Image</span><span class="token punctuation">.</span><span class="token function">asset</span><span class="token punctuation">(</span>‘images<span class="token operator">/</span>pic3<span class="token punctuation">.</span>jpg’<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane active" id="图片大小缩放-2"><p><img data-src="/images/layout_in_flutter/9-2.png" alt="图片大小缩放"><br><strong>源码：</strong><a target="_blank" rel="noopener" href="https://github.com/flutter/website/tree/master/examples/laayout/sizing">szing</a></p></div></div></div>
+<div class="tabs" id="图片大小缩放"><ul class="nav-tabs"><li class="tab"><a href="#图片大小缩放-1">代码</a></li><li class="tab active"><a href="#图片大小缩放-2">效果及源码</a></li></ul><div class="tab-content"><div class="tab-pane" id="图片大小缩放-1"><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Row(</span><br><span class="line">  crossAxisAlignment: CrossAxisAlignment.center,</span><br><span class="line">  children: [</span><br><span class="line">    Expanded(</span><br><span class="line">      child: Image.asset(‘images/pic1.jpg’),</span><br><span class="line">    ),</span><br><span class="line">    Expanded(</span><br><span class="line">      flex: <span class="number">2</span>,</span><br><span class="line">      child: Image.asset(‘images/pic2.jpg’),</span><br><span class="line">    ),</span><br><span class="line">    Expanded(</span><br><span class="line">      child: Image.asset(‘images/pic3.jpg’),</span><br><span class="line">    ),</span><br><span class="line">  ],</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div><div class="tab-pane active" id="图片大小缩放-2"><p><img data-src="/images/layout_in_flutter/9-2.png" alt="图片大小缩放"><br><strong>源码：</strong><a target="_blank" rel="noopener" href="https://github.com/flutter/website/tree/master/examples/laayout/sizing">szing</a></p></div></div></div>
 <h1 id="压紧（Packing）小部件"><a href="#压紧（Packing）小部件" class="headerlink" title="压紧（Packing）小部件"></a>压紧（Packing）小部件</h1><p>默认行或列小部件会沿着主轴方向占满空间，但如果你希望将子小部件们压紧在一起，可以设置<code>mainAxisSize</code>为<code>MainAxisSize.min</code>。下面的例子即是使用该属性将星形图标压紧在一起。</p>
-<div class="tabs" id="压紧小部件"><ul class="nav-tabs"><li class="tab"><a href="#压紧小部件-1">代码</a></li><li class="tab active"><a href="#压紧小部件-2">效果及源码</a></li></ul><div class="tab-content"><div class="tab-pane" id="压紧小部件-1"><pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Row</span><span class="token punctuation">(</span>
-  mainAxisSize<span class="token punctuation">:</span> <span class="token class-name">MainAxisSize</span><span class="token punctuation">.</span>min<span class="token punctuation">,</span>
-  children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-    <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>star<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>star<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>star<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>star<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>black<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>star<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>black<span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div><div class="tab-pane active" id="压紧小部件-2"><p><img data-src="/images/layout_in_flutter/10.png" alt="压紧小部件"><br><strong>源码：</strong><a target="_blank" rel="noopener" href="https://github.com/flutter/website/tree/master/examples/layout/pavlova">pavlova</a></p></div></div></div>
+<div class="tabs" id="压紧小部件"><ul class="nav-tabs"><li class="tab"><a href="#压紧小部件-1">代码</a></li><li class="tab active"><a href="#压紧小部件-2">效果及源码</a></li></ul><div class="tab-content"><div class="tab-pane" id="压紧小部件-1"><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Row(</span><br><span class="line">  mainAxisSize: MainAxisSize.min,</span><br><span class="line">  children: [</span><br><span class="line">    Icon(Icons.star, color: Colors.green[<span class="number">500</span>]),</span><br><span class="line">    Icon(Icons.star, color: Colors.green[<span class="number">500</span>]),</span><br><span class="line">    Icon(Icons.star, color: Colors.green[<span class="number">500</span>]),</span><br><span class="line">    Icon(Icons.star, color: Colors.black),</span><br><span class="line">    Icon(Icons.star, color: Colors.black),</span><br><span class="line">  ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div><div class="tab-pane active" id="压紧小部件-2"><p><img data-src="/images/layout_in_flutter/10.png" alt="压紧小部件"><br><strong>源码：</strong><a target="_blank" rel="noopener" href="https://github.com/flutter/website/tree/master/examples/layout/pavlova">pavlova</a></p></div></div></div>
 <h1 id="行列交织"><a href="#行列交织" class="headerlink" title="行列交织"></a>行列交织</h1><p>布局框架允许你将行和列进行任意层次的嵌套。让我们看一下下面布局中框出来部分的代码：<br><img data-src="/images/layout_in_flutter/11.png" alt="行列交织"><br>框出部分由两行构成，评分行包含五个星星和评论数量，图标行包含三列图标和文字。<br>评分行的小部件树：<br><img data-src="/images/layout_in_flutter/12.png" alt="评分行小部件树"><br><code>ratings</code>变量创建了一个包含五颗星星的更小行和文字的一行：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">var</span> stars <span class="token operator">=</span> <span class="token class-name">Row</span><span class="token punctuation">(</span>
-  mainAxisSize<span class="token punctuation">:</span> <span class="token class-name">MainAxisSize</span><span class="token punctuation">.</span>min<span class="token punctuation">,</span>
-  children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-    <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>star<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>star<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>star<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>star<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>black<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>star<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>black<span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">final</span> <span class="token punctuation">&#123;</span><span class="token operator">%</span> label warning <span class="token metadata function">@ratings</span> <span class="token operator">%</span><span class="token punctuation">&#125;</span> <span class="token operator">=</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>
-  padding<span class="token punctuation">:</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  child<span class="token punctuation">:</span> <span class="token class-name">Row</span><span class="token punctuation">(</span>
-    mainAxisAlignment<span class="token punctuation">:</span> <span class="token class-name">MainAxisAlignment</span><span class="token punctuation">.</span>spaceEvenly<span class="token punctuation">,</span>
-    children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-      stars<span class="token punctuation">,</span>
-      <span class="token class-name">Text</span><span class="token punctuation">(</span>
-        <span class="token string-literal"><span class="token string">'170 Reviews'</span></span><span class="token punctuation">,</span>
-        style<span class="token punctuation">:</span> <span class="token class-name">TextStyle</span><span class="token punctuation">(</span>
-          color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>black<span class="token punctuation">,</span>
-          fontWeight<span class="token punctuation">:</span> <span class="token class-name">FontWeight</span><span class="token punctuation">.</span>w800<span class="token punctuation">,</span>
-          fontFamily<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Roboto'</span></span><span class="token punctuation">,</span>
-          letterSpacing<span class="token punctuation">:</span> <span class="token number">0.5</span><span class="token punctuation">,</span>
-          fontSize<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
-        <span class="token punctuation">)</span><span class="token punctuation">,</span>
-      <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stars = Row(</span><br><span class="line">  mainAxisSize: MainAxisSize.min,</span><br><span class="line">  children: [</span><br><span class="line">    Icon(Icons.star, color: Colors.green[<span class="number">500</span>]),</span><br><span class="line">    Icon(Icons.star, color: Colors.green[<span class="number">500</span>]),</span><br><span class="line">    Icon(Icons.star, color: Colors.green[<span class="number">500</span>]),</span><br><span class="line">    Icon(Icons.star, color: Colors.black),</span><br><span class="line">    Icon(Icons.star, color: Colors.black),</span><br><span class="line">  ],</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> &#123;% label warning <span class="meta">@ratings</span> %&#125; = Container(</span><br><span class="line">  padding: EdgeInsets.all(<span class="number">20</span>),</span><br><span class="line">  child: Row(</span><br><span class="line">    mainAxisAlignment: MainAxisAlignment.spaceEvenly,</span><br><span class="line">    children: [</span><br><span class="line">      stars,</span><br><span class="line">      Text(</span><br><span class="line">        <span class="string">&#x27;170 Reviews&#x27;</span>,</span><br><span class="line">        style: TextStyle(</span><br><span class="line">          color: Colors.black,</span><br><span class="line">          fontWeight: FontWeight.w800,</span><br><span class="line">          fontFamily: <span class="string">&#x27;Roboto&#x27;</span>,</span><br><span class="line">          letterSpacing: <span class="number">0.5</span>,</span><br><span class="line">          fontSize: <span class="number">20</span>,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    ],</span><br><span class="line">  ),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <div class="note success"><p><strong>小贴士</strong><br>为了减少严重交织的布局代码的视觉困扰，将UI的小片实现在变量或函数中。</p>
 </div>
 <p>在评分行下方的图标行包含3列，每列均包含一个图标和两行文字，如下面小部件树中所见：<br><img data-src="/images/layout_in_flutter/13.png" alt="图标行小部件树"><br><code>iconList</code>变量定义了图标行：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">final</span> descTextStyle <span class="token operator">=</span> <span class="token class-name">TextStyle</span><span class="token punctuation">(</span>
-  color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>black<span class="token punctuation">,</span>
-  fontWeight<span class="token punctuation">:</span> <span class="token class-name">FontWeight</span><span class="token punctuation">.</span>w800<span class="token punctuation">,</span>
-  fontFamily<span class="token punctuation">:</span> <span class="token string-literal"><span class="token string">'Roboto'</span></span><span class="token punctuation">,</span>
-  letterSpacing<span class="token punctuation">:</span> <span class="token number">0.5</span><span class="token punctuation">,</span>
-  fontSize<span class="token punctuation">:</span> <span class="token number">18</span><span class="token punctuation">,</span>
-  height<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment">// DefaultTextStyle.merge() 允许你创建一个默认的文本样式被其子孙继承</span>
-<span class="token keyword">final</span> iconList <span class="token operator">=</span> <span class="token class-name">DefaultTextStyle</span><span class="token punctuation">.</span><span class="token function">merge</span><span class="token punctuation">(</span>
-  style<span class="token punctuation">:</span> descTextStyle<span class="token punctuation">,</span>
-  child<span class="token punctuation">:</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>
-    padding<span class="token punctuation">:</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    child<span class="token punctuation">:</span> <span class="token class-name">Row</span><span class="token punctuation">(</span>
-      mainAxisAlignment<span class="token punctuation">:</span> <span class="token class-name">MainAxisAlignment</span><span class="token punctuation">.</span>spaceEvenly<span class="token punctuation">,</span>
-      children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-        <span class="token class-name">Column</span><span class="token punctuation">(</span>
-          children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-            <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>kitchen<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'PREP:'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'25 min'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token class-name">Column</span><span class="token punctuation">(</span>
-          children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-            <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>timer<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'COOK:'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'1 hr'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token class-name">Column</span><span class="token punctuation">(</span>
-          children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-            <span class="token class-name">Icon</span><span class="token punctuation">(</span><span class="token class-name">Icons</span><span class="token punctuation">.</span>restaurant<span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token class-name">Colors</span><span class="token punctuation">.</span>green<span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'FEEDS:'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">'4-6'</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token punctuation">)</span><span class="token punctuation">,</span>
-      <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> descTextStyle = TextStyle(</span><br><span class="line">  color: Colors.black,</span><br><span class="line">  fontWeight: FontWeight.w800,</span><br><span class="line">  fontFamily: <span class="string">&#x27;Roboto&#x27;</span>,</span><br><span class="line">  letterSpacing: <span class="number">0.5</span>,</span><br><span class="line">  fontSize: <span class="number">18</span>,</span><br><span class="line">  height: <span class="number">2</span>,</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// DefaultTextStyle.merge() 允许你创建一个默认的文本样式被其子孙继承</span></span><br><span class="line"><span class="keyword">final</span> iconList = DefaultTextStyle.merge(</span><br><span class="line">  style: descTextStyle,</span><br><span class="line">  child: Container(</span><br><span class="line">    padding: EdgeInsets.all(<span class="number">20</span>),</span><br><span class="line">    child: Row(</span><br><span class="line">      mainAxisAlignment: MainAxisAlignment.spaceEvenly,</span><br><span class="line">      children: [</span><br><span class="line">        Column(</span><br><span class="line">          children: [</span><br><span class="line">            Icon(Icons.kitchen, color: Colors.green[<span class="number">500</span>]),</span><br><span class="line">            Text(<span class="string">&#x27;PREP:&#x27;</span>),</span><br><span class="line">            Text(<span class="string">&#x27;25 min&#x27;</span>),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">        Column(</span><br><span class="line">          children: [</span><br><span class="line">            Icon(Icons.timer, color: Colors.green[<span class="number">500</span>]),</span><br><span class="line">            Text(<span class="string">&#x27;COOK:&#x27;</span>),</span><br><span class="line">            Text(<span class="string">&#x27;1 hr&#x27;</span>),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">        Column(</span><br><span class="line">          children: [</span><br><span class="line">            Icon(Icons.restaurant, color: Colors.green[<span class="number">500</span>]),</span><br><span class="line">            Text(<span class="string">&#x27;FEEDS:&#x27;</span>),</span><br><span class="line">            Text(<span class="string">&#x27;4-6&#x27;</span>),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">      ],</span><br><span class="line">    ),</span><br><span class="line">  ),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <p><code>leftColumn</code>变量包含评分及图标行，同时包含描述Pavlova的标题和文字：</p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">final</span> leftColumn <span class="token operator">=</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>
-  padding<span class="token punctuation">:</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">fromLTRB</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  child<span class="token punctuation">:</span> <span class="token class-name">Column</span><span class="token punctuation">(</span>
-    children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-      titleText<span class="token punctuation">,</span>
-      subTitle<span class="token punctuation">,</span>
-      ratings<span class="token punctuation">,</span>
-      iconList<span class="token punctuation">,</span>
-    <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> leftColumn = Container(</span><br><span class="line">  padding: EdgeInsets.fromLTRB(<span class="number">20</span>, <span class="number">30</span>, <span class="number">20</span>, <span class="number">20</span>),</span><br><span class="line">  child: Column(</span><br><span class="line">    children: [</span><br><span class="line">      titleText,</span><br><span class="line">      subTitle,</span><br><span class="line">      ratings,</span><br><span class="line">      iconList,</span><br><span class="line">    ],</span><br><span class="line">  ),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <p>左侧的一列放在<code>Container</code>中以约束宽度，最终UI通过<code>Card</code>中整个一行（包含左侧的列和图片）构成。<br>Pavlova的图片来自<a target="_blank" rel="noopener" href="https://pixabay.com/en/photos/pavlova">Pixabay</a>，你可以使用<code>Image.network()</code>将网络图片嵌入。但是，在本例中图片存在项目的图片目录中，加到了<code>pubspec</code>文件中，并用<code>Images.asset()</code>获取。更多信息参见<a target="_blank" rel="noopener" href="https://flutter.dev/docs/development/ui/assets-and-images">添加资产和图片</a></p>
-<pre class="line-numbers language-dart" data-language="dart"><code class="language-dart">body<span class="token punctuation">:</span> <span class="token class-name">Center</span><span class="token punctuation">(</span>
-  child<span class="token punctuation">:</span> <span class="token class-name">Container</span><span class="token punctuation">(</span>
-    margin<span class="token punctuation">:</span> <span class="token class-name">EdgeInsets</span><span class="token punctuation">.</span><span class="token function">fromLTRB</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    height<span class="token punctuation">:</span> <span class="token number">600</span><span class="token punctuation">,</span>
-    child<span class="token punctuation">:</span> <span class="token class-name">Card</span><span class="token punctuation">(</span>
-      child<span class="token punctuation">:</span> <span class="token class-name">Row</span><span class="token punctuation">(</span>
-        crossAxisAlignment<span class="token punctuation">:</span> <span class="token class-name">CrossAxisAlignment</span><span class="token punctuation">.</span>start<span class="token punctuation">,</span>
-        children<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-          <span class="token class-name">Container</span><span class="token punctuation">(</span>
-            width<span class="token punctuation">:</span> <span class="token number">440</span><span class="token punctuation">,</span>
-            child<span class="token punctuation">:</span> leftColumn<span class="token punctuation">,</span>
-          <span class="token punctuation">)</span><span class="token punctuation">,</span>
-          mainImage<span class="token punctuation">,</span>
-        <span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">)</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">body: Center(</span><br><span class="line">  child: Container(</span><br><span class="line">    margin: EdgeInsets.fromLTRB(<span class="number">0</span>, <span class="number">40</span>, <span class="number">0</span>, <span class="number">30</span>),</span><br><span class="line">    height: <span class="number">600</span>,</span><br><span class="line">    child: Card(</span><br><span class="line">      child: Row(</span><br><span class="line">        crossAxisAlignment: CrossAxisAlignment.start,</span><br><span class="line">        children: [</span><br><span class="line">          Container(</span><br><span class="line">            width: <span class="number">440</span>,</span><br><span class="line">            child: leftColumn,</span><br><span class="line">          ),</span><br><span class="line">          mainImage,</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  ),</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
 <div class="note success"><p><strong>小贴士</strong><br>这个Pavlova例子在宽的设备上水平运行最好，比如平板。如果你在iOS模拟器上执行，可在<strong>Hardware &gt; Device</strong>菜单选择不同的设备，如我们推荐的iPad Pro。你可以通过<strong>Hardware &gt; Rotate</strong>改变它的方向到横屏。你也可以通过<strong>Window &gt; Scale</strong>改变模拟器窗口的大小（不改变逻辑分辨率）。</p>
 </div>
 <p>应用源码：<a target="_blank" rel="noopener" href="https://github.com/flutter/website/tree/master/examples/layout/pavlova">pavlova</a></p>
@@ -630,7 +447,7 @@
 
     <footer class="post-footer">
           <div class="reward-container">
-  <div>Buy me a coffee</div>
+  <div>请我一杯咖啡吧！</div>
   <button>
     赞赏
   </button>
@@ -659,7 +476,7 @@
       <a href="https://www.gps949.com/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/" title="Flutter学习笔记（二）布局">https://www.gps949.com/2019/04/27/Flutter学习笔记（二）布局/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
   </li>
 </ul>
 </div>
@@ -699,19 +516,16 @@
           </div>
 
         
-  <div class="addthis_inline_share_toolbox social-like">
-    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e699e61d32a5378" async="async"></script>
-  </div>
 
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/2019/04/19/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89Widget%E4%BB%8B%E7%BB%8D/" rel="prev" title="Flutter学习笔记（一）Widget介绍">
-                  <i class="fa fa-chevron-left"></i> Flutter学习笔记（一）Widget介绍
+                  <i class="fa fa-angle-left"></i> Flutter学习笔记（一）Widget介绍
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/2019/08/01/2019%E5%B9%B44%E6%9C%88%20%E5%85%B3%E8%A5%BF%E4%B9%8B%E8%A1%8C/" rel="next" title="2019年4月 关西之行">
-                  2019年4月 关西之行 <i class="fa fa-chevron-right"></i>
+                  2019年4月 关西之行 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -733,27 +547,26 @@
 
   <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">冀ICP备16022527号-1 </a>
   </div>
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">小北极星</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">小北极星</span>
+  </div>
 <div class="wordcount">
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">76k</span>
+    <span title="站点总字数">85k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:09</span>
+    <span title="站点阅读时长">1:17</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -782,7 +595,7 @@
   <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
-  <a href="https://github.com/gps949" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+  <a href="https://github.com/gps949" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -791,15 +604,17 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/js/third-party/search/local-search.js"></script>
 
-  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.8/pdfobject.min.js","integrity":"sha256-tu9j5pBilBQrWSDePOOajCUdz6hWsid/lBNzK4KgEPM="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.12/pdfobject.min.js","integrity":"sha256-g2xji1rlE3KsGVClvuxTbcR0Kn2+wtQADSff2Tbb4zA="},"url":"/lib/pdf/web/viewer.html"}</script>
   <script src="/js/third-party/tags/pdf.js"></script>
+
+
 
 
 
