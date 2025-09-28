@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="前一篇译文主要介绍了BIRD的基本概念和架构。本篇则对于其配置进行介绍。 3.配置3.1 介绍BIRD使用文本配置文件进行配置。启动时，BIRD会读取&#x3D;&#x3D;prefix&#x2F;etc&#x2F;bird.conf&#x3D;&#x3D;（除非指定了-c）。修改配置文件后向BIRD发送SIGHUP信号，它将调整到新配置。此外，还可以使用客户端与BIRD进行交互。">
+    <meta name="description" content="前一篇译文主要介绍了BIRD的基本概念和架构。本篇则对于其配置进行介绍。 3.配置3.1 介绍BIRD使用文本配置文件进行配置。启动时，BIRD会读取prefix&#x2F;etc&#x2F;bird.conf（除非指定了-c）。修改配置文件后向BIRD发送SIGHUP信号，它将调整到新配置。此外，还可以使用客户端与BIRD进行交互。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BIRD3.0手册（二）配置">
 <meta property="og:url" content="https://www.gps949.com/2025/09/28/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%BA%8C%EF%BC%89%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="小北极星笔记">
-<meta property="og:description" content="前一篇译文主要介绍了BIRD的基本概念和架构。本篇则对于其配置进行介绍。 3.配置3.1 介绍BIRD使用文本配置文件进行配置。启动时，BIRD会读取&#x3D;&#x3D;prefix&#x2F;etc&#x2F;bird.conf&#x3D;&#x3D;（除非指定了-c）。修改配置文件后向BIRD发送SIGHUP信号，它将调整到新配置。此外，还可以使用客户端与BIRD进行交互。">
+<meta property="og:description" content="前一篇译文主要介绍了BIRD的基本概念和架构。本篇则对于其配置进行介绍。 3.配置3.1 介绍BIRD使用文本配置文件进行配置。启动时，BIRD会读取prefix&#x2F;etc&#x2F;bird.conf（除非指定了-c）。修改配置文件后向BIRD发送SIGHUP信号，它将调整到新配置。此外，还可以使用客户端与BIRD进行交互。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-28T13:55:00.000Z">
 <meta property="article:modified_time" content="2025-09-28T13:55:00.000Z">
@@ -326,7 +326,7 @@
     
     
     <div class="post-body" itemprop="articleBody"><p><a href="2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D">前一篇译文</a>主要介绍了BIRD的基本概念和架构。本篇则对于其配置进行介绍。</p>
-<h1 id="3-配置"><a href="#3-配置" class="headerlink" title="3.配置"></a>3.配置</h1><h2 id="3-1-介绍"><a href="#3-1-介绍" class="headerlink" title="3.1 介绍"></a>3.1 介绍</h2><p>BIRD使用文本配置文件进行配置。启动时，BIRD会读取&#x3D;&#x3D;<em>prefix</em>&#x2F;etc&#x2F;bird.conf&#x3D;&#x3D;（除非指定了<code>-c</code>）。修改配置文件后向BIRD发送<code>SIGHUP</code>信号，它将调整到新配置。此外，还可以使用客户端与BIRD进行交互。  </p>
+<h1 id="3-配置"><a href="#3-配置" class="headerlink" title="3.配置"></a>3.配置</h1><h2 id="3-1-介绍"><a href="#3-1-介绍" class="headerlink" title="3.1 介绍"></a>3.1 介绍</h2><p>BIRD使用文本配置文件进行配置。启动时，BIRD会读取<code><em>prefix</em>/etc/bird.conf</code>（除非指定了<code>-c</code>）。修改配置文件后向BIRD发送<code>SIGHUP</code>信号，它将调整到新配置。此外，还可以使用客户端与BIRD进行交互。  </p>
 <span id="more"></span> 
 
 <p>在配置中，使用#及&#x2F;* *&#x2F;进行注释，空白字符被当作单个空格。如果有可变数量的选项，它们使用{ }分成组，每个选项都以;结尾。配置区分大小写。有两种方式命名符号，可以使用以字母或下划线开头并由字母、数字和下划线组成的简单字符串，也可以将名称括在单引号’中从而使用数字、字母、下划线、连字符、点和冒号的任意组合。  </p>
@@ -766,7 +766,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:29</span>
+    <span title="站点阅读时长">1:28</span>
   </span>
 </div>
 <div class="busuanzi-count">
