@@ -346,12 +346,7 @@
 </ul>
 <p>BIRD采用GPL分发。</p>
 <h2 id="1-2-安装BIRD"><a href="#1-2-安装BIRD" class="headerlink" title="1.2 安装BIRD"></a>1.2 安装BIRD</h2><p>在较新的装有GNU开发工具（GCC、binutils、m4、make）及Perl的类UNIX系统上，可以如下这样简单安装BIRD：</p>
-<pre><code class="shell">./configure
-make
-make install
-vi /usr/local/etc/bird.conf
-bird
-</code></pre>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">vi <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>bird.conf</span><br><span class="line">bird</span><br></pre></td></tr></table></figure>
 <p>可以使用<code>./configure --help</code>来获取配置选项列表，其中最重要的选项是<code>--with-protocols=</code>用于排除不使用的路由协议来生成稍小一些的BIRD可执行文件，以及<code>--prefix=</code>用来将BIRD安装到<code>/usr/local</code>以外的位置。<br><em>（译者按：实际上很多linux发行版的软件源中是含有BIRD的，可以使用如<code>sudo apt install bird3</code>直接安装）</em></p>
 <h2 id="1-3-运行BIRD"><a href="#1-3-运行BIRD" class="headerlink" title="1.3 运行BIRD"></a>1.3 运行BIRD</h2><p>你可以向bird传入若干命令行选项：</p>
 <p>-c <em>配置名</em><br>&emsp;&emsp;使用给定的配置文件来替代<em><strong>prefix</strong>&#x2F;etc&#x2F;bird.conf</em><br>-d<br>&emsp;&emsp;输出调试信息到stderr，并在前台运行bird<br>-D <em>调试日志文件名</em><br>&emsp;&emsp;输出调试信息到指定文件<br>-f<br>&emsp;&emsp;前台运行bird<br>-g <em>group</em><br>&emsp;&emsp;使用组ID，详见下一节<br>-h, –help<br>&emsp;&emsp;显示bird命令行选项<br>-l<br>&emsp;&emsp;在当前工作目录而非默认系统位置读取配置文件和通信socket。但由-c，-s指定的路径有更高优先级<br>-p<br>&emsp;&emsp;只校验配置文件并退出。当配置文件有效时返回0<br>-P <em>PID文件名</em><br>&emsp;&emsp;使用给定的文件名创建一个PID文件<br>-R<br>&emsp;&emsp;启动后进行优雅重启恢复<br>-s <em>通信socket名</em><br>&emsp;&emsp;使用给定的socket文件名与客户端通信，默认是<em><strong>prefix</strong>&#x2F;var&#x2F;run&#x2F;bird.ctl</em><br>-u <em>user</em><br>&emsp;&emsp;丢弃特权而使用用户ID，详见下一节<br>–version<br>&emsp;&emsp;显示bird版本<br>BIRD根据配置将其工作日志记入日志文件或syslog。  </p>
