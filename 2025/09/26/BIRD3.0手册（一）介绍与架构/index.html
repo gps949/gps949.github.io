@@ -23,7 +23,7 @@
     <meta name="description" content="本系列日志对BIRD3.0用户手册进行中文化，旨在自学及便利他人对BIRD的使用。需要注意的是，相比官方文档，内容做了个人觉得必要的精简。 1.介绍1.1 什么是BIRDBIRD这个名字实际上是BIRD Internet Routing Daemon（BIRD互联网路由守护进程）的首字母缩写。（译者按：这种“递归缩略词”构词法，类似的还有GNU、WINE）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BIRD3.0手册（一）介绍与架构">
-<meta property="og:url" content="https://www.gps949.com/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:url" content="https://www.gps949.com/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D%E4%B8%8E%E6%9E%B6%E6%9E%84/index.html">
 <meta property="og:site_name" content="小北极星笔记">
 <meta property="og:description" content="本系列日志对BIRD3.0用户手册进行中文化，旨在自学及便利他人对BIRD的使用。需要注意的是，相比官方文档，内容做了个人觉得必要的精简。 1.介绍1.1 什么是BIRDBIRD这个名字实际上是BIRD Internet Routing Daemon（BIRD互联网路由守护进程）的首字母缩写。（译者按：这种“递归缩略词”构词法，类似的还有GNU、WINE）">
 <meta property="og:locale" content="zh_CN">
@@ -38,11 +38,11 @@
 <meta name="twitter:image" content="https://www.gps949.com/images/BIRD/BIRD_Arch.png">
 
 
-<link rel="canonical" href="https://www.gps949.com/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/">
+<link rel="canonical" href="https://www.gps949.com/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D%E4%B8%8E%E6%9E%B6%E6%9E%84/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.gps949.com/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/","path":"2025/09/26/BIRD3.0手册（一）介绍/","title":"BIRD3.0手册（一）介绍与架构"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.gps949.com/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D%E4%B8%8E%E6%9E%B6%E6%9E%84/","path":"2025/09/26/BIRD3.0手册（一）介绍与架构/","title":"BIRD3.0手册（一）介绍与架构"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>BIRD3.0手册（一）介绍与架构 | 小北极星笔记</title>
@@ -164,7 +164,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -244,7 +244,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.gps949.com/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/">
+    <link itemprop="mainEntityOfPage" href="https://www.gps949.com/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D%E4%B8%8E%E6%9E%B6%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_3322.jpg">
@@ -290,7 +290,7 @@
     </span>
 
   
-    <span id="/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/" class="post-meta-item leancloud_visitors" data-flag-title="BIRD3.0手册（一）介绍与架构" title="阅读次数">
+    <span id="/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D%E4%B8%8E%E6%9E%B6%E6%9E%84/" class="post-meta-item leancloud_visitors" data-flag-title="BIRD3.0手册（一）介绍与架构" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -445,7 +445,7 @@ bird
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://www.gps949.com/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/" title="BIRD3.0手册（一）介绍与架构">https://www.gps949.com/2025/09/26/BIRD3.0手册（一）介绍/</a>
+      <a href="https://www.gps949.com/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D%E4%B8%8E%E6%9E%B6%E6%9E%84/" title="BIRD3.0手册（一）介绍与架构">https://www.gps949.com/2025/09/26/BIRD3.0手册（一）介绍与架构/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
@@ -468,6 +468,9 @@ bird
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2025/09/28/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%BA%8C%EF%BC%89%E9%85%8D%E7%BD%AE/" rel="next" title="BIRD3.0手册（二）配置">
+                  BIRD3.0手册（二）配置 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -499,13 +502,13 @@ bird
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">85k</span>
+    <span title="站点总字数">98k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:17</span>
+    <span title="站点阅读时长">1:29</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -573,7 +576,7 @@ bird
 
 
   <script src="https://cdn.jsdelivr.net/npm/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.gps949.com/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.gps949.com/2025/09/26/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D%E4%B8%8E%E6%9E%B6%E6%9E%84/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"gps949/gps949.github.io","issue_term":"pathname","theme":"github-light"}</script>
 <script src="/js/third-party/comments/utterances.js"></script>
