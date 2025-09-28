@@ -126,37 +126,37 @@
 <p>评估给定的过滤器表达式，用于开发人员测试过滤器。  </p>
 </blockquote>
 <h2 id="3-3-路由表选项"><a href="#3-3-路由表选项" class="headerlink" title="3.3 路由表选项"></a>3.3 路由表选项</h2><p>大多数路由表不需要任何选项并且不带选项块地定义，但仍有一些选项可以调整路由表行为。注意隐式表(<code>master4</code>和<code>master6</code>)可以被重定义以设置选项。  </p>
-<p><code>sorted *开关*</code>  </p>
+<p><code>sorted <em>开关</em></code> </p>
 <blockquote>
 <p>通常一个路由表只为每个网络从路由列表中选择一个选定的（最佳）路由，并保持其余路由未排序。若启用，这些路由列表将保持完全排序（根据偏好值或一些基于协议的度量）。  </p>
 <p>这是一些协议功能所需（如BGP协议的<code>secondary</code>选项，允许除接受选定的路由外还接受过滤器接受的有序列表中的第一个路由），但它与一些其他功能不兼容（如BGP协议的<code>deterministic med</code>选项，它激活一种无法通过比较和排序来描述的选定路由选择方式）。一个小优点是路由在<code>show route</code>时排序显示，一个小缺点则是计算开销略高。默认值：off  </p>
 </blockquote>
-<p><code>trie *开关*</code>  </p>
+<p><code>trie <em>开关</em></code> </p>
 <blockquote>
 <p>BIRD路由表使用哈希表实现，对于精确匹配查找效率很高，但对于最长匹配查找或区间查找（查找上级前缀或下级前缀）则不方便。该选项在使用哈希表精确匹配查找的同时，激活用来加速这些查找的额外的前缀树（字典树）结构。  </p>
 <p>这对RPKI（在ROA表上）、递归下一跳（在IGP表上）有利，并且为flowspec验证（在基本IP表上）所需。另一个好处是区间结果（如<code>show route in</code>命令的）是按字典顺序排序的。缺点是启用前缀树的路由表需要更多内存，尤其在多表设置时可能成为问题。默认值：off  </p>
 </blockquote>
-<p><code>gc threshold *数值*</code>  </p>
+<p><code>gc threshold <em>数值</em></code>  </p>
 <blockquote>
 <p>指定触发垃圾收集（GC）周期的移除网络最小量。默认值：1000  </p>
 </blockquote>
-<p><code>gc period *时间*</code>  </p>
+<p><code>gc period <em>时间</em></code></p>
 <blockquote>
 <p>指定连续GC周期之间时间间隔。当有大量路由撤销时GC周期会按给定时间间隔（带一些随机因素）重复执行。当只有少量更改时，GC周期不会执行。在大型路由服务器设置中，对数百个完整的BGP路由表运行GC会占用大量时间，因此它们应该使用更长的GC周期。默认值：自适应，基于配置中的路由表数量，从10s(&lt;&#x3D;25个路由表时)到600s（&gt;&#x3D;1500个路由表时）。  </p>
 </blockquote>
-<p><code>cork threshold *数值* *数值*</code>  </p>
+<p><code>cork threshold <em>数值</em> <em>数值</em></code> </p>
 <blockquote>
 <p>过多的待处理导出可能导致内存膨胀，这种情况BIRD会尝试通过暂停一些例程直至队列大小足够小来缓解内存压力。该选项允许用户设置阈值，第一个值是低阈值（何时恢复），第二个值是高阈值（何时暂停）。阈值越高使用的内存就越多，大多数情况默认值应该是合适的，但如果在导入激增时遇到内存膨胀，首先调低该选项。默认值：333300 1011010  </p>
 </blockquote>
-<p><code>export settle time *时间* *时间*</code>  </p>
+<p><code>export settle time <em>时间</em> <em>时间</em></code></p>
 <blockquote>
 <p>用于导出宣告的最小和最大稳定时间。当多个路由变更时，该机制会等待这些变化稳定，然后才唤醒休眠的导出线程，但如果变更持续发生BIRD不会永远等待，最多等待最大时间。默认值：1ms 100ms  </p>
 </blockquote>
-<p><code>route refresh export settle time *时间* *时间*</code>  </p>
+<p><code>route refresh export settle time <em>时间</em> <em>时间</em></code>  </p>
 <blockquote>
 <p>当任一通道当前正执行路由刷新时的用于导出宣告的最小和最大稳定时间。这在知道存在一些快速产生变更的活跃进程时能更积极地捆绑变更。如果不需要该功能，将其设置为与前面相同。默认值：100ms 3s  </p>
 </blockquote>
-<p><code>digest settle time *时间* *时间*</code>  </p>
+<p><code>digest settle time <em>时间</em> <em>时间</em></code>  </p>
 <blockquote>
 <p>表变更摘要的最小和最大稳定时间。该稳定时间用于ROA表变更，包含所有变更了的ROA的前缀树会被生成，自动重载依赖通道。默认值：1s 20s  </p>
 </blockquote>
@@ -170,7 +170,7 @@
 <blockquote>
 <p>禁用该协议。可以通过命令行来更改禁用启用状态，而不需修改配置。禁用的协议不会被激活。默认值：协议启用  </p>
 </blockquote>
-<p><code>restart time limit *时间*</code>  </p>
+<p><code>restart time limit <em>时间</em></code>  </p>
 <blockquote>
 <p>设置协议后续自动重启的时间限制。如果协议从启动后该时间内（通过重启动作）触发限制，协议以配置文件中错误消息被禁用。这不适用于手动重启或重新配置。默认值：5s  </p>
 </blockquote>
@@ -182,26 +182,26 @@
 <blockquote>
 <p>设置协议MRTdump标志。MRTdump是用来记录路由协议和守护进程信息的一种标准二进制格式。这些标志控制从协议记录到（由此前小节中全局<code>mrtdump</code>选项指定的）MRTdump文件中的信息类型。尽管这些标志与<code>debug</code>选项类似，但其含义不同且协议特定。对于BGP协议，<code>states</code>记录BGP状态更改，<code>messages</code>记录收到的BGP消息。其他协议尚不支持MRTdump。  </p>
 </blockquote>
-<p><code>router id *IPv4地址*</code>  </p>
+<p><code>router id <em>IPv4地址</em></code>  </p>
 <blockquote>
 <p>该选项用来对给定协议覆盖全局的路由器ID。默认值：使用全局路由器ID。  </p>
 </blockquote>
-<p><code>description &quot;*文本*&quot;</code>  </p>
+<p><code>description "<em>文本</em>"</code>  </p>
 <blockquote>
 <p>协议的可选描述。作为<code>show protocols all</code>命令的一部分输出。  </p>
 </blockquote>
-<p><code>vrf &quot;*文本*&quot;|default</code>  </p>
+<p><code>vrf "<em>文本</em>"|default</code>  </p>
 <blockquote>
 <p>将协议与指定的VRF关联。协议将被限制到分配给该VRF的接口，并使用绑定到该VRF的socket。相应的VRF接口必须在OS级别存在。对于内核协议仍必须通过表选项显式地选择一个合适的表。  </p>
 <p>选择<code>default</code>时，协议与默认VRF关联，即被限制到未分配任何常规VRF的接口。这与完全不指定vrf选项不同，完全不指定vrf选项时协议可以使用任何接口而无论其VRF状态。  </p>
 <p>请注意正确的VRF支持需要使用至少4.14版本Linux内核，旧版本的VRF实现有限。在Linux5.0内核之前，绑定到默认VRF一个端口的socket会和常规VRF中其他socket冲突。在BGP中可以通过使用<code>strict bind</code>选项避免。  </p>
 </blockquote>
-<p><code>channel *名称* [&#123;*通道配置*&#125;]</code>  </p>
+<p><code>channel <em>名称</em> [&#123;<em>通道配置</em>&#125;]</code>  </p>
 <blockquote>
 <p>每个通道必须明确声明。支持的通道名称列表请见特定协议的配置。关于通道的定义请见通道配置一节。  </p>
 </blockquote>
 <p>下面是一些只对特定协议有意义的选项：  </p>
-<p><code>interface [-] [ &quot;*掩码*&quot; ] [ *前缀* ] [, ...] [ &#123; *选项*; [...] &#125; ]</code>  </p>
+<p><code>interface [-] [ "<em>掩码</em>" ] [ <em>前缀</em> ] [, ...] [ &#123; <em>选项</em>; [...] &#125; ]</code>  </p>
 <blockquote>
 <p>指定协议只在指定的一组接口上生效的特定接口选项。这组接口用接口模式描述的接口选项来指定。接口模式由一系列用逗号分隔的子句组成，每个子句都是使用shell样式模式来指定的掩码。接口通过其名称进行匹配。  </p>
 <p>当匹配任一子句时接口匹配该模式。子句以<code>-</code>开头时则匹配的接口被排除。模式从左向右处理，因此<code>interface &quot;eth0&quot;, -&quot;eth*&quot;, &quot;*&quot;;</code>表示eth0和所有非以太网接口。  </p>
@@ -213,46 +213,46 @@
 <p><code>interface -192.168.1.0/24, 192.168.0.0/16;</code>在所有地址在192.168.0.0&#x2F;16但不在192.168.1.0&#x2F;24内的接口上启动协议。  </p>
 <p><code>interface &quot;eth*&quot; 192.168.1.0/24;</code>在所有地址在192.168.1.0&#x2F;24内的以太网口上启动协议。  </p>
 </blockquote>
-<p><code>tx class|dscp *数值*</code>  </p>
+<p><code>tx class|dscp <em>数值</em></code>  </p>
 <blockquote>
 <p>该选项指定出站协议数据包IP报头中ToS&#x2F;DS&#x2F;Class字段值。这可能会影响相较于其他网络流量该协议数据包的处理方式。使用<code>class</code>关键字，数值(0-255)用于整个ToS&#x2F;Class八位（保留给ECN的两位被忽略）。使用<code>dscp</code>关键字，数值(0-63)仅用于八位中的DS字段。默认值：0xc0 （DSCP 0x30 - CS6）。  </p>
 </blockquote>
-<p><code>tx priority *数值*</code>  </p>
+<p><code>tx priority <em>数值</em></code>  </p>
 <blockquote>
 <p>该选项指定本地数据包优先级。可能影响协议数据包在本地TX队列中如何处理。该选项是Linux特定的。默认值：7（最高优先级，特权流量）。  </p>
 </blockquote>
-<p><code>password &quot;*口令*&quot; | *字节字符串* [ &#123; *口令选项* &#125; ]</code>  </p>
+<p><code>password "<em>口令</em>" | <em>字节字符串</em> [ &#123; <em>口令选项</em> &#125; ]</code>  </p>
 <blockquote>
 <p>指定可被协议用作共享密钥的口令。口令选项可以使用多次来指定更多口令。如果指定了多个口令，真正用哪一个取决于协议。指定口令并不意味着验证被启用，认证可使用单独的基于协议的验证选项来启用。  </p>
 <p>一个口令可以是字符串或十六进制数字对序列（即<a href="">bytestring</a>类型）。  </p>
 <p>选项可用于BFD、OSPF、RIP、Babel协议。BGP也有<code>password</code>选项，但有些不同并单独描述。默认值：无。  </p>
 </blockquote>
 <p>口令选项可包含一些（不必全部）口令子选项如下：  </p>
-<p><code>id *数值*</code>  </p>
+<p><code>id <em>数值</em></code>  </p>
 <blockquote>
 <p>口令的ID(0-255)。如果未指定，BIRD会从1开始按口令项目在接口中的顺序进行选择。比如，在一个接口中的第二个口令项目将有默认的ID 2.ID 0被BIRD允许，但是其他一些实现可能不允许它。ID被一些路由协议用来识别哪个口令用于验证协议数据包。  </p>
 </blockquote>
-<p><code>generate from &quot;*时间*&quot;</code>  </p>
+<p><code>generate from "<em>时间</em>"</code>  </p>
 <blockquote>
 <p>使用密码进行数据包签名的开始时间，<em>时间</em>格式为YYYY-MM-DD [hh:mm:ss[.sss]]  </p>
 </blockquote>
-<p><code>generate to &quot;*时间*&quot;</code>  </p>
+<p><code>generate to "<em>时间</em>"</code>  </p>
 <blockquote>
 <p>使用密码进行数据包签名的结束时间。  </p>
 </blockquote>
-<p><code>accept from &quot;*时间*&quot;</code>  </p>
+<p><code>accept from "<em>时间</em>"</code>  </p>
 <blockquote>
 <p>使用密码进行数据包验证的开始时间。</p>
 </blockquote>
-<p><code>accept to &quot;*时间*&quot;</code>  </p>
+<p><code>accept to "<em>时间</em>"</code>  </p>
 <blockquote>
 <p>使用密码进行数据包验证的结束时间。</p>
 </blockquote>
-<p><code>from &quot;*时间*&quot;</code>  </p>
+<p><code>from "<em>时间</em>"</code>  </p>
 <blockquote>
 <p>同时设置<code>generate from</code>和<code>accept from</code>的简写。  </p>
 </blockquote>
-<p><code>to &quot;*时间*&quot;</code>  </p>
+<p><code>to "<em>时间</em>"</code>  </p>
 <blockquote>
 <p>同时设置<code>generate to</code>和<code>accept to</code>的简写。  </p>
 </blockquote>
@@ -818,7 +818,7 @@ git remote add origin https://github.com/username/myblog.git
 git push -u origin main
 </code></pre>
 <p>　　至此，已将站点的Hexo源码初始化并提交到GitHub的源码Repo中。<br>　　接下来可以进行一系列的诸如Hexo配置及美化工作，这部分就先略掉，可参见网上的一些教程。   </p>
-<h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3><p>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#x75;&#115;&#x65;&#x72;&#x6e;&#97;&#109;&#x65;&#x40;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#x75;&#115;&#x65;&#x72;&#x6e;&#97;&#109;&#x65;&#x40;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a></strong>为GitHub用户邮箱)：</p>
+<h3 id="构建站点发布GitHub-Pages"><a href="#构建站点发布GitHub-Pages" class="headerlink" title="构建站点发布GitHub Pages"></a>构建站点发布GitHub Pages</h3><p>　　与上面类似，在Github中创建新Repo： 点击右上角+号，选择<code>New repository</code>，设置<code>Repository name</code>(必须为<strong>username.github.io</strong>格式，其中username为你的GitHub用户名)，类型选择<code>Public</code>。点击<code>Create repository</code>完成创建。<br>　　为了实现在源码Repo更新文章（或站点配置）后自动生成并同步部署到GitHub Pages，需要设置GitHub Pages的Repo的<code>deploy key</code>。<br>　　输入以下命令(其中<strong><a href="mailto:&#x75;&#x73;&#x65;&#114;&#110;&#97;&#x6d;&#101;&#64;&#101;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#x75;&#x73;&#x65;&#114;&#110;&#97;&#x6d;&#101;&#64;&#101;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a></strong>为GitHub用户邮箱)：</p>
 <pre><code class="bash">ssh-keygen -t rsa -C &quot;username@email.com&quot; 
 </code></pre>
 <p>　　根据之后提示选择密钥文件存储位置和密码（直接回车设置为空）。<br>　　在刚刚创建的<strong>username.github.io</strong> Repo的<code>Settings</code>中点击<code>Deploy keys</code>，选择<code>Add deploy key</code>。Title可以根据喜好设置（如myblog_deploy_pubkey），Key的内容复制进刚才使用命令生成的<code>.pub</code>扩展名的公钥文件内容。下面的<code>Allow write access</code>的复选框要勾选。   </p>
@@ -826,7 +826,7 @@ git push -u origin main
 <pre><code class="bash">mkdir .github/workflows
 touch .github/workflows/deploy.yml
 </code></pre>
-<p>　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#117;&#115;&#101;&#x72;&#110;&#97;&#x6d;&#101;&#x40;&#101;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#117;&#115;&#101;&#x72;&#110;&#97;&#x6d;&#101;&#x40;&#101;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a>为你的GitHub注册邮箱）：   </p>
+<p>　　随后编辑<code>deploy.yml</code>文件内容如下(注意修改其中username为你的GitHub用户名，<a href="mailto:&#x75;&#115;&#x65;&#114;&#110;&#x61;&#x6d;&#x65;&#x40;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x75;&#115;&#x65;&#114;&#110;&#x61;&#x6d;&#x65;&#x40;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a>为你的GitHub注册邮箱）：   </p>
 <pre><code class="yaml">name: CI
 
 on:
