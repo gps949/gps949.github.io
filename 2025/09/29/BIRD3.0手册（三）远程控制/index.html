@@ -18,12 +18,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.pcdn.uk","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="4.远程控制4.1 概述你可以使用命令行客户端birdc与正运行的BIRD进行通信。通信通过相应的UNIX域socket完成。命令可以执行启用禁用协议、显示各种信息、显示过滤器过滤出的路由表、重新配置BIRD等简单操作。随时按?获得在线帮助。选项-r可以用来启用BIRD客户端受限模式，仅允许只读命令show ...。选项-v使客户端在消息的同时转储数字返回码。你不一定使用birdc与BIRD通信，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BIRD3.0手册（三）远程控制">
-<meta property="og:url" content="https://www.gps949.com/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/index.html">
+<meta property="og:url" content="https://www.pcdn.uk/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/index.html">
 <meta property="og:site_name" content="小北极星笔记">
 <meta property="og:description" content="4.远程控制4.1 概述你可以使用命令行客户端birdc与正运行的BIRD进行通信。通信通过相应的UNIX域socket完成。命令可以执行启用禁用协议、显示各种信息、显示过滤器过滤出的路由表、重新配置BIRD等简单操作。随时按?获得在线帮助。选项-r可以用来启用BIRD客户端受限模式，仅允许只读命令show ...。选项-v使客户端在消息的同时转储数字返回码。你不一定使用birdc与BIRD通信，">
 <meta property="og:locale" content="zh_CN">
@@ -36,20 +36,19 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://www.gps949.com/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/">
+<link rel="canonical" href="https://www.pcdn.uk/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.gps949.com/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/","path":"2025/09/29/BIRD3.0手册（三）远程控制/","title":"BIRD3.0手册（三）远程控制"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.pcdn.uk/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/","path":"2025/09/29/BIRD3.0手册（三）远程控制/","title":"BIRD3.0手册（三）远程控制"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>BIRD3.0手册（三）远程控制 | 小北极星笔记</title>
   
 
-  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
-  <script async src="https://hm.baidu.com/hm.js?0c344aeb04c44c47dc30332da852f164"></script>
 
 
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{&quot;token&quot;: &quot;0a2e4117ce7648359d3fe8a3f44371c2&quot;}'></script>
 
 
 
@@ -242,7 +241,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.gps949.com/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/">
+    <link itemprop="mainEntityOfPage" href="https://www.pcdn.uk/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_3322.jpg">
@@ -294,6 +293,13 @@
       </span>
       <span class="post-meta-item-text">阅读次数：</span>
       <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="firestore-visitors-count"></span>
     </span>
     <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
       <span class="post-meta-item-icon">
@@ -500,7 +506,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://www.gps949.com/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/" title="BIRD3.0手册（三）远程控制">https://www.gps949.com/2025/09/29/BIRD3.0手册（三）远程控制/</a>
+      <a href="https://www.pcdn.uk/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/" title="BIRD3.0手册（三）远程控制">https://www.pcdn.uk/2025/09/29/BIRD3.0手册（三）远程控制/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
@@ -616,6 +622,10 @@
   
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/firebase@10.7.0/firebase-app-compat.js" integrity="sha256-388UwEUWqCZ5RBBAQoR8vK1Ty8qzxqP/ia3cr4RCkeg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@10.7.0/firebase-firestore-compat.js" integrity="sha256-7TKLwCozPrhvsOS7FuSEpQel4auRWA5oQiqAA2QyMXo=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="firestore" type="application/json">{"enable":true,"collection":"articles","apiKey":"AIzaSyCp9iI6iHW_rlgtpHhSZS5DgZYDM9f5WsU","projectId":"pcdn-c56ef"}</script>
+  <script src="/js/third-party/statistics/firestore.js"></script>
 
   <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
   <script src="/js/third-party/statistics/lean-analytics.js"></script>
@@ -628,7 +638,7 @@
 
 
   <script src="https://cdn.jsdelivr.net/npm/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.gps949.com/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.pcdn.uk/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"gps949/gps949.github.io","issue_term":"pathname","theme":"github-light"}</script>
 <script src="/js/third-party/comments/utterances.js"></script>

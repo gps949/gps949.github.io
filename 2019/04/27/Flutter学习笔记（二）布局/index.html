@@ -18,57 +18,56 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.gps949.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.pcdn.uk","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="上一篇是对于Flutter当中Widget概念的简要介绍，从而对于无状态及有状态的小部件有一定的认识，并对于它们在实际中的使用进行了了解，包括状态的设置、用户交互的响应等。那么，我们知道要是构建一个应用，在让功能实现前先需要将小部件们合理的组织在一起。在Flutter中，可见的元素以小部件的形式存在，而小部件的位置布局关系等也是以小部件形式存在的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Flutter学习笔记（二）布局">
-<meta property="og:url" content="https://www.gps949.com/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/index.html">
+<meta property="og:url" content="https://www.pcdn.uk/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/index.html">
 <meta property="og:site_name" content="小北极星笔记">
 <meta property="og:description" content="上一篇是对于Flutter当中Widget概念的简要介绍，从而对于无状态及有状态的小部件有一定的认识，并对于它们在实际中的使用进行了了解，包括状态的设置、用户交互的响应等。那么，我们知道要是构建一个应用，在让功能实现前先需要将小部件们合理的组织在一起。在Flutter中，可见的元素以小部件的形式存在，而小部件的位置布局关系等也是以小部件形式存在的。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/1-1.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/1-2.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/2.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/3.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/4.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/5.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/6-1.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/6-2.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/7-1.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/7-2.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/8.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/9-1.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/9-2.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/10.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/11.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/12.png">
-<meta property="og:image" content="https://www.gps949.com/images/layout_in_flutter/13.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/1-1.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/1-2.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/2.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/3.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/4.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/5.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/6-1.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/6-2.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/7-1.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/7-2.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/8.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/9-1.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/9-2.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/10.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/11.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/12.png">
+<meta property="og:image" content="https://www.pcdn.uk/images/layout_in_flutter/13.png">
 <meta property="article:published_time" content="2019-04-27T03:47:52.000Z">
 <meta property="article:modified_time" content="2019-04-27T03:47:52.000Z">
 <meta property="article:author" content="小北极星">
-<meta property="article:tag" content="编程">
-<meta property="article:tag" content="计算机">
 <meta property="article:tag" content="Flutter">
 <meta property="article:tag" content="iOS">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="计算机">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.gps949.com/images/layout_in_flutter/1-1.png">
+<meta name="twitter:image" content="https://www.pcdn.uk/images/layout_in_flutter/1-1.png">
 
 
-<link rel="canonical" href="https://www.gps949.com/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/">
+<link rel="canonical" href="https://www.pcdn.uk/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.gps949.com/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/","path":"2019/04/27/Flutter学习笔记（二）布局/","title":"Flutter学习笔记（二）布局"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.pcdn.uk/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/","path":"2019/04/27/Flutter学习笔记（二）布局/","title":"Flutter学习笔记（二）布局"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Flutter学习笔记（二）布局 | 小北极星笔记</title>
   
 
-  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
-  <script async src="https://hm.baidu.com/hm.js?0c344aeb04c44c47dc30332da852f164"></script>
 
 
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{&quot;token&quot;: &quot;0a2e4117ce7648359d3fe8a3f44371c2&quot;}'></script>
 
 
 
@@ -261,7 +260,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.gps949.com/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/">
+    <link itemprop="mainEntityOfPage" href="https://www.pcdn.uk/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_3322.jpg">
@@ -309,6 +308,13 @@
       </span>
       <span class="post-meta-item-text">阅读次数：</span>
       <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="firestore-visitors-count"></span>
     </span>
     <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
       <span class="post-meta-item-icon">
@@ -458,7 +464,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://www.gps949.com/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/" title="Flutter学习笔记（二）布局">https://www.gps949.com/2019/04/27/Flutter学习笔记（二）布局/</a>
+      <a href="https://www.pcdn.uk/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/" title="Flutter学习笔记（二）布局">https://www.pcdn.uk/2019/04/27/Flutter学习笔记（二）布局/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
@@ -467,10 +473,10 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 编程</a>
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag"><i class="fa fa-tag"></i> 计算机</a>
               <a href="/tags/Flutter/" rel="tag"><i class="fa fa-tag"></i> Flutter</a>
               <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 编程</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/" rel="tag"><i class="fa fa-tag"></i> 计算机</a>
           </div>
 
         
@@ -578,6 +584,10 @@
   
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/firebase@10.7.0/firebase-app-compat.js" integrity="sha256-388UwEUWqCZ5RBBAQoR8vK1Ty8qzxqP/ia3cr4RCkeg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@10.7.0/firebase-firestore-compat.js" integrity="sha256-7TKLwCozPrhvsOS7FuSEpQel4auRWA5oQiqAA2QyMXo=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="firestore" type="application/json">{"enable":true,"collection":"articles","apiKey":"AIzaSyCp9iI6iHW_rlgtpHhSZS5DgZYDM9f5WsU","projectId":"pcdn-c56ef"}</script>
+  <script src="/js/third-party/statistics/firestore.js"></script>
 
   <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
   <script src="/js/third-party/statistics/lean-analytics.js"></script>
@@ -590,7 +600,7 @@
 
 
   <script src="https://cdn.jsdelivr.net/npm/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.gps949.com/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.pcdn.uk/2019/04/27/Flutter%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%B8%83%E5%B1%80/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"gps949/gps949.github.io","issue_term":"pathname","theme":"github-light"}</script>
 <script src="/js/third-party/comments/utterances.js"></script>
