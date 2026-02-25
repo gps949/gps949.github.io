@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -15,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.pcdn.uk","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.pcdn.uk","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"lioshi","dark":"lioshi"},"prism":{"light":"prism-vsc-dark-plus","dark":"prism-vsc-dark-plus"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":true,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="作为Flutter和下一代系统Fuchsia‘钦定’的语言，Dart还是有兴了解一下的。安装方式，在已经有brew的macOS系统下很简单： 12$ brew tap dart-lang&#x2F;dart$ brew install dart 如需升级更新Dart SDK版本的话，直接使用brew upgrade dart即可。查看已安装dart版本信息，使用brew info dart">
 <meta property="og:type" content="article">
@@ -39,7 +39,6 @@
 <link rel="canonical" href="https://www.pcdn.uk/2020/03/05/Dart%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">
 
 
-
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.pcdn.uk/2020/03/05/Dart%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/","path":"2020/03/05/Dart学习笔记（一）语言基础/","title":"Dart学习笔记（一）语言基础"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
@@ -53,6 +52,45 @@
 
 
 
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.3.1/pdfobject.min.js","integrity":"sha256-jI72I8ZLVflVOisZIOaLvRew3tyvzeu6aZXFm7P7dEo="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js" defer></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/firebase@12.2.1/firebase-app-compat.js" integrity="sha256-d21UgtIcA6c6qwr8nWk6lxs/KrpbWhknQN7qBjWA2Kk=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@12.2.1/firebase-firestore-compat.js" integrity="sha256-leHatffkFuVGIg7ABaA5BDsqsEUtktL4tftb3OdQfg0=" crossorigin="anonymous" defer></script>
+  <script class="next-config" data-name="firestore" type="application/json">{"enable":true,"collection":"articles","apiKey":"AIzaSyCp9iI6iHW_rlgtpHhSZS5DgZYDM9f5WsU","projectId":"pcdn-c56ef"}</script>
+  <script src="/js/third-party/statistics/firestore.js" defer></script>
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js" defer></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@3.0.1/dist/quicklink.umd.js" integrity="sha256-44BednzIpUeQJcY8qtLyarFu0UCCTbgmWOvaoehiFQQ=" crossorigin="anonymous" defer></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.pcdn.uk/2020/03/05/Dart%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"}</script>
+  <script src="/js/third-party/quicklink.js" defer></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5644877966579950"
      crossorigin="anonymous"></script>
 
@@ -106,25 +144,25 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup"><div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
-
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -356,7 +394,7 @@
 </div>
 <p>如果const变量是类级的，标记为<code>static const</code>。const变量需要在声明时设置它的值。</p>
 <h1 id="内建类型"><a href="#内建类型" class="headerlink" title="内建类型"></a>内建类型</h1><h2 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h2><p>Dart内数值类型有两种，<code>int</code>和<code>double</code>。<br><code>int</code>类型不大于64位（8字节），这取决于平台。Dart VM中值可以从-2<sup>63</sup>到2<sup>63</sup>-1，若编译到JavaScript则使用JS的数值范围为-2<sup>53</sup>到2<sup>53</sup>-1<br><code>double</code>为IEEE 754标准规定的64位双精度浮点数值。<br>这两种都是<code>num</code>类型的子类型。包含基本运算符+-*&#x2F;，也可使用<code>abs()</code>、<code>ceil()</code>、<code>floor()</code>等方法。（位移运算符如&gt;&gt;定义在<code>int</code>类中）<br>自Dart2.1开始，int型在必要时会自动转换为double型。<br>下面是常见的数值和字符串的转换：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String -&gt; int</span></span><br><span class="line"><span class="keyword">var</span> one = <span class="built_in">int</span>.parse(<span class="string">&#x27;1&#x27;</span>);</span><br><span class="line"><span class="keyword">assert</span>(one == <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// String -&gt; double</span></span><br><span class="line"><span class="keyword">var</span> onePointOne = <span class="built_in">double</span>.parse(<span class="string">&#x27;1.1&#x27;</span>);</span><br><span class="line"><span class="keyword">assert</span>(onePointOne == <span class="number">1.1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// int -&gt; String</span></span><br><span class="line"><span class="built_in">String</span> oneAsString = <span class="number">1.</span>toString();</span><br><span class="line"><span class="keyword">assert</span>(oneAsString == <span class="string">&#x27;1&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// double -&gt; String</span></span><br><span class="line"><span class="built_in">String</span> piAsString = <span class="number">3.14159</span>.toStringAsFixed(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">assert</span>(piAsString == <span class="string">&#x27;3.14&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// String -&gt; int</span></span><br><span class="line"><span class="keyword">var</span> one = <span class="built_in">int</span>.parse(<span class="string">&#x27;1&#x27;</span>);</span><br><span class="line"><span class="keyword">assert</span>(one == <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// String -&gt; double</span></span><br><span class="line"><span class="keyword">var</span> onePointOne = <span class="built_in">double</span>.parse(<span class="string">&#x27;1.1&#x27;</span>);</span><br><span class="line"><span class="keyword">assert</span>(onePointOne == <span class="number">1.1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// int -&gt; String</span></span><br><span class="line"><span class="built_in">String</span> oneAsString = <span class="number">1</span>.toString();</span><br><span class="line"><span class="keyword">assert</span>(oneAsString == <span class="string">&#x27;1&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// double -&gt; String</span></span><br><span class="line"><span class="built_in">String</span> piAsString = <span class="number">3.14159</span>.toStringAsFixed(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">assert</span>(piAsString == <span class="string">&#x27;3.14&#x27;</span>);</span><br></pre></td></tr></table></figure>
 <p>字面数值是编译时常量，许多算术表达式在其操作数为编译时常量时也是编译时常量，会被计算为数值。</p>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>Dart中字符串是UTF16编码单元的串。可以使用单引号或者双引号创建。<br>可以使用<code>$&#123;expression&#125;</code>讲表达式值放进字符串中，对于对象Dart会调用对象的<code>toString()</code>方法。</p>
 <div class="note info"><p><code>==</code>运算符测试两个对象是否相等，对于两个字符串在它们包含相同编码单元序列时相等。</p>
@@ -540,7 +578,7 @@
 </div>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3><p>实例方法可以访问实例变量和<code>this</code>。</p>
 <h3 id="getter-和-setter"><a href="#getter-和-setter" class="headerlink" title="getter 和 setter"></a>getter 和 setter</h3><p>getter和setter是读写对象属性的特殊方法，每个实例变量都有隐式的getter，以及合适的话还有个setter。你可以实现getter、setter来创建额外的属性，使用<code>get</code>和<code>set</code>关键字：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> </span>&#123;</span><br><span class="line">  <span class="built_in">num</span> left, top, width, height;</span><br><span class="line"></span><br><span class="line">  Rectangle(<span class="keyword">this</span>.left, <span class="keyword">this</span>.top, <span class="keyword">this</span>.width, <span class="keyword">this</span>.height);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定义两个计算属性: right and bottom.</span></span><br><span class="line">  <span class="built_in">num</span> <span class="keyword">get</span> right =&gt; left + width;</span><br><span class="line">  <span class="keyword">set</span> right(<span class="built_in">num</span> value) =&gt; left = value - width;</span><br><span class="line">  <span class="built_in">num</span> <span class="keyword">get</span> bottom =&gt; top + height;</span><br><span class="line">  <span class="keyword">set</span> bottom(<span class="built_in">num</span> value) =&gt; top = value - height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  <span class="keyword">var</span> rect = Rectangle(<span class="number">3</span>, <span class="number">4</span>, <span class="number">20</span>, <span class="number">15</span>);</span><br><span class="line">  <span class="keyword">assert</span>(rect.left == <span class="number">3</span>);</span><br><span class="line">  rect.right = <span class="number">12</span>;</span><br><span class="line">  <span class="keyword">assert</span>(rect.left == <span class="number">-8</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> </span>&#123;</span><br><span class="line">  <span class="built_in">num</span> left, top, width, height;</span><br><span class="line"></span><br><span class="line">  Rectangle(<span class="keyword">this</span>.left, <span class="keyword">this</span>.top, <span class="keyword">this</span>.width, <span class="keyword">this</span>.height);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 定义两个计算属性: right and bottom.</span></span><br><span class="line">  <span class="built_in">num</span> <span class="keyword">get</span> right =&gt; left + width;</span><br><span class="line">  <span class="keyword">set</span> right(<span class="built_in">num</span> value) =&gt; left = value - width;</span><br><span class="line">  <span class="built_in">num</span> <span class="keyword">get</span> bottom =&gt; top + height;</span><br><span class="line">  <span class="keyword">set</span> bottom(<span class="built_in">num</span> value) =&gt; top = value - height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  <span class="keyword">var</span> rect = Rectangle(<span class="number">3</span>, <span class="number">4</span>, <span class="number">20</span>, <span class="number">15</span>);</span><br><span class="line">  <span class="keyword">assert</span>(rect.left == <span class="number">3</span>);</span><br><span class="line">  rect.right = <span class="number">12</span>;</span><br><span class="line">  <span class="keyword">assert</span>(rect.left == -<span class="number">8</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <div class="note info"><p>如自增（++）这样的操作符无论是否getter被明确定义都按照期待方式运作。为避免任何未期待的影响，操作符调用getter后将值存在一个临时变量中。</p>
 </div>
 <h3 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h3><p>抽象方法只能在抽象类中，用分号（;）代替方法体即创造了个抽象方法：</p>
@@ -689,6 +727,12 @@
   </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
   <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
@@ -697,48 +741,8 @@
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
-
-
-  
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
-
-  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.12/pdfobject.min.js","integrity":"sha256-g2xji1rlE3KsGVClvuxTbcR0Kn2+wtQADSff2Tbb4zA="},"url":"/lib/pdf/web/viewer.html"}</script>
-  <script src="/js/third-party/tags/pdf.js"></script>
-
-
-
-
-
-
-  
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/firebase@10.7.0/firebase-app-compat.js" integrity="sha256-388UwEUWqCZ5RBBAQoR8vK1Ty8qzxqP/ia3cr4RCkeg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/firebase@10.7.0/firebase-firestore-compat.js" integrity="sha256-7TKLwCozPrhvsOS7FuSEpQel4auRWA5oQiqAA2QyMXo=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="firestore" type="application/json">{"enable":true,"collection":"articles","apiKey":"AIzaSyCp9iI6iHW_rlgtpHhSZS5DgZYDM9f5WsU","projectId":"pcdn-c56ef"}</script>
-  <script src="/js/third-party/statistics/firestore.js"></script>
-
-  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
-  <script src="/js/third-party/statistics/lean-analytics.js"></script>
-
-
-  
-
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="/js/third-party/math/mathjax.js"></script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.pcdn.uk/2020/03/05/Dart%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"}</script>
-  <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"gps949/gps949.github.io","issue_term":"pathname","theme":"github-light"}</script>
-<script src="/js/third-party/comments/utterances.js"></script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
 
 </body>
 </html>

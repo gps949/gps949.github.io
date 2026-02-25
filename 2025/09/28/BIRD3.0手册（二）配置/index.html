@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -15,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.pcdn.uk","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.pcdn.uk","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"lioshi","dark":"lioshi"},"prism":{"light":"prism-vsc-dark-plus","dark":"prism-vsc-dark-plus"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":true,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="前一篇译文主要介绍了BIRD的基本概念和架构。本篇则对于其配置进行介绍。 3.配置3.1 介绍BIRD使用文本配置文件进行配置。启动时，BIRD会读取prefix&#x2F;etc&#x2F;bird.conf（除非指定了-c）。修改配置文件后向BIRD发送SIGHUP信号，它将调整到新配置。此外，还可以使用客户端与BIRD进行交互。">
 <meta property="og:type" content="article">
@@ -30,14 +30,13 @@
 <meta property="article:published_time" content="2025-09-28T13:55:00.000Z">
 <meta property="article:modified_time" content="2025-09-28T13:55:00.000Z">
 <meta property="article:author" content="小北极星">
-<meta property="article:tag" content="网络">
 <meta property="article:tag" content="BGP">
 <meta property="article:tag" content="BIRD">
+<meta property="article:tag" content="网络">
 <meta name="twitter:card" content="summary">
 
 
 <link rel="canonical" href="https://www.pcdn.uk/2025/09/28/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%BA%8C%EF%BC%89%E9%85%8D%E7%BD%AE/">
-
 
 
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.pcdn.uk/2025/09/28/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%BA%8C%EF%BC%89%E9%85%8D%E7%BD%AE/","path":"2025/09/28/BIRD3.0手册（二）配置/","title":"BIRD3.0手册（二）配置"}</script>
@@ -53,6 +52,45 @@
 
 
 
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.3.1/pdfobject.min.js","integrity":"sha256-jI72I8ZLVflVOisZIOaLvRew3tyvzeu6aZXFm7P7dEo="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js" defer></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/firebase@12.2.1/firebase-app-compat.js" integrity="sha256-d21UgtIcA6c6qwr8nWk6lxs/KrpbWhknQN7qBjWA2Kk=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@12.2.1/firebase-firestore-compat.js" integrity="sha256-leHatffkFuVGIg7ABaA5BDsqsEUtktL4tftb3OdQfg0=" crossorigin="anonymous" defer></script>
+  <script class="next-config" data-name="firestore" type="application/json">{"enable":true,"collection":"articles","apiKey":"AIzaSyCp9iI6iHW_rlgtpHhSZS5DgZYDM9f5WsU","projectId":"pcdn-c56ef"}</script>
+  <script src="/js/third-party/statistics/firestore.js" defer></script>
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js" defer></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@3.0.1/dist/quicklink.umd.js" integrity="sha256-44BednzIpUeQJcY8qtLyarFu0UCCTbgmWOvaoehiFQQ=" crossorigin="anonymous" defer></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.pcdn.uk/2025/09/28/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%BA%8C%EF%BC%89%E9%85%8D%E7%BD%AE/"}</script>
+  <script src="/js/third-party/quicklink.js" defer></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5644877966579950"
      crossorigin="anonymous"></script>
 
@@ -106,25 +144,25 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup"><div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
-
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -338,27 +376,26 @@
 <p>在配置中，使用#及&#x2F;* *&#x2F;进行注释，空白字符被当作单个空格。如果有可变数量的选项，它们使用{ }分成组，每个选项都以;结尾。配置区分大小写。有两种方式命名符号，可以使用以字母或下划线开头并由字母、数字和下划线组成的简单字符串，也可以将名称括在单引号’中从而使用数字、字母、下划线、连字符、点和冒号的任意组合。  </p>
 <p>下面是一个简单配置文件示例。它启用了路由表与OS内核的同步，学习网络接口，并在所有找到的网络接口上运行RIP。  </p>
 <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">protocol kernel &#123;</span><br><span class="line">        ipv4 &#123;</span><br><span class="line">                export all<span class="comment">;     # 默认是不导出</span></span><br><span class="line">        &#125;<span class="comment">;</span></span><br><span class="line">        persist<span class="comment">;                # BIRD关闭不移除路由</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protocol device &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protocol rip &#123;</span><br><span class="line">        ipv4 &#123;</span><br><span class="line">                import all<span class="comment">;</span></span><br><span class="line">                export all<span class="comment">;</span></span><br><span class="line">        &#125;<span class="comment">;</span></span><br><span class="line">        interface <span class="string">&quot;*&quot;</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-2-全局选项"><a href="#3-2-全局选项" class="headerlink" title="3.2 全局选项"></a>3.2 全局选项</h2><p><code>include "<em>文件名</em>";</code>  </p>
+<h2 id="3-2-全局选项"><a href="#3-2-全局选项" class="headerlink" title="3.2 全局选项"></a>3.2 全局选项</h2><p><code>include &quot;<em>文件名</em>&quot;;</code>  </p>
 <blockquote>
 <p>这个语句用来包含文件。<em>文件名</em>可以是通配符，此时匹配到的文件按字母序包含。包含嵌套深度最大是8。需要注意该语句可以在配置文件任何位置使用，甚至在其他的选项内部，但始终在行首。下面的例子中，第一个分号属于include语句，第二个分号属于<code>ipv6 table</code>。如果<code>tablename.conf</code>恰好包含一个token（表的名称），这个结构是正确的。  </p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ipv6 <span class="keyword">table</span></span><br><span class="line"><span class="keyword">include</span> &quot;tablename.conf&quot;;;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p><code>log "<em>文件名</em>" [<em>大小限制</em> "<em>备份文件名</em>"] | fixed "<em>文件名</em>" <em>大小</em> | syslog [name <em>名称</em>] | stderr | udp <em>地址</em> [port <em>端口</em>] all|&#123;<em>类别列表</em>&#125;</code>  </p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ipv6 <span class="keyword">table</span></span><br><span class="line"><span class="keyword">include</span> &quot;tablename.conf&quot;;;</span><br></pre></td></tr></table></figure></blockquote>
+<p><code>log &quot;<em>文件名</em>&quot; [<em>大小限制</em> &quot;<em>备份文件名</em>&quot;] | fixed &quot;<em>文件名</em>&quot; <em>大小</em> | syslog [name <em>名称</em>] | stderr | udp <em>地址</em> [port <em>端口</em>] all|{<em>类别列表</em>}</code>  </p>
 <blockquote>
 <p>将给定类别消息日志记录到选择的目标：指定<em>文件名</em>的文件（可包含日志轮换信息）、syslog（可包含名称参数）、标准错误输出、UDP消息（采用RFC3164 syslog格式）。  </p>
 <p>类别包括：<code>info</code>、<code>warning</code>、<code>error</code>、<code>fatal</code>是本地问题消息,<code>debug</code>是调试消息,<code>trace</code>是网络中发生的情况，<code>remote</code>是远程机器异常行为的消息,<code>auth</code>是认证失败, <code>bug</code>是BIRD内部错误.  </p>
 <p>直接记录到文件支持基础日志轮换，设置日志文件大小限制和备份文件名，当日志文件达到限制时当前日志文件被重命名为备份文件名，并创建一个新的日志文件。也可以将日志记录到表现为环形缓冲区的固定大小单个文件中。  </p>
 <p>可以指定多个<code>log</code>行来将日志记录到多个目标。默认配置：将所有内容记录到系统日志，当通过<code>-d</code>&#x2F;<code>-D</code>命令行选项启用了调试则记录到调试输出。  </p>
 </blockquote>
-<p><code>debug protocols all|off|&#123;states|routes|filters|interfaces|events|packets [, ...]&#125;</code>  </p>
+<p><code>debug protocols all|off|{states|routes|filters|interfaces|events|packets [, ...]}</code>  </p>
 <blockquote>
 <p>设置协议调试选项的全局默认值。详见后面小节的debug。默认值：off  </p>
 </blockquote>
-<p><code>debug channels all|off|&#123; states|routes|filters|events [, ...] &#125;</code>  </p>
+<p><code>debug channels all|off|{ states|routes|filters|events [, ...] }</code>  </p>
 <blockquote>
 <p>设置通道调试选项的全局默认值。详见后面小节的debug。默认值：off  </p>
 </blockquote>
-<p><code>debug tables all|off|&#123; states|routes|filters|events [, ...] &#125;</code>  </p>
+<p><code>debug tables all|off|{ states|routes|filters|events [, ...] }</code>  </p>
 <blockquote>
 <p>设置表调试选项的全局默认值。详见后面小节的debug。默认值：off  </p>
 </blockquote>
@@ -366,7 +403,7 @@
 <blockquote>
 <p>控制客户端连接的日志记录（0代表不记录，1代表记录连接和断开，2及以上记录所有客户端命令）。默认值：0  </p>
 </blockquote>
-<p><code>debug latency all|off|&#123; ping|wakeup|scheduling|sockets|events|timers &#125;</code>  </p>
+<p><code>debug latency all|off|{ ping|wakeup|scheduling|sockets|events|timers }</code>  </p>
 <blockquote>
 <p>激活内部调度器动作跟踪。是用于处理内部事件丢失的开发人员和技术支持工具，除非知道自己在做什么，否则应将其保持关闭。默认值：off  </p>
 </blockquote>
@@ -386,27 +423,27 @@
 <blockquote>
 <p>设置BIRD应生成多少工作线程。测试显示每个线程可以利用一个完整CPU核心，因此应当保留至少一个空闲核心。最大可行线程数很大程度取决于实际负载，必须通过测试或估算确定。默认值：1  </p>
 </blockquote>
-<p><code>mrtdump "<em>文件名</em>"</code>  </p>
+<p><code>mrtdump &quot;<em>文件名</em>&quot;</code>  </p>
 <blockquote>
 <p>设置MRTdump文件名，启用MRTdump特性必须指定该选项。默认值：无dump文件  </p>
 </blockquote>
-<p><code>mrtdump protocols all|off|&#123; states|messages [, ...] &#125;</code>  </p>
+<p><code>mrtdump protocols all|off|{ states|messages [, ...] }</code>  </p>
 <blockquote>
 <p>设置MRTdump选项的全局默认值。详见后面小节的mrtdump。默认值：off  </p>
 </blockquote>
-<p><code>filter <em>名称</em> <em>局部变量表</em> &#123; <em>命令</em> &#125;</code></p>
+<p><code>filter <em>名称</em> <em>局部变量表</em> { <em>命令</em> }</code></p>
 <blockquote>
 <p>定义一个过滤器（filter），可在后面章节了解更多。  </p>
 </blockquote>
-<p><code>function <em>名称</em> (<em>参数</em>) [ -> <em>返回类型</em> ] <em>局部变量表</em> &#123; <em>命令</em> &#125;</code>  </p>
+<p><code>function <em>名称</em> (<em>参数</em>) [ -&gt; <em>返回类型</em> ] <em>局部变量表</em> { <em>命令</em> }</code>  </p>
 <blockquote>
 <p>定义一个函数，可在后面章节了解更多。  </p>
 </blockquote>
-<p><code>protocol rip|ospf|bgp|... [<em>名称</em> [from <em>名称2</em>]] &#123; <em>协议选项</em> &#125;</code>  </p>
+<p><code>protocol rip|ospf|bgp|... [<em>名称</em> [from <em>名称2</em>]] { <em>协议选项</em> }</code>  </p>
 <blockquote>
 <p>定义名为<em>名称</em>的协议实例（未指定名称则自动生成类似”rip5”的名称）。可以在各协议自己的章节了解关于协议配置的更多信息。当使用<code>from <em>名称2</em></code>时初始协议选项从协议或者模版<em>名称2</em>中获取。大多数协议（如RIP或BGP）可以运行多个实例。默认未配置任何实例。  </p>
 </blockquote>
-<p><code>template rip|ospf|bgp|... [<em>名称</em> [from <em>名称2</em>]] &#123; <em>协议选项</em> &#125;</code>  </p>
+<p><code>template rip|ospf|bgp|... [<em>名称</em> [from <em>名称2</em>]] { <em>协议选项</em> }</code>  </p>
 <blockquote>
 <p>定义名为<em>名称</em>的协议模版（未指定名称则自动生成类似”bgp1”的名称）。协议模版用于当许多相似配置协议实例被定义时组织其中公共选项。协议实例和其他模版可以使用from表达式及模版名称使用模版。当前模版及from表达式未对OSPF协议实现。  </p>
 </blockquote>
@@ -422,11 +459,11 @@
 <blockquote>
 <p>设置BIRD路由器ID，作为路由器世界范围唯一识别符，通常用路由器的一个IPv4地址。默认值：非环路接口的最小IPv4地址。  </p>
 </blockquote>
-<p><code>router id from [-] [ "<em>掩码</em>" ] [ <em>前缀</em> ] [, ...]</code>  </p>
+<p><code>router id from [-] [ &quot;<em>掩码</em>&quot; ] [ <em>前缀</em> ] [, ...]</code>  </p>
 <blockquote>
 <p>根据接口模式指定的接口的IPv4地址来设置BIRD的路由器ID。有关带扩展子句的接口模式详细描述见接口一节。  </p>
 </blockquote>
-<p><code>hostname "<em>名称</em>"</code>  </p>
+<p><code>hostname &quot;<em>名称</em>&quot;</code>  </p>
 <blockquote>
 <p>设置主机名。默认值：<code>uname -n</code>返回的节点名  </p>
 </blockquote>
@@ -434,18 +471,18 @@
 <blockquote>
 <p>优雅重启恢复过程中，BIRD会等待路由协议收敛。该选项为恢复指定一个超时时间，来防止某些协议无法收敛导致无限等待。默认值：240秒  </p>
 </blockquote>
-<p><code>timeformat route|protocol|base|log "<em>格式1</em>" [<em>限制</em> "<em>格式2</em>"]</code>  </p>
+<p><code>timeformat route|protocol|base|log &quot;<em>格式1</em>&quot; [<em>限制</em> &quot;<em>格式2</em>&quot;]</code>  </p>
 <blockquote>
 <p>该选项指定BIRD使用的日期时间格式。第一个参数指定格式用途，<code>route</code>用于<code>show route</code>命令输出的格式，<code>protocol</code>用于<code>show protocols</code>命令输出的格式，<code>base</code>用于其他命令，<code>log</code>用在日志文件。  </p>
-<p><code>"<em>格式1</em>"</code>是使用<code>strftime(3)</code>符号（详见<code>man strftime</code>）的格式字符串，被扩展以支持使用<code>%f</code>转换代码的有可变精度（最高到微秒）的亚秒时间部分（如<code>&quot;%T.%3f&quot;</code>是<code>hh:mm:ss.sss</code>）。<code><em>限制</em></code>和<code>"<em>格式2</em>"</code>允许指定用于早于<code><em>限制</em></code>秒之前的过去时间的格式。  </p>
+<p><code>&quot;<em>格式1</em>&quot;</code>是使用<code>strftime(3)</code>符号（详见<code>man strftime</code>）的格式字符串，被扩展以支持使用<code>%f</code>转换代码的有可变精度（最高到微秒）的亚秒时间部分（如<code>&quot;%T.%3f&quot;</code>是<code>hh:mm:ss.sss</code>）。<code><em>限制</em></code>和<code>&quot;<em>格式2</em>&quot;</code>允许指定用于早于<code><em>限制</em></code>秒之前的过去时间的格式。  </p>
 <p>一些简写形式：<code>iso long</code>是ISO8601日期时间格式（YYYY-MMM-DD hh:mm:ss），也可以用<code>%F %T</code>指定。<code>iso long ms</code>和<code>iso long us</code>则是带毫秒或微秒精度的ISO8601日期时间格式。<code>iso short</code>是ISO8601的变体，对于过去20小时以内的时间仅使用时间格式（hh:mm:ss），对于更远时间使用日期格式（YYYY-MM-DD），相当于<code>%T 72000 %F</code>的简写。此外还有对应的其高精度变体<code>iso short ms</code>和<code>iso short us</code>。  </p>
 <p>默认BIRD对<code>route</code>和<code>protocol</code>使用<code>iso short ms</code>，对<code>base</code>和<code>log</code>使用<code>iso long ms</code>。  </p>
 </blockquote>
-<p><code><em>网络类型</em> table <em>名称</em> [ &#123; <em>选项</em>; [...] &#125; ]</code>  </p>
+<p><code><em>网络类型</em> table <em>名称</em> [ { <em>选项</em>; [...] } ]</code>  </p>
 <blockquote>
 <p>定义一个新路由表。默认路由表<code>master4</code>和<code>master6</code>隐式定义，其他路由表必须使用该选项定义。详见<a href="#3-3-%E8%B7%AF%E7%94%B1%E8%A1%A8%E9%80%89%E9%A1%B9">路由表配置一节</a>。  </p>
 </blockquote>
-<p><code>mpls domain <em>名称</em> [ &#123; <em>选项</em>; [...] &#125; ]</code>  </p>
+<p><code>mpls domain <em>名称</em> [ { <em>选项</em>; [...] } ]</code>  </p>
 <blockquote>
 <p>定义一个新MPLS域。MPLS域代表独立标签空间并负责MPLS管理。所有的MPLS感知协议都和一些MPLS域关联。详见MPLS配置一节。  </p>
 </blockquote>
@@ -488,7 +525,7 @@
 <blockquote>
 <p>表变更摘要的最小和最大稳定时间。该稳定时间用于ROA表变更，包含所有变更了的ROA的前缀树会被生成，自动重载依赖通道。默认值：1s 20s  </p>
 </blockquote>
-<p><code>debug all|off|&#123; states|routes|events [, ...] &#125;</code>  </p>
+<p><code>debug all|off|{ states|routes|events [, ...] }</code>  </p>
 <blockquote>
 <p>设置表调试选项。每个表可以将一些跟踪消息写入日志。可以请求全部或者指定类型的跟踪消息：<code>states</code>用于表状态更改和辅助进程，<code>routes</code>用于辅助路由通知（下一跳更新、flowspec重新验证），<code>events</code>用于更详细的辅助例程调试。另详见通道调试选项。默认值：off  </p>
 </blockquote>
@@ -502,11 +539,11 @@
 <blockquote>
 <p>设置协议后续自动重启的时间限制。如果协议从启动后该时间内（通过重启动作）触发限制，协议以配置文件中错误消息被禁用。这不适用于手动重启或重新配置。默认值：5s  </p>
 </blockquote>
-<p><code>debug all|off|&#123; states|routes|filters|interfaces|events|packets [, ...] &#125;</code>  </p>
+<p><code>debug all|off|{ states|routes|filters|interfaces|events|packets [, ...] }</code>  </p>
 <blockquote>
 <p>设置协议调试选项。如果被要求，每个协议都能将其工作相关追踪消息写入日志（<code>trace</code>类别）。可以要求打印所有跟踪消息，或者打印选定类型：<code>states</code>用于协议状态更改（启动、关闭、开始、停止等），<code>routes</code>用于与路由表交换的路由，<code>filters</code>用于路由过滤的详细信息，<code>interfaces</code>用于发送给协议的接口更改事件，<code>events</code>用于协议内部事件，<code>packets</code>用于协议发送和接收的数据包。<code>routes</code>和<code>filters</code>类别也可以使用通道调试选项分通道设置。默认值：off  </p>
 </blockquote>
-<p><code>mrtdump all|off|&#123; states|messages [, ...] &#125;</code>  </p>
+<p><code>mrtdump all|off|{ states|messages [, ...] }</code>  </p>
 <blockquote>
 <p>设置协议MRTdump标志。MRTdump是用来记录路由协议和守护进程信息的一种标准二进制格式。这些标志控制从协议记录到（由此前小节中全局<code>mrtdump</code>选项指定的）MRTdump文件中的信息类型。尽管这些标志与<code>debug</code>选项类似，但其含义不同且协议特定。对于BGP协议，<code>states</code>记录BGP状态更改，<code>messages</code>记录收到的BGP消息。其他协议尚不支持MRTdump。  </p>
 </blockquote>
@@ -514,22 +551,22 @@
 <blockquote>
 <p>该选项用来对给定协议覆盖全局的路由器ID。默认值：使用全局路由器ID。  </p>
 </blockquote>
-<p><code>description "<em>文本</em>"</code>  </p>
+<p><code>description &quot;<em>文本</em>&quot;</code>  </p>
 <blockquote>
 <p>协议的可选描述。作为<code>show protocols all</code>命令的一部分输出。  </p>
 </blockquote>
-<p><code>vrf "<em>文本</em>"|default</code>  </p>
+<p><code>vrf &quot;<em>文本</em>&quot;|default</code>  </p>
 <blockquote>
 <p>将协议与指定的VRF关联。协议将被限制到分配给该VRF的接口，并使用绑定到该VRF的socket。相应的VRF接口必须在OS级别存在。对于内核协议仍必须通过表选项显式地选择一个合适的表。  </p>
 <p>选择<code>default</code>时，协议与默认VRF关联，即被限制到未分配任何常规VRF的接口。这与完全不指定vrf选项不同，完全不指定vrf选项时协议可以使用任何接口而无论其VRF状态。  </p>
 <p>请注意正确的VRF支持需要使用至少4.14版本Linux内核，旧版本的VRF实现有限。在Linux5.0内核之前，绑定到默认VRF一个端口的socket会和常规VRF中其他socket冲突。在BGP中可以通过使用<code>strict bind</code>选项避免。  </p>
 </blockquote>
-<p><code>channel <em>名称</em> [&#123;<em>通道配置</em>&#125;]</code>  </p>
+<p><code>channel <em>名称</em> [{<em>通道配置</em>}]</code>  </p>
 <blockquote>
 <p>每个通道必须明确声明。支持的通道名称列表请见特定协议的配置。关于通道的定义请见通道配置一节。  </p>
 </blockquote>
 <p>下面是一些只对特定协议有意义的选项：  </p>
-<p><code>interface [-] [ "<em>掩码</em>" ] [ <em>前缀</em> ] [, ...] [ &#123; <em>选项</em>; [...] &#125; ]</code>  </p>
+<p><code>interface [-] [ &quot;<em>掩码</em>&quot; ] [ <em>前缀</em> ] [, ...] [ { <em>选项</em>; [...] } ]</code>  </p>
 <blockquote>
 <p>指定协议只在指定的一组接口上生效的特定接口选项。这组接口用接口模式描述的接口选项来指定。接口模式由一系列用逗号分隔的子句组成，每个子句都是使用shell样式模式来指定的掩码。接口通过其名称进行匹配。  </p>
 <p>当匹配任一子句时接口匹配该模式。子句以<code>-</code>开头时则匹配的接口被排除。模式从左向右处理，因此<code>interface &quot;eth0&quot;, -&quot;eth*&quot;, &quot;*&quot;;</code>表示eth0和所有非以太网接口。  </p>
@@ -537,7 +574,7 @@
 <p>一个<code>interface</code>选项可以带上不同接口特定选项使用多次，此时对于给定接口使用第一个匹配的<code>interface</code>选项。  </p>
 <p>该选项允许在Babel、BFD、Device、Direct、OSPF、RAdv、RIP这些协议使用，在OSPF协议中用于<code>area</code>子项。  </p>
 <p>默认值：无。  </p>
-<p>一些示例：<br><code>interface &quot;*&quot; &#123; type broadcast; &#125;;</code>协议在所有接口上启动并带<code>type broadcast</code>选项。<br><code>interface &quot;eth1&quot;, &quot;eth4&quot;, &quot;eth5&quot; &#123; type ptp; &#125;;</code>在列出的3个eth接口上启动协议，并带有<code>type ptp</code>选项。  </p>
+<p>一些示例：<br><code>interface &quot;*&quot; { type broadcast; };</code>协议在所有接口上启动并带<code>type broadcast</code>选项。<br><code>interface &quot;eth1&quot;, &quot;eth4&quot;, &quot;eth5&quot; { type ptp; };</code>在列出的3个eth接口上启动协议，并带有<code>type ptp</code>选项。  </p>
 <p><code>interface -192.168.1.0/24, 192.168.0.0/16;</code>在所有地址在192.168.0.0&#x2F;16但不在192.168.1.0&#x2F;24内的接口上启动协议。  </p>
 <p><code>interface &quot;eth*&quot; 192.168.1.0/24;</code>在所有地址在192.168.1.0&#x2F;24内的以太网口上启动协议。  </p>
 </blockquote>
@@ -549,7 +586,7 @@
 <blockquote>
 <p>该选项指定本地数据包优先级。可能影响协议数据包在本地TX队列中如何处理。该选项是Linux特定的。默认值：7（最高优先级，特权流量）。  </p>
 </blockquote>
-<p><code>password "<em>口令</em>" | <em>字节字符串</em> [ &#123; <em>口令选项</em> &#125; ]</code>  </p>
+<p><code>password &quot;<em>口令</em>&quot; | <em>字节字符串</em> [ { <em>口令选项</em> } ]</code>  </p>
 <blockquote>
 <p>指定可被协议用作共享密钥的口令。口令选项可以使用多次来指定更多口令。如果指定了多个口令，真正用哪一个取决于协议。指定口令并不意味着验证被启用，认证可使用单独的基于协议的验证选项来启用。  </p>
 <p>一个口令可以是字符串或十六进制数字对序列（即<a href="">bytestring</a>类型）。  </p>
@@ -560,27 +597,27 @@
 <blockquote>
 <p>口令的ID(0-255)。如果未指定，BIRD会从1开始按口令项目在接口中的顺序进行选择。比如，在一个接口中的第二个口令项目将有默认的ID 2.ID 0被BIRD允许，但是其他一些实现可能不允许它。ID被一些路由协议用来识别哪个口令用于验证协议数据包。  </p>
 </blockquote>
-<p><code>generate from "<em>时间</em>"</code>  </p>
+<p><code>generate from &quot;<em>时间</em>&quot;</code>  </p>
 <blockquote>
 <p>使用密码进行数据包签名的开始时间，<em>时间</em>格式为YYYY-MM-DD [hh:mm:ss[.sss]]  </p>
 </blockquote>
-<p><code>generate to "<em>时间</em>"</code>  </p>
+<p><code>generate to &quot;<em>时间</em>&quot;</code>  </p>
 <blockquote>
 <p>使用密码进行数据包签名的结束时间。  </p>
 </blockquote>
-<p><code>accept from "<em>时间</em>"</code>  </p>
+<p><code>accept from &quot;<em>时间</em>&quot;</code>  </p>
 <blockquote>
 <p>使用密码进行数据包验证的开始时间。</p>
 </blockquote>
-<p><code>accept to "<em>时间</em>"</code>  </p>
+<p><code>accept to &quot;<em>时间</em>&quot;</code>  </p>
 <blockquote>
 <p>使用密码进行数据包验证的结束时间。</p>
 </blockquote>
-<p><code>from "<em>时间</em>"</code>  </p>
+<p><code>from &quot;<em>时间</em>&quot;</code>  </p>
 <blockquote>
 <p>同时设置<code>generate from</code>和<code>accept from</code>的简写。  </p>
 </blockquote>
-<p><code>to "<em>时间</em>"</code>  </p>
+<p><code>to &quot;<em>时间</em>&quot;</code>  </p>
 <blockquote>
 <p>同时设置<code>generate to</code>和<code>accept to</code>的简写。  </p>
 </blockquote>
@@ -589,7 +626,7 @@
 <p>当启用加密认证时密码的消息认证算法。默认值取决于协议。对于RIP和OSPFv2是Keyed-MD5，对OSPFv3和Babel是HMAC-SHA-256。  </p>
 </blockquote>
 <h2 id="3-5-通道选项"><a href="#3-5-通道选项" class="headerlink" title="3.5 通道选项"></a>3.5 通道选项</h2><p>每个通道都属于一个协议并在其块内配置。最小的通道配置为空，此时将使用默认值。通道的名称暗示其网络类型。通道的定义可以从协议模版继承。禁止对同一通道多次定义，但继承自模版的通道可以被新定义更新。  </p>
-<p><code>debug all|off|&#123; states|routes|filters [, ...] &#125;</code>  </p>
+<p><code>debug all|off|{ states|routes|filters [, ...] }</code>  </p>
 <blockquote>
 <p>设置通道调式选项。如同协议调试，通道可以将它工作跟踪消息带trace类别写入日志。你可以请求打印所有跟踪消息也可以只对选择类型：<code>states</code>对应通道状态变更（通道启动、关闭、馈送、重新加载等），<code>routes</code>对应通过通道传播的路由，<code>filters</code>对应路由过滤的详情，其余调试标志不在通道调试中使用。默认值：off  </p>
 </blockquote>
@@ -601,7 +638,7 @@
 <blockquote>
 <p>设置由协议生成并通过该通道导入的路由的偏好值。默认值：依协议而定。  </p>
 </blockquote>
-<p><code>import all | none | filter <em>名称</em> | filter &#123; <em>过滤器命令</em> &#125; | where <em>过滤器布尔表达式</em></code>  </p>
+<p><code>import all | none | filter <em>名称</em> | filter { <em>过滤器命令</em> } | where <em>过滤器布尔表达式</em></code>  </p>
 <blockquote>
 <p>指定过滤器来过滤从协议导入到路由表的路由。<code>all</code>是保留所有路由，<code>none</code>是丢弃所有路由。默认值：all （EBGP除外）  </p>
 </blockquote>
@@ -641,7 +678,7 @@
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">template<span class="built_in"> bgp </span>&#123;</span><br><span class="line">        local 198.51.100.14 as 65000;</span><br><span class="line"></span><br><span class="line">        ipv4 &#123;</span><br><span class="line">                table mytable4;</span><br><span class="line">                import<span class="built_in"> filter </span>&#123; <span class="built_in">..</span>. &#125;;</span><br><span class="line">                <span class="built_in">export</span> none;</span><br><span class="line">        &#125;;</span><br><span class="line">       <span class="built_in"> ipv6 </span>&#123;</span><br><span class="line">                table mytable6;</span><br><span class="line">                import<span class="built_in"> filter </span>&#123; <span class="built_in">..</span>. &#125;;</span><br><span class="line">                <span class="built_in">export</span> none;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">protocol<span class="built_in"> bgp </span><span class="keyword">from</span>  &#123;</span><br><span class="line">       <span class="built_in"> neighbor </span>198.51.100.130 as 64496;</span><br><span class="line"></span><br><span class="line">        # IPv4通道原样继承，</span><br><span class="line">        # IPv6通道用导出过滤器选项调整</span><br><span class="line">       <span class="built_in"> ipv6 </span>&#123;</span><br><span class="line">                <span class="built_in">export</span><span class="built_in"> filter </span>&#123; <span class="built_in">..</span>. &#125;;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="3-6-MPLS选项"><a href="#3-6-MPLS选项" class="headerlink" title="3.6 MPLS选项"></a>3.6 MPLS选项</h2><p>MPLS域定义对于MPLS路由器是强制性的。所有MPLS通道和MPLS感知协议都与MPLS域关联（尽管通常隐性与唯一一个关联）。在MPLS域定义中可以配置MPLS标签分配细节。目前只有标签范围一个选项。  </p>
 <p>请注意，MPLS子系统是实验性的，未来可能会存在向后不兼容的改变。  </p>
-<p><code>label range <em>名称</em> &#123; start <em>数值</em>; length <em>数值</em>; [...] &#125;</code>  </p>
+<p><code>label range <em>名称</em> { start <em>数值</em>; length <em>数值</em>; [...] }</code>  </p>
 <blockquote>
 <p>定义一个新标签范围，或重新定义隐式标签范围<code>static</code>和<code>dynamic</code>。MPLS通道使用配置的标签范围进行动态标签分配，而<code>static</code>标签范围用于静态标签分配。标签范围定义必须指定该范围的界限。默认情况，<code>static</code>范围是16-1000，而<code>dynamic</code>范围是1000-10000.  </p>
 </blockquote>
@@ -788,6 +825,12 @@
   </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
   <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
@@ -796,48 +839,8 @@
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
-
-
-  
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
-
-  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.12/pdfobject.min.js","integrity":"sha256-g2xji1rlE3KsGVClvuxTbcR0Kn2+wtQADSff2Tbb4zA="},"url":"/lib/pdf/web/viewer.html"}</script>
-  <script src="/js/third-party/tags/pdf.js"></script>
-
-
-
-
-
-
-  
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/firebase@10.7.0/firebase-app-compat.js" integrity="sha256-388UwEUWqCZ5RBBAQoR8vK1Ty8qzxqP/ia3cr4RCkeg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/firebase@10.7.0/firebase-firestore-compat.js" integrity="sha256-7TKLwCozPrhvsOS7FuSEpQel4auRWA5oQiqAA2QyMXo=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="firestore" type="application/json">{"enable":true,"collection":"articles","apiKey":"AIzaSyCp9iI6iHW_rlgtpHhSZS5DgZYDM9f5WsU","projectId":"pcdn-c56ef"}</script>
-  <script src="/js/third-party/statistics/firestore.js"></script>
-
-  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
-  <script src="/js/third-party/statistics/lean-analytics.js"></script>
-
-
-  
-
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="/js/third-party/math/mathjax.js"></script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.pcdn.uk/2025/09/28/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%BA%8C%EF%BC%89%E9%85%8D%E7%BD%AE/"}</script>
-  <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"gps949/gps949.github.io","issue_term":"pathname","theme":"github-light"}</script>
-<script src="/js/third-party/comments/utterances.js"></script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
 
 </body>
 </html>

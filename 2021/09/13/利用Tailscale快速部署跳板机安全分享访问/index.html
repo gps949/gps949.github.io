@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -15,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.pcdn.uk","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.pcdn.uk","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"lioshi","dark":"lioshi"},"prism":{"light":"prism-vsc-dark-plus","dark":"prism-vsc-dark-plus"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":true,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="有很多时候，我们希望向他人分享我们的数据或者服务资源，如一些文档、一个文档协作平台、一个SVN仓库。通常最可靠合理的方法是为这些数据或者服务搭建一个向公网暴露的服务站点，并配合防火墙、身份认证、访问控制等手段确保只有我们希望的人能看到这些数据&#x2F;服务。抑或是在访问者和数据&#x2F;服务之间拉一条专线，同时在内部做好这些资源和其他不希望被访资源之间的隔离。　　对于长期、大量、访问者众">
 <meta property="og:type" content="article">
@@ -37,20 +37,19 @@
 <meta property="article:published_time" content="2021-09-13T05:45:00.000Z">
 <meta property="article:modified_time" content="2021-09-13T05:45:00.000Z">
 <meta property="article:author" content="小北极星">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Tailscale">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="容器">
 <meta property="article:tag" content="网络">
 <meta property="article:tag" content="计算机">
 <meta property="article:tag" content="跳板机">
-<meta property="article:tag" content="Docker">
-<meta property="article:tag" content="容器">
-<meta property="article:tag" content="安全">
-<meta property="article:tag" content="Tailscale">
 <meta property="article:tag" content="零信任">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step0.png">
 
 
 <link rel="canonical" href="https://www.pcdn.uk/2021/09/13/%E5%88%A9%E7%94%A8Tailscale%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E8%B7%B3%E6%9D%BF%E6%9C%BA%E5%AE%89%E5%85%A8%E5%88%86%E4%BA%AB%E8%AE%BF%E9%97%AE/">
-
 
 
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.pcdn.uk/2021/09/13/%E5%88%A9%E7%94%A8Tailscale%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E8%B7%B3%E6%9D%BF%E6%9C%BA%E5%AE%89%E5%85%A8%E5%88%86%E4%BA%AB%E8%AE%BF%E9%97%AE/","path":"2021/09/13/利用Tailscale快速部署跳板机安全分享访问/","title":"利用Tailscale快速部署跳板机安全分享访问"}</script>
@@ -66,6 +65,45 @@
 
 
 
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.3.1/pdfobject.min.js","integrity":"sha256-jI72I8ZLVflVOisZIOaLvRew3tyvzeu6aZXFm7P7dEo="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js" defer></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/firebase@12.2.1/firebase-app-compat.js" integrity="sha256-d21UgtIcA6c6qwr8nWk6lxs/KrpbWhknQN7qBjWA2Kk=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@12.2.1/firebase-firestore-compat.js" integrity="sha256-leHatffkFuVGIg7ABaA5BDsqsEUtktL4tftb3OdQfg0=" crossorigin="anonymous" defer></script>
+  <script class="next-config" data-name="firestore" type="application/json">{"enable":true,"collection":"articles","apiKey":"AIzaSyCp9iI6iHW_rlgtpHhSZS5DgZYDM9f5WsU","projectId":"pcdn-c56ef"}</script>
+  <script src="/js/third-party/statistics/firestore.js" defer></script>
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js" defer></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@3.0.1/dist/quicklink.umd.js" integrity="sha256-44BednzIpUeQJcY8qtLyarFu0UCCTbgmWOvaoehiFQQ=" crossorigin="anonymous" defer></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.pcdn.uk/2021/09/13/%E5%88%A9%E7%94%A8Tailscale%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E8%B7%B3%E6%9D%BF%E6%9C%BA%E5%AE%89%E5%85%A8%E5%88%86%E4%BA%AB%E8%AE%BF%E9%97%AE/"}</script>
+  <script src="/js/third-party/quicklink.js" defer></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5644877966579950"
      crossorigin="anonymous"></script>
 
@@ -119,25 +157,25 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup"><div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
-
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -349,7 +387,7 @@
 <h2 id="第一步：-Bob注册Tailscale®"><a href="#第一步：-Bob注册Tailscale®" class="headerlink" title="第一步： Bob注册Tailscale®"></a>第一步： Bob注册Tailscale®</h2><p>　　Alice先告诉Bob去<a target="_blank" rel="noopener" href="https://login.tailscale.com/start">注册Tailscale®</a>. Bob可以用Microsoft®,Goolge或GitHub账户进行注册登录，当然Tailscale®也支持其他的一些账号注册，感兴趣的可以自行研究。<br><img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step1-1.png" width="100%" /><br>　　完成注册后,Bob可以根据引导介绍在其设备上安装Tailscale®的客户端将其访问设备连入他个人的Tailscale®网络。<br><img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step1-2.png" width="100%" /><br>　　Bob也可以选择之后按照<a target="_blank" rel="noopener" href="https://tailscale.com/download">下载页面</a>的介绍再添加以及其他更多自己的设备。   </p>
 <h2 id="第二步：-Bob为跳板机生成授权密钥（AuthKey）"><a href="#第二步：-Bob为跳板机生成授权密钥（AuthKey）" class="headerlink" title="第二步： Bob为跳板机生成授权密钥（AuthKey）"></a>第二步： Bob为跳板机生成授权密钥（AuthKey）</h2><p>　　Bob在Tailscale®设置（Settings）标签页面下生成授权密钥，并将该生成密钥提供给Alice用于稍后将跳板机添加入Bob的Tailscale®网络。<br>　　（这里用“Ephemeral Key”应该就可以，用“Reusable Key”也行，实际上Bob可以随时在页面吊销密钥，所以问题并不大）。<br>　　在点击生成按钮后，会弹出刚产生的密钥，一定记得在点Done按钮之前将它复制下来，否则之后就看不到了。<br><img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step2.png" width="100%" />    </p>
 <h2 id="第三步：-Alice使用Docker创建跳板机"><a href="#第三步：-Alice使用Docker创建跳板机" class="headerlink" title="第三步： Alice使用Docker创建跳板机"></a>第三步： Alice使用Docker创建跳板机</h2><p>　　Alice在其准备跑跳板机的系统中执行下面命令（要求安装有Docker的amd64 Linux宿主机）。记得将命令中的“tskey-xxxxxxxx”用上一步中Bob提供的密钥替换。另外，服务器名称（将显示在Bob的Tailscale®控制台页面上）和跳转机用来访问的目标（即此例中的Service A）也要按照自己的实际需求替换。需要注意，从执行命令的宿主机要能够访问到Service A（即JUMP_TARGET）。   </p>
-<pre><code class="shell">docker run -itd --privileged --restart always --name jumpserver_for_bob -e TS_AUTHKEY=&quot;tskey-xxxxxxxx&quot; -e SERVER_NAME=&quot;alice-service-A&quot; -e JUMP_TARGET=&quot;192.168.1.33/32&quot; gps949/tailscale_jumpserver:latest 
+<pre><code class="language-shell">docker run -itd --privileged --restart always --name jumpserver_for_bob -e TS_AUTHKEY=&quot;tskey-xxxxxxxx&quot; -e SERVER_NAME=&quot;alice-service-A&quot; -e JUMP_TARGET=&quot;192.168.1.33/32&quot; gps949/tailscale_jumpserver:latest 
 </code></pre>
 <p>　　在容器运行起来之后，Bob应该可以在他的Tailscale®管理员控制台页面上看到这个跳板机出现。   </p>
 <img data-src="https://github.com/gps949/tailscale_jumpserver/raw/main/imgs/step3-1.png" width="100%" />   
@@ -490,6 +528,12 @@
   </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
   <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
@@ -498,48 +542,8 @@
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
-
-
-  
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
-
-  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.12/pdfobject.min.js","integrity":"sha256-g2xji1rlE3KsGVClvuxTbcR0Kn2+wtQADSff2Tbb4zA="},"url":"/lib/pdf/web/viewer.html"}</script>
-  <script src="/js/third-party/tags/pdf.js"></script>
-
-
-
-
-
-
-  
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/firebase@10.7.0/firebase-app-compat.js" integrity="sha256-388UwEUWqCZ5RBBAQoR8vK1Ty8qzxqP/ia3cr4RCkeg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/firebase@10.7.0/firebase-firestore-compat.js" integrity="sha256-7TKLwCozPrhvsOS7FuSEpQel4auRWA5oQiqAA2QyMXo=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="firestore" type="application/json">{"enable":true,"collection":"articles","apiKey":"AIzaSyCp9iI6iHW_rlgtpHhSZS5DgZYDM9f5WsU","projectId":"pcdn-c56ef"}</script>
-  <script src="/js/third-party/statistics/firestore.js"></script>
-
-  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
-  <script src="/js/third-party/statistics/lean-analytics.js"></script>
-
-
-  
-
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="/js/third-party/math/mathjax.js"></script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.pcdn.uk/2021/09/13/%E5%88%A9%E7%94%A8Tailscale%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E8%B7%B3%E6%9D%BF%E6%9C%BA%E5%AE%89%E5%85%A8%E5%88%86%E4%BA%AB%E8%AE%BF%E9%97%AE/"}</script>
-  <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"gps949/gps949.github.io","issue_term":"pathname","theme":"github-light"}</script>
-<script src="/js/third-party/comments/utterances.js"></script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
 
 </body>
 </html>

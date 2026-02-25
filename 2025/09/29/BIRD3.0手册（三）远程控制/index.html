@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -15,10 +15,10 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"www.pcdn.uk","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.pcdn.uk","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"lioshi","dark":"lioshi"},"prism":{"light":"prism-vsc-dark-plus","dark":"prism-vsc-dark-plus"},"copy_button":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":true,"nav":{"utterances":{"text":"留言"}},"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":true,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="4.远程控制4.1 概述你可以使用命令行客户端birdc与正运行的BIRD进行通信。通信通过相应的UNIX域socket完成。命令可以执行启用禁用协议、显示各种信息、显示过滤器过滤出的路由表、重新配置BIRD等简单操作。随时按?获得在线帮助。选项-r可以用来启用BIRD客户端受限模式，仅允许只读命令show ...。选项-v使客户端在消息的同时转储数字返回码。你不一定使用birdc与BIRD通信，">
 <meta property="og:type" content="article">
@@ -30,14 +30,13 @@
 <meta property="article:published_time" content="2025-09-29T11:12:00.000Z">
 <meta property="article:modified_time" content="2025-09-29T11:12:00.000Z">
 <meta property="article:author" content="小北极星">
-<meta property="article:tag" content="网络">
 <meta property="article:tag" content="BGP">
 <meta property="article:tag" content="BIRD">
+<meta property="article:tag" content="网络">
 <meta name="twitter:card" content="summary">
 
 
 <link rel="canonical" href="https://www.pcdn.uk/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/">
-
 
 
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.pcdn.uk/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/","path":"2025/09/29/BIRD3.0手册（三）远程控制/","title":"BIRD3.0手册（三）远程控制"}</script>
@@ -53,6 +52,45 @@
 
 
 
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.3.1/pdfobject.min.js","integrity":"sha256-jI72I8ZLVflVOisZIOaLvRew3tyvzeu6aZXFm7P7dEo="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js" defer></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/firebase@12.2.1/firebase-app-compat.js" integrity="sha256-d21UgtIcA6c6qwr8nWk6lxs/KrpbWhknQN7qBjWA2Kk=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@12.2.1/firebase-firestore-compat.js" integrity="sha256-leHatffkFuVGIg7ABaA5BDsqsEUtktL4tftb3OdQfg0=" crossorigin="anonymous" defer></script>
+  <script class="next-config" data-name="firestore" type="application/json">{"enable":true,"collection":"articles","apiKey":"AIzaSyCp9iI6iHW_rlgtpHhSZS5DgZYDM9f5WsU","projectId":"pcdn-c56ef"}</script>
+  <script src="/js/third-party/statistics/firestore.js" defer></script>
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js" defer></script>
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@3.0.1/dist/quicklink.umd.js" integrity="sha256-44BednzIpUeQJcY8qtLyarFu0UCCTbgmWOvaoehiFQQ=" crossorigin="anonymous" defer></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.pcdn.uk/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/"}</script>
+  <script src="/js/third-party/quicklink.js" defer></script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5644877966579950"
      crossorigin="anonymous"></script>
 
@@ -106,25 +144,25 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup"><div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
-
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -314,7 +352,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.1k</span>
+      <span>4.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -337,7 +375,7 @@
 <p>还有个名为<code>birdcl</code>的轻量级BIRD客户端变体，不支持命令行编辑和历史记录，并且有最少的依赖项。这对在无法使用常规BIRD客户端所需Readline库的资源受限环境中运行BIRD很有用。  </p>
 <h2 id="4-2-配置"><a href="#4-2-配置" class="headerlink" title="4.2 配置"></a>4.2 配置</h2><p>BIRD默认打开<code>bird.ctl</code>UNIX域socket，CLI工具连接到它。可以使用<code>-s</code>选项来改变BIRD或CLI工具使用的socket。  </p>
 <p>也可以在配置文件中使用<code>cli &quot;名称&quot;;</code>配置额外的远程控制socket，从而可以打开任意数量的socket。没有是否多次配置同一socket的检查，这种情况BIRD可能表现异常。关闭时额外的socket会被立即移除，只保留主socket到最后。  </p>
-<p>远程控制socket也可以通过<code>cli &quot;名称&quot; &#123; restrict; &#125;;</code>设置为受限，而不用在连接后发送<code>restrict</code>命令。用户仍可能通过请求极复杂的过滤器使守护进程过载，因此不应暴露socket到公网。  </p>
+<p>远程控制socket也可以通过<code>cli &quot;名称&quot; { restrict; };</code>设置为受限，而不用在连接后发送<code>restrict</code>命令。用户仍可能通过请求极复杂的过滤器使守护进程过载，因此不应暴露socket到公网。  </p>
 <h2 id="4-3-用法"><a href="#4-3-用法" class="headerlink" title="4.3 用法"></a>4.3 用法</h2><p>下面是支持功能的简要列表：  </p>
 <p>注意：许多命令有协议实例名称的参数。如果只有一个实例，可以省略此参数。  </p>
 <p><code>show status</code>  </p>
@@ -356,11 +394,11 @@
 <blockquote>
 <p>在给定BGP协议上手动请求(in)或发送(out)或同时请求发送路由更新。  </p>
 </blockquote>
-<p><code>show ospf [<em>名称</em>] ["<em>接口</em>"]</code>  </p>
+<p><code>show ospf [<em>名称</em>] [&quot;<em>接口</em>&quot;]</code>  </p>
 <blockquote>
 <p>显示OSPF接口详情。  </p>
 </blockquote>
-<p><code>show ospf neighbors [<em>名称</em>] ["<em>接口</em>"]</code>  </p>
+<p><code>show ospf neighbors [<em>名称</em>] [&quot;<em>接口</em>&quot;]</code>  </p>
 <blockquote>
 <p>显示OSPF邻居列表及其邻接状态。  </p>
 </blockquote>
@@ -376,11 +414,11 @@
 <blockquote>
 <p>显示OSPF LSA数据库内容，可以使用选项过滤条目。  </p>
 </blockquote>
-<p><code>show rip interfaces [<em>名称</em>] ["<em>接口</em>"]</code>  </p>
+<p><code>show rip interfaces [<em>名称</em>] [&quot;<em>接口</em>&quot;]</code>  </p>
 <blockquote>
 <p>显示关于RIP接口的详细信息。  </p>
 </blockquote>
-<p><code>show rip neighbors [<em>名称</em>] ["<em>接口</em>"]</code>  </p>
+<p><code>show rip neighbors [<em>名称</em>] [&quot;<em>接口</em>&quot;]</code>  </p>
 <blockquote>
 <p>显示RIP邻居及相关状态列表。  </p>
 </blockquote>
@@ -388,7 +426,7 @@
 <blockquote>
 <p>显示关于静态路由的详细信息。  </p>
 </blockquote>
-<p><code>show bfd sessions [<em>名称</em>] [address (<em>IP</em>|<em>前缀</em>)] [(interface|dev) "<em>名称</em>"] [ipv4|ipv6] [direct|multihop] [all]</code>  </p>
+<p><code>show bfd sessions [<em>名称</em>] [address (<em>IP</em>|<em>前缀</em>)] [(interface|dev) &quot;<em>名称</em>&quot;] [ipv4|ipv6] [direct|multihop] [all]</code>  </p>
 <blockquote>
 <p>显示BFD会话信息。使用选项过滤条目或使用<code>all</code>显示冗长输出。  </p>
 </blockquote>
@@ -402,17 +440,17 @@
 <p>想打印特定网络的路由可以指定一个前缀。如果使用<code>for <em>前缀 或 IP</em></code>，将获得用于转发数据包到给定目标的条目。如果使用<code>in <em>前缀</em></code>将获得给定前缀所覆盖的所有前缀。默认每个网络的全部路由都会打印出来，其中选定的路由在顶部，除非给定<code>primary</code>则只显示选定的路由。  </p>
 <p><code>show route</code>命令可以处理一个或多个路由表。选定表的集合从三个级别决定：首先，可以通过多次使用<code>table</code>开关显示选择表，<code>table all</code>则选择所有表。其次，可以通过其他若干开关（如<code>export</code>、<code>protocol</code>）的通道或协议参数来隐式选择。最后，使用默认表集合：<code>master4</code>、<code>master6</code>以及任何其他网络类型的第一个表。  </p>
 <p>当一些通道使用<code>(import|export) table</code>选项时，存在内部表。它们可以通过<code>(import|export) table</code>开关指定协议<code>p</code>和通道名称<code>c</code>来显示选择。  </p>
-<p>你还可以要求仅打印由给定的过滤器（<code>filter <em>名称</em></code>或<code>filter &#123; <em>过滤器</em> &#125;</code>）处理并接受的路由，或者符合给定条件（<code>where <em>c</em></code>）的路由。  </p>
+<p>你还可以要求仅打印由给定的过滤器（<code>filter <em>名称</em></code>或<code>filter { <em>过滤器</em> }</code>）处理并接受的路由，或者符合给定条件（<code>where <em>c</em></code>）的路由。  </p>
 <p><code>export</code>、<code>preexport</code>和<code>noexport</code>开关用来打印导出到指定协议或通道的路由。使用<code>preexport</code>通道的导出过滤器被跳过，使用<code>noexport</code>将打印被导出过滤器拒绝的路由。需注意，由于其他原因未被导出（如辅助路由或从该该协议导出的路由），即使用<code>noexport</code>也不会被打印。这些开关还意味着选择关联的路由表而非默认表。  </p>
 <p>你也可以只选择由指定协议添加的路由，<code>protocol <em>p</em></code>，该开关也意味着选择关联的路由表而非默认表。  </p>
 <p>如果BIRD配置为保留过滤后的路由（参见<code>import keep filtered</code>选项），你也可以使用<code>filtered</code>开关显示它们。  </p>
 <p><code>stats</code>开关请求显示路由统计信息（网络数量、过滤前后路由数量），如果改用<code>count</code>则只打印统计信息。  </p>
 </blockquote>
-<p><code>mrt dump table <em>名称</em>|"<em>模式</em>" to "<em>文件名</em>" [filter <em>f</em>|where <em>c</em>]</code>  </p>
+<p><code>mrt dump table <em>名称</em>|&quot;<em>模式</em>&quot; to &quot;<em>文件名</em>&quot; [filter <em>f</em>|where <em>c</em>]</code>  </p>
 <blockquote>
 <p>将路由表以MRT表转储格式转储到指定文件。详见MRT协议。  </p>
 </blockquote>
-<p><code>configure [soft] ["<em>配置文件</em>"] [timeout [<em>数值</em>]]</code>  </p>
+<p><code>configure [soft] [&quot;<em>配置文件</em>&quot;] [timeout [<em>数值</em>]]</code>  </p>
 <blockquote>
 <p>从指定文件重载配置。BIRD会平滑切换到新配置，协议如果可以的话进行重配置，否则重启。过滤器的变更通常导致受影响的协议重启。  </p>
 <p>之前的配置被存储，用户可以使用<code>configure undo</code>切换回去。旧的一份配置存储被释放（即使重配置因为诸如符号错误等原因失败）。  </p>
@@ -427,22 +465,22 @@
 <blockquote>
 <p>撤销最后的配置变更并平滑切换回（存储的）之前的配置。如果最后的配置变更是<code>soft</code>的那么撤销也是<code>soft</code>的。撤销只有一级，但在一些特定的情况下，当若干重配置请求是连续立即给出的，中间的一些被跳过了，那么撤销也会跳过他们。  </p>
 </blockquote>
-<p><code>configure check ["<em>配置文件</em>"]</code>  </p>
+<p><code>configure check [&quot;<em>配置文件</em>&quot;]</code>  </p>
 <blockquote>
 <p>读取处理给定的配置文件，但不使用它。用以对一个配置文件的语法和部分语义进行检查。  </p>
 </blockquote>
-<p><code>enable|disable|restart <em>名称</em>|"<em>模式</em>"|all</code>  </p>
+<p><code>enable|disable|restart <em>名称</em>|&quot;<em>模式</em>&quot;|all</code>  </p>
 <blockquote>
 <p>启用、禁用、重启一个给定的协议实例，或是符合模式的实例，或者所有实例。  </p>
 </blockquote>
-<p><code>reload filters [in|out] (<em>名称</em>|"<em>模式</em>"|all) [partial prefix]</code>  </p>
+<p><code>reload filters [in|out] (<em>名称</em>|&quot;<em>模式</em>&quot;|all) [partial prefix]</code>  </p>
 <blockquote>
 <p>重载给定的协议实例，即重新从协议实例导入路由、重新导出首选路由到实例。如果使用<code>in</code>或<code>out</code>选项，命令被限制在单方向。  </p>
 <p>相应过滤器变更了但协议实例为重启或重载，导致仍在传播旧的路由集，比如用<code>configure soft</code>命令变更过滤器时，可使用该命令。  </p>
 <p>使用<code>partial prefix</code>选项则只重载相应的路由。BGP协议仅在启用了导入表时才执行部分重载，否则BGP的部分重载将被拒绝。  </p>
 <p>重新导出总会成功，但是重新导入则取决于协议并可能失败（如BGP邻居不支持路由刷新扩展），此时重新导出也将被跳过。需注意对于pipe协议两个方向总是同时重载（此时忽略<code>in</code>和<code>out</code>选项）  </p>
 </blockquote>
-<p><code>timeformat "<em>格式1</em>" [<em>限制</em> "<em>格式2</em>"]</code>  </p>
+<p><code>timeformat &quot;<em>格式1</em>&quot; [<em>限制</em> &quot;<em>格式2</em>&quot;]</code>  </p>
 <blockquote>
 <p>覆盖在此CLI会话中BIRD使用的日期时间格式。  </p>
 <p>命令中各项含义及可用简写与timeformat配置中一致。  </p>
@@ -455,15 +493,15 @@
 <blockquote>
 <p>关闭BIRD来优雅重启。详见优雅重启一节。  </p>
 </blockquote>
-<p><code>debug <em>协议</em>|<em>模式</em>|all all|off|&#123; states|routes|filters|events|packets [, ...] &#125;</code>  </p>
+<p><code>debug <em>协议</em>|<em>模式</em>|all all|off|{ states|routes|filters|events|packets [, ...] }</code>  </p>
 <blockquote>
 <p>控制协议调试。  </p>
 </blockquote>
-<p><code>dump resources|sockets|interfaces|neighbors|attributes|routes|protocols "<em>文件</em>"</code>  </p>
+<p><code>dump resources|sockets|interfaces|neighbors|attributes|routes|protocols &quot;<em>文件</em>&quot;</code>  </p>
 <blockquote>
 <p>创建指定文件（该文件必须不存在）并将内部数据结构的内容转储到其中。通过发送SIGUSR1信号，你可以将所有这些内容连接至当前目录的<code>bird.dump</code>文件中。该文件仅对运行守护进程对的用户可读。转储文件的格式是内部的并可能在将来不经通知变更。  </p>
 </blockquote>
-<p><code>echo all|off|&#123; <em>日志类别列表</em> &#125; [ <em>缓冲大小</em> ]</code>  </p>
+<p><code>echo all|off|{ <em>日志类别列表</em> } [ <em>缓冲大小</em> ]</code>  </p>
 <blockquote>
 <p>控制日志消息到命令行的回显。关于日志类别参见log选项。  </p>
 </blockquote>
@@ -592,6 +630,12 @@
   </footer>
 
   
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
   <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
@@ -600,48 +644,8 @@
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
-
-
-  
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
-
-  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.12/pdfobject.min.js","integrity":"sha256-g2xji1rlE3KsGVClvuxTbcR0Kn2+wtQADSff2Tbb4zA="},"url":"/lib/pdf/web/viewer.html"}</script>
-  <script src="/js/third-party/tags/pdf.js"></script>
-
-
-
-
-
-
-  
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/firebase@10.7.0/firebase-app-compat.js" integrity="sha256-388UwEUWqCZ5RBBAQoR8vK1Ty8qzxqP/ia3cr4RCkeg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/firebase@10.7.0/firebase-firestore-compat.js" integrity="sha256-7TKLwCozPrhvsOS7FuSEpQel4auRWA5oQiqAA2QyMXo=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="firestore" type="application/json">{"enable":true,"collection":"articles","apiKey":"AIzaSyCp9iI6iHW_rlgtpHhSZS5DgZYDM9f5WsU","projectId":"pcdn-c56ef"}</script>
-  <script src="/js/third-party/statistics/firestore.js"></script>
-
-  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"aWlsH8xctWP4xBygIklt3E5M-MdYXbMMI","app_key":"5emR3QDDavLAWsk9ltaj6mwK","server_url":"www.gps949.com","security":false,"betterPerformance":false}</script>
-  <script src="/js/third-party/statistics/lean-analytics.js"></script>
-
-
-  
-
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="/js/third-party/math/mathjax.js"></script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"https://www.pcdn.uk/2025/09/29/BIRD3.0%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%89%EF%BC%89%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/"}</script>
-  <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"gps949/gps949.github.io","issue_term":"pathname","theme":"github-light"}</script>
-<script src="/js/third-party/comments/utterances.js"></script>
+<script src="/js/third-party/comments/utterances.js" defer></script>
 
 </body>
 </html>
